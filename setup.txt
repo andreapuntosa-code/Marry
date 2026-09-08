@@ -1,0 +1,286 @@
+============================================================
+ GUIDA COMPLETA — come installare e usare i due programmi
+============================================================
+
+Questa guida parte dal presupposto che tu non abbia MAI usato un
+"terminale" o installato Python. Segui i passaggi nell'ordine, uno alla
+volta. Non serve capire come funziona il codice: basta seguire i passi.
+
+Ci sono DUE programmi, in due cartelle separate:
+
+  ristoranti\   invia proposte di siti web a bar e ristoranti
+  imprese\      invia proposte di siti web a imprese edili, elettricisti,
+                idraulici e agenzie immobiliari
+
+Funzionano allo stesso modo. Questa guida installa quello che serve UNA
+SOLA VOLTA (Python), poi spiega come avviare ciascuno dei due programmi.
+
+
+============================================================
+ PARTE 1 — Installare Python (una volta sola)
+============================================================
+
+Python è il linguaggio in cui sono scritti questi programmi. Senza,
+niente funziona: è come cercare di aprire un video senza un player.
+
+1.1 — Scaricare Python
+------------------------------------------------------------
+1. Apri il tuo browser (Chrome, Edge, quello che usi di solito).
+2. Vai su questo indirizzo:  https://www.python.org/downloads/
+3. Comparirà un grosso pulsante giallo tipo "Download Python 3.12.x".
+   Cliccalo: si scarica un file che si chiama tipo
+   "python-3.12.x-amd64.exe".
+4. Quando il download è finito, aprilo (di solito basta cliccarlo in
+   basso nel browser, oppure vai nella cartella Download e fai doppio
+   clic sul file).
+
+1.2 — Installarlo (PASSAGGIO IMPORTANTE, non saltarlo)
+------------------------------------------------------------
+1. Si apre una finestra di installazione.
+2. IN BASSO alla finestra c'è una casella con scritto qualcosa come
+   "Add python.exe to PATH" oppure "Add Python to PATH".
+   METTI LA SPUNTA su questa casella. È il passaggio più importante
+   di tutta la guida: se lo salti, il programma non funzionerà e
+   dovrai reinstallare tutto da capo.
+3. Clicca sul pulsante grande "Install Now".
+4. Aspetta (un minuto circa). Alla fine comparirà "Setup was
+   successful": clicca "Close".
+
+1.3 — Verificare che sia andato tutto bene
+------------------------------------------------------------
+1. Premi il tasto Windows sulla tastiera (quello con il logo Windows),
+   scrivi "PowerShell" e premi Invio. Si apre una finestra nera/blu
+   con del testo: quello è il "terminale", da qui in poi lo useremo
+   spesso.
+2. Scrivi esattamente questo e premi Invio:
+
+       python --version
+
+3. Deve comparire qualcosa come "Python 3.12.4". Se invece compare un
+   errore tipo "python non è riconosciuto":
+     - chiudi la finestra e riapri un nuovo terminale (a volte basta
+       questo);
+     - se non basta, riavvia il computer e riprova il punto 2;
+     - se ancora non funziona, quasi certamente il passaggio 1.2
+       (la spunta "Add to PATH") non è stato fatto: disinstalla
+       Python dal Pannello di controllo e ripeti la Parte 1 da capo,
+       questa volta mettendo la spunta.
+
+
+============================================================
+ PARTE 2 — Capire il terminale (il minimo indispensabile)
+============================================================
+
+Il terminale è una finestra dove si scrivono comandi invece di
+cliccare su icone. Ti servono solo tre cose:
+
+* "cd" (Change Directory) serve per "entrare" in una cartella.
+  Esempio: se il programma sta in  C:\Users\TuoNome\Desktop\pollo\imprese
+  scrivi:
+       cd Desktop\pollo\imprese
+  (parti dalla tua cartella utente, che è dove il terminale si apre
+  di solito).
+
+* TRUCCO MOLTO più semplice, che evita di scrivere "cd" a mano:
+  1. Apri Esplora File e vai dentro la cartella "imprese" (o
+     "ristoranti") con un doppio clic, come faresti sempre.
+  2. Clicca una volta nella barra degli indirizzi in alto (dove si
+     vede il percorso, es. "Desktop > pollo > imprese").
+  3. Scrivi "cmd" (senza virgolette) e premi Invio.
+  4. Si apre un terminale già posizionato ESATTAMENTE in quella
+     cartella. Non devi scrivere nessun "cd".
+
+* I comandi vanno scritti (o incollati) e poi si preme Invio. Per
+  incollare in un terminale: tasto destro del mouse dentro la
+  finestra, oppure Ctrl+V funziona quasi sempre in PowerShell.
+
+
+============================================================
+ PARTE 3 — Impostare la casella email
+============================================================
+
+Ogni programma invia le email da UNA casella Gmail dedicata. Non usare
+la tua email personale: creane una nuova, apposta per questo.
+
+3.1 — Creare la casella Gmail
+------------------------------------------------------------
+1. Vai su https://accounts.google.com/signup
+2. Compila nome/cognome (anche di fantasia, es. "Andrea", "Contatti"),
+   scegli un indirizzo (es. tuonome.imprese@gmail.com), scegli una
+   password sicura e completa la procedura (numero di telefono per la
+   verifica, data di nascita, ecc.).
+3. Annota da qualche parte l'indirizzo scelto: ti servirà tra poco.
+
+3.2 — Attivare la Verifica in due passaggi (obbligatoria)
+------------------------------------------------------------
+Senza questo passaggio, Google non permette di creare la "password per
+le app" che serve al programma.
+
+1. Vai su https://myaccount.google.com/security (da loggato con la
+   nuova casella).
+2. Cerca la voce "Verifica in due passaggi" e attivala, seguendo la
+   procedura guidata (di solito chiede il numero di telefono per
+   ricevere un codice via SMS).
+
+3.3 — Creare la "Password per le app"
+------------------------------------------------------------
+Questa NON è la password con cui accedi a Gmail: è un codice separato,
+di 16 caratteri, che serve solo al programma per inviare email.
+
+1. Vai su https://myaccount.google.com/apppasswords
+2. Se richiesto, accedi di nuovo con la password di Gmail.
+3. Nel campo del nome scrivi qualcosa come "bot imprese" e clicca
+   "Crea" (o "Create").
+4. Compare un codice di 16 caratteri (tipo "abcd efgh ijkl mnop").
+   COPIALO SUBITO: viene mostrato una sola volta, se lo perdi devi
+   crearne uno nuovo (nessun problema, si può rifare quante volte si
+   vuole).
+5. Gli spazi nel codice sono solo estetici, non contano.
+
+
+============================================================
+ PARTE 4 — Collegare l'email al programma
+============================================================
+
+Questa parte va ripetuta UNA VOLTA per ciascun programma (imprese e/o
+ristoranti), perché ognuno ha la sua casella.
+
+4.1 — Scrivere l'indirizzo email nel programma
+------------------------------------------------------------
+1. Apri la cartella del programma (es. "imprese") in Esplora File.
+2. Trova il file "account.py". Tasto destro sopra → "Apri con" →
+   "Blocco note" (se non lo vedi in elenco, "Apri con" → "Scegli
+   un'altra app" → "Blocco note").
+3. Nel Blocco Note, usa Ctrl+F (Trova) e cerca:
+       tuaemailimprese@gmail.com
+4. Lo troverai scritto due volte, vicine. Sostituiscilo con il TUO
+   vero indirizzo (quello creato al punto 3.1), in ENTRAMBI i punti.
+5. Salva con Ctrl+S. Chiudi il Blocco Note.
+
+(Per il programma "ristoranti" questo passaggio di solito non serve:
+usa già una casella configurata. Se un giorno vuoi cambiarla, il file
+è lo stesso, "account.py", dentro la cartella "ristoranti".)
+
+4.2 — Salvare la password per le app nel computer
+------------------------------------------------------------
+Questo passaggio salva il codice a 16 caratteri in modo che il
+programma lo trovi da solo, senza chiedertelo ogni volta.
+
+1. Apri un terminale (vedi Parte 2).
+2. Scrivi questo comando, sostituendo il testo tra virgolette con il
+   TUO codice di 16 caratteri (senza spazi, o con gli spazi: non
+   importa), e premi Invio:
+
+   Per il programma "imprese":
+       setx GMAIL_APP_PASSWORD_IMPRESE "abcdefghilmnopqr"
+
+   Per il programma "ristoranti" (variabile diversa!):
+       setx GMAIL_APP_PASSWORD "abcdefghilmnopqr"
+
+3. Deve rispondere "OPERAZIONE RIUSCITA" o simile.
+4. IMPORTANTE: chiudi COMPLETAMENTE il terminale e aprine uno nuovo.
+   Il comando "setx" salva il valore ma le finestre già aperte non lo
+   vedono finché non le riapri.
+
+
+============================================================
+ PARTE 5 — Avviare il programma
+============================================================
+
+1. Apri la cartella "imprese" (o "ristoranti") in Esplora File.
+2. Clicca una volta nella barra degli indirizzi, scrivi "cmd" e premi
+   Invio (il trucco della Parte 2): si apre un terminale già dentro
+   la cartella giusta.
+3. Scrivi questo comando e premi Invio:
+
+       python interfaccia.py
+
+4. Dopo un paio di secondi si apre la finestra del programma.
+5. La prima volta, il campo della password sarà vuoto: scrivi (o
+   incolla) lì il codice di 16 caratteri di prima. Se hai già fatto
+   il passaggio 4.2 e hai riaperto il terminale, il campo dovrebbe
+   già essere compilato da solo.
+
+Puoi anche fare doppio clic direttamente sul file "interfaccia.py"
+nella cartella: su molti computer si apre lo stesso, se Python è
+installato correttamente.
+
+
+============================================================
+ PARTE 6 — Come si usa (in breve)
+============================================================
+
+La finestra ha 4 sezioni, elencate a sinistra:
+
+01 RICERCA
+   Scrivi il nome di una città, scegli quali tipologie cercare
+   (nel programma "imprese": edili / elettricisti / idraulici /
+   agenzie immobiliari — puoi togliere la spunta a quelle che non ti
+   interessano) e premi "AVVIA SCANSIONE". Il programma cerca da solo,
+   su dati pubblici di OpenStreetMap, imprese con un'email pubblica
+   ma senza un sito web: sono il cliente ideale per questa proposta.
+
+02 INVIO
+   Qui parte l'invio vero. Scegli "primo contatto" (per chi non hai
+   mai scritto) oppure "rilancio" (un secondo promemoria per chi non
+   ha risposto). Inserisci la password se non è già compilata, imposta
+   quante email inviare al massimo in questa sessione, e premi
+   "AVVIA INVIO". Conferma quando te lo chiede.
+   L'invio ha pause casuali tra un'email e l'altra (per non sembrare
+   un robot a Gmail): con 40-70 email può volerci anche un'ora. Puoi
+   interromperlo col pulsante STOP in qualsiasi momento: quello che è
+   già stato inviato resta salvato, nessun rischio di doppioni.
+
+03 CONTATTI
+   La lista di tutte le imprese trovate finora, con il loro stato
+   (in coda, inviato, ecc.). Puoi selezionare righe e Sospendere,
+   Riattivare o Eliminare. Il pulsante "VERIFICA EMAIL" ricontrolla
+   che gli indirizzi esistano davvero.
+
+04 MESSAGGIO
+   Fa vedere il testo dell'email che verrà inviata. Nel programma
+   "imprese" puoi vedere l'anteprima per ciascun tipo di attività
+   (edile, elettricista, idraulico, immobiliare): ognuno riceve un
+   testo scritto apposta per lui.
+
+
+============================================================
+ PARTE 7 — Problemi comuni
+============================================================
+
+"python non è riconosciuto come comando"
+   Python non è installato, oppure è installato senza la spunta
+   "Add to PATH". Rifai la Parte 1, con attenzione al punto 1.2.
+   Dopo aver reinstallato, riavvia il computer.
+
+"Il server ha rifiutato le credenziali"
+   O l'indirizzo email in account.py è sbagliato, o la password
+   inserita non è quella "per le app" (16 caratteri) ma quella
+   normale di Gmail, oppure la Verifica in due passaggi non è attiva
+   sull'account (senza, la password per le app non funziona neppure
+   se l'hai creata). Ricontrolla la Parte 3.
+
+"Manca la password della casella..."
+   Il campo password nell'interfaccia è vuoto e non hai ancora fatto
+   il comando "setx" della Parte 4.2 (oppure l'hai fatto ma non hai
+   riaperto il terminale/il programma dopo). Puoi anche semplicemente
+   scrivere la password nel campo ogni volta: funziona lo stesso,
+   solo che devi rifarlo a ogni avvio.
+
+Il file CSV (la lista contatti) non si aggiorna / dà errore
+   Quasi sempre perché è aperto in Excel: chiudi Excel e riprova.
+
+Dove sono salvati i contatti?
+   Nella stessa cartella del programma, in un file che si chiama
+   "imprese.csv" (o "locali.csv" per il programma ristoranti). Si può
+   aprire anche con Excel per dare un'occhiata, ma va chiuso prima di
+   far girare il programma.
+
+NON CANCELLARE i file che iniziano con "memoria_" (es.
+"memoria_contattati.txt"): servono a ricordare a chi è già stata
+inviata un'email, per non scrivere due volte alla stessa persona.
+
+
+============================================================
+ Fine della guida. Buon lavoro.
+============================================================
