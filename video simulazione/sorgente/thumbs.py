@@ -61,7 +61,7 @@ def main():
     hand = grab(page, cdp, 'thumbB')
     br.close(); pw.stop()
     for n, im in [('king', king), ('vote', vote), ('hand', hand)]:
-        cv2.imwrite(os.path.join(HERE, '..', f'.thumb_{n}.png'), cv2.cvtColor(im, cv2.COLOR_RGB2BGR))
+        cv2.imwrite(os.path.join(os.environ.get('SCRATCH', '/tmp/claude-0/-home-user-Marry/e61fd834-a8c5-5cc5-8204-6c637a41951f/scratchpad'), f'thumb_{n}.png'), cv2.cvtColor(im, cv2.COLOR_RGB2BGR))
 
     # ---------- A: split screen
     k = punch(king, 1.3, 1.15, 0.04)

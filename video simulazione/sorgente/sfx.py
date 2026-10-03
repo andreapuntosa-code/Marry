@@ -382,7 +382,10 @@ if __name__ == "__main__":
     irL, irR = reverb_ir(1.6, 5)
     L = L + signal.fftconvolve(L, irL)[:len(L)] * 0.25
     Rr = Rr + signal.fftconvolve(Rr, irR)[:len(Rr)] * 0.25
-    pk = max(np.abs(L).max(), np.abs(Rr).max())
     n = int(tl['total'] * SR)
-    sf.write(os.path.join(OUT, "sfx.wav"), (np.stack([L[:n], Rr[:n]], 1) / pk * 0.89).astype(np.float32), SR, subtype='FLOAT')
+    X = np.stack([L[:n], Rr[:n]], 1)
+    rms = np.sqrt(np.mean(X ** 2)) + 1e-9
+    X = X / rms * 10 ** (-27 / 20)                  # beds around -27 dBFS RMS before the mix
+    X = np.tanh(X / 0.9) * 0.9                      # thunder & booms soft-limited
+    sf.write(os.path.join(OUT, "sfx.wav"), X.astype(np.float32), SR, subtype='FLOAT')
     print("sfx.wav", n / SR)
