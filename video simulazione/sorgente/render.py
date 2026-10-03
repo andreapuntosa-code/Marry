@@ -291,10 +291,10 @@ class Renderer:
             out = finish.draw_over(out, self.gfx, t)
         return out, shot
 
-    def range_to(self, f0, f1, out, fps=24, crf=14):
+    def range_to(self, f0, f1, out, fps=24, crf=13):
         tmp = out + ".part.mp4"
         proc = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(fps), '-i', '-',
-                                 '-c:v', 'libx264', '-preset', 'veryfast', '-crf', str(crf), '-pix_fmt', 'yuv420p', tmp], stdin=subprocess.PIPE)
+                                 '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', str(crf), '-pix_fmt', 'yuv420p', tmp], stdin=subprocess.PIPE)
         t0 = time.time()
         for k, f in enumerate(range(f0, f1)):
             img, shot = self.frame(f / fps, f)

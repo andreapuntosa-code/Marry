@@ -65,7 +65,7 @@ const DOF_SHADER = {
       vec4 c0 = texture2D(tDiffuse, vUv);
       float z0 = viewZ(vUv), k0 = coc(z0);
       vec3 acc = c0.rgb; float ws = 1.0;
-      const int N = 32;
+      const int N = 24;
       for (int i = 0; i < N; i++) {
         float fi = float(i) + 0.5;
         float r = sqrt(fi / float(N)) * uMaxBlur;

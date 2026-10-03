@@ -237,6 +237,55 @@ def crunch(d, level=1.0):
     return y * 0.6 * level
 
 
+def lap(d, level=1.0):
+    """small waves on a lake shore"""
+    n = int(d * SR); t = np.arange(n) / SR
+    base = lowpass(pink(n), 900) * 0.25
+    y = np.zeros(n); k = 0.4
+    while k < d - 0.5:
+        ln = int((0.6 + R.random() * 0.8) * SR); tt = np.arange(ln) / SR
+        w = bandpass(noise(ln), 700 + R.random() * 600, 900) * np.sin(np.pi * tt / tt[-1]) ** 2
+        s0 = int(k * SR)
+        if s0 + ln < n: y[s0:s0 + ln] += w * (0.4 + 0.4 * R.random())
+        k += 1.2 + R.random() * 1.6
+    return fade((base + y) * 0.5 * level, 0.8, 0.8)
+
+
+def splash(level=1.0):
+    n = int(0.35 * SR); t = np.arange(n) / SR
+    return bandpass(noise(n), 1500, 2400) * np.exp(-t / 0.08) * 0.5 * level
+
+
+def glitch(d=0.6, level=1.0):
+    """digital corruption: bit-crushed noise bursts and a falling tone"""
+    n = int(d * SR); t = np.arange(n) / SR
+    x = noise(n)
+    hold = 40 + int(R.random() * 80)
+    x = np.repeat(x[::hold], hold)[:n]
+    gate = (np.sin(2 * np.pi * (7 + R.random() * 9) * t) > 0.1).astype(float)
+    tone = np.sign(np.sin(2 * np.pi * np.cumsum(900 * (1 - 0.6 * t / d)) / SR)) * 0.3
+    return highpass((x * 0.5 + tone) * gate, 300) * np.exp(-t / (d * 0.7)) * 0.4 * level
+
+
+def creak_fall(level=1.0):
+    n = int(2.4 * SR); t = np.arange(n) / SR
+    f = 140 + 60 * np.sin(2 * np.pi * 1.3 * t)
+    cr = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * (t < 1.6) * np.exp(-((t - 0.8) / 0.6) ** 2)
+    th = np.zeros(n); i = int(1.7 * SR); m = n - i; tt = np.arange(m) / SR
+    th[i:] = (np.sin(2 * np.pi * 55 * tt) * np.exp(-tt / 0.25) + lowpass(noise(m), 500) * np.exp(-tt / 0.12))
+    return (lowpass(cr, 1200) * 0.25 + th * 0.9) * level
+
+
+def battle(d, level=1.0):
+    n = int(d * SR); y = crowd(d, 1.2, excite=1.0, voices=40) * 0.8
+    t = 0.2
+    while t < d - 0.3:
+        c = clank(0.5 + R.random() * 0.5); s0 = int(t * SR)
+        if s0 + len(c) < n: y[s0:s0 + len(c)] += c * 0.5
+        t += 0.1 + R.random() * 0.35
+    return y * level
+
+
 def boom_low(level=1.0):
     n = int(4.0 * SR); t = np.arange(n) / SR
     f = 38 * (1 + 1.4 * np.exp(-t / 0.08))
@@ -323,6 +372,25 @@ def build(tl, shots):
         T.add(t0, river(t1 - t0 + 0.4), gain=0.45)
     for t0, t1 in span(['x02a', 'x02b', 'x02c']):
         T.add(t0, march(t1 - t0 + 0.4), gain=0.6)
+    LAKE = ['e04', 'e05', 'e06a', 'e06b', 'e07a', 'e07b', 'e13', 'e14a', 'e14b', 'e15', 'e16a', 'e16b', 'e16c', 'e17', 'g03a', 'g03b', 'g04a', 'g04b', 'g04c', 'e03b']
+    for t0, t1 in span(LAKE):
+        T.add(t0, lap(t1 - t0 + 0.6), gain=0.55)
+    for t0, t1 in span(['e_card', 'e01', 'e02a', 'e02b', 'e03a']):
+        T.add(t0, river(t1 - t0 + 0.4, 0.7), gain=0.35)
+    for t0, t1 in span(['e02a', 'e02b']):
+        T.add(t0, crowd(t1 - t0 + 0.5, 0.5), gain=0.35)
+    for t0, t1 in span(['e03a', 'e09a', 'e09b']):
+        T.add(t0, march(t1 - t0 + 0.4, 84, 0.45), gain=0.4)
+    for t0, t1 in span(['e16c', 'e17', 'g06', 'g07a', 'g07b', 'd11c', 'd11d', 'd11e', 'm03p', 'e18']):
+        T.add(t0, crowd(t1 - t0 + 0.5, 0.9), gain=0.45)
+    for t0, t1 in span(['g02a', 'g02b']):
+        T.add(t0, march(t1 - t0 + 0.4, 104, 1.2), gain=0.7)
+    for t0, t1 in span(['g03a']):
+        T.add(t0, battle(t1 - t0 + 0.4), gain=0.6)
+    for t0, t1 in span(['g03a', 'g03b', 'g04a', 'g05a', 'e04', 'e10b', 'e11', 'e10a']):
+        T.add(t0, fire_bed(t1 - t0 + 0.4, 1.0), gain=0.5)
+    for t0, t1 in span(['g07c', 'g08a', 'g08b', 'g09', 'g12a', 'g12b']):
+        T.add(t0, wind(t1 - t0 + 0.6, 1.0, 420), gain=0.45)
     for t0, t1 in span(['k17', 'k18', 'k19']):
         T.add(t0, lowpass(brown(int((t1 - t0 + 1) * SR)), 180) * 0.8, gain=0.6)
     # ---- spot effects
@@ -344,6 +412,17 @@ def build(tl, shots):
             T.add(t, stone_click(0.5 + R.random() * 0.5), gain=0.35, pan=R.random() - 0.5)
             t += 0.05 + R.random() * (0.25 if i != 'x13' else 0.03); k += 1
     T.add(S0('d06', 1.15), stone_click(1.2), gain=0.6)
+    for i, o, f in [('e08a', 0.6, 430), ('e08b', 0.4, 470), ('e09b', 0.5, 450), ('e09b', 2.2, 410), ('e10a', 1.0, 440), ('e10b', 0.9, 400), ('e11', 2.0, 460),
+                    ('e13', 1.5, 430), ('e14a', 1.2, 470), ('e16c', 1.4, 420), ('g05a', 1.0, 450), ('g05b', 1.2, 430), ('d11d', 0.8, 440)]:
+        T.add(S0(i, o), bleat(0.9, f), gain=0.4, pan=R.random() * 0.6 - 0.3)
+    s = S['e07a']; t = s['start'] + 0.3
+    while t < s['end'] - 0.2:
+        T.add(t, splash(0.6 + R.random() * 0.4), gain=0.35, pan=R.random() - 0.5); t += 0.45 + R.random() * 0.4
+    T.add(S0('e15', 0.2), whoosh(0.3, 0.3, True), gain=0.2)
+    T.add(S0('g03b', 0.85), clank(1.0), gain=0.6)
+    T.add(S0('g04b', 0.6), creak_fall(1.0), gain=0.7)
+    for i, o in [('g07a', 0.6), ('g07a', 1.2), ('g07b', 0.4), ('g07b', 1.6), ('g07c', 1.0), ('g08a', 0.5)]:
+        T.add(S0(i, o), glitch(0.5 + R.random() * 0.4, 0.8), gain=0.35, pan=R.random() - 0.5)
     T.add(S0('x08', 1.0), clank(1.0), gain=0.6)
     s = S['x09']; t = s['start'] + 0.5
     for k in range(18):
@@ -367,7 +446,7 @@ def build(tl, shots):
     # whooshes on name cards and big captions
     import graphics_plan as GP
     for kind, anchor, dur, p in GP.EVENTS:
-        if kind in ('name', 'caption', 'rule', 'glyph', 'place'):
+        if kind in ('name', 'caption', 'rule', 'glyph', 'place', 'peoples'):
             t = seg[anchor]['start'] + p.get('delay', 0.0)
             T.add(t - 0.12, whoosh(0.35, 0.5, True), gain=0.25, pan=-0.3 if kind == 'name' else 0)
     return T

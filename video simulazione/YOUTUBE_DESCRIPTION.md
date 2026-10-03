@@ -4,6 +4,7 @@
 
 1. **I Let AI Build a Civilization From Zero: Democracy or Monarchy?**
 2. I Gave 20 AIs a World and 2,000 Years. They Found Me.
+4. 20 AIs Built 3 Nations, a War, a Plague and a Revolution
 3. 20 AIs, 0 Rules, 2,000 Years: Who Would Rule?
 
 ## Description (paste as is)
@@ -11,7 +12,7 @@
 I let AI start a civilization on its own. From zero.
 20 AIs. No language. No tools. No rules. Just a gigantic world, and two thousand years.
 
-They discovered fire. They tamed animals. They built farms, cities and temples. They invented money, laws… and gods. Then came the oldest question in politics: who gets to rule?
+They discovered fire. They tamed animals. They built farms, cities and temples. They split into three peoples with three languages, and invented trade (with cheese). They invented money, laws… and gods. They fought their first war, and survived a plague. Then came the oldest question in politics: who gets to rule?
 
 One of them wanted to be king. One of them invented the vote. And one of them figured out that someone was watching.
 
@@ -26,15 +27,16 @@ Will they choose democracy… or monarchy?
 3:20 Chapter III — First Words
 4:36 Chapter IV — The Farm
 6:14 Chapter V — Leftovers
-8:02 Chapter VI — The Observer
-9:27 Chapter VII — The Crown
-11:13 Chapter VIII — One Stone, One Voice
-12:54 Chapter IX — The Night of Torches
-14:35 Chapter X — The Message
-15:40 Credits
+8:02 Chapter VI — The Others
+9:37 Chapter VII — The Observer
+11:03 Chapter VIII — The Crown
+13:59 Chapter IX — One Stone, One Voice
+15:49 Chapter X — The Night of Torches
+17:32 Chapter XI — The Message
+18:40 Credits
 
 🎭 THE CAST
-Ise (A-07) — the one who found · Mira (A-04) — the one who looks · Bo (A-09) — the fire thief · Tam (A-11) — the goat guy · A-15 — the first to leave · Lio — potter · Kassa — farmer, inventor of "mine" · Sela — priestess · Varo — high priest (very practical) · King Kassa VII — the first king · Pell — engineer · King Kassa XIX — the last king · Orun — harvester, first Speaker of the Assembly · Dorn — captain of the guard · Nia — painter · the goats, as themselves.
+Ise (A-07) — the one who found · Mira (A-04) — the one who looks · Bo (A-09) — the fire thief · Tam (A-11) — the goat guy · A-15 — the first to leave · Lio — potter · Kassa — farmer, inventor of "mine" · Ama — founder of Nuvia · Yuna — Tamari herder, inventor of trade · Sela — priestess · Varo — high priest (very practical) · King Kassa VII — the first king · Pell — engineer · King Kassa XI — the conqueror · Sefa — Tamari healer · King Kassa XIX — the last king · Orun — harvester, first Speaker of the Assembly · Dorn — captain of the guard · Nia — painter · the Nuvians, people of the lake · the Tamari, people of the herd · the goats, as themselves.
 
 🛠️ HOW IT WAS MADE
 The world, the characters and every shot are rendered with a custom 3D engine. The story is a dramatization: the AIs are characters, the narration is written for entertainment. All music and sound effects are original and procedurally generated for this video (no third-party audio). Voices: AI text-to-speech.
@@ -43,7 +45,7 @@ The world, the characters and every shot are rendered with a custom 3D engine. T
 
 ## Tags (comma separated)
 
-ai civilization, i let ai build a civilization, ai simulation, ai experiment, civilization from zero, democracy or monarchy, ai society, ai history, 20 ais, ai world, simulation experiment, ai survival, ai invented religion, ai invented language, ai democracy, ai king, civilization experiment, ai story, artificial intelligence, what would ai do
+ai civilization, i let ai build a civilization, ai nations, ai war, ai plague, ai simulation, ai experiment, civilization from zero, democracy or monarchy, ai society, ai history, 20 ais, ai world, simulation experiment, ai survival, ai invented religion, ai invented language, ai democracy, ai king, civilization experiment, ai story, artificial intelligence, what would ai do
 
 ## Settings checklist
 

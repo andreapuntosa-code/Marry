@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Final assembly: concatenated picture + mixed audio -> the film for YouTube.
+# Final assembly: rendered picture + on-screen graphics + mixed audio -> the film for YouTube.
 #   1) python3 timeline.py            (timeline from the narration)
-#   2) python3 render.py --all        (picture, resumable chunks -> film_video.mp4)
+#   2) python3 render.py --all        (picture without text, resumable chunks -> film_video.mp4)
 #   3) python3 music.py && python3 sfx.py && python3 mix.py
-#   4) bash make_film.sh
+#   4) bash make_film.sh              (finish.py: titles, YEAR + POPULATION HUD, end screen, audio, x264)
 # GitHub refuses files over 100 MB, so the master is also cut into 95 MB pieces
 # (film_parti/) with one-click join scripts, plus a small full-length preview.
 set -euo pipefail
@@ -13,14 +13,7 @@ OUT=${OUT:-"$(cd "$HERE/.." && pwd)"}
 VID="$S/film_video.mp4"
 MIX="$S/audio/mix.wav"
 MASTER="$S/I_let_AI_build_a_civilization.mp4"
-TOTAL=$(python3 -c "import json;print(json.load(open('$HERE/timeline.json'))['total'])")
-FADE_OUT=$(python3 -c "print(round($TOTAL - 1.6, 3))")
-# master: x264 high profile, film tuning, quality-based with a 7 Mbit/s ceiling (YouTube 1080p24: ~8 Mbit/s recommended)
-ffmpeg -y -hide_banner -loglevel error -i "$VID" -i "$MIX" -map 0:v:0 -map 1:a:0 \
-  -vf "fade=t=in:st=0:d=0.7,fade=t=out:st=$FADE_OUT:d=1.6" -af "afade=t=out:st=$FADE_OUT:d=1.6" \
-  -c:v libx264 -preset slow -tune film -crf 21 -maxrate 7M -bufsize 14M -profile:v high -pix_fmt yuv420p -g 48 -bf 2 \
-  -c:a aac -b:a 320k -ar 48000 -movflags +faststart \
-  -metadata title="I Let AI Build a Civilization From Zero: Democracy or Monarchy?" "$MASTER"
+python3 "$HERE/finish.py" --video "$VID" --audio "$MIX" --out "$MASTER"
 ls -la "$MASTER"
 # pieces for GitHub + join scripts
 mkdir -p "$OUT/film_parti"; rm -f "$OUT/film_parti/"*.part*
