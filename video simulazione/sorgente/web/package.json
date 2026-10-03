@@ -1,0 +1,6 @@
+{
+  "name": "ai-civilization-renderer",
+  "private": true,
+  "description": "Three.js world renderer for '20 AIs Simulate Civilization'",
+  "dependencies": { "three": "0.180.0" }
+}
