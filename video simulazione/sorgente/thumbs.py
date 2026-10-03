@@ -50,6 +50,11 @@ def text(c, s, x, y, size, color='#ffffff', align='center', key='anton', stroke=
 
 
 def main():
+    S = os.environ.get('SCRATCH', '/tmp/claude-0/-home-user-Marry/e61fd834-a8c5-5cc5-8204-6c637a41951f/scratchpad')
+    saved = [os.path.join(S, f'thumb_{n}.png') for n in ('king', 'vote', 'hand')]
+    if '--reuse' in sys.argv and all(os.path.exists(f) for f in saved):
+        king, vote, hand = [cv2.cvtColor(cv2.imread(f), cv2.COLOR_BGR2RGB) for f in saved]
+        return layout(king, vote, hand)
     pw = sync_playwright().start()
     br = pw.chromium.launch(executable_path=CHROME, headless=True, args=['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--use-gl=angle'])
     page = br.new_page(viewport={'width': W, 'height': H})
@@ -63,6 +68,10 @@ def main():
     for n, im in [('king', king), ('vote', vote), ('hand', hand)]:
         cv2.imwrite(os.path.join(os.environ.get('SCRATCH', '/tmp/claude-0/-home-user-Marry/e61fd834-a8c5-5cc5-8204-6c637a41951f/scratchpad'), f'thumb_{n}.png'), cv2.cvtColor(im, cv2.COLOR_RGB2BGR))
 
+    return layout(king, vote, hand)
+
+
+def layout(king, vote, hand):
     # ---------- A: split screen
     k = punch(king, 1.3, 1.15, 0.04)
     v = punch(vote, 1.3, 1.15, -0.03)
@@ -97,10 +106,11 @@ def main():
     c.drawRect(skia.Rect(0, 0, W, H * 0.45), skia.Paint(Shader=g))
     text(c, "20 AIs", W * 0.05, H * 0.2, 190, '#ffffff', align='left', stroke=16)
     text(c, "0 RULES", W * 0.05, H * 0.38, 190, '#ffd21f', align='left', stroke=16)
-    # year badge, top-right (like the video)
-    c.drawRoundRect(skia.Rect(W - 330, 50, W - 60, 230), 26, 26, OV.P('#0b0f16', 0.7))
-    text(c, "YEAR", W - 195, 112, 46, '#cfd8e6', key='ui_b', stroke=0, shadow=False)
-    text(c, "0", W - 195, 208, 110, '#ffffff', key='ui_b', stroke=0, shadow=False)
+    # the film's HUD, top-right: YEAR 0 · POPULATION 20 (drawn 1.7x for the small thumbnail)
+    k = 1.7
+    c.save(); c.translate(W * (1 - k) + 40 * k, -(OV.BY0 - 4) * k); c.scale(k, k)
+    OV.hud(c, 0, 20, 1.0, "DAY 1")
+    c.restore()
     # red arrow towards the raised hand
     ar = skia.Path(); ar.moveTo(W * 0.69, H * 0.62); ar.lineTo(W * 0.6, H * 0.47)
     c.drawPath(ar, skia.Paint(AntiAlias=True, Color=skia.Color(255, 40, 40), Style=skia.Paint.kStroke_Style, StrokeWidth=26, StrokeCap=skia.Paint.kRound_Cap))
