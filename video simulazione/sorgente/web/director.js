@@ -205,7 +205,7 @@ window.loadShot = function (id, dur, markers) {
   if (spec.interior) {
     setInterior(true);
     E.town.group.visible = false; ctx.townVis = []; GROUND_UNIFORMS.uGroundOn.value = 0;
-    E.atmo.sun.intensity = 0; E.atmo.hemi.intensity = spec.ambient ?? 0.22; E.scene.fog.density = 0;
+    E.atmo.sun.intensity = 0; E.atmo.hemi.intensity = spec.ambient ?? 0.22; E.atmo.fill.intensity = 0.04; E.scene.fog.density = 0;
     E.envIntensity = spec.env ?? 0.12;
     E.atmo.focusShadow(spec.shadow?.x ?? 0, spec.shadow?.y ?? 0, spec.shadow?.z ?? 0, 10);
   } else {

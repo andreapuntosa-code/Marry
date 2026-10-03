@@ -16,6 +16,9 @@ export class Atmosphere {
     scene.add(this.sun, this.sun.target);
     this.hemi = new THREE.HemisphereLight(0xbfd7ff, 0x5a4b36, 1.0);
     scene.add(this.hemi);
+    // skylight fill: lifts the shadowed ground so tree shadows are not black (the grass is vertex-lit and unshadowed)
+    this.fill = new THREE.AmbientLight(0xc8d8f0, 0.0);
+    scene.add(this.fill);
     this.fog = new THREE.FogExp2(0xbfd2e6, 0.00035);
     scene.fog = this.fog;
     this.sunDir = new THREE.Vector3();
@@ -85,6 +88,7 @@ export class Atmosphere {
     this.hemi.color.copy(C(0xcfe0ff).lerp(C(0xffd2b0), golden * 0.45)).multiplyScalar(lerp(0.4, 1.0, day));
     this.hemi.groundColor.copy(C(0x6a5a40)).multiplyScalar(lerp(0.3, 1.0, day));
     this.hemi.intensity = lerp(0.8, 0.55, day) * (1 - storm * 0.2) + storm * 0.3;
+    this.fill.color.copy(this.hemi.color); this.fill.intensity = (0.05 + 0.5 * day) * (1 - storm * 0.3);
     // fog = horizon haze
     this.fog.color.copy(hor).lerp(C(0x9fb4c8), (1 - golden) * day * 0.3);
     this.fog.density = (opts.fog ?? 0.00019) * (1 + storm * 3);

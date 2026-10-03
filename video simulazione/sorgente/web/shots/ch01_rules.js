@@ -111,7 +111,7 @@ shot('r11', 'r11', {
 // r12: trying to pick up a cloud (low angle)
 shot('r12', 'r12', {
   hours: TIME.noon, cloud: 0.65, year: 0, town: false,
-  cam: K([0, [M.x + 9, 0.3, M.z + 9], [M.x + 6, 3.0, M.z + 13], 34], [1, [M.x + 9.2, 0.3, M.z + 8.6], [M.x + 6, 3.4, M.z + 13], 34]),
+  cam: K([0, [M.x + 8.6, 0.55, M.z + 8.9], [M.x + 6, 1.7, M.z + 12.5], 40], [1, [M.x + 8.8, 0.55, M.z + 8.6], [M.x + 6, 1.9, M.z + 12.5], 40]),
   veg: { grassR: 10, extra: MEADOW_TREES },
   setup(c) { const P = c.person('A16', { x: M.x + 6, z: M.z + 12.5, yaw: 3.0 }); P.anim = (Q, t) => Q.pose('jumpReach', t); },
 });

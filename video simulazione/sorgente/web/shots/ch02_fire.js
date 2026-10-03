@@ -94,7 +94,7 @@ shot('f06b', 'f06', {
 }, 3.8);
 // f07: two days later — her body on the forest floor (crane down)
 shot('f07', 'f07', {
-  hours: TIME.noon, cloud: 0.8, storm: 0.38, grade: 'sad', year: 0, town: false,
+  hours: TIME.noon, cloud: 0.85, storm: 0.55, grade: 'sad', year: 0, town: false,
   cam: K([0, [A15_BODY.x + 2.5, 5.5, A15_BODY.z - 3], [A15_BODY.x, 0.2, A15_BODY.z], 36], [1, [A15_BODY.x + 2.0, 2.4, A15_BODY.z - 2.6], [A15_BODY.x, 0.2, A15_BODY.z], 34]),
   veg: { grassR: 8, r0: 60 }, clear: [[A15_BODY.x, A15_BODY.z, 4]], shadow: { x: A15_BODY.x, z: A15_BODY.z, r: 18 },
   setup(c) { const a = c.person('A15', { x: A15_BODY.x, z: A15_BODY.z, yaw: 0.7, energy: 0 }); a.anim = (P, t) => P.pose('lie', t); },
