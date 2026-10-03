@@ -27,8 +27,8 @@ shot('r02b', 'r02', {
   },
 }, 3.4);
 shot('r02c', 'r02', {
-  hours: TIME.morning, cloud: 0.35, year: 0, town: false, top: true,
-  cam: K([0, [M.x, 34, M.z - 0.5], [M.x, 0, M.z], 50], [1, [M.x, 26, M.z - 0.5], [M.x, 0, M.z], 50]),
+  hours: TIME.noon - 1, cloud: 0.35, year: 0, town: false, top: true,
+  cam: K([0, [M.x, 19, M.z - 0.5], [M.x, 0, M.z], 52], [1, [M.x, 15, M.z - 0.5], [M.x, 0, M.z], 52]),
   veg: { r0: 50, grassR: 0, extra: MEADOW_TREES },
   setup(c) {
     const P = founders(c, (w, i) => ({ pose: 'idle' }));
@@ -39,11 +39,11 @@ function CAST_SCALE(Q) { return (Q.def.scale ?? 1); }
 // r03: they know nothing — a confused AI looks around (telephoto)
 shot('r03', 'r03', {
   hours: TIME.morning, cloud: 0.4, year: 0, town: false,
-  cam: K([0, [M.x - 9, 1.55, M.z - 7], [M.x - 0.7, 1.45, M.z - 0.2], 18], [1, [M.x - 8.6, 1.55, M.z - 6.7], [M.x - 0.7, 1.5, M.z - 0.2], 16]),
+  cam: K([0, [M.x - 17.5, 1.55, M.z - 7.5], [M.x - 9.5, 1.45, M.z - 3], 20], [1, [M.x - 17, 1.55, M.z - 7.2], [M.x - 9.5, 1.5, M.z - 3], 18]),
   veg: { grassR: 14, extra: MEADOW_TREES },
   setup(c) {
     founders(c, (w, i) => {
-      if (i === 5) return { x: M.x - 0.7, z: M.z - 0.2, yaw: -2.3, anim: (P, t) => { P.pose('idle', t); P.head.rotation.y = Math.sin(t * 0.9) * 0.7; P.head.rotation.z = Math.sin(t * 0.6) * 0.18; } };
+      if (i === 5) return { x: M.x - 9.5, z: M.z - 3, yaw: -2.1, anim: (P, t) => { P.pose(t % 4 < 2.2 ? 'idle' : 'scratchHead', t); P.head.rotation.y = Math.sin(t * 0.9) * 0.7; P.head.rotation.z = Math.sin(t * 0.6) * 0.18; P.root.rotation.y = -2.1 + Math.sin(t * 0.4) * 0.6; } };
       return { pose: 'idle' };
     });
   },
@@ -88,23 +88,22 @@ shot('r09', 'r09', {
 // r10: twenty AIs, nothing happens (static wide, deadpan)
 shot('r10', 'r10', {
   hours: TIME.morning, cloud: 0.4, year: 0, town: false,
-  cam: K([0, [M.x - 22, 2.2, M.z - 12], [M.x, 1.0, M.z], 30], [1, [M.x - 22, 2.2, M.z - 12], [M.x, 1.0, M.z], 30]),
+  cam: K([0, [M.x - 14, 1.7, M.z - 7.5], [M.x, 1.0, M.z + 0.5], 36], [1, [M.x - 14, 1.7, M.z - 7.5], [M.x, 1.0, M.z + 0.5], 36]),
   veg: { grassR: 18, extra: MEADOW_TREES },
   setup(c) { founders(c, (w, i) => ({ pose: ['idle', 'idle', 'scratchHead', 'idle', 'shrug'][i % 5] })); },
 });
 // r11: walking into the same tree eleven times
 shot('r11', 'r11', {
   hours: TIME.morning + 0.6, cloud: 0.4, year: 0, town: false,
-  cam: K([0, [OAK_GAG.x + 7, 1.4, OAK_GAG.z - 2], [OAK_GAG.x + 0.5, 1.2, OAK_GAG.z + 1.2], 34], [1, [OAK_GAG.x + 6.6, 1.4, OAK_GAG.z - 1.8], [OAK_GAG.x + 0.5, 1.2, OAK_GAG.z + 1.2], 34]),
+  cam: K([0, [OAK_GAG.x + 2.6, 1.3, OAK_GAG.z - 5.6], [OAK_GAG.x + 1.3, 1.1, OAK_GAG.z], 32], [1, [OAK_GAG.x + 2.5, 1.3, OAK_GAG.z - 5.3], [OAK_GAG.x + 1.3, 1.1, OAK_GAG.z], 32]),
   veg: { grassR: 12, extra: MEADOW_TREES },
   setup(c) {
-    const P = c.person('A12', { x: OAK_GAG.x + 2.4, z: OAK_GAG.z + 1.3, yaw: -1.57 });
+    const P = c.person('A12', { x: OAK_GAG.x + 2.4, z: OAK_GAG.z + 0.1, yaw: -1.57 });
     P.anim = (Q, t) => {
       const cyc = (t * 0.62) % 1;
-      const x = OAK_GAG.x + 3.2 - Math.min(cyc, 0.7) / 0.7 * 2.2 + (cyc > 0.7 ? (cyc - 0.7) / 0.3 * 2.2 : 0) * 0;
       const back = cyc > 0.7 ? Math.min(1, (cyc - 0.7) / 0.08) : 0;
-      const xx = OAK_GAG.x + 3.4 - Math.min(cyc / 0.7, 1) * 2.0 + back * 0.35 * (1 - (cyc - 0.7) / 0.3);
-      Q.place(xx, c.h(xx, OAK_GAG.z + 1.3), OAK_GAG.z + 1.3, -1.57);
+      const xx = OAK_GAG.x + 3.2 - Math.min(cyc / 0.7, 1) * 2.45 + back * 0.35 * (1 - (cyc - 0.7) / 0.3);
+      Q.place(xx, c.h(xx, OAK_GAG.z + 0.1), OAK_GAG.z + 0.1, -1.57);
       if (cyc < 0.7) Q.pose('walk', t, { amount: 0.8 }); else { Q.pose('idle', t); Q.spine.rotation.x = -0.3 * (1 - (cyc - 0.7) / 0.3); Q.head.rotation.x = -0.35 * (1 - (cyc - 0.7) / 0.3); }
     };
   },
@@ -134,7 +133,7 @@ shot('r14', 'r14', {
 });
 // r15: every. single. day. (timelapse of three sunsets)
 shot('r15', 'r15', {
-  hoursFn: (t, d) => 17.3 + ((t / d * 3.0) % 1) * 2.2, cloud: 0.45, year: 0, town: false, env: 0.6,
+  hoursFn: (t, d) => 16.9 + ((t / d * 3.0) % 1) * 1.4, cloud: 0.45, year: 0, town: false, env: 0.6,
   cam: K([0, behindMira(6, 1.7, 1.4), sunsetTgt, 38], [1, behindMira(6, 1.7, 1.4), sunsetTgt, 38]),
   veg: { grassR: 12, extra: MEADOW_TREES },
   setup(c) { rock(c, ROCK.x, ROCK.z, 1.5); const P = c.person('MIRA', { x: ROCK.x, z: ROCK.z, yaw: SUNSET_YAW }); P.anim = (Q, t) => { Q.pose('sit', t, { seat: 0.95 }); Q.root.position.y = c.h(ROCK.x, ROCK.z); }; },
@@ -174,7 +173,7 @@ shot('r19', 'r19', {
 // r20: energy jumps — orbit, then she turns to the group
 shot('r20', 'r20', {
   hours: TIME.afternoon + 0.6, cloud: 0.45, year: 0, town: false,
-  cam: orbitCam([BERRY.x - 1.6, BERRY.z - 1.4], 4.2, 1.6, -0.6, 0.9, 32, 1.2),
+  cam: orbitCam([BERRY.x - 1.6, BERRY.z - 1.4], 5.0, 1.6, 3.1, 4.5, 32, 1.15),
   veg: { grassR: 12, extra: MEADOW_TREES },
   setup(c) {
     berries(c, BERRY.x, BERRY.z, 4);
@@ -208,11 +207,15 @@ shot('r22', 'r22', {
   setup(c) {
     berries(c, BERRY.x, BERRY.z, 4);
     const ise = c.person('ISE', { x: BERRY.x - 3.5, z: BERRY.z - 3.8, yaw: -2.4 }); ise.anim = (Q, t) => Q.pose('wave', t, { side: 'R' });
+    const IX = BERRY.x - 3.5, IZ = BERRY.z - 3.8;
+    const away = Math.atan2(IX - (BERRY.x - 14), IZ - (BERRY.z - 12));
     SPAWN.slice(1).forEach((s, i) => {
-      if (s.who === 'ISE') return;
-      const tx = BERRY.x - 3.5 + Math.cos(i) * (1.8 + (i % 4) * 0.6), tz = BERRY.z - 3.8 + Math.sin(i) * (1.8 + (i % 4) * 0.6);
-      const P = c.person(s.who === 'A15' ? 'A15' : s.who, { x: s.x, z: s.z });
-      P.anim = (Q, t) => c.walkTo(Q, s.x, s.z, tx, tz, t, 0.2 * (i % 5), 3.0 + 0.2 * (i % 5), { phase: i, endPose: 'idle' });
+      const a0 = away + (i / 18 - 0.5) * 3.4, d0 = 8 + (i % 4) * 1.6;
+      const sx = IX + Math.sin(a0) * d0, sz = IZ + Math.cos(a0) * d0;
+      const a1 = a0 + (i % 2 ? 0.3 : -0.3), d1 = 1.7 + (i % 3) * 0.7;
+      const tx = IX + Math.sin(a1) * d1, tz = IZ + Math.cos(a1) * d1;
+      const P = c.person(s.who, { x: sx, z: sz });
+      P.anim = (Q, t) => { c.walkTo(Q, sx, sz, tx, tz, t, 0.15 * (i % 5), 2.6 + 0.2 * (i % 5), { phase: i, endPose: 'idle' }); if (t > 2.6 + 0.2 * (i % 5)) Q.root.rotation.y = yawTo(tx, tz, IX, IZ); };
     });
   },
 });

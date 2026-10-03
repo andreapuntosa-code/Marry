@@ -98,7 +98,8 @@ function numberTexture(txt, color = '#3a3d44') {
   const cv = document.createElement('canvas'); cv.width = 256; cv.height = 256;
   const g = cv.getContext('2d');
   g.clearRect(0, 0, 256, 256);
-  g.fillStyle = color; g.font = 'bold 150px Arial, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  const fs = Math.min(150, Math.floor(250 / (0.6 * Math.max(2, txt.length))));
+  g.fillStyle = color; g.font = `bold ${fs}px Arial, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
   g.fillText(txt, 128, 136);
   const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 1;
   return t;
@@ -240,7 +241,7 @@ export class Person {
       this.root.traverse(n => { if ((n.isMesh || n.isSkinnedMesh) && n.material === this.mat) n.material = m; });
     }
     this._ownMat.color.copy(c);
-    this._ownMat.roughness = lerp(0.85, 0.42, e);
+    this._ownMat.roughness = lerp(0.85, this.def.rough ?? 0.42, e);
   }
 
   place(x, y, z, yaw = 0) { this.root.position.set(x, y, z); this.root.rotation.y = yaw; }
@@ -475,25 +476,47 @@ export const POSES = {
 };
 
 // ----------------------------------------------------------------- the cast
+// founders keep their two-digit IDs; everyone born later carries a longer serial number
 export const CAST = {
   ISE:   { id: '07', name: 'ISE', color: 0xff7a1a, scale: 0.98 },
   MIRA:  { id: '04', name: 'MIRA', color: 0x9b5cff, scale: 0.95, headScale: 1.03 },
   BO:    { id: '09', name: 'BO', color: 0xffc21a, scale: 1.06, width: 1.12 },
-  ORUN:  { id: '13', name: 'ORUN', color: 0x2f7bff, scale: 1.0 },
   TAM:   { id: '11', name: 'TAM', color: 0x3ac46b, scale: 1.02 },
-  KASSA: { id: '02', name: 'KASSA', color: 0xd8213a, scale: 1.08, width: 1.05 },
   A15:   { id: '15', name: 'A-15', color: 0x63d6c6, scale: 0.93 },
+  LIO:   { id: '412', name: 'LIO', color: 0xc8743e, scale: 1.0, acc: [{ type: 'headband', color: 0x6b3e1f }, { type: 'belt', color: 0x5a3a22 }] },
+  KASSA: { id: '806', name: 'KASSA', color: 0xd8213a, scale: 1.08, width: 1.05 },
+  SELA:  { id: '2710', name: 'SELA', color: 0xf0d38a, scale: 0.96, acc: [{ type: 'robe', color: 0xf6efdc }, { type: 'headband', color: 0xd4a840 }] },
+  VARO:  { id: '5528', name: 'VARO', color: 0xbfa8f5, scale: 1.1, width: 1.2, acc: [{ type: 'robe', color: 0x5b3f8f }, { type: 'hat', color: 0xe8d9a8 }] },
+  KASSA7:  { id: '5013', name: 'KASSA VII', color: 0xcc1f3f, scale: 1.1, width: 1.06 },
+  PELL:  { id: '6150', name: 'PELL', color: 0x86a9d0, scale: 0.98, acc: ['glasses', { type: 'belt', color: 0x4a3a2a }, 'bag'] },
+  KASSA19: { id: '9822', name: 'KASSA XIX', color: 0x9e1a30, scale: 1.04 },
+  ORUN:  { id: '9461', name: 'ORUN', color: 0x2f7bff, scale: 0.97 },
+  DORN:  { id: '9307', name: 'DORN', color: 0xe3be62, scale: 1.14, width: 1.12, acc: [{ type: 'helmet', color: 0xc9a94a }, { type: 'sash', color: 0xb3122a }, 'spear'] },
+  NIA:   { id: '11204', name: 'NIA', color: 0xff79bf, scale: 0.94, acc: [{ type: 'scarf', color: 0x2b2d42 }, 'flower'] },
+  HOODIE: { id: null, name: 'ME', color: 0x8d9099, scale: 1.0, acc: [{ type: 'hood', color: 0x2f333b }, { type: 'robe', color: 0x2f333b }] },
+  STATUE: { id: null, name: 'STATUE', color: 0xb8b1a1, rough: 0.95, scale: 1.0 },
 };
-// the other thirteen: white/light-grey bodies with small coloured details (hands/feet/bands)
-const EXTRA = [1, 3, 5, 6, 8, 10, 12, 14, 16, 17, 18, 19, 20];
+// the other fifteen founders: white/light-grey bodies with small coloured details (hands/feet)
+const EXTRA = [1, 2, 3, 5, 6, 8, 10, 12, 13, 14, 16, 17, 18, 19, 20];
 const ACCENTS = [0x9fb8d6, 0xd6b89f, 0xb8d69f, 0xd69fc4, 0xc4c4c4, 0x9fd6cf, 0xe0d39a, 0xb0a6dc, 0xd99a9a, 0xa6cfa0, 0xcfcfa6, 0x9fb0c9, 0xdcb0a6];
+const WHITES = [0xf2f2f2, 0xeeeeea, 0xf4f1ec, 0xe9ecef, 0xe4e4e4];
 EXTRA.forEach((n, i) => {
   const r = mulberry32(n * 7 + 3);
-  const whites = [0xf2f2f2, 0xeeeeea, 0xf4f1ec, 0xe9ecef, 0xe4e4e4];
   CAST['A' + String(n).padStart(2, '0')] = {
     id: String(n).padStart(2, '0'), name: 'A-' + String(n).padStart(2, '0'),
-    color: whites[i % whites.length], scale: 0.92 + 0.16 * r(), width: 0.92 + 0.16 * r(), headScale: 0.95 + 0.1 * r(),
-    handColor: r() < 0.5 ? ACCENTS[i] : undefined, footColor: r() < 0.5 ? ACCENTS[(i + 4) % ACCENTS.length] : undefined,
+    color: WHITES[i % WHITES.length], scale: 0.92 + 0.16 * r(), width: 0.92 + 0.16 * r(), headScale: 0.95 + 0.1 * r(),
+    handColor: r() < 0.5 ? ACCENTS[i % ACCENTS.length] : undefined, footColor: r() < 0.5 ? ACCENTS[(i + 4) % ACCENTS.length] : undefined,
   };
 });
-export const ALL20 = ['ISE', 'MIRA', 'BO', 'ORUN', 'TAM', 'KASSA', 'A15', ...EXTRA.map(n => 'A' + String(n).padStart(2, '0'))];
+// villagers of later generations (V1..V48) and children (C1..C16)
+for (let k = 1; k <= 48; k++) {
+  const r = mulberry32(k * 131 + 17);
+  CAST['V' + k] = { id: String(100 + Math.floor(r() * 9800)), name: 'V' + k, color: WHITES[k % WHITES.length], scale: 0.9 + 0.2 * r(), width: 0.9 + 0.2 * r(), headScale: 0.95 + 0.1 * r(),
+    handColor: r() < 0.4 ? ACCENTS[k % ACCENTS.length] : undefined, footColor: r() < 0.4 ? ACCENTS[(k + 5) % ACCENTS.length] : undefined };
+}
+for (let k = 1; k <= 16; k++) {
+  const r = mulberry32(k * 977 + 5);
+  CAST['C' + k] = { id: String(20 + k), name: 'C' + k, color: WHITES[k % WHITES.length], scale: 0.56 + 0.08 * r(), headScale: 1.12, handColor: r() < 0.5 ? ACCENTS[k % ACCENTS.length] : undefined };
+}
+export const ALL20 = ['ISE', 'MIRA', 'BO', 'TAM', 'A15', ...EXTRA.map(n => 'A' + String(n).padStart(2, '0'))];
+export const VILLAGERS = [...Array(48)].map((_, k) => 'V' + (k + 1));

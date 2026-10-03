@@ -129,7 +129,7 @@ function temple() {
     y += h;
   }
   // stairs (front)
-  for (let k = 0; k < 12; k++) parts.push(paint(T(new THREE.BoxGeometry(4.5, 0.27, 1.2), 0, k * 0.27 + 0.13, 12.6 - k * 0.42), solid(0xcfc4b0, 0.03)));
+  for (let k = 0; k < 24; k++) parts.push(paint(T(new THREE.BoxGeometry(4.5, 0.27 * (k + 1), 0.34), 0, 0.135 * (k + 1), 12.6 - k * 0.31), solid(0xcfc4b0, 0.03)));
   // colonnade on top
   for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2 + Math.PI / 8; parts.push(paint(T(new THREE.CylinderGeometry(0.35, 0.4, 4.2, 10), Math.cos(a) * 4, y + 2.1, Math.sin(a) * 4), solid(0xe8e0d0, 0.03))); }
   parts.push(paint(T(new THREE.CylinderGeometry(5.0, 5.0, 0.5, 20), 0, y + 4.45), solid(0xd9cfbd, 0.03)));
@@ -158,14 +158,17 @@ function castle() {
     for (let k = 0; k < 10; k++) { const a = k / 10 * Math.PI * 2; parts.push(paint(T(new THREE.BoxGeometry(0.7, 0.8, 0.5), x + Math.cos(a) * 2.5, 15.3, z + Math.sin(a) * 2.5, -a), S(stone))); }
   }
   // curtain walls with battlements + gate
-  for (const [x0, z0, x1, z1] of [[-10, 12, 10, 12], [-14, -10, -14, 12], [14, -10, 14, 12]]) {
+  for (const [x0, z0, x1, z1] of [[-10, 12, -3.2, 12], [3.2, 12, 10, 12], [-14, -10, -14, 12], [14, -10, 14, 12]]) {
     const L = Math.hypot(x1 - x0, z1 - z0), ang = Math.atan2(z1 - z0, x1 - x0);
     parts.push(paint(T(new THREE.BoxGeometry(L, 6, 1.6), (x0 + x1) / 2, 3, (z0 + z1) / 2, -ang), S(stone)));
     for (let k = 0; k < L / 1.6; k++) { const t = (k + 0.5) / (L / 1.6); parts.push(paint(T(new THREE.BoxGeometry(0.8, 0.9, 1.6), x0 + (x1 - x0) * t, 6.4, z0 + (z1 - z0) * t, -ang), S(stone))); }
   }
-  parts.push(paint(T(new THREE.BoxGeometry(4, 5, 0.2), 0, 2.5, 12.85), solid(0x3a2414, 0.05)));
-  // grand stairs in front of the keep (where the guards stand)
-  for (let k = 0; k < 10; k++) parts.push(paint(T(new THREE.BoxGeometry(9, 0.3, 1.0), 0, k * 0.3 + 0.15, 11.5 - k * 0.55 - 6), solid(0xc9c0b0, 0.03)));
+  for (const x of [-3.6, 3.6]) { parts.push(paint(T(new THREE.BoxGeometry(1.4, 9, 2.2), x, 4.5, 12), S(stone))); parts.push(paint(T(new THREE.ConeGeometry(1.1, 2.2, 4), x, 10.1, 12, Math.PI / 4), (xx, y, zz, c) => c.set(roofC).multiplyScalar(0.85))); }
+  // grand stairs in the courtyard, rising to a landing and the keep door (where the king and the guards stand)
+  for (let k = 0; k < 10; k++) parts.push(paint(T(new THREE.BoxGeometry(9, 0.3 * (k + 1), 0.62), 0, 0.15 * (k + 1), 11.4 - k * 0.55), solid(0xc9c0b0, 0.03)));
+  parts.push(paint(T(new THREE.BoxGeometry(11, 3.0, 1.6), 0, 1.5, 6.6), solid(0xc2b9a8, 0.03)));
+  parts.push(paint(T(new THREE.PlaneGeometry(3.2, 4.2), 0, 3.0 + 2.1, 6.02), solid(0x3a2414, 0.04)));
+  for (const x of [-2.2, 2.2]) parts.push(paint(T(new THREE.CylinderGeometry(0.32, 0.36, 4.6, 10), x, 3.0 + 2.3, 6.9), solid(0xe0d8c8, 0.03)));
   return merge(parts);
 }
 function stoneWall(L = 12, H = 7) {
@@ -221,6 +224,74 @@ function fieldCrop(stage) {
   return paint(g, (x, y, z, c) => c.set(0x6f9a3a).lerp(new THREE.Color(0xd8b04a), stage).multiplyScalar(0.7 + 0.45 * (y / 0.9)));
 }
 
+// ---- props added for the later chapters
+function stoneBridge(L = 46, W = 6) {
+  const parts = [];
+  const S = (x, y, z, c) => c.set(0xbdb4a3).multiplyScalar(0.8 + 0.12 * Math.sin(y * 6 + x * 1.7) * Math.sin(z * 4.1) + 0.08 * Math.random());
+  const arch = (x) => 3.6 + Math.sin(((x + L / 2) / L) * Math.PI) * 1.6;
+  for (let k = 0; k < L / 1.0; k++) { const x = -L / 2 + k + 0.5; parts.push(paint(T(new THREE.BoxGeometry(1.02, 0.7, W), x, arch(x), 0), S)); }
+  for (const z of [-W / 2 + 0.3, W / 2 - 0.3]) for (let k = 0; k < L / 1.0; k++) { const x = -L / 2 + k + 0.5; parts.push(paint(T(new THREE.BoxGeometry(1.02, 0.9, 0.5), x, arch(x) + 0.8, z), S)); }
+  for (let k = 0; k < 4; k++) { const x = -L / 2 + (k + 0.5) * L / 4; parts.push(paint(T(new THREE.BoxGeometry(2.4, 9, W * 0.9), x, arch(x) - 4.8, 0), S)); }
+  return merge(parts);
+}
+function cartBody() {
+  const parts = [];
+  parts.push(paint(T(new THREE.BoxGeometry(1.9, 0.12, 1.1), 0, 0.72, 0), solid(0x7a5532, 0.1)));
+  for (const z of [-0.52, 0.52]) parts.push(paint(T(new THREE.BoxGeometry(1.9, 0.38, 0.06), 0, 0.95, z), solid(0x6b4a2b, 0.1)));
+  for (const x of [-0.92, 0.92]) parts.push(paint(T(new THREE.BoxGeometry(0.06, 0.38, 1.1), x, 0.95, 0), solid(0x6b4a2b, 0.1)));
+  for (const z of [-0.35, 0.35]) parts.push(paint(T(new THREE.BoxGeometry(1.6, 0.07, 0.07), 1.7, 0.62, z), solid(0x5a3b22)));
+  parts.push(paint(T(new THREE.CylinderGeometry(0.04, 0.04, 1.4, 6).rotateX(Math.PI / 2), 0, 0.5, 0), solid(0x3a2a1a)));
+  // load: grain sacks / pots
+  for (let k = 0; k < 5; k++) parts.push(paint(T(new THREE.SphereGeometry(0.26, 10, 8), -0.6 + k * 0.3, 1.02, (k % 2 - 0.5) * 0.4, 0, 1, 0.75, 1), solid(0xc9a46a, 0.12, k)));
+  return merge(parts);
+}
+function wheel() {
+  const parts = [paint(new THREE.TorusGeometry(0.46, 0.05, 6, 20), solid(0x5a3b22)), paint(new THREE.CylinderGeometry(0.09, 0.09, 0.12, 10).rotateX(Math.PI / 2), solid(0x4a3020))];
+  for (let k = 0; k < 6; k++) { const b = new THREE.BoxGeometry(0.05, 0.9, 0.04); b.rotateZ(k / 6 * Math.PI); parts.push(paint(b, solid(0x6b4a2b))); }
+  return merge(parts);
+}
+function anvil() {
+  const parts = [paint(T(new THREE.CylinderGeometry(0.32, 0.38, 0.6, 10), 0, 0.3, 0), solid(0x5a3b22))];
+  parts.push(paint(T(new THREE.BoxGeometry(0.62, 0.22, 0.26), 0, 0.72, 0), solid(0x3b3d42, 0.05)));
+  parts.push(paint(T(new THREE.ConeGeometry(0.11, 0.34, 8).rotateZ(-Math.PI / 2), 0.46, 0.76, 0), solid(0x3b3d42, 0.05)));
+  parts.push(paint(T(new THREE.BoxGeometry(0.3, 0.12, 0.2), 0, 0.6, 0), solid(0x34363b, 0.05)));
+  return merge(parts);
+}
+function forge() {
+  const parts = [paint(T(new THREE.BoxGeometry(1.6, 0.9, 1.2, 2, 2, 2), 0, 0.45, 0), (x, y, z, c) => c.set(0x8d8478).multiplyScalar(0.8 + 0.2 * Math.random()))];
+  parts.push(paint(T(new THREE.CylinderGeometry(0.3, 0.45, 2.2, 8), 0, 1.9, -0.3), solid(0x7a7068, 0.1)));
+  parts.push(paint(T(new THREE.BoxGeometry(1.0, 0.12, 0.8), 0, 0.92, 0.1), solid(0x2a1208, 0.1)));
+  return merge(parts);
+}
+function cage() {
+  const parts = [paint(T(new THREE.BoxGeometry(2.2, 0.12, 2.2), 0, 0.06, 0), solid(0x5a3b22)), paint(T(new THREE.BoxGeometry(2.3, 0.14, 2.3), 0, 2.3, 0), solid(0x5a3b22))];
+  for (let k = 0; k < 16; k++) { const side = Math.floor(k / 4), u = (k % 4) / 4 - 0.375; const x = side < 2 ? u * 2.2 : (side === 2 ? -1.05 : 1.05), z = side < 2 ? (side === 0 ? -1.05 : 1.05) : u * 2.2; parts.push(paint(T(new THREE.CylinderGeometry(0.05, 0.05, 2.25, 5), x, 1.15, z), solid(0x6b4a2b))); }
+  return merge(parts);
+}
+function pedestal() { return merge([paint(T(new THREE.BoxGeometry(1.5, 1.1, 1.5), 0, 0.55, 0), (x, y, z, c) => c.set(0xb3ab9a).multiplyScalar(0.85 + 0.12 * Math.random())), paint(T(new THREE.BoxGeometry(1.8, 0.2, 1.8), 0, 0.1, 0), solid(0xa39b8a, 0.05))]); }
+function podium() {
+  const parts = [paint(T(new THREE.BoxGeometry(4.4, 1.2, 3.0), 0, 0.6, 0), solid(0x8a6a45, 0.1))];
+  for (let k = 0; k < 3; k++) parts.push(paint(T(new THREE.BoxGeometry(1.6, 0.4 * (k + 1), 0.45), 0, 0.2 * (k + 1), 2.6 - k * 0.45), solid(0x7a5532, 0.08)));
+  return merge(parts);
+}
+function cheese() { const g = new THREE.CylinderGeometry(0.22, 0.22, 0.16, 14, 1, false, 0, Math.PI * 0.45); return paint(T(g, 0, 0.08, 0), (x, y, z, c) => c.set(0xf2cf5a).multiplyScalar(0.9 + 0.1 * Math.random())); }
+function figurine() {
+  const parts = [paint(T(new THREE.SphereGeometry(0.035, 10, 8), 0, 0.2, 0), solid(0xb5703f, 0.05)), paint(T(new THREE.CylinderGeometry(0.025, 0.04, 0.16, 8), 0, 0.09, 0), solid(0xa9653a, 0.05))];
+  for (const s of [-1, 1]) parts.push(paint(T(new THREE.CylinderGeometry(0.01, 0.01, 0.08, 5).rotateZ(s * 0.5), s * 0.04, 0.13, 0), solid(0xa9653a, 0.05)));
+  return merge(parts);
+}
+function grainBasket() {
+  const prof = [[0, 0], [0.2, 0.0], [0.26, 0.1], [0.3, 0.28], [0.31, 0.32]].map(([x, y]) => new THREE.Vector2(x, y));
+  const b = paint(new THREE.LatheGeometry(prof, 14), (x, y, z, c) => c.set(0xb08a4f).multiplyScalar(0.8 + 0.25 * Math.abs(Math.sin(Math.atan2(z, x) * 18 + y * 30))));
+  const top = paint(T(new THREE.SphereGeometry(0.29, 14, 6, 0, Math.PI * 2, 0, Math.PI / 2), 0, 0.27, 0, 0, 1, 0.35, 1), (x, y, z, c) => c.set(0xe0b85a).multiplyScalar(0.85 + 0.2 * Math.random()));
+  return merge([b, top]);
+}
+function stoneSlab() { return paint(T(new THREE.BoxGeometry(1.1, 1.6, 0.22), 0, 0.8, 0), (x, y, z, c) => c.set(0xbfb6a4).multiplyScalar(0.85 + 0.1 * Math.random())); }
+function tent() {
+  const g = new THREE.ConeGeometry(3.2, 3.4, 8, 1, true); T(g, 0, 1.7, 0);
+  return paint(g, (x, y, z, c) => c.set(Math.floor((Math.atan2(z, x) + Math.PI) / (Math.PI / 4)) % 2 ? 0x2a5bd7 : 0xe8e4da).multiplyScalar(0.85 + 0.15 * (y / 3.4)));
+}
+
 export function initProtos() {
   if (PROTO.hut) return PROTO;
   PROTO.hut = [1, 2, 3].map(hutRound); PROTO.leanTo = [leanTo()]; PROTO.pen = [fencePen()]; PROTO.firePit = [firePit()];
@@ -230,8 +301,11 @@ export function initProtos() {
   PROTO.temple = [temple()]; PROTO.castle = [castle()]; PROTO.wall = [stoneWall()];
   PROTO.windmill = [windmill()]; PROTO.blades = [windmillBlades()]; PROTO.stall = [0, 1, 2, 3].map(stall);
   PROTO.bridge = [bridge()]; PROTO.bowl = [bowl()]; PROTO.pot = [pot()]; PROTO.berry = [1, 2].map(berryBush);
-  PROTO.bannerRed = [bannerPole(0xb3122a)]; PROTO.bannerBlue = [bannerPole(0x2a5bd7)];
+  PROTO.bannerRed = [bannerPole(0xb3122a)]; PROTO.bannerBlue = [bannerPole(0x2a5bd7)]; PROTO.bannerYellow = [bannerPole(0xe0b23a)];
   PROTO.crop = [0, 0.35, 0.7, 1.0].map(fieldCrop);
+  PROTO.stoneBridge = [stoneBridge()]; PROTO.cart = [cartBody()]; PROTO.wheel = [wheel()]; PROTO.anvil = [anvil()]; PROTO.forge = [forge()];
+  PROTO.cage = [cage()]; PROTO.pedestal = [pedestal()]; PROTO.podium = [podium()]; PROTO.cheese = [cheese()]; PROTO.figurine = [figurine()];
+  PROTO.grainBasket = [grainBasket()]; PROTO.slab = [stoneSlab()]; PROTO.tent = [tent()];
   return PROTO;
 }
 
@@ -322,9 +396,16 @@ export function genTown() {
   }
   // castle (1420+), banners, windmills, stalls, bridge
   add({ type: 'castle', v: 0, x: CASTLE_POS.x, z: CASTLE_POS.z, built: 1421, yaw: Math.PI * 1.15 });
-  add({ type: 'bridge', v: 0, x: -76, z: 30, yaw: Math.PI / 2 + 0.15, built: 1150 });
+  add({ type: 'bridge', v: 0, x: -76, z: 30, yaw: Math.PI / 2 + 0.15, built: 1150, replacedBy: 'stoneBridge', replaceYear: 1480 });   // Pell's stone bridge
   for (let k = 0; k < 5; k++) add({ type: 'windmill', v: 0, x: 140 + k * 36 + r() * 10, z: -120 - r() * 60, built: 1600 + k * 40 });
   for (let k = 0; k < 18; k++) { const a = k / 18 * Math.PI * 2; add({ type: 'stall', v: k % 4, x: 8 + Math.cos(a) * 14, z: -6 + Math.sin(a) * 14, yaw: -a + Math.PI / 2, built: 1100 + k * 10 }); }
+  // Kassa XIX's wall (1926): demolishes whatever stands on its line; torn down after the revolution
+  const wd = (x, z) => { let best = 1e9; for (let i = 0; i < SPLIT_WALL.length - 1; i++) { const [ax, az] = SPLIT_WALL[i], [bx, bz] = SPLIT_WALL[i + 1]; const dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz; let t = ((x - ax) * dx + (z - az) * dz) / L2; t = Math.max(0, Math.min(1, t)); best = Math.min(best, Math.hypot(x - ax - dx * t, z - az - dz * t)); } return best; };
+  for (const b of B) if (!['temple', 'castle', 'bridge', 'windmill'].includes(b.type) && wd(b.x, b.z) < 6) b.destroyed = Math.min(b.destroyed, 1926);
+  for (let i = 0; i < SPLIT_WALL.length - 1; i++) {
+    const [ax, az] = SPLIT_WALL[i], [bx, bz] = SPLIT_WALL[i + 1], L = Math.hypot(bx - ax, bz - az);
+    for (let d = 6; d < L; d += 12) { const u = d / L; add({ type: 'wall', v: 0, x: ax + (bx - ax) * u, z: az + (bz - az) * u, yaw: -Math.atan2(bz - az, bx - ax), built: 1926.2 + u * 0.8, destroyed: 1933 }); }
+  }
   return B;
 }
 
@@ -335,7 +416,7 @@ export function townState(B, year, fluct = 0) {
     if (year < b.built) continue;
     let type = b.type;
     if (b.replaceYear && year >= b.replaceYear && b.replacedBy) type = b.replacedBy;
-    if (year >= b.destroyed && (year < b.destroyed + 300 || b.type === 'mud')) continue;
+    if (year >= b.destroyed && (year < b.destroyed + 300 || b.type === 'mud' || b.type === 'wall' || b.destroyed >= 1900)) continue;
     const grow = clamp((year - b.built) / 3);
     out.push({ ...b, type, grow });
   }
@@ -352,7 +433,7 @@ export class Town {
     this.meshes = {};
   }
   build(year, opts = {}) {
-    for (const c of [...this.group.children]) this.group.remove(c);
+    for (const c of [...this.group.children]) { this.group.remove(c); if (c.isInstancedMesh) c.dispose(); }
     const vis = townState(this.B, year).filter(b => !opts.filter || opts.filter(b));
     const by = {};
     for (const b of vis) { const k = b.type + '_' + (b.v % PROTO[b.type].length); (by[k] = by[k] || []).push(b); }

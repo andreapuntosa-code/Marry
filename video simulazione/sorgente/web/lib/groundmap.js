@@ -83,6 +83,13 @@ export function drawGroundMap(year, opts = {}) {
     g.restore();
   }
   g.globalAlpha = 1;
+  // Bo's irrigation channel (year 41+): river -> the first field
+  if (year >= 41) {
+    const a = toPx(-58, -9.5), b = toPx(-51, -6.5);
+    g.lineCap = 'round';
+    g.strokeStyle = 'rgba(92,70,48,0.95)'; g.lineWidth = 2.2 * s; g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke();
+    g.strokeStyle = 'rgba(52,96,112,0.95)'; g.lineWidth = 1.0 * s; g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke();
+  }
   // roads
   for (const r of ROADS) {
     if (year < r.year) continue;

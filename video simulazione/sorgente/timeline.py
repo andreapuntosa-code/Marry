@@ -8,7 +8,7 @@ FPS = 24
 LEAD_IN = 0.6          # silence before the first line
 TITLE_AFTER = "h09"    # the title card comes after this segment
 TITLE_DUR = 4.2
-OUTRO = 14.0           # end screen (YouTube end-screen elements need 5-20 s)
+OUTRO = 20.0           # end credits + YouTube end screen (5-20 s)
 
 
 def build():

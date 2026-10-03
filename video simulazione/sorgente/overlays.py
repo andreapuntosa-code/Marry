@@ -8,6 +8,7 @@ from motore.testo import tf, font, text_width, wrap
 from motore.glifi import CHIAVE, draw_glifo
 
 W, H = 1920, 1080
+BY0, BY1 = 138, 942            # the 2.39:1 picture band; black bars above and below
 
 
 def clamp(x, a=0.0, b=1.0):
@@ -68,7 +69,7 @@ def txt(c, s, x, y, key, size, hexs='#ffffff', a=1.0, align='left', spacing=0.0,
 def year_counter(c, year, a, label='YEAR', sub=None):
     if a <= 0:
         return
-    x, y = W - 64, 92
+    x, y = W - 64, BY0 + 96
     s = f"{int(round(year)):,}"
     wv = text_width(s, 'ui_b', 66)
     wl = text_width(label, 'ui', 22, 0.3)
@@ -111,11 +112,11 @@ def name_card(c, u, name, role, color='#ffffff', side='left'):
         return
     sl = (1 - eo(clamp(u * 6))) * 60
     x = 96 - sl if side == 'left' else W - 96 + sl
-    y = H - 170
+    y = BY1 - 64
     al = 'left' if side == 'left' else 'right'
     sg = 1 if side == 'left' else -1
-    g = skia.GradientShader.MakeLinear([skia.Point(0, H - 330), skia.Point(0, H)], [col('#000000', 0), col('#000000', 0.62 * a)])
-    c.drawRect(skia.Rect(0, H - 330, W, H), skia.Paint(Shader=g))
+    g = skia.GradientShader.MakeLinear([skia.Point(0, BY1 - 300), skia.Point(0, BY1)], [col('#000000', 0), col('#000000', 0.62 * a)])
+    c.drawRect(skia.Rect(0, BY1 - 300, W, BY1), skia.Paint(Shader=g))
     c.drawRect(skia.Rect(x - (0 if side == 'left' else 8), y - 92, x + (8 if side == 'left' else 0), y + 40), P(color, a))
     txt(c, name, x + sg * 28, y - 8, 'anton', 92, '#ffffff', a, al, 0.01, shadow=0.6)
     txt(c, role, x + sg * 30, y + 34, 'ui_b', 28, color, a * sm(0.06, 0.18, u), al, 0.18, shadow=0.6)
@@ -155,7 +156,7 @@ def caption(c, u, s, color='#ffffff', y=None, size=78, key='anton', box=None):
     a = sm(0.0, 0.07, u) * (1 - sm(0.88, 1.0, u))
     if a <= 0:
         return
-    y = H - 150 if y is None else y
+    y = BY1 - 90 if y is None else max(BY0 + 100, min(BY1 - 40, y))
     pop = 1 + 0.18 * (1 - eo(clamp(u * 7)))
     if box:
         w = text_width(s, key, size * pop) + 50
@@ -219,7 +220,7 @@ def hud_search(c, u, t):
     a = sm(0.0, 0.1, u) * (1 - sm(0.9, 1.0, u))
     if a <= 0:
         return
-    x, y = W / 2, H - 170
+    x, y = W / 2, BY1 - 90
     c.drawRoundRect(skia.Rect(x - 330, y - 70, x + 330, y + 40), 12, 12, P('#05080d', 0.7 * a))
     c.drawRoundRect(skia.Rect(x - 330, y - 70, x + 330, y + 40), 12, 12, P('#ff4d4d', 0.8 * a, stroke=2))
     dots = '.' * (int(t * 3) % 4)
@@ -234,28 +235,30 @@ def kings_ticker(c, u):
         return
     roman = ['VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX']
     i = min(len(roman) - 1, int(u * len(roman) * 1.05))
-    txt(c, "KING KASSA", W / 2, H - 200, 'ui_b', 40, '#ffb3b3', a, 'center', 0.25)
-    txt(c, roman[i], W / 2, H - 110, 'anton', 110, '#ffffff', a, 'center', 0.05, shadow=0.8)
+    txt(c, "KING KASSA", W / 2, BY1 - 170, 'ui_b', 40, '#ffb3b3', a, 'center', 0.25)
+    txt(c, roman[i], W / 2, BY1 - 70, 'anton', 110, '#ffffff', a, 'center', 0.05, shadow=0.8)
 
 
 def end_screen(c, u):
-    a = sm(0.0, 0.08, u)
-    c.drawRect(skia.Rect(0, 0, W, H), P('#000000', 0.35 * a))
-    txt(c, "WHAT SHOULD I TELL THEM?", W / 2, 170, 'anton', 84, '#ffffff', a, 'center', 0.02, shadow=0.8)
-    txt(c, "the most liked comment gets sent into the simulation", W / 2, 228, 'corsivo_b', 40, '#ffd27a', a, 'center', 0, shadow=0.8)
-    # end-screen placeholders (YouTube elements go here)
-    for (x0, y0, w, h) in [(250, 420, 640, 360), (1030, 420, 640, 360)]:
-        c.drawRoundRect(skia.Rect(x0, y0, x0 + w, y0 + h), 18, 18, P('#ffffff', 0.08 * a))
-        c.drawRoundRect(skia.Rect(x0, y0, x0 + w, y0 + h), 18, 18, P('#ffffff', 0.35 * a, stroke=2))
-    txt(c, "WATCH NEXT", 570, 400, 'ui_b', 28, '#ffffff', a * 0.8, 'center', 0.3)
-    txt(c, "SUBSCRIBE FOR PART 2", 1350, 400, 'ui_b', 28, '#ffffff', a * 0.8, 'center', 0.3)
+    a = sm(0.0, 0.06, u)
+    g = skia.GradientShader.MakeLinear([skia.Point(0, 0), skia.Point(W, 0)], [col('#000000', 0.62 * a), col('#000000', 0.25 * a), col('#000000', 0.55 * a)])
+    c.drawRect(skia.Rect(0, BY0, W, BY1), skia.Paint(Shader=g))
+    x = 120
+    txt(c, "WHAT SHOULD I", x, BY0 + 150, 'anton', 76, '#ffffff', a, 'left', 0.02, shadow=0.8)
+    txt(c, "TELL THEM?", x, BY0 + 236, 'anton', 76, '#ffffff', a, 'left', 0.02, shadow=0.8)
+    txt(c, "the most liked comment gets sent into the simulation", x, BY0 + 292, 'corsivo_b', 34, '#ffd27a', a, 'left', 0, shadow=0.8)
+    # end-screen slot (YouTube "watch next" element goes here)
+    x0, y0, w, h = x, BY0 + 340, 576, 324
+    c.drawRoundRect(skia.Rect(x0, y0, x0 + w, y0 + h), 16, 16, P('#ffffff', 0.07 * a))
+    c.drawRoundRect(skia.Rect(x0, y0, x0 + w, y0 + h), 16, 16, P('#ffffff', 0.32 * a, stroke=2))
+    txt(c, "NEXT: WHAT HAPPENS WHEN THEY FIND OUT WHAT I AM", x0 + w / 2, y0 + h / 2 + 10, 'ui_b', 22, '#ffffff', a * 0.75, 'center', 0.12, shadow=0)
 
 
 def comment_prompt(c, u, t):
     a = sm(0.0, 0.1, u) * (1 - sm(0.92, 1.0, u))
     if a <= 0:
         return
-    x0, y0, w, h = W / 2 - 520, H - 250, 1040, 120
+    x0, y0, w, h = W / 2 - 520, BY1 - 170, 1040, 120
     c.drawRoundRect(skia.Rect(x0, y0, x0 + w, y0 + h), 60, 60, P('#0f1115', 0.85 * a))
     c.drawRoundRect(skia.Rect(x0, y0, x0 + w, y0 + h), 60, 60, P('#ffffff', 0.4 * a, stroke=2))
     msg = "Dear Observer..."
@@ -273,6 +276,47 @@ def flash(c, k):
 
 
 def letterbox(c, k):
-    if k > 0:
-        bh = int(132 * k)
-        c.drawRect(skia.Rect(0, 0, W, bh), P('#000000', 1)); c.drawRect(skia.Rect(0, H - bh, W, H), P('#000000', 1))
+    return   # the whole film is letterboxed (2.39:1); kept for compatibility
+
+
+def subtitle(c, u, who, line, color='#ffffff'):
+    """A character's line as a film subtitle, set in the lower black bar."""
+    a = sm(0.0, 0.05, u) * (1 - sm(0.95, 1.0, u))
+    if a <= 0:
+        return
+    lines = wrap(line, 'corsivo_b', 44, W * 0.74)
+    n = len(lines)
+    y0 = BY1 + 56 + (0 if n > 1 else 18)
+    nw = text_width(who, 'ui_b', 20, 0.25)
+    txt(c, who, W / 2, y0 - 34 if n > 1 else y0 - 40, 'ui_b', 20, color, a, 'center', 0.25, shadow=0)
+    for i, l in enumerate(lines[:2]):
+        txt(c, l, W / 2, y0 + i * 46, 'corsivo_b', 44, '#f4ecd8', a, 'center', 0, shadow=0)
+
+
+CREDITS = [
+    ("STARRING", None),
+    ("ISE", "A-07  ·  the one who found"), ("MIRA", "A-04  ·  the one who looks"), ("BO", "A-09  ·  the fire thief"), ("TAM", "A-11  ·  the goat guy"),
+    ("A-15", "the first to leave"), ("LIO", "potter"), ("KASSA", "farmer  ·  inventor of “mine”"), ("SELA", "priestess"), ("VARO", "high priest  ·  very practical"),
+    ("KING KASSA VII", "the first king"), ("PELL", "engineer"), ("KING KASSA XIX", "the last king"), ("ORUN", "harvester  ·  first speaker"), ("DORN", "captain of the guard"),
+    ("NIA", "painter"), ("THE GOATS", "as themselves"), ("AND", None), ("THE OBSERVER", "a guy in a hoodie"),
+]
+
+
+def end_credits(c, u, top=BY0, bottom=BY1):
+    """Rolling cast list over the outro, in the right half of the picture."""
+    a = sm(0.0, 0.06, u) * (1 - sm(0.95, 1.0, u))
+    if a <= 0:
+        return
+    x = W * 0.73
+    total = 120 * len(CREDITS)
+    y = bottom + 40 - (total + (bottom - top)) * u
+    c.save(); c.clipRect(skia.Rect(0, top, W, bottom))
+    for name, role in CREDITS:
+        if top - 60 < y < bottom + 80:
+            if role is None:
+                txt(c, name, x, y, 'ui', 26, '#d7dde8', a, 'center', 0.45, shadow=0.6)
+            else:
+                txt(c, name, x, y, 'titolo', 46, '#ffffff', a, 'center', 0.12, shadow=0.7)
+                txt(c, role, x, y + 38, 'corsivo_b', 30, '#ffd27a', a, 'center', 0, shadow=0.7)
+        y += 120
+    c.restore()

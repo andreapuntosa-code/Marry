@@ -15,7 +15,9 @@ import { makeAnimal, Flock } from './lib/animals.js';
 import { Fire, TorchField, lightningBolt, Rain } from './lib/fx.js';
 import { drawGroundMap, GROUND_UNIFORMS } from './lib/groundmap.js';
 
-const W = 1920, H = 1080;
+// cinema scope: the picture band is 1920x804 (2.39:1); the frame driver adds the black bars
+const W = 1920, H = 804;
+export const FILM = { aspect: W / H, vScale: 0.8 };
 const params = new URLSearchParams(location.search);
 const SCALE = parseFloat(params.get('scale') || '1');
 
@@ -23,8 +25,10 @@ export const E = {};
 E.renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
 E.renderer.setPixelRatio(1);
 E.renderer.setSize(Math.round(W * SCALE), Math.round(H * SCALE));
-E.renderer.domElement.style.width = W + 'px';
-E.renderer.domElement.style.height = H + 'px';
+// CSS size = internal size: the frame driver grabs exact pixels and upscales with Lanczos itself
+E.renderer.domElement.style.width = Math.round(W * SCALE) + 'px';
+E.renderer.domElement.style.height = Math.round(H * SCALE) + 'px';
+document.body.style.margin = '0'; document.body.style.background = '#000';
 E.renderer.shadowMap.enabled = true;
 E.renderer.shadowMap.type = THREE.PCFShadowMap;
 E.renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -34,6 +38,7 @@ document.body.appendChild(E.renderer.domElement);
 
 E.scene = new THREE.Scene();
 E.camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 30000);
+E.FILM = FILM;
 E.atmo = new Atmosphere(E.scene);
 E.veg = new Vegetation(E.scene);
 E.veg.bake(E.renderer);

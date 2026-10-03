@@ -1,5 +1,14 @@
 import { SHOTS, LIST } from './registry.js';
 import './ch00_open.js';
 import './ch01_rules.js';
+import './ch02_fire.js';
+import './ch03_words.js';
+import './ch04_farm.js';
+import './ch05_leftovers.js';
+import './ch06_observer.js';
+import './ch07_crown.js';
+import './ch08_stones.js';
+import './ch09_torches.js';
+import './ch10_message.js';
 export { SHOTS, LIST };
 window.SHOT_LIST = LIST;

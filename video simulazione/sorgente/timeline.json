@@ -1,6 +1,6 @@
 {
  "fps": 24,
- "total": 954.712,
+ "total": 960.712,
  "segments": [
   {
    "id": "h01",
@@ -885,7 +885,7 @@
    "pause": 0.5,
    "voice": "narr",
    "who": null,
-   "year": null,
+   "year": 41,
    "start": 320.002,
    "end": 325.873,
    "dur": 5.871
@@ -909,7 +909,7 @@
    "pause": 0.4,
    "voice": "narr",
    "who": null,
-   "year": null,
+   "year": 55,
    "start": 332.391,
    "end": 338.177,
    "dur": 5.786
@@ -933,7 +933,7 @@
    "pause": 1.0,
    "voice": "narr",
    "who": null,
-   "year": null,
+   "year": 60,
    "start": 345.23,
    "end": 348.614,
    "dur": 3.384
@@ -2470,6 +2470,6 @@
  ],
  "outro": {
   "start": 940.712,
-  "end": 954.712
+  "end": 960.712
  }
 }

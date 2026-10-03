@@ -66,8 +66,8 @@ export class Atmosphere {
     const day = smoothstep(-7, 6, elev), golden = 1 - smoothstep(3, 24, elev), night = 1 - day;
     const C = (h) => new THREE.Color(h);
     // sky palette
-    const zen = C(0x3a78d4).lerp(C(0x4a6fb8), golden * 0.5).lerp(C(0x050a18), night).lerp(C(0x3d4651), storm);
-    const hor = C(0xb9d3ee).lerp(C(0xf3b07a), golden * 0.85).lerp(C(0x101a2e), night).lerp(C(0x6c757e), storm);
+    const zen = C(0x3a78d4).lerp(C(0x4a6fb8), golden * 0.5).lerp(C(0x0b1734), night).lerp(C(0x3d4651), storm);
+    const hor = C(0xb9d3ee).lerp(C(0xf3b07a), golden * 0.85).lerp(C(0x1d2d4f), night).lerp(C(0x6c757e), storm);
     const u = this.sky.material.uniforms;
     u.uZenith.value.copy(zen); u.uHorizon.value.copy(hor);
     u.uGround.value.copy(hor).multiplyScalar(0.55);
@@ -81,9 +81,9 @@ export class Atmosphere {
     // lights
     this.sun.color.copy(sunCol);
     this.sun.intensity = lerp(0.0, 3.0, day) * (1 - storm * 0.8);
-    if (day < 0.2) { this.sunDir.set(-0.35, 0.75, 0.45).normalize(); this.sun.color.set(0x8aa4ff); this.sun.intensity = 0.5 + 2.5 * day; }
-    this.hemi.color.copy(C(0xcfe0ff).lerp(C(0xffd2b0), golden * 0.45)).multiplyScalar(lerp(0.1, 1.0, day));
-    this.hemi.groundColor.copy(C(0x6a5a40)).multiplyScalar(lerp(0.12, 1.0, day));
+    if (day < 0.2) { this.sunDir.set(-0.35, 0.75, 0.45).normalize(); this.sun.color.set(0xa6bcff); this.sun.intensity = 1.5 + 1.5 * day; }
+    this.hemi.color.copy(C(0xcfe0ff).lerp(C(0xffd2b0), golden * 0.45)).multiplyScalar(lerp(0.4, 1.0, day));
+    this.hemi.groundColor.copy(C(0x6a5a40)).multiplyScalar(lerp(0.3, 1.0, day));
     this.hemi.intensity = lerp(0.8, 0.55, day) * (1 - storm * 0.2) + storm * 0.3;
     // fog = horizon haze
     this.fog.color.copy(hor).lerp(C(0x9fb4c8), (1 - golden) * day * 0.3);
@@ -93,7 +93,7 @@ export class Atmosphere {
     this.moon.visible = day < 0.35; this.moon.material.opacity = clamp(1 - day * 2.5);
     this.moon.position.set(-0.35, 0.75, 0.45).normalize().multiplyScalar(16000);
     this.day = day; this.golden = golden; this.elev = elev; this.storm = storm;
-    this.exposure = lerp(0.75, 0.95, day) * (1 - storm * 0.15);
+    this.exposure = lerp(0.88, 0.95, day) * (1 - storm * 0.15);
     this.envDirty = true;
     return this;
   }

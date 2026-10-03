@@ -411,7 +411,7 @@ export class Vegetation {
     this.imp = {};
     for (const k of ['oak0', 'birch0', 'pine0', 'bush0', 'fruit0']) this.imp[k] = this.geos[k].map(e => impostorMaterial(bakeImpostor(renderer, e)));
   }
-  clear() { for (const c of [...this.group.children]) this.group.remove(c); }
+  clear() { for (const c of [...this.group.children]) { this.group.remove(c); if (c.isInstancedMesh) c.dispose(); } }
 
   // focus: {cx, cz} ; opts: lod radii, exclude(x,z), budget
   build(focus, opts = {}) {

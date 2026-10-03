@@ -17,10 +17,11 @@ EVENTS = [
     ("energy", "r20", 4.0, {"x": 120, "y": 200, "from": 0.14, "to": 0.93, "label": "A-07 ENERGY"}),
     ("caption", "r22", 2.5, {"s": "NOBODY TAUGHT HER THAT", "size": 64}),
     # --- first fire
-    ("caption", "f03", 1.6, {"s": "WOLVES", "color": "#ffffff", "size": 120, "y": 600}),
+    ("caption", "f03", 1.6, {"s": "WOLVES", "color": "#ffffff", "size": 120, "y": 880}),
     ("energy", "f07", 3.2, {"x": 120, "y": 200, "from": 0.0, "to": 0.0, "label": "A-15 ENERGY"}),
     ("caption", "f10", 4.6, {"s": "A-15   ·   NAME: —", "size": 64, "y": 170}),
     # --- words
+    ("caption", "w03", 6.4, {"s": "PATTERN DETECTED", "key": "mono_b", "size": 44, "color": "#7CFFB2", "y": 260, "delay": 3.0}),
     ("glyph", "w04", 2.6, {"key": "ILA", "word": "Ila", "meaning": "food", "color": "#ff7a1a"}),
     ("glyph3", "w05", 3.4, {}),
     ("glyph", "w09", 1.7, {"key": "BELLO", "word": "Beautiful", "meaning": "the first word for nothing useful", "color": "#a46bff"}),
@@ -65,10 +66,11 @@ EVENTS = [
     ("caption", "d06", 2.3, {"s": "ONE STONE  ·  ONE VOICE", "color": "#ffffff", "box": "#2563eb", "size": 70, "y": 200}),
     ("caption", "d07", 8.0, {"s": "41 AIs  ·  41 STONES", "size": 60, "y": 190, "delay": 5.0}),
     ("name", "d12", 3.9, {"name": "KING KASSA XIX", "role": "THE LAST KING?", "c": "KASSA"}),
+    ("rule", "d20", None, {"n": 3, "l1": "I DON'T INTERFERE", "l2": "no matter what happens"}),
     # --- torches
-    ("letterbox", "x01", 50.0, {}),
     ("name", "x07", 5.0, {"name": "DORN", "role": "CAPTAIN OF THE GUARD", "c": "DORN", "delay": 1.0}),
     ("caption", "x09", 3.1, {"s": "1 . . . 10 . . . 40", "size": 80, "y": 200}),
+    ("caption", "x13", 4.6, {"s": "SHUT HIM DOWN   ·   LET HIM GO", "size": 54, "y": 250, "delay": 2.2}),
     ("search", "x16", 3.6, {}),
     ("name", "x18b", 6.8, {"name": "ORUN", "role": "FIRST SPEAKER OF THE ASSEMBLY", "c": "ORUN", "delay": 3.0}),
     ("caption", "x19", 4.9, {"s": "BRIDGE COLOR VOTE  ·  DAY 40", "size": 56, "y": 190, "delay": 1.8}),
