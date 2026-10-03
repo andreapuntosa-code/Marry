@@ -11,6 +11,8 @@ function autoGrade(spec) {
   if (h < 7.6) return 'dawn';
   return 'day';
 }
+// a shot that is not part of the film (thumbnails)
+export function shotOnly(id, spec) { SHOTS[id] = spec; }
 // shot(id, anchor, spec, offset): anchor = segment id | 'chap:<seg>' | 'title' | 'outro' | 'start' | 't:<sec>'
 export function shot(id, at, spec, off = 0) {
   if (SHOTS[id]) throw new Error('duplicate shot ' + id);

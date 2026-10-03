@@ -494,7 +494,7 @@ export const CAST = {
   DORN:  { id: '9307', name: 'DORN', color: 0xe3be62, scale: 1.14, width: 1.12, acc: [{ type: 'helmet', color: 0xc9a94a }, { type: 'sash', color: 0xb3122a }, 'spear'] },
   NIA:   { id: '11204', name: 'NIA', color: 0xff79bf, scale: 0.94, acc: [{ type: 'scarf', color: 0x2b2d42 }, 'flower'] },
   HOODIE: { id: null, name: 'ME', color: 0x8d9099, scale: 1.0, acc: [{ type: 'hood', color: 0x2f333b }, { type: 'robe', color: 0x2f333b }] },
-  STATUE: { id: null, name: 'STATUE', color: 0xb8b1a1, rough: 0.95, scale: 1.0 },
+  STATUE: { id: null, name: 'STATUE', color: 0x948c7e, rough: 0.95, scale: 1.0 },
 };
 // the other fifteen founders: white/light-grey bodies with small coloured details (hands/feet)
 const EXTRA = [1, 2, 3, 5, 6, 8, 10, 12, 13, 14, 16, 17, 18, 19, 20];

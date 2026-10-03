@@ -21,18 +21,18 @@ shot('k_card', 'chap:k01', {
 // k01: year 340 — a potter named Lio digs by the river
 shot('k01a', 'k01', {
   hours: TIME.morning + 0.8, cloud: 0.45, year: 340,
-  cam: K([0, [CLAY.x + 9, 1.6, CLAY.z - 6], [CLAY.x, 0.6, CLAY.z], 34], [1, [CLAY.x + 6.5, 1.3, CLAY.z - 4.2], [CLAY.x, 0.5, CLAY.z], 32]),
+  cam: K([0, [CLAY.x + 5.5, 1.4, CLAY.z - 3.8], [CLAY.x + 0.4, 0.7, CLAY.z], 32], [1, [CLAY.x + 4.0, 1.2, CLAY.z - 2.7], [CLAY.x + 0.4, 0.6, CLAY.z], 30]),
   veg: { grassR: 10, grassAt: [CLAY.x + 8, CLAY.z - 6] }, clear: [[CLAY.x, CLAY.z, 5]], shadow: { x: CLAY.x, z: CLAY.z, r: 12 },
   setup(c) { const l = c.person('LIO', { x: CLAY.x + 0.6, z: CLAY.z, yaw: yawTo(CLAY.x + 0.6, CLAY.z, CLAY.x - 3, CLAY.z + 1) }); l.anim = (P, t) => P.pose('dig', t * 0.9); },
 });
 shot('k01b', 'k01', {   // ...when his hands sank into something strange
   hours: TIME.morning + 0.9, cloud: 0.45, year: 340,
-  cam: K([0, [CLAY.x - 0.6, 0.45, CLAY.z - 1.6], [CLAY.x + 0.2, 0.25, CLAY.z + 0.1], 26], [1, [CLAY.x - 0.5, 0.4, CLAY.z - 1.4], [CLAY.x + 0.2, 0.2, CLAY.z + 0.1], 23]),
+  cam: K([0, [CLAY.x + 2.3, 0.75, CLAY.z - 1.0], [CLAY.x + 0.4, 0.35, CLAY.z + 0.1], 28], [1, [CLAY.x + 2.1, 0.7, CLAY.z - 0.9], [CLAY.x + 0.4, 0.32, CLAY.z + 0.1], 25]),
   veg: { grassR: 4, grassAt: [CLAY.x - 3, CLAY.z - 3] }, clear: [[CLAY.x, CLAY.z, 5]], shadow: { x: CLAY.x, z: CLAY.z, r: 6 },
   setup(c) {
     const l = c.person('LIO', { x: CLAY.x + 0.75, z: CLAY.z + 0.55, yaw: yawTo(CLAY.x + 0.75, CLAY.z + 0.55, CLAY.x - 0.5, CLAY.z - 1.2) });
     l.anim = (P, t) => { P.pose('plant', t * 0.6); P.R.sh.rotation.x = -0.8 - 0.25 * smooth(1.0, 2.6, t); P.L.sh.rotation.x = -0.9; P.head.rotation.x = 0.6; };
-    const mud = new THREE.Mesh(new THREE.CircleGeometry(0.9, 24).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x8a5a3a, roughness: 0.45 }));
+    const mud = new THREE.Mesh(new THREE.CircleGeometry(0.9, 24).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x5a3a24, roughness: 0.4 }));
     mud.position.set(CLAY.x + 0.1, c.h(CLAY.x, CLAY.z) + 0.03, CLAY.z - 0.1); c.add(mud); c.own(mud.geometry);
   },
 }, 4.2);
@@ -160,10 +160,10 @@ shot('k10c', 'k10', {
 // k11: the deal — one basket for a day of work
 shot('k11', 'k11', {
   hours: TIME.afternoon, cloud: 0.4, year: 523,
-  cam: K([0, [GRANARY_K.x - 6, 1.5, GRANARY_K.z - 7], [GRANARY_K.x - 2.4, 1.2, GRANARY_K.z - 3.6], 30], [1, [GRANARY_K.x - 5.2, 1.45, GRANARY_K.z - 6.4], [GRANARY_K.x - 2.4, 1.2, GRANARY_K.z - 3.6], 28]),
-  veg: { r0: 40 }, shadow: { x: GRANARY_K.x - 2, z: GRANARY_K.z - 3, r: 10 },
+  cam: K([0, [GRAN.x - 6.6, 1.5, GRAN.z - 2.0], [GRAN.x - 2.6, 1.2, GRAN.z - 3.9], 32], [1, [GRAN.x - 6.2, 1.45, GRAN.z - 1.7], [GRAN.x - 2.6, 1.2, GRAN.z - 3.9], 30]),
+  veg: { r0: 40 }, shadow: { x: GRAN.x - 2, z: GRAN.z - 3, r: 10 },
   setup(c) {
-    const kx = GRANARY_K.x - 1.8, kz = GRANARY_K.z - 3.2, wx = GRANARY_K.x - 3.4, wz = GRANARY_K.z - 4.6;
+    const kx = GRAN.x - 1.8, kz = GRAN.z - 3.2, wx = GRAN.x - 3.4, wz = GRAN.z - 4.6;
     const k = c.person('KASSA', { x: kx, z: kz, yaw: yawTo(kx, kz, wx, wz) }); k.anim = (P, t) => { P.pose('idle', t); P.R.sh.rotation.x = -1.0 * smooth(1.2, 2.0, t); P.L.sh.rotation.x = -1.0 * smooth(1.2, 2.0, t); };
     const w = vill(c, 30, wx, wz, { yaw: yawTo(wx, wz, kx, kz) }); w.anim = (P, t) => P.pose(t > 2.6 ? 'carry' : 'idle', t);
     const b = c.proto('grainBasket', 0, (kx + wx) / 2, (kz + wz) / 2, 0, 1.0); c.on(t => { const u = smooth(1.4, 2.6, t); b.position.set(kx + (wx - kx) * (0.35 + 0.4 * u), c.h(kx, kz) + 1.0, kz + (wz - kz) * (0.35 + 0.4 * u)); });
@@ -172,11 +172,11 @@ shot('k11', 'k11', {
 // k12: two baskets for a house on the hill (workers building)
 shot('k12', 'k12', {
   hours: TIME.afternoon + 0.6, cloud: 0.35, year: 526,
-  cam: K([0, [HILL.x - 30, 6, HILL.z - 30], [HILL.x - 10, 6, HILL.z - 10], 36], [1, [HILL.x - 26, 7, HILL.z - 27], [HILL.x - 10, 6, HILL.z - 10], 36]),
-  veg: { r0: 40 }, shadow: { x: HILL.x - 14, z: HILL.z - 14, r: 25 },
+  cam: K([0, [26, 2.4, 2], [40, 3, 20], 34], [1, [27, 2.4, 4], [41, 3.2, 21], 34]),
+  veg: { r0: 40 }, shadow: { x: 36, z: 14, r: 18 },
   setup(c) {
     for (let i = 0; i < 8; i++) {
-      const x0 = HILL.x - 26 + i * 0.9, z0 = HILL.z - 22 + i * 0.5, x1 = HILL.x - 14 + i * 0.6, z1 = HILL.z - 14 + i * 0.4;
+      const x0 = 28 + i * 1.6, z0 = 9 + i * 1.3, x1 = 44 + i * 0.6, z1 = 23 + i * 0.5;
       const P = vill(c, 33 + i, x0, z0, { acc: ['basket'] }); P.anim = (Q, t) => c.walkTo(Q, x0, z0, x1, z1, (t + i * 0.7) % 6, 0, 6, { movePose: 'carry', speed: 0.6, phase: i });
     }
   },
@@ -221,17 +221,17 @@ shot('k14b', 'k14', {
 // k15: two neighbourhoods — the hill / the riverbank
 shot('k15a', 'k15', {
   hours: TIME.morning + 1.5, cloud: 0.3, year: 560,
-  cam: K([0, [HILL.x - 34, 14, HILL.z - 30], [HILL.x - 4, 8, HILL.z], 36], [1, [HILL.x - 28, 13, HILL.z - 34], [HILL.x - 4, 8, HILL.z], 36]),
+  cam: K([0, [10, 34, -12], [62, 8, 40], 38], [1, [16, 32, -18], [62, 8, 40], 38]),
   veg: { r0: 40 }, shadow: { x: HILL.x - 10, z: HILL.z - 10, r: 40 },
   setup(c) { c.protos('pot', 0, [...Array(10)].map((_, i) => [GRANARY_K.x - 4 + (i % 5) * 0.6, GRANARY_K.z - 4.5 + Math.floor(i / 5) * 0.6, i, 1.1])); },
 });
 shot('k15b', 'k15', {
   hours: TIME.afternoon, cloud: 0.6, year: 560,
-  cam: K([0, [RIVERBANK.x + 14, 1.7, RIVERBANK.z + 8], [RIVERBANK.x, 0.8, RIVERBANK.z], 34], [1, [RIVERBANK.x + 12, 1.6, RIVERBANK.z + 9.5], [RIVERBANK.x, 0.8, RIVERBANK.z], 34]),
+  cam: K([0, [-55, 1.7, -22], [-42, 1.0, -9], 34], [1, [-54.5, 1.65, -20.5], [-42, 1.0, -9], 34]),
   veg: { grassR: 0, r0: 40 }, shadow: { x: RIVERBANK.x + 4, z: RIVERBANK.z + 4, r: 18 },
   setup(c) {
     const r = mulberry32(31);
-    for (let i = 0; i < 7; i++) { const x = RIVERBANK.x + 2 + (r() - 0.5) * 12, z = RIVERBANK.z + 4 + (r() - 0.5) * 10; const P = vill(c, i + 12, x, z, { yaw: r() * 6.28, energy: 0.7, era: 'early' }); P.anim = (Q, t) => Q.pose(i % 2 ? 'sitGround' : 'sad', t + i, { headX: 0.4 }); }
+    for (let i = 0; i < 7; i++) { const x = -48 + (r() - 0.5) * 8, z = -15 + (r() - 0.5) * 8; const P = vill(c, i + 12, x, z, { yaw: r() * 6.28, energy: 0.7, era: 'early' }); P.anim = (Q, t) => Q.pose(i % 2 ? 'sitGround' : 'sad', t + i, { headX: 0.4 }); }
   },
 }, 3.8);
 // k16: I had a really bad feeling (dark clouds over the river)
@@ -271,7 +271,7 @@ shot('k20', 'k20', {
 // k21: "Yeah." — Kassa on the dry hill, arms crossed
 shot('k21', 'k21', {
   hours: TIME.afternoon + 0.8, storm: 0.3, cloud: 0.6, year: 610.4,
-  cam: K([0, [HILL.x - 9.5, 4.5, HILL.z - 10.5], [HILL.x - 6, 4.7, HILL.z - 8], 28], [1, [HILL.x - 9.3, 4.5, HILL.z - 10.3], [HILL.x - 6, 4.7, HILL.z - 8], 27]),
+  cam: K([0, [HILL.x - 9.0, 1.7, HILL.z - 10.6], [HILL.x - 6, 1.4, HILL.z - 8], 30], [1, [HILL.x - 8.8, 1.7, HILL.z - 10.4], [HILL.x - 6, 1.45, HILL.z - 8], 28]),
   veg: { r0: 40 }, shadow: { x: HILL.x - 6, z: HILL.z - 8, r: 8 },
   setup(c) { c.water(-40, 0, 360, 360, () => 2.45); const k = c.person('KASSA', { x: HILL.x - 6, z: HILL.z - 8, yaw: yawTo(HILL.x - 6, HILL.z - 8, HILL.x - 9.5, HILL.z - 10.5) }); k.anim = (P, t) => P.pose('armsCrossed', t, { look: 0 }); },
 });
@@ -281,7 +281,7 @@ shot('k22', 'k22', {
   cam: K([0, [PRIMA.x + 10, 1.5, PRIMA.z - 12], [PRIMA.x + 4, 1.2, PRIMA.z - 4], 32], [1, [PRIMA.x + 6, 1.5, PRIMA.z - 13], [PRIMA.x + 2, 1.2, PRIMA.z - 4], 32]),
   veg: { grassR: 0, r0: 40 }, shadow: { x: PRIMA.x + 3, z: PRIMA.z - 5, r: 14 },
   setup(c) {
-    c.water(PRIMA.x - 20, PRIMA.z + 6, 60, 50, () => 2.2);
+    c.water(PRIMA.x - 20, PRIMA.z + 6, 60, 50, () => 1.98, { dim: 0.4, deep: 0x2a2116, shallow: 0x433626 });
     const r = mulberry32(55);
     for (let i = 0; i < 9; i++) { const x = PRIMA.x + 4 + (r() - 0.5) * 9, z = PRIMA.z - 4 + (r() - 0.5) * 6; const P = vill(c, i + 14, x, z, { yaw: r() * 6.28 - 2.2, energy: 0.7, era: 'early' }); P.anim = (Q, t) => Q.pose(i % 3 === 0 ? 'lookUp' : 'sad', t + i, { amount: 0.6 }); }
   },
@@ -289,7 +289,7 @@ shot('k22', 'k22', {
 // k23: "Why?" — a survivor looks up at the sky
 shot('k23', 'k23', {
   hours: TIME.afternoon + 1.3, storm: 0.5, cloud: 0.8, year: 611, grade: 'sad',
-  cam: K([0, [PRIMA.x + 4.6, 1.05, PRIMA.z - 5.4], [PRIMA.x + 4, 1.9, PRIMA.z - 4], 26], [1, [PRIMA.x + 4.55, 1.0, PRIMA.z - 5.25], [PRIMA.x + 4, 1.95, PRIMA.z - 4], 24]),
+  cam: K([0, [PRIMA.x + 4.9, 0.9, PRIMA.z - 5.9], [PRIMA.x + 4, 1.45, PRIMA.z - 4], 30], [1, [PRIMA.x + 4.8, 0.88, PRIMA.z - 5.7], [PRIMA.x + 4, 1.5, PRIMA.z - 4], 28]),
   veg: { grassR: 0, r0: 40 }, shadow: { x: PRIMA.x + 4, z: PRIMA.z - 4, r: 6 },
   setup(c) { const P = vill(c, 17, PRIMA.x + 4, PRIMA.z - 4, { yaw: yawTo(PRIMA.x + 4, PRIMA.z - 4, PRIMA.x + 4.6, PRIMA.z - 5.4), energy: 0.7, era: 'early' }); P.anim = (Q, t) => Q.pose('lookUp', t, { amount: 0.9 }); },
 });

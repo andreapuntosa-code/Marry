@@ -40,9 +40,9 @@ function hutRound(seed = 1) {
 function leanTo() {
   const parts = [];
   for (const x of [-1.2, 1.2]) parts.push(paint(T(new THREE.CylinderGeometry(0.05, 0.06, 2.2, 5), x, 1.1, 1.0), solid(0x6b4a2b)));
-  const roof = paint(new THREE.PlaneGeometry(2.8, 2.6, 4, 4), (x, y, z, c) => c.set(0x5a6a2f).multiplyScalar(0.8 + 0.3 * Math.random()));
-  roof.rotateX(-Math.PI / 2 + 0.75); T(roof, 0, 1.15, 0.2);
-  return merge(parts.concat([roof, paint(roof.clone().rotateY(Math.PI), solid(0x4a5a27))]));
+  const roof = paint(new THREE.BoxGeometry(2.6, 0.12, 2.3, 4, 1, 4), (x, y, z, c) => c.set(0xb89458).multiplyScalar(0.72 + 0.35 * Math.abs(Math.sin(x * 9 + z * 3)) + 0.1 * Math.random()));
+  roof.rotateX(0.62); T(roof, 0, 1.25, 0.2);
+  return merge(parts.concat([roof]));
 }
 function fencePen(r = 6, posts = 16) {
   const parts = [];
@@ -132,7 +132,7 @@ function temple() {
   for (let k = 0; k < 24; k++) parts.push(paint(T(new THREE.BoxGeometry(4.5, 0.27 * (k + 1), 0.34), 0, 0.135 * (k + 1), 12.6 - k * 0.31), solid(0xcfc4b0, 0.03)));
   // colonnade on top
   for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2 + Math.PI / 8; parts.push(paint(T(new THREE.CylinderGeometry(0.35, 0.4, 4.2, 10), Math.cos(a) * 4, y + 2.1, Math.sin(a) * 4), solid(0xe8e0d0, 0.03))); }
-  parts.push(paint(T(new THREE.CylinderGeometry(5.0, 5.0, 0.5, 20), 0, y + 4.45), solid(0xd9cfbd, 0.03)));
+  parts.push(paint(T(new THREE.CylinderGeometry(4.45, 4.45, 0.5, 20), 0, y + 4.45), solid(0xd9cfbd, 0.03)));
   // obelisk pointing at the sky (gold tip)
   parts.push(paint(T(new THREE.CylinderGeometry(0.6, 1.0, 9, 4), 0, y + 4.7 + 4.5, 0, Math.PI / 4), solid(0xe2d8c4, 0.03)));
   parts.push(paint(T(new THREE.ConeGeometry(0.85, 1.6, 4), 0, y + 4.7 + 9.8, 0, Math.PI / 4), solid(0xe0b44a, 0.02)));
@@ -203,7 +203,10 @@ function bridge(L = 40, W = 5) {
   for (let k = 0; k < 5; k++) { const x = -L / 2 + (k + 0.5) * L / 5; parts.push(paint(T(new THREE.CylinderGeometry(0.35, 0.4, 5, 8), x, 0, 0), solid(0x5a3b22))); }
   return merge(parts);
 }
-function bowl() { const g = new THREE.SphereGeometry(1.0, 20, 10, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2); g.rotateX(Math.PI); g.scale(1, 0.55, 1); return paint(T(g, 0, 0.55, 0), solid(0x9a6a44, 0.05)); }
+function bowl() {
+  const prof = [[0, 0], [0.55, 0.03], [0.86, 0.16], [0.99, 0.38], [1.03, 0.52], [1.0, 0.56], [0.93, 0.5], [0.83, 0.3], [0.6, 0.15], [0.3, 0.1], [0, 0.09]].map(([x, y]) => new THREE.Vector2(x, y));
+  return paint(new THREE.LatheGeometry(prof, 28), (x, y, z, c) => c.set(0x9a6a44).multiplyScalar(y > 0.5 ? 1.1 : (Math.hypot(x, z) < 0.9 && y > 0.08 && y < 0.5 ? 0.62 : 0.9)));
+}
 function pot() { const prof = [[0, 0], [0.18, 0.02], [0.26, 0.15], [0.24, 0.32], [0.15, 0.42], [0.13, 0.48], [0.16, 0.52]].map(([x, y]) => new THREE.Vector2(x, y)); return paint(new THREE.LatheGeometry(prof, 12), solid(0xb5703f, 0.1)); }
 function berryBush(seed = 1) {
   const r = mulberry32(seed), parts = [];
@@ -399,6 +402,12 @@ export function genTown() {
   add({ type: 'bridge', v: 0, x: -76, z: 30, yaw: Math.PI / 2 + 0.15, built: 1150, replacedBy: 'stoneBridge', replaceYear: 1480 });   // Pell's stone bridge
   for (let k = 0; k < 5; k++) add({ type: 'windmill', v: 0, x: 140 + k * 36 + r() * 10, z: -120 - r() * 60, built: 1600 + k * 40 });
   for (let k = 0; k < 18; k++) { const a = k / 18 * Math.PI * 2; add({ type: 'stall', v: k % 4, x: 8 + Math.cos(a) * 14, z: -6 + Math.sin(a) * 14, yaw: -a + Math.PI / 2, built: 1100 + k * 10 }); }
+  // the temple (1002) and the palace (1421) replace whatever stood on their ground
+  for (const b of B) {
+    if (b.type === 'temple' || b.type === 'castle') continue;
+    if (Math.hypot(b.x - TEMPLE_POS.x, b.z - TEMPLE_POS.z) < 17) b.destroyed = Math.min(b.destroyed, 1002);
+    if (Math.hypot(b.x - CASTLE_POS.x, b.z - CASTLE_POS.z) < 20) b.destroyed = Math.min(b.destroyed, 1421);
+  }
   // Kassa XIX's wall (1926): demolishes whatever stands on its line; torn down after the revolution
   const wd = (x, z) => { let best = 1e9; for (let i = 0; i < SPLIT_WALL.length - 1; i++) { const [ax, az] = SPLIT_WALL[i], [bx, bz] = SPLIT_WALL[i + 1]; const dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz; let t = ((x - ax) * dx + (z - az) * dz) / L2; t = Math.max(0, Math.min(1, t)); best = Math.min(best, Math.hypot(x - ax - dx * t, z - az - dz * t)); } return best; };
   for (const b of B) if (!['temple', 'castle', 'bridge', 'windmill'].includes(b.type) && wd(b.x, b.z) < 6) b.destroyed = Math.min(b.destroyed, 1926);
@@ -416,7 +425,7 @@ export function townState(B, year, fluct = 0) {
     if (year < b.built) continue;
     let type = b.type;
     if (b.replaceYear && year >= b.replaceYear && b.replacedBy) type = b.replacedBy;
-    if (year >= b.destroyed && (year < b.destroyed + 300 || b.type === 'mud' || b.type === 'wall' || b.destroyed >= 1900)) continue;
+    if (year >= b.destroyed && (year < b.destroyed + 300 || b.type === 'mud' || b.type === 'wall' || b.destroyed >= 1000)) continue;
     const grow = clamp((year - b.built) / 3);
     out.push({ ...b, type, grow });
   }

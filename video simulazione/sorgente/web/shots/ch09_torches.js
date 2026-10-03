@@ -5,7 +5,7 @@ import { mulberry32 } from '../lib/noise.js';
 import { VILLAGERS, spearMesh, crownMesh } from '../lib/people.js';
 import { TorchField } from '../lib/fx.js';
 import { K, orbitCam, TIME, PRIMA, HILL, TEMPLE, CASTLE, PLAZA, BRIDGE, yawTo, lerpAngle, smooth, eraAcc,
-  castleLocal, CASTLE_YAW, LANDING, GUARD, BLUE } from './sets.js';
+  castleLocal, castleXZ, CASTLE_YAW, LANDING, GUARD, BLUE } from './sets.js';
 import { crownProp } from './ch00_open.js';
 
 const vill = (c, i, x, z, o = {}) => c.person(VILLAGERS[i % VILLAGERS.length], { x, z, acc: eraAcc(o.era || 'stone', i), ...o });
@@ -108,32 +108,32 @@ shot('x02a', 'x02', {
 // x02b: ground level — farmers, builders, shepherds marching with torches
 shot('x02b', 'x02', {
   ...NIGHT,
-  cam: K([0, [61, 1.7, 26], [57, 1.8, 18], 34], [1, [61.5, 1.7, 27.5], [57.5, 1.8, 19.5], 32]),
-  veg: { r0: 40 }, shadow: { x: 58, z: 20, r: 12 },
+  cam: K([0, [86, 1.7, 67.5], [76, 1.8, 57.5], 34], [1, [85.4, 1.7, 66.9], [75.4, 1.8, 56.9], 32]),
+  veg: { r0: 40 }, shadow: { x: 79, z: 60, r: 12 },
   setup(c) {
-    const dir = [60 - 8, 20 + 6]; const l = Math.hypot(...dir); const ux = dir[0] / l, uz = dir[1] / l;
+    const dir = [98 - 64, 78 - 46]; const l = Math.hypot(...dir); const ux = dir[0] / l, uz = dir[1] / l;
     for (let i = 0; i < 10; i++) {
-      const x0 = 50 - ux * (i % 5) * 1.8 + (i % 2 ? 1.4 : -1.4) * uz, z0 = 12 - uz * (i % 5) * 1.8 - (i % 2 ? 1.4 : -1.4) * ux - Math.floor(i / 5) * 2;
+      const x0 = 76 - ux * (i % 5) * 1.8 + (i % 2 ? 1.4 : -1.4) * uz, z0 = 57 - uz * (i % 5) * 1.8 - (i % 2 ? 1.4 : -1.4) * ux - Math.floor(i / 5) * 2;
       const P = vill(c, i + 4, x0, z0, { acc: i % 2 === 0 ? ['torch'] : (i % 3 === 0 ? ['staff'] : eraAcc('stone', i)) });
       if (i % 2 === 0) c.torch(P, { size: 0.34, light: i % 4 === 0, lightIntensity: 8, lightDist: 10, seed: i });
-      P.anim = (Q, t) => c.walkTo(Q, x0, z0, x0 + ux * 9, z0 + uz * 9, t, 0, 8, { speed: 0.7, movePose: i % 2 === 0 ? 'holdTorch' : 'walk', p: { walking: true }, phase: i });
+      P.anim = (Q, t) => c.walkTo(Q, x0, z0, x0 + ux * 6, z0 + uz * 6, t, 0, 8, { speed: 0.7, movePose: i % 2 === 0 ? 'holdTorch' : 'walk', p: { walking: true }, phase: i });
     }
     const n = 500, cr = c.crowd(n, { colors: [0xf2f2f2, 0xeeeeea, 0xd9c7a8] }), r = mulberry32(3);
     const tf = new TorchField(250); c.add(tf.group); const tp = [];
-    for (let i = 0; i < n; i++) { const back = 6 + r() * 60, off = (r() - 0.5) * 10; const x = 50 - ux * back + uz * off, z = 12 - uz * back - ux * off; cr.set(i, x, c.h(x, z), z, Math.atan2(ux, uz), 1); if (i < 250) tp.push([x + 0.2, c.h(x, z) + 2, z]); }
+    for (let i = 0; i < n; i++) { const back = 6 + r() * 40, off = (r() - 0.5) * 10; const x = 76 - ux * back + uz * off, z = 57 - uz * back - ux * off; cr.set(i, x, c.h(x, z), z, Math.atan2(ux, uz), 1); if (i < 250) tp.push([x + 0.2, c.h(x, z) + 2, z]); }
     tf.setPositions(tp); c.on(t => cr.update(t));
   },
 }, 3.1);
 // x02c: somebody even brought the goats
 shot('x02c', 'x02', {
   ...NIGHT,
-  cam: K([0, [58.2, 0.6, 20.4], [56, 0.5, 17.5], 30], [1, [58.6, 0.6, 21.0], [56.4, 0.5, 18.1], 28]),
-  veg: { r0: 40 }, shadow: { x: 56, z: 18, r: 8 },
+  cam: K([0, [80.5, 0.6, 61.5], [77.5, 0.5, 58.6], 30], [1, [80.9, 0.6, 62.0], [77.9, 0.5, 59.1], 28]),
+  veg: { r0: 40 }, shadow: { x: 78, z: 59, r: 8 },
   setup(c) {
-    const ux = 0.894, uz = 0.447;
-    for (let i = 0; i < 4; i++) { const x0 = 53 + i * 0.9 - uz * (i % 2) * 1.2, z0 = 15 + i * 0.4 + ux * (i % 2) * 1.2; const g = c.animal('goat', i, x0, z0, Math.atan2(ux, uz)); c.on(t => { const x = x0 + ux * t * 0.9, z = z0 + uz * t * 0.9; g.root.position.set(x, c.h(x, z), z); g.animate(t, { speed: 0.6, phase: i }); }); }
-    const sh = vill(c, 2, 54.5, 13.5, { acc: ['torch'] }); c.torch(sh, { size: 0.34, light: true, lightIntensity: 8, lightDist: 10 });
-    sh.anim = (Q, t) => c.walkTo(Q, 54.5, 13.5, 54.5 + ux * 3, 13.5 + uz * 3, t, 0, 3, { movePose: 'holdTorch', p: { walking: true } });
+    const ux = 0.728, uz = 0.685;
+    for (let i = 0; i < 4; i++) { const x0 = 75 + i * 0.9 - uz * (i % 2) * 1.2, z0 = 56 + i * 0.4 + ux * (i % 2) * 1.2; const g = c.animal('goat', i, x0, z0, Math.atan2(ux, uz)); c.on(t => { const x = x0 + ux * t * 0.9, z = z0 + uz * t * 0.9; g.root.position.set(x, c.h(x, z), z); g.animate(t, { speed: 0.6, phase: i }); }); }
+    const sh = vill(c, 2, 76.5, 54.5, { acc: ['torch'] }); c.torch(sh, { size: 0.34, light: true, lightIntensity: 8, lightDist: 10 });
+    sh.anim = (Q, t) => c.walkTo(Q, 76.5, 54.5, 76.5 + ux * 3, 54.5 + uz * 3, t, 0, 3, { movePose: 'holdTorch', p: { walking: true } });
   },
 }, 5.6);
 // x03: at the top, in front of the palace, forty guards with spears
@@ -164,7 +164,7 @@ shot('x06', 'x06', {
   cam: K([0, L(1.6, 1.7, 25), L(0.4, 1.6, 17), 32], [1, L(1.2, 1.7, 22.5), L(0.4, 1.7, 16), 32], { abs: true }),
   veg: { r0: 40 }, shadow: { x: OR[0], z: OR[2], r: 14 },
   setup(c) {
-    king(c); guards(c); torchCrowd(c, 1600, { z0: 21.5 });
+    king(c); guards(c); torchCrowd(c, 1600, { z0: 21.5, keep: (lx, lz) => Math.hypot(lx - 1.4, lz - 24) > 3.8 });
     const s0 = L(0.6, 0, 22.5);
     const o = c.person('ORUN', { x: s0[0], z: s0[2], acc: BLUE }); o.anim = (P, t) => c.walkTo(P, s0[0], s0[2], OR[0], OR[2], t, 0.3, 2.8, { speed: 0.6, endPose: 'idle' });
   },
@@ -194,7 +194,7 @@ shot('x07', 'x07', {
 // x08: he put down his spear (slow)
 shot('x08', 'x08', {
   ...NIGHT,
-  cam: K([0, L(1.6, 1.0, 16.0), L(-0.55, 0.9, 14.2), 28], [1, L(1.5, 0.95, 15.8), L(-0.55, 0.85, 14.2), 26], { abs: true }),
+  cam: K([0, L(2.8, 1.5, 17.8), L(-0.55, 1.0, 14.2), 34], [1, L(2.6, 1.45, 17.5), L(-0.55, 0.95, 14.2), 32], { abs: true }),
   veg: { r0: 40 }, shadow: { x: DORN_AT[0], z: DORN_AT[2], r: 8 },
   setup(c) {
     king(c);
@@ -215,7 +215,7 @@ shot('x09', 'x09', {
 // x10: and the king was standing alone (from behind him, through the gate)
 shot('x10', 'x10', {
   ...NIGHT,
-  cam: K([0, L(1.4, 5.0, 4.4), L(0, 1.5, 22), 36], [1, L(1.1, 4.9, 4.8), L(0, 1.5, 22), 34], { abs: true }),
+  cam: K([0, L(0.9, 4.9, 6.15), L(0, 1.5, 22), 38], [1, L(0.8, 4.85, 6.2), L(0, 1.5, 22), 36], { abs: true }),
   veg: { r0: 40 }, shadow: { x: L(0, 0, 14)[0], z: L(0, 0, 14)[2], r: 18 },
   setup(c) {
     king(c, { anim: (P, t) => P.pose('idle', t, { look: 0.2 }) });
@@ -297,9 +297,9 @@ shot('x15a', 'x15', {
 });
 shot('x15b', 'x15', {   // ...and walked into the forest
   hours: TIME.dawn + 0.35, cloud: 0.35, year: 1931,
-  cam: K([0, [CASTLE.x - 40, 4, CASTLE.z - 10], [CASTLE.x - 10, 2, CASTLE.z + 30], 34], [1, [CASTLE.x - 41, 4, CASTLE.z - 9], [CASTLE.x - 12, 2, CASTLE.z + 34], 34]),
-  veg: { r0: 40 }, shadow: { x: CASTLE.x - 15, z: CASTLE.z + 25, r: 20 },
-  setup(c) { const x0 = CASTLE.x - 16, z0 = CASTLE.z + 18, x1 = CASTLE.x - 8, z1 = CASTLE.z + 44; const k = c.person('KASSA19', { x: x0, z: z0, acc: ['cape'] }); k.anim = (P, t) => c.walkTo(P, x0, z0, x1, z1, t, 0, c.dur + 1, { speed: 0.6 }); },
+  cam: K([0, castleXZ(3.0, -14, 5.5), castleXZ(0, -36, 0.8), 36], [1, castleXZ(2.8, -15, 5.3), castleXZ(0, -40, 0.8), 36]),
+  veg: { r0: 40 }, shadow: { x: castleLocal(0, 0, -26)[0], z: castleLocal(0, 0, -26)[2], r: 18 },
+  setup(c) { const p0 = castleLocal(0.6, 0, -18), p1 = castleLocal(0.6, 0, -44); const k = c.person('KASSA19', { x: p0[0], z: p0[2], acc: ['cape'] }); k.anim = (P, t) => c.walkTo(P, p0[0], p0[2], p1[0], p1[2], t, 0, c.dur + 1.5, { speed: 0.6 }); },
 }, 3.3);
 // x16: I never found him again. And yes, I looked. (searching over the forest)
 shot('x16', 'x16', {
@@ -312,7 +312,7 @@ shot('x17', 'x17', { ...SHOTS.op8, hours: TIME.dawn + 0.5 });
 // x18: they chose democracy — blue banners at sunrise
 shot('x18', 'x18', {
   hours: TIME.dawn + 0.8, cloud: 0.35, year: 1931,
-  cam: K([0, L(-6, 1.2, 30), L(0, 9, 4), 34], [1, L(-5, 1.2, 28), L(0, 9.5, 4), 32], { abs: true }),
+  cam: K([0, L(-3, 1.5, 20.5), L(0, 8, 6), 36], [1, L(-2.6, 1.5, 19.6), L(0, 8.4, 6), 34], { abs: true }),
   veg: { r0: 40 }, shadow: { x: L(0, 0, 18)[0], z: L(0, 0, 18)[2], r: 20 },
   setup(c) {
     for (const [lx, lz] of [[-8, 13], [8, 13], [-13, 0], [13, 0], [0, 13.2]]) { const p = L(lx, 6.4, lz); c.proto('bannerBlue', 0, p[0], p[2], CASTLE_YAW, 1.3, 0, { y: p[1] }); }
@@ -325,10 +325,10 @@ shot('x18b', 'x18b', { ...SHOTS.op2, cam: K([0, [PLAZA.x + 6, 1.8, PLAZA.z + 4],
 // x19: forty days voting on the colour of a bridge
 shot('x19', 'x19', {
   hours: TIME.afternoon, cloud: 0.4, year: 1933,
-  cam: K([0, [BRIDGE.x + 16, 2.4, BRIDGE.z - 12], [BRIDGE.x + 6, 2.0, BRIDGE.z - 3], 32], [1, [BRIDGE.x + 15, 2.3, BRIDGE.z - 11], [BRIDGE.x + 6, 2.0, BRIDGE.z - 3], 30]),
-  veg: { r0: 40 }, shadow: { x: BRIDGE.x + 8, z: BRIDGE.z - 4, r: 12 },
+  cam: K([0, [-103, 1.8, -6], [-94, 1.6, 6], 32], [1, [-102.4, 1.75, -5.2], [-94, 1.6, 6], 30]),
+  veg: { r0: 40 }, shadow: { x: -97, z: 2, r: 12 },
   setup(c) {
-    const bx = BRIDGE.x + 8, bz = BRIDGE.z - 4;
+    const bx = -97, bz = 2;
     c.proto('bannerBlue', 0, bx - 2.4, bz + 1.5, 0.4, 0.8); c.proto('bannerYellow', 0, bx + 2.4, bz + 1.2, 0.4, 0.8);
     c.proto('bowl', 0, bx - 1.2, bz, 0, 0.45); c.proto('bowl', 0, bx + 1.2, bz, 0, 0.45);
     [[-2.6, -1.4, 'talk'], [-1.4, -2.4, 'point'], [2.2, -1.8, 'facepalm'], [3.0, -0.6, 'talk'], [0.2, -3.0, 'shrug'], [-3.4, 0.2, 'armsCrossed']].forEach(([dx, dz, pose], i) => { const x = bx + dx, z = bz + dz; const P = vill(c, i + 20, x, z, { yaw: yawTo(x, z, bx, bz) + (i % 2 ? 0.4 : -0.4), acc: i % 2 ? BLUE : [{ type: 'sash', color: 0xe0b23a }] }); P.anim = (Q, t) => Q.pose(pose, t * 1.3 + i, { phase: i }); });

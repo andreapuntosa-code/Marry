@@ -43,7 +43,7 @@ shot('w01', 'w01', {
 // w02: total chaos (two quick comedic two-shots)
 shot('w02a', 'w02', {
   ...NIGHT,
-  cam: K([0, [CAMP.x + 1.2, 1.25, CAMP.z - 4.6], [CAMP.x + 1.8, 1.1, CAMP.z - 1.6], 30], [1, [CAMP.x + 1.0, 1.2, CAMP.z - 4.3], [CAMP.x + 1.8, 1.1, CAMP.z - 1.6], 28]),
+  cam: K([0, [CAMP.x + 1.4, 1.2, CAMP.z - 5.4], [CAMP.x + 1.8, 1.05, CAMP.z - 1.4], 34], [1, [CAMP.x + 1.3, 1.18, CAMP.z - 5.1], [CAMP.x + 1.8, 1.05, CAMP.z - 1.4], 32]),
   veg: { grassR: 8, extra: MEADOW_TREES }, shadow: { x: CAMP.x, z: CAMP.z, r: 10 },
   setup(c) {
     camp(c, 3);
@@ -53,7 +53,7 @@ shot('w02a', 'w02', {
 });
 shot('w02b', 'w02', {
   ...NIGHT,
-  cam: K([0, [CAMP.x - 3.8, 1.25, CAMP.z + 1.4], [CAMP.x - 1.2, 1.0, CAMP.z + 2.2], 30], [1, [CAMP.x - 3.6, 1.2, CAMP.z + 1.2], [CAMP.x - 1.2, 1.0, CAMP.z + 2.2], 28]),
+  cam: K([0, [CAMP.x - 4.8, 1.2, CAMP.z + 1.0], [CAMP.x - 1.2, 1.0, CAMP.z + 2.4], 34], [1, [CAMP.x - 4.6, 1.18, CAMP.z + 0.9], [CAMP.x - 1.2, 1.0, CAMP.z + 2.4], 32]),
   veg: { grassR: 8, extra: MEADOW_TREES }, shadow: { x: CAMP.x, z: CAMP.z, r: 10 },
   setup(c) {
     camp(c, 3);

@@ -63,11 +63,12 @@ export function buildRoom(c, opts = {}) {
   // lamp
   cyl(0.07, 0.08, 0.02, black, -0.7, 0.755, -0.5); cyl(0.012, 0.012, 0.42, black, -0.7, 0.97, -0.5, 6);
   const shade = cyl(0.05, 0.11, 0.12, M(0x2b2b2b, 0.5), -0.62, 1.16, -0.45); shade.rotation.z = -0.6;
-  const lamp = new THREE.PointLight(0xffb36b, opts.lamp ?? 1.6, 3.5, 2); lamp.position.set(-0.6, 1.05, -0.42); grp.add(lamp);
-  const mon = new THREE.PointLight(0x8fc7ff, opts.monitor ?? 2.4, 4.5, 2); mon.position.set(0, 1.12, 0.05); grp.add(mon);
+  const lamp = new THREE.PointLight(0xffb36b, opts.lamp ?? 3.2, 4.5, 2); lamp.position.set(-0.6, 1.05, -0.42); grp.add(lamp);
+  const mon = new THREE.PointLight(0x8fc7ff, opts.monitor ?? 4.5, 5.5, 2); mon.position.set(0, 1.12, 0.05); grp.add(mon);
   // window with blinds (moonlight strips)
   for (let k = 0; k < 9; k++) { const g = new THREE.PlaneGeometry(1.2, 0.07); c.own(g); const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: 0x5f7fb8, toneMapped: false })); m.position.set(-2.54, 1.0 + k * 0.12, 0.6); m.rotation.y = Math.PI / 2; grp.add(m); }
-  const moon = new THREE.PointLight(0x7f9fd8, 0.6, 5, 2); moon.position.set(-2.2, 1.5, 0.6); grp.add(moon);
+  const fill = new THREE.PointLight(0x6f7f9f, 1.6, 7, 2); fill.position.set(1.6, 2.2, 2.4); grp.add(fill);
+  const moon = new THREE.PointLight(0x7f9fd8, 1.2, 6, 2); moon.position.set(-2.2, 1.5, 0.6); grp.add(moon);
   // chair
   box(0.5, 0.06, 0.5, black, 0, 0.47, 0.62); box(0.5, 0.6, 0.06, black, 0, 0.82, 0.88); cyl(0.03, 0.03, 0.42, black, 0, 0.24, 0.62, 8);
   c.add(grp);

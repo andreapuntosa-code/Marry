@@ -92,8 +92,11 @@ export const templeLocal = (lx, ly, lz) => localTo(TEMPLE_POS.x, TEMPLE_POS.z, T
 export const castleLocal = (lx, ly, lz) => localTo(CASTLE_POS.x, CASTLE_POS.z, CASTLE_YAW, lx, ly, lz);
 // the castle landing (top of the grand stairs) and the foot of the stairs
 export const LANDING = castleLocal(0, 3.0, 6.7);
+// world [x, h, z] with h ABOVE THE TERRAIN (for K() in relative mode) from building-local coordinates
+export const castleXZ = (lx, lz, h) => { const p = castleLocal(lx, 0, lz); return [p[0], h, p[2]]; };
+export const templeXZ = (lx, lz, h) => { const p = templeLocal(lx, 0, lz); return [p[0], h, p[2]]; };
 export const STAIRS_FOOT = castleLocal(0, 0, 12.2);
-export const TEMPLE_TOP = templeLocal(0, 6.48, 4.7);       // top of the temple stairs, in front of the colonnade
+export const TEMPLE_TOP = templeLocal(0, 6.48, 4.85);       // top of the temple stairs, in front of the colonnade
 // height of the temple stairs at local z (for climbing)
 export const templeStairY = (lz) => Math.max(0, Math.min(6.48, ((12.77 - lz) / 0.31 + 1) * 0.27));
 export const TEMPLE_FOOT = templeLocal(0, 0, 14.5);        // foot of the temple stairs

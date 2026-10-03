@@ -42,21 +42,21 @@ shot('c01b', 'c01', {   // the wheel
 }, 1.6);
 shot('c01c', 'c01', {   // writing
   hours: TIME.afternoon, cloud: 0.4, year: 1060,
-  cam: K([0, [-11.2, 1.05, -2.4], [-12, 0.8, -1.2], 26], [1, [-11.0, 1.0, -2.2], [-12, 0.8, -1.2], 24]),
-  veg: { r0: 40 }, shadow: { x: -12, z: -1, r: 5 },
+  cam: K([0, [-0.4, 1.6, -8.4], [-3.8, 0.9, -5.3], 32], [1, [-0.6, 1.55, -8.1], [-3.8, 0.9, -5.3], 30]),
+  veg: { r0: 40 }, shadow: { x: -3.4, z: -5.5, r: 5 },
   setup(c) {
-    const s = c.proto('slab', 0, -12, -0.9, Math.PI + 0.5, 0.7);
-    const w = vill(c, 3, -12.6, -1.7, { yaw: 0.5 }); w.anim = (P, t) => { P.pose('idle', t); P.R.sh.rotation.x = -1.25 + Math.sin(t * 10) * 0.06; P.R.el.rotation.x = -0.5; P.head.rotation.x = 0.3; };
+    const s = c.proto('slab', 0, -3.6, -4.9, yawTo(-3.6, -4.9, -1.4, -7.4), 0.7);
+    const w = vill(c, 3, -4.3, -5.9, { yaw: yawTo(-4.3, -5.9, -3.6, -4.9) }); w.anim = (P, t) => { P.pose('idle', t); P.R.sh.rotation.x = -1.25 + Math.sin(t * 10) * 0.06; P.R.el.rotation.x = -0.5; P.head.rotation.x = 0.3; };
   },
 }, 3.25);
 shot('c01d', 'c01', {   // bronze
   hours: TIME.afternoon + 0.5, cloud: 0.45, year: 1080,
-  cam: K([0, [-20, 1.2, -16.5], [-21.4, 0.9, -14.4], 30], [1, [-19.8, 1.15, -16.2], [-21.4, 0.9, -14.4], 28]),
-  veg: { r0: 40 }, shadow: { x: -21, z: -14, r: 6 },
+  cam: K([0, [-21.6, 1.4, -18.4], [-25.8, 0.9, -20.6], 32], [1, [-21.9, 1.38, -18.6], [-25.8, 0.9, -20.6], 30]),
+  veg: { r0: 40 }, shadow: { x: -25.8, z: -20.5, r: 6 },
   setup(c) {
-    c.proto('forge', 0, -22.5, -13.5, 0.5, 1); c.fire(-22.5, -13.4, { size: 0.45, n: 14, lightIntensity: 10, lightDist: 8, dy: 0.95 });
-    c.proto('anvil', 0, -21, -14.6, 0.2, 1);
-    const sm = vill(c, 5, -20.6, -15.3, { yaw: yawTo(-20.6, -15.3, -21, -14.6), acc: [{ type: 'belt', color: 0x3a2a1a }] });
+    c.proto('forge', 0, -27.0, -19.6, 0.5, 1); c.fire(-27.0, -19.5, { size: 0.45, n: 14, lightIntensity: 10, lightDist: 8, dy: 0.95 });
+    c.proto('anvil', 0, -25.4, -20.6, 0.2, 1);
+    const sm = vill(c, 5, -24.8, -21.4, { yaw: yawTo(-24.8, -21.4, -25.4, -20.6), acc: [{ type: 'belt', color: 0x3a2a1a }] });
     sm.anim = (P, t) => { P.pose('idle', t); const k = Math.max(0, Math.sin(t * 7)); P.R.sh.rotation.x = -1.6 + k * 1.0; P.R.el.rotation.x = -0.4; P.spine.rotation.x = 0.2; };
   },
 }, 3.95);
@@ -96,11 +96,10 @@ shot('c02a', 'c02', {
 });
 shot('c02b', 'c02', {
   hours: TIME.morning + 1.5, cloud: 0.45, year: 1400,
-  cam: K([0, [BRIDGE.x + 14, 3.2, BRIDGE.z - 10], [BRIDGE.x, 3.0, BRIDGE.z], 32], [1, [BRIDGE.x + 13, 3.1, BRIDGE.z - 9.2], [BRIDGE.x, 3.0, BRIDGE.z], 30]),
-  veg: { r0: 40 }, shadow: { x: BRIDGE.x, z: BRIDGE.z, r: 18 },
+  cam: K([0, [-103, 1.7, -5], [-90, 2.5, 18], 32], [1, [-102.5, 1.7, -4.2], [-90, 2.5, 18], 30]),
+  veg: { r0: 40 }, shadow: { x: -97, z: 2, r: 14 },
   setup(c) {
-    const by = c.h(BRIDGE.x + 9, BRIDGE.z - 3);
-    [[9, -2.4, 'talk'], [10.4, -1.6, 'shrug'], [9.4, -0.6, 'facepalm']].forEach(([dx, dz, pose], i) => { const x = BRIDGE.x + dx, z = BRIDGE.z + dz; const P = vill(c, i + 18, x, z, { yaw: yawTo(x, z, BRIDGE.x, BRIDGE.z) + (i - 1) * 0.8 }); P.anim = (Q, t) => Q.pose(pose, t * 1.4 + i, { phase: i }); });
+    [[-97.6, 0.6, 'talk'], [-96.2, 1.6, 'shrug'], [-96.6, -0.4, 'facepalm']].forEach(([x, z, pose], i) => { const P = vill(c, i + 18, x, z, { yaw: yawTo(x, z, -96.8, 0.6) + (i - 1) * 0.3 }); P.anim = (Q, t) => Q.pose(pose, t * 1.4 + i, { phase: i }); });
   },
 }, 1.55);
 shot('c02c', 'c02', {
@@ -144,7 +143,7 @@ shot('c04b', 'c04', {
 // c04L: "The Observer spoke to me..." — over his shoulder, the crowd below
 shot('c04L', 'c04L', {
   hours: TIME.afternoon + 0.8, cloud: 0.35, year: 1420,
-  cam: K([0, templeLocal(-1.6, 8.6, 2.6), templeLocal(0, 0, 22), 36], [1, templeLocal(-1.3, 8.4, 2.9), templeLocal(0, 0, 22), 34], { abs: true }),
+  cam: K([0, templeLocal(0.55, 8.5, 2.9), templeLocal(0, 0, 22), 38], [1, templeLocal(0.5, 8.4, 3.1), templeLocal(0, 0, 22), 36], { abs: true }),
   veg: { r0: 40 }, shadow: { x: TEMPLE_FOOT[0], z: TEMPLE_FOOT[2], r: 22 },
   setup(c) {
     const k = c.personAt('KASSA7', TEMPLE_TOP[0], TEMPLE_TOP[1], TEMPLE_TOP[2], { yaw: TEMPLE_YAW, acc: ['cape'] }); k.anim = (P, t) => P.pose('armsOpen', t);
@@ -160,7 +159,7 @@ shot('c05', 'c05', {
 // c06a: the high priest Varo got three hundred baskets of grain that week
 shot('c06a', 'c06', {
   hours: TIME.morning + 1, cloud: 0.35, year: 1420,
-  cam: K([0, templeLocal(-7, 1.5, 21), templeLocal(-1, 1.2, 15.5), 32], [1, templeLocal(-6, 1.45, 20.2), templeLocal(-1, 1.2, 15.5), 30], { abs: true }),
+  cam: K([0, templeLocal(1.5, 1.6, 19.6), templeLocal(-1.4, 1.2, 15.0), 32], [1, templeLocal(1.2, 1.55, 19.0), templeLocal(-1.4, 1.2, 15.0), 30], { abs: true }),
   veg: { r0: 40 }, shadow: { x: TEMPLE_FOOT[0], z: TEMPLE_FOOT[2], r: 12 },
   setup(c) {
     const vp = templeLocal(-1.4, 0, 15.0);
@@ -211,7 +210,7 @@ shot('c08', 'c08', {
 // c09: a crown of copper / a palace on the hill / the first laws
 shot('c09a', 'c09', {
   hours: TIME.afternoon, cloud: 0.35, year: 1421,
-  cam: K([0, [PLAZA.x + 1.1, 1.65, PLAZA.z - 1.0], [PLAZA.x, 1.25, PLAZA.z], 24], [1, [PLAZA.x - 0.2, 1.6, PLAZA.z - 1.5], [PLAZA.x, 1.25, PLAZA.z], 22]),
+  cam: K([0, [PLAZA.x + 1.4, 1.25, PLAZA.z - 1.4], [PLAZA.x, 1.02, PLAZA.z], 28], [1, [PLAZA.x - 0.3, 1.22, PLAZA.z - 1.9], [PLAZA.x, 1.02, PLAZA.z], 26]),
   veg: { r0: 40 }, shadow: { x: PLAZA.x, z: PLAZA.z, r: 4 },
   setup(c) { c.proto('pedestal', 0, PLAZA.x, PLAZA.z, 0, 0.9); const cr = crownMesh(); cr.position.set(PLAZA.x, c.h(PLAZA.x, PLAZA.z) + 1.0, PLAZA.z); cr.scale.setScalar(1.6); c.add(cr); c.on(t => { cr.rotation.y = t * 0.8; }); },
 });
@@ -223,7 +222,7 @@ shot('c09b', 'c09', {
 }, 1.6);
 shot('c09c', 'c09', {
   hours: TIME.afternoon + 0.5, cloud: 0.35, year: 1425,
-  cam: K([0, [PLAZA.x - 3.4, 1.4, PLAZA.z - 3.0], [PLAZA.x, 1.3, PLAZA.z], 30], [1, [PLAZA.x - 3.1, 1.35, PLAZA.z - 2.7], [PLAZA.x, 1.3, PLAZA.z], 28]),
+  cam: K([0, [PLAZA.x - 2.0, 1.5, PLAZA.z - 4.6], [PLAZA.x - 0.4, 1.1, PLAZA.z + 0.8], 34], [1, [PLAZA.x - 1.8, 1.48, PLAZA.z - 4.3], [PLAZA.x - 0.4, 1.1, PLAZA.z + 0.8], 32]),
   veg: { r0: 40 }, shadow: { x: PLAZA.x, z: PLAZA.z, r: 6 },
   setup(c) {
     c.proto('slab', 0, PLAZA.x + 0.6, PLAZA.z + 0.8, Math.PI + 0.7, 1.3);
@@ -255,7 +254,7 @@ shot('c10b', 'c10', {   // nobody leaves the town without the king's permission
 }, 2.9);
 shot('c10c', 'c10', {   // and nobody questions the Observer's choice
   hours: TIME.golden - 0.2, cloud: 0.35, year: 1430,
-  cam: K([0, templeLocal(-8, 4, 28), templeLocal(0, 4, 8), 32], [1, templeLocal(-6.5, 3.8, 26), templeLocal(0, 4, 8), 30], { abs: true }),
+  cam: K([0, templeLocal(-3.5, 2.6, 25), templeLocal(0, 3.2, 10), 32], [1, templeLocal(-3.0, 2.5, 24), templeLocal(0, 3.3, 10), 30], { abs: true }),
   veg: { r0: 40 }, shadow: { x: TEMPLE_FOOT[0], z: TEMPLE_FOOT[2], r: 18 },
   setup(c) {
     const vp = templeLocal(0, templeStairY(10), 10); const v = c.personAt('VARO', vp[0], vp[1], vp[2], { yaw: TEMPLE_YAW }); v.anim = (P, t) => P.pose('armsOpen', t);
@@ -276,16 +275,16 @@ shot('c12a', 'c12', {
 });
 shot('c12b', 'c12', {
   hours: TIME.morning + 1.7, cloud: 0.35, year: 1480,
-  cam: K([0, [GRANARY_K.x - 14, 4, GRANARY_K.z - 14], [GRANARY_K.x, 3, GRANARY_K.z], 36], [1, [GRANARY_K.x - 12, 4, GRANARY_K.z - 15], [GRANARY_K.x, 3, GRANARY_K.z], 36]),
+  cam: K([0, [GRANARY_K.x - 26, 18, GRANARY_K.z - 26], [GRANARY_K.x, 3, GRANARY_K.z], 36], [1, [GRANARY_K.x - 22, 17, GRANARY_K.z - 28], [GRANARY_K.x, 3, GRANARY_K.z], 36]),
   veg: { r0: 40 }, shadow: { x: GRANARY_K.x, z: GRANARY_K.z, r: 16 },
 }, 1.1);
 shot('c12c', 'c12', {
   hours: TIME.afternoon, cloud: 0.35, year: 1481,
-  cam: K([0, [BRIDGE.x + 16, 2.2, BRIDGE.z - 14], [BRIDGE.x + 2, 3.5, BRIDGE.z], 34], [1, [BRIDGE.x + 14.5, 2.1, BRIDGE.z - 12.5], [BRIDGE.x + 2, 3.5, BRIDGE.z], 32]),
-  veg: { r0: 40 }, shadow: { x: BRIDGE.x + 8, z: BRIDGE.z - 4, r: 18 },
+  cam: K([0, [-103.5, 1.6, -4.5], [-82, 4.0, 24], 34], [1, [-103, 1.6, -3.6], [-82, 4.0, 24], 32]),
+  veg: { r0: 40 }, shadow: { x: -97, z: 2, r: 14 },
   setup(c) {
-    const px = BRIDGE.x + 10.5, pz = BRIDGE.z - 6;
-    const p = c.person('PELL', { x: px, z: pz, yaw: yawTo(px, pz, BRIDGE.x + 16, BRIDGE.z - 14) + 0.3 }); p.anim = (P, t) => P.pose(t > 2.4 ? 'point' : 'idle', t, { aim: -0.6 });
+    const px = -97.2, pz = 1.6;
+    const p = c.person('PELL', { x: px, z: pz, yaw: yawTo(px, pz, -103.5, -4.5) + 0.5 }); p.anim = (P, t) => P.pose(t > 2.4 ? 'point' : 'idle', t, { aim: 0.6 });
     c.proto('slab', 0, px + 1.0, pz + 0.6, 0.6, 0.55);
   },
 }, 2.3);

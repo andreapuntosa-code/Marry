@@ -16,8 +16,10 @@ import { Fire, TorchField, lightningBolt, Rain } from './lib/fx.js';
 import { drawGroundMap, GROUND_UNIFORMS } from './lib/groundmap.js';
 
 // cinema scope: the picture band is 1920x804 (2.39:1); the frame driver adds the black bars
-const W = 1920, H = 804;
-export const FILM = { aspect: W / H, vScale: 0.8 };
+// (?scope=0 renders full 16:9 frames, used for the thumbnails)
+const SCOPE = new URLSearchParams(location.search).get('scope') !== '0';
+const W = 1920, H = SCOPE ? 804 : 1080;
+export const FILM = { aspect: W / H, vScale: SCOPE ? 0.8 : 1.0 };
 const params = new URLSearchParams(location.search);
 const SCALE = parseFloat(params.get('scale') || '1');
 

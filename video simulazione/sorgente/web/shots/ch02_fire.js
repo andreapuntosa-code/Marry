@@ -94,7 +94,7 @@ shot('f06b', 'f06', {
 }, 3.8);
 // f07: two days later — her body on the forest floor (crane down)
 shot('f07', 'f07', {
-  hours: TIME.afternoon - 1, cloud: 0.55, year: 0, town: false,
+  hours: TIME.noon, cloud: 0.8, storm: 0.38, grade: 'sad', year: 0, town: false,
   cam: K([0, [A15_BODY.x + 2.5, 5.5, A15_BODY.z - 3], [A15_BODY.x, 0.2, A15_BODY.z], 36], [1, [A15_BODY.x + 2.0, 2.4, A15_BODY.z - 2.6], [A15_BODY.x, 0.2, A15_BODY.z], 34]),
   veg: { grassR: 8, r0: 60 }, clear: [[A15_BODY.x, A15_BODY.z, 4]], shadow: { x: A15_BODY.x, z: A15_BODY.z, r: 18 },
   setup(c) { const a = c.person('A15', { x: A15_BODY.x, z: A15_BODY.z, yaw: 0.7, energy: 0 }); a.anim = (P, t) => P.pose('lie', t); },
@@ -122,7 +122,7 @@ shot('f08', 'f08', {
 // f09: "But they understood." — Ise kneels by her (close)
 shot('f09', 'f09', {
   hours: TIME.afternoon + 0.5, cloud: 0.85, year: 0, town: false,
-  cam: K([0, [A15_BODY.x - 2.2, 0.9, A15_BODY.z - 1.6], [A15_BODY.x - 0.4, 0.7, A15_BODY.z + 0.2], 28], [1, [A15_BODY.x - 2.0, 0.85, A15_BODY.z - 1.45], [A15_BODY.x - 0.4, 0.7, A15_BODY.z + 0.2], 26]),
+  cam: K([0, [A15_BODY.x - 1.3, 0.75, A15_BODY.z + 2.6], [A15_BODY.x + 0.5, 0.45, A15_BODY.z + 0.5], 30], [1, [A15_BODY.x - 1.15, 0.72, A15_BODY.z + 2.4], [A15_BODY.x + 0.5, 0.45, A15_BODY.z + 0.5], 28]),
   veg: { grassR: 6, r0: 60 }, clear: [[A15_BODY.x, A15_BODY.z, 6]], shadow: { x: A15_BODY.x, z: A15_BODY.z, r: 10 },
   setup(c) {
     const a = c.person('A15', { x: A15_BODY.x, z: A15_BODY.z, yaw: 0.7, energy: 0 }); a.anim = (P, t) => P.pose('lie', t);
@@ -147,7 +147,7 @@ shot('f11', 'f11', {
 // f12a: rain; lightning strikes the tree by the camp; it catches fire
 function burningTree(c, t0, opts = {}) {
   const fires = [];
-  const pts = [[0, 9.5, 0, 2.6], [1.8, 8.2, 1.0, 1.8], [-1.6, 8.6, -0.8, 2.0], [0.6, 11.2, -0.6, 1.6], [-0.4, 6.8, 1.4, 1.4]];
+  const pts = [[0, 8.5, 0, 4.2], [2.2, 7.2, 1.2, 3.2], [-2.0, 7.6, -1.0, 3.4], [0.6, 10.4, -0.6, 3.0], [-0.6, 5.6, 1.6, 2.6], [0.3, 3.4, -0.5, 1.8], [1.4, 9.2, -1.6, 2.8]];
   pts.forEach(([dx, y, dz, s], k) => {
     const f = new Fire({ size: s, n: 22, emberN: 26, smoke: k === 0, light: k === 0, lightIntensity: 60, lightDist: 55, seed: k + 3 });
     f.group.position.set(LTREE.x + dx, c.h(LTREE.x + dx, LTREE.z + dz) + y, LTREE.z + dz); c.add(f.group); fires.push(f);

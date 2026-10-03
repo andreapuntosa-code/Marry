@@ -44,6 +44,7 @@ function letters(c, k, opts = {}) {
   c.own(g);
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4; c.own(tex);
   const mat = new THREE.MeshLambertMaterial({ map: tex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4 }); c.own(mat);
+  if (opts.glow) { mat.emissive = new THREE.Color(0xff8a2a); mat.emissiveMap = tex; mat.emissiveIntensity = opts.glow; }
   const m = new THREE.Mesh(g, mat); m.frustumCulled = false; m.renderOrder = 2; m.receiveShadow = true; c.add(m);
   let tf = null;
   if (opts.fire !== false) {
@@ -62,7 +63,7 @@ function letters(c, k, opts = {}) {
   return { mesh: m, tf };
 }
 function reveal(c, L, t0, t1) {
-  c.on(t => { const u = smooth(t0, t1, t); L.mesh.material.opacity = u; if (L.tf) { L.tf.group.visible = u > 0.01; L.tf.flames.material.opacity = u; L.tf.glows.material.opacity = 0.5 * u; } });
+  c.on(t => { const u = smooth(t0, t1, t); L.mesh.material.opacity = u; L.mesh.visible = u > 0.01; if (L.tf) { L.tf.group.visible = u > 0.01; L.tf.flames.material.opacity = u; L.tf.glows.material.opacity = 0.5 * u; } });
 }
 
 shot('m_card', 'chap:m01', {
@@ -136,13 +137,13 @@ shot('m04b', 'm04', {   // the builders dug them into the plain — letters a ki
 }, 3.0);
 // m05: on the first night of year 2000, all of them stopped and looked up
 function plainNight(c, opts = {}) {
-  const Ls = [0, 1, 2].map(k => letters(c, k, { size: opts.size ?? 6 }));
+  const Ls = [0, 1, 2].map(k => letters(c, k, { size: opts.size ?? 9, glow: opts.glow ?? 1.6 }));
   const n = opts.crowd ?? 2600, cr = c.crowd(n, { colors: [0xf2f2f2, 0xeeeeea, 0xd9c7a8, 0x2a5bd7] }); const r = mulberry32(12);
   for (let i = 0; i < n; i++) { const k = i % 3; const u = 0.02 + r() * 0.96, v = r() < 0.5 ? -0.12 - r() * 0.4 : 1.12 + r() * 0.4; const [x, z] = toWorld(k, u, v); cr.set(i, x, c.h(x, z), z, r() * 6.28, 0); }
   c.on(t => cr.update(t));
   return Ls;
 }
-const EYE = toWorld(1, 0.45, 1.35);
+const EYE = toWorld(1, 0.45, 1.083);          // in the gap between the 2nd and 3rd rows of letters
 shot('m05a', 'm05', {
   ...NIGHT, year: 2000, town: false,
   cam: K([0, [EYE[0] + 3, 1.6, EYE[1] + 6], [EYE[0] - 4, 2.0, EYE[1] - 20], 38], [1, [EYE[0] + 2.5, 1.6, EYE[1] + 5], [EYE[0] - 4, 2.4, EYE[1] - 20], 36]),
@@ -219,7 +220,7 @@ shot('m13', 'm13', {
 // m14: next time — what happens when they learn what I really am (she looks straight up, at us)
 shot('m14', 'm14', {
   ...NIGHT, year: 2040, town: false, top: true, topAt: [EYE[0], EYE[1]], grade: 'night',
-  cam: K([0, [EYE[0] + 0.05, 9, EYE[1] - 0.4], [EYE[0], 1.6, EYE[1]], 34], [1, [EYE[0] + 0.05, 3.2, EYE[1] - 0.25], [EYE[0], 1.6, EYE[1]], 30], { abs: false }),
+  cam: K([0, [EYE[0] + 0.05, 7, EYE[1] - 0.35], [EYE[0], 1.5, EYE[1]], 32], [1, [EYE[0] + 0.04, 2.7, EYE[1] - 0.2], [EYE[0], 1.5, EYE[1]], 28], { abs: false }),
   veg: { r0: 0, rImp: 0, r1: 400 }, shadow: { x: EYE[0], z: EYE[1], r: 8 },
   setup(c) {
     plainNight(c, { crowd: 600 });

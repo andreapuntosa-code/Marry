@@ -101,8 +101,9 @@ function baseHeight(x, z) {
   return h;
 }
 
-// Final height with the river valley and channel carved in.
-export function height(x, z) {
+// Terraces levelled for the temple and the palace (they sit on the slopes of the king's hill)
+const PLATEAUS = [{ x: 64, z: 46, r0: 18, r1: 30 }, { x: 98, z: 78, r0: 20, r1: 33 }];
+function carved(x, z) {
   let h = baseHeight(x, z);
   const [d, s, zr] = distToRiver(x, z);
   if (d < 400) {
@@ -113,6 +114,15 @@ export function height(x, z) {
     else h = lerp(h, floor, (1 - smoothstep(w * 1.0, w * 2.5, d)));
     const ch = 1 - smoothstep(w * 0.42, w * 1.0, d);
     h = lerp(h, lvl - 2.4, ch);
+  }
+  return h;
+}
+// Final height: the carved landscape with the terraces applied.
+export function height(x, z) {
+  let h = carved(x, z);
+  for (const p of PLATEAUS) {
+    const d = Math.hypot(x - p.x, z - p.z);
+    if (d < p.r1) { if (p.h === undefined) p.h = carved(p.x, p.z); h = lerp(p.h, h, smoothstep(p.r0, p.r1, d)); }
   }
   return h;
 }

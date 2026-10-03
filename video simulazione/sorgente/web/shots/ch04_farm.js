@@ -28,7 +28,7 @@ function campProps(c, opts = {}) {
   for (let k = 0; k < 9; k++) { const a = k / 9 * Math.PI * 2 + 0.3; c.proto('leanTo', 0, CAMP.x + Math.cos(a) * 7.5, CAMP.z + Math.sin(a) * 7.5, -a + Math.PI / 2, 1.0); }
   if (opts.fire) c.fire(CAMP.x, CAMP.z, { size: 0.9, smoke: true, lightIntensity: 24, lightDist: 20 });
 }
-const STORE = { x: CAMP.x + 5.2, z: CAMP.z - 3.2 };       // the winter food supply (baskets)
+const STORE = { x: CAMP.x + 10.5, z: CAMP.z - 2.5 };       // the winter food supply (baskets)
 function supply(c, knocked = 0) {
   const items = [];
   for (let i = 0; i < 12; i++) items.push([STORE.x + (i % 4) * 0.62 - 0.9, STORE.z + Math.floor(i / 4) * 0.6 - 0.6, i * 0.7, 1.0]);
@@ -46,11 +46,11 @@ shot('a_card', 'chap:a01', {
 shot('a01', 'a01', {
   hours: TIME.morning + 1.5, cloud: 0.35, year: 15, town: false,
   cam: K([0, [HUNT.x - 4, 1.4, HUNT.z - 12], [HUNT.x - 4, 1.0, HUNT.z], 36], [1, [HUNT.x + 8, 1.4, HUNT.z - 12], [HUNT.x + 10, 1.0, HUNT.z], 36]),
-  veg: { grassR: 18 },
+  veg: { grassR: 18 }, clear: [[HUNT.x + 2, HUNT.z, 30]],
   setup(c) {
     [0, 1, 2].forEach(i => {
       const d = c.animal('deer', i + 1, HUNT.x, HUNT.z, 1.57);
-      c.on(t => { const x = HUNT.x - 6 + t * 9 + i * 1.8, z = HUNT.z + 1.5 * i - 1; d.root.position.set(x, c.h(x, z), z); d.root.rotation.y = 1.57; d.animate(t, { speed: 2.2, phase: i }); });
+      c.on(t => { const x = HUNT.x - 4 + t * 5 + i * 1.8, z = HUNT.z + 1.5 * i - 1; d.root.position.set(x, c.h(x, z), z); d.root.rotation.y = 1.57; d.animate(t, { speed: 2.2, phase: i }); });
     });
     [['A03', 0], ['A17', 1], ['A20', 2]].forEach(([w, i]) => {
       const P = c.person(w, { x: HUNT.x - 10, z: HUNT.z + i * 1.2 - 1.5 });
@@ -163,10 +163,10 @@ shot('a07', 'a07', {
 // a08a: year 40 — she puts a seed in the ground on purpose
 shot('a08a', 'a08', {
   hours: TIME.morning + 0.5, cloud: 0.35, year: 40, town: false, groundKey: 'ff', groundExtra: () => {},
-  cam: K([0, [FF.x + 2.2, 0.55, FF.z - 2.4], [FF.x - 0.2, 0.5, FF.z + 0.2], 30], [1, [FF.x + 2.0, 0.5, FF.z - 2.2], [FF.x - 0.2, 0.5, FF.z + 0.2], 27]),
+  cam: K([0, [FF.x - 1.6, 0.7, FF.z + 2.6], [FF.x + 0.1, 0.45, FF.z + 0.2], 30], [1, [FF.x - 1.45, 0.66, FF.z + 2.35], [FF.x + 0.1, 0.45, FF.z + 0.2], 27]),
   veg: { grassR: 10, grassAt: [FF.x + 3, FF.z - 4] }, clear: [[FF.x, FF.z, 8]], shadow: { x: FF.x, z: FF.z, r: 10 },
   setup(c) {
-    const i = c.person('ISE', { x: FF.x, z: FF.z + 0.4, yaw: yawTo(FF.x, FF.z + 0.4, FF.x + 2, FF.z - 2.2) });
+    const i = c.person('ISE', { x: FF.x + 0.3, z: FF.z - 0.3, yaw: yawTo(FF.x + 0.3, FF.z - 0.3, FF.x - 1.6, FF.z + 2.6) + 0.5 });
     i.anim = (P, t) => P.pose('plant', t);
   },
 });
@@ -286,9 +286,9 @@ shot('a16a', 'a16', {
 });
 shot('a16b', 'a16', {   // Bo.
   hours: TIME.sunset - 0.05, cloud: 0.4, year: 109,
-  cam: K([0, [PRIMA.x + 6.8, 1.0, PRIMA.z + 1.6], [PRIMA.x + 8.6, 0.8, PRIMA.z + 3.3], 26], [1, [PRIMA.x + 6.9, 1.0, PRIMA.z + 1.7], [PRIMA.x + 8.6, 0.75, PRIMA.z + 3.3], 25]),
+  cam: K([0, [PRIMA.x + 7.0, 1.1, PRIMA.z + 6.4], [PRIMA.x + 8.6, 0.6, PRIMA.z + 3.3], 34], [1, [PRIMA.x + 7.05, 1.08, PRIMA.z + 6.3], [PRIMA.x + 8.6, 0.58, PRIMA.z + 3.3], 33]),
   veg: { grassR: 6 }, shadow: { x: PRIMA.x + 8, z: PRIMA.z + 3, r: 8 },
-  setup(c) { const b = c.person('BO', { x: PRIMA.x + 8.6, z: PRIMA.z + 3.3, yaw: -2.3 }); b.anim = (P, t) => { P.pose('sitGround', t, { headX: 0.2 + smooth(0, 0.5, t) * 0.4 }); P.setEnergy(0.5 * (1 - smooth(0.05, 0.4, t))); }; },
+  setup(c) { const b = c.person('BO', { x: PRIMA.x + 8.6, z: PRIMA.z + 3.3, yaw: yawTo(PRIMA.x + 8.6, PRIMA.z + 3.3, PRIMA.x + 7.0, PRIMA.z + 6.4) }); b.anim = (P, t) => { P.pose('sitGround', t, { headX: 0.2 + smooth(0, 0.5, t) * 0.4 }); P.setEnergy(0.5 * (1 - smooth(0.05, 0.4, t))); }; },
 }, 2.5);
 shot('a16c', 'a16', {   // Tam.
   hours: TIME.morning, cloud: 0.6, year: 110,
@@ -307,7 +307,7 @@ shot('a16d', 'a16', {   // Mira.
 }, 3.3);
 shot('a16e', 'a16', {   // ...and in year 112, the last one: Ise.
   hours: TIME.golden - 0.3, cloud: 0.4, year: 112,
-  cam: K([0, [PRIMA.x - 3.0, 2.6, PRIMA.z - 3.4], [PRIMA.x, 0.3, PRIMA.z], 32], [1, [PRIMA.x - 1.9, 1.7, PRIMA.z - 2.2], [PRIMA.x, 0.3, PRIMA.z], 30]),
+  cam: K([0, [PRIMA.x + 2.6, 4.2, PRIMA.z - 2.2], [PRIMA.x, 0.2, PRIMA.z + 0.2], 36], [1, [PRIMA.x + 2.0, 3.2, PRIMA.z - 1.7], [PRIMA.x, 0.2, PRIMA.z + 0.2], 34]),
   veg: { grassR: 8, grassAt: [PRIMA.x - 3, PRIMA.z - 4] }, clear: [[PRIMA.x, PRIMA.z, 4]], shadow: { x: PRIMA.x, z: PRIMA.z, r: 8 },
   setup(c) {
     const i = c.person('ISE', { x: PRIMA.x, z: PRIMA.z, yaw: 0.9 });
@@ -318,7 +318,7 @@ shot('a16e', 'a16', {   // ...and in year 112, the last one: Ise.
 // a17a: every child in Prima knew the story of the girl who raised her hand
 shot('a17a', 'a17', {
   hours: TIME.night, cloud: 0.2, year: 150, exposure: 1.25,
-  cam: K([0, [PRIMA.x + 2.5, 1.0, PRIMA.z - 5.5], [PRIMA.x + 4, 1.0, PRIMA.z - 1.2], 32], [1, [PRIMA.x + 2.9, 0.95, PRIMA.z - 4.6], [PRIMA.x + 4, 1.1, PRIMA.z - 1.2], 30]),
+  cam: K([0, [PRIMA.x + 0.6, 2.6, PRIMA.z - 6.4], [PRIMA.x + 4.2, 1.0, PRIMA.z - 0.7], 32], [1, [PRIMA.x + 0.9, 2.4, PRIMA.z - 5.8], [PRIMA.x + 4.2, 1.05, PRIMA.z - 0.7], 30]),
   veg: { grassR: 8, grassAt: [PRIMA.x + 2, PRIMA.z - 6] }, shadow: { x: PRIMA.x + 4, z: PRIMA.z - 1, r: 8 },
   setup(c) {
     const fx = PRIMA.x + 4, fz = PRIMA.z - 2.2;
@@ -329,7 +329,7 @@ shot('a17a', 'a17', {
   },
 });
 // a17b: the statue of Ise at dawn
-const STATUE_AT = { x: PRIMA.x + 9, z: PRIMA.z - 7 };
+const STATUE_AT = { x: -50, z: 2.6 };
 export function statue(c, x = STATUE_AT.x, z = STATUE_AT.z) {
   c.proto('pedestal', 0, x, z, 0.4, 1);
   const s = c.person('STATUE', { x, z, dy: 1.1, yaw: 0.4 + Math.PI });

@@ -10,5 +10,6 @@ import './ch07_crown.js';
 import './ch08_stones.js';
 import './ch09_torches.js';
 import './ch10_message.js';
+import './thumbs.js';
 export { SHOTS, LIST };
 window.SHOT_LIST = LIST;

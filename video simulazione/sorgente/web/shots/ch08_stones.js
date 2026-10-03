@@ -93,13 +93,14 @@ shot('d04', 'd04', {
   },
 });
 // d05: every AI gets a stone; the bowl with more stones wins
-const BW = { x: PLAZA.x - 30, z: PLAZA.z - 40 };
+const BW = { x: 46, z: -86 };
+const ASM = { x: 56, z: -87 };   // where the Assembly meets (1925-1929)
 function bowlsVote(c, n, t0, t1, ratio = 0.62) {
   const b1 = [BW.x - 0.9, BW.z], b2 = [BW.x + 0.9, BW.z];
   c.proto('bowl', 0, b1[0], b1[1], 0, 0.5); c.proto('bowl', 0, b2[0], b2[1], 0, 0.5);
   const ps = pebbles(c, n); const r = mulberry32(17);
   const st = [...Array(n)].map((_, i) => { const left = r() < ratio; const [bx, bz] = left ? b1 : b2; const a = r() * 6.28, rr = Math.sqrt(r()) * 0.32; return { x: bx + Math.cos(a) * rr, z: bz + Math.sin(a) * rr, tt: t0 + (t1 - t0) * (i / n), h: r() }; });
-  c.on(t => st.forEach((s, i) => { const f = Math.max(0, t - s.tt); if (t < s.tt) { ps.set(i, 0, -999, 0, 0); return; } const y = c.h(s.x, s.z) + 0.1 + s.h * 0.05 + Math.max(0, 1.6 - 9.8 * 0.5 * f * f); ps.set(i, s.x, y, s.z, 1.0); }));
+  c.on(t => st.forEach((s, i) => { const f = Math.max(0, t - s.tt); if (t < s.tt) { ps.set(i, 0, -999, 0, 0); return; } const y = c.h(s.x, s.z) + 0.07 + s.h * 0.04 + Math.max(0, 1.6 - 9.8 * 0.5 * f * f); ps.set(i, s.x, y, s.z, 1.0); }));
   return { b1, b2 };
 }
 shot('d05a', 'd05', {
@@ -126,7 +127,7 @@ shot('d05c', 'd05', {
 // d06: one stone, one voice (macro: a hand drops a stone)
 shot('d06', 'd06', {
   hours: TIME.morning + 1.8, cloud: 0.4, year: 1902,
-  cam: K([0, [BW.x - 1.6, 0.75, BW.z - 0.7], [BW.x - 0.9, 0.55, BW.z], 26], [1, [BW.x - 1.5, 0.72, BW.z - 0.62], [BW.x - 0.9, 0.5, BW.z], 22]),
+  cam: K([0, [BW.x - 2.6, 1.15, BW.z + 0.9], [BW.x - 0.9, 0.55, BW.z + 0.2], 32], [1, [BW.x - 2.45, 1.1, BW.z + 0.85], [BW.x - 0.9, 0.52, BW.z + 0.2], 29]),
   veg: { r0: 40 }, clear: [[BW.x, BW.z, 4]], shadow: { x: BW.x, z: BW.z, r: 3 },
   setup(c) {
     bowlsVote(c, 40, -10, -1, 0.6);
@@ -200,11 +201,11 @@ shot('d10', 'd10', {
 // d11: the Assembly — blue banners / the king's red banners
 shot('d11a', 'd11', {
   hours: TIME.morning + 1.5, cloud: 0.35, year: 1925,
-  cam: K([0, [PLAZA.x - 14, 2.0, PLAZA.z - 30], [PLAZA.x - 20, 4, PLAZA.z - 40], 34], [1, [PLAZA.x - 13, 1.9, PLAZA.z - 29], [PLAZA.x - 20, 4.6, PLAZA.z - 40], 32]),
-  veg: { r0: 40 }, shadow: { x: PLAZA.x - 20, z: PLAZA.z - 40, r: 15 },
+  cam: K([0, [ASM.x + 7, 2.0, ASM.z + 12], [ASM.x, 4, ASM.z - 2], 34], [1, [ASM.x + 6.4, 1.9, ASM.z + 11.2], [ASM.x, 4.6, ASM.z - 2], 32]),
+  veg: { r0: 40 }, shadow: { x: ASM.x, z: ASM.z, r: 15 },
   setup(c) {
-    for (let k = 0; k < 4; k++) { const b = c.proto('bannerBlue', 0, PLAZA.x - 24 + k * 3, PLAZA.z - 42 + (k % 2), 0.3, 1.1); c.on(t => { b.scale.y = 1.1 * smooth(0.2 + k * 0.4, 1.0 + k * 0.4, t) + 0.001; }); }
-    crowdDisc(c, 200, PLAZA.x - 20, PLAZA.z - 36, 2, 9, PLAZA.x - 20, PLAZA.z - 42, { seed: 41, colors: [0xf2f2f2, 0x2a5bd7, 0xeeeeea] });
+    for (let k = 0; k < 4; k++) { const b = c.proto('bannerBlue', 0, ASM.x - 4.5 + k * 3, ASM.z - 3 + (k % 2), 0.3, 1.1); c.on(t => { b.scale.y = 1.1 * smooth(0.2 + k * 0.4, 1.0 + k * 0.4, t) + 0.001; }); }
+    crowdDisc(c, 200, ASM.x, ASM.z + 4, 2, 9, ASM.x, ASM.z - 3, { seed: 41, colors: [0xf2f2f2, 0x2a5bd7, 0xeeeeea] });
   },
 });
 shot('d11b', 'd11', {
@@ -240,10 +241,10 @@ shot('d14', 'd14', {
 // d15: year 1929 — the guards break up a meeting of the Assembly
 shot('d15', 'd15', {
   hours: TIME.night, cloud: 0.2, year: 1929, exposure: 1.3, shake: (t) => 0.025 * smooth(1.0, 1.6, t),
-  cam: K([0, [PLAZA.x - 26, 1.8, PLAZA.z - 34], [PLAZA.x - 20, 1.3, PLAZA.z - 40], 34], [1, [PLAZA.x - 25, 1.7, PLAZA.z - 33], [PLAZA.x - 20, 1.3, PLAZA.z - 40], 32]),
-  veg: { r0: 40 }, shadow: { x: PLAZA.x - 20, z: PLAZA.z - 40, r: 15 },
+  cam: K([0, [ASM.x - 7, 1.8, ASM.z + 7], [ASM.x, 1.3, ASM.z], 34], [1, [ASM.x - 6.4, 1.7, ASM.z + 6.4], [ASM.x, 1.3, ASM.z], 32]),
+  veg: { r0: 40 }, shadow: { x: ASM.x, z: ASM.z, r: 15 },
   setup(c) {
-    const cx = PLAZA.x - 20, cz = PLAZA.z - 40;
+    const cx = ASM.x, cz = ASM.z;
     c.fire(cx, cz, { size: 0.6, lightIntensity: 16, lightDist: 16 });
     for (let i = 0; i < 10; i++) { const a = i / 10 * 6.28, x0 = cx + Math.cos(a) * 3, z0 = cz + Math.sin(a) * 3, x1 = cx + Math.cos(a) * 14, z1 = cz + Math.sin(a) * 14; const P = vill(c, i + 30, x0, z0, { acc: BLUE }); P.anim = (Q, t) => (t < 1.1 ? Q.pose('talk', t + i) : c.walkTo(Q, x0, z0, x1, z1, t, 1.1, 4.5, { run: true, phase: i })); }
     for (let i = 0; i < 5; i++) { const x0 = cx + 12 + i * 1.2, z0 = cz + 9, x1 = cx + 2 + i * 1.0, z1 = cz + 1; const P = c.person(VILLAGERS[44 + (i % 4)], { x: x0, z: z0, acc: [...GUARD, 'torch'] }); P.anim = (Q, t) => c.walkTo(Q, x0, z0, x1, z1, t, 0.4, 3.0, { run: true, phase: i, endPose: 'pushSpear' }); }
@@ -252,13 +253,13 @@ shot('d15', 'd15', {
 // d16: and someone shuts down. Not by accident. On purpose.
 shot('d16', 'd16', {
   hours: TIME.dawn + 0.3, storm: 0.6, cloud: 0.85, year: 1929, grade: 'sad',
-  cam: K([0, [PLAZA.x - 23.5, 1.4, PLAZA.z - 43.5], [PLAZA.x - 20.5, 0.2, PLAZA.z - 40.5], 30], [1, [PLAZA.x - 23.0, 1.2, PLAZA.z - 43.0], [PLAZA.x - 20.5, 0.2, PLAZA.z - 40.5], 28]),
-  veg: { r0: 40 }, shadow: { x: PLAZA.x - 20, z: PLAZA.z - 40, r: 8 },
+  cam: K([0, [ASM.x - 3.5, 1.4, ASM.z - 3.5], [ASM.x - 0.5, 0.2, ASM.z - 0.5], 30], [1, [ASM.x - 3.0, 1.2, ASM.z - 3.0], [ASM.x - 0.5, 0.2, ASM.z - 0.5], 28]),
+  veg: { r0: 40 }, shadow: { x: ASM.x, z: ASM.z, r: 8 },
   setup(c) {
     c.rain(3000, 50, 0.35);
-    const v = vill(c, 33, PLAZA.x - 20.5, PLAZA.z - 40.5, { yaw: 0.6, acc: BLUE, energy: 0 }); v.anim = (P, t) => P.pose('lie', t);
-    const b = c.proto('bannerBlue', 0, PLAZA.x - 19.4, PLAZA.z - 39.4, 0.8, 1.0); b.rotation.z = 1.45; b.position.y += 0.15;
-    const k = vill(c, 34, PLAZA.x - 19.4, PLAZA.z - 41.6, { yaw: -0.6, acc: BLUE }); k.anim = (P, t) => P.pose('kneelPray', t, { armsUp: 0 });
+    const v = vill(c, 33, ASM.x - 0.5, ASM.z - 0.5, { yaw: 0.6, acc: BLUE, energy: 0 }); v.anim = (P, t) => P.pose('lie', t);
+    const b = c.proto('bannerBlue', 0, ASM.x + 0.6, ASM.z + 0.6, 0.8, 1.0); b.rotation.z = 1.45; b.position.y += 0.15;
+    const k = vill(c, 34, ASM.x + 0.6, ASM.z - 1.6, { yaw: -0.6, acc: BLUE }); k.anim = (P, t) => P.pose('kneelPray', t, { armsUp: 0 });
   },
 });
 // d17-d21: the reset button

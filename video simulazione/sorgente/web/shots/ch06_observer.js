@@ -47,9 +47,9 @@ shot('o_card', 'chap:o01', {
 // o01: why does the world exist? / who put the animals here? / why does the river hate us?
 shot('o01a', 'o01', {
   ...NIGHT, year: 640,
-  cam: K([0, [SQ.x + 3, 0.8, SQ.z - 4], [SQ.x, 2.5, SQ.z + 2], 34], [1, [SQ.x + 2.6, 0.75, SQ.z - 3.6], [SQ.x, 2.7, SQ.z + 2], 32]),
+  cam: K([0, [SQ.x + 1.2, 0.6, SQ.z - 3.4], [SQ.x - 0.2, 2.6, SQ.z + 3], 38], [1, [SQ.x + 1.1, 0.55, SQ.z - 3.1], [SQ.x - 0.2, 2.8, SQ.z + 3], 36]),
   veg: { r0: 40 }, shadow: { x: SQ.x, z: SQ.z, r: 10 },
-  setup(c) { [0, 1, 2].forEach(i => { const x = SQ.x - 1 + i * 1.1, z = SQ.z + 0.6 * (i % 2); const P = vill(c, i + 3, x, z, { yaw: 2.6 + i * 0.3 }); P.anim = (Q, t) => Q.pose('lookUp', t + i, { amount: 0.9 }); }); },
+  setup(c) { [0, 1, 2].forEach(i => { const x = SQ.x - 1.1 + i * 1.1, z = SQ.z + 0.4 * (i % 2); const P = vill(c, i + 3, x, z, { yaw: (i - 1) * 0.3, era: 'clay' }); P.anim = (Q, t) => Q.pose('lookUp', t + i, { amount: 0.9 }); }); },
 });
 shot('o01b', 'o01', {
   hours: TIME.golden - 0.4, cloud: 0.4, year: 640,
@@ -62,9 +62,9 @@ shot('o01b', 'o01', {
 }, 1.7);
 shot('o01c', 'o01', {
   hours: TIME.sunset, storm: 0.3, cloud: 0.6, year: 640, grade: 'sad',
-  cam: K([0, [RIVERBANK.x + 3, 1.2, RIVERBANK.z + 4], [RIVERBANK.x - 8, 0.6, RIVERBANK.z - 2], 32], [1, [RIVERBANK.x + 2.6, 1.15, RIVERBANK.z + 3.6], [RIVERBANK.x - 8, 0.6, RIVERBANK.z - 2], 30]),
+  cam: K([0, [-44.2, 1.4, -20.2], [-55, 1.0, -15.5], 32], [1, [-44.6, 1.38, -20.0], [-55, 1.0, -15.5], 30]),
   veg: { grassR: 0, r0: 40 }, shadow: { x: RIVERBANK.x, z: RIVERBANK.z, r: 10 },
-  setup(c) { const P = vill(c, 8, RIVERBANK.x - 1.5, RIVERBANK.z + 0.5, { yaw: yawTo(RIVERBANK.x, RIVERBANK.z, RIVERBANK.x - 8, RIVERBANK.z - 2), era: 'early' }); P.anim = (Q, t) => Q.pose('sad', t); },
+  setup(c) { const P = vill(c, 8, -48, -18, { yaw: yawTo(-48, -18, -58, -15), era: 'early' }); P.anim = (Q, t) => Q.pose('sad', t); },
 }, 3.25);
 // o02: four hundred years... (timelapse 610 -> 1000)
 shot('o02', 'o02', {
@@ -93,7 +93,7 @@ shot('o03a', 'o03', {
 });
 shot('o03b', 'o03', {
   ...NIGHT, year: 1000,
-  cam: K([0, [SQ.x + 2.2, 1.1, SQ.z - 3.6], [SQ.x + 0.6, 1.9, SQ.z - 1.4], 28], [1, [SQ.x + 2.0, 1.05, SQ.z - 3.3], [SQ.x + 0.6, 2.0, SQ.z - 1.4], 26]),
+  cam: K([0, [SQ.x + 2.6, 1.0, SQ.z - 4.2], [SQ.x + 0.6, 1.55, SQ.z - 1.2], 32], [1, [SQ.x + 2.4, 0.98, SQ.z - 3.9], [SQ.x + 0.6, 1.6, SQ.z - 1.2], 30]),
   veg: { r0: 40 }, shadow: { x: SQ.x, z: SQ.z, r: 8 },
   setup(c) {
     c.fire(SQ.x - 1.5, SQ.z + 2, { size: 0.8, lightIntensity: 20, lightDist: 16 });
@@ -103,13 +103,13 @@ shot('o03b', 'o03', {
 // o04: a young priestess named Sela had read the oldest stories, carved in clay
 shot('o04a', 'o04', {
   ...NIGHT, year: 1000,
-  cam: K([0, [SQ.x + 6.5, 1.1, SQ.z + 3.5], [SQ.x + 4, 0.9, SQ.z + 5.8], 30], [1, [SQ.x + 6.1, 1.05, SQ.z + 3.9], [SQ.x + 4, 0.9, SQ.z + 5.8], 28]),
+  cam: K([0, [SQ.x + 6.6, 1.2, SQ.z + 8.4], [SQ.x + 4.2, 0.75, SQ.z + 6.0], 32], [1, [SQ.x + 6.2, 1.15, SQ.z + 8.0], [SQ.x + 4.2, 0.75, SQ.z + 6.0], 30]),
   veg: { r0: 40 }, shadow: { x: SQ.x + 4, z: SQ.z + 6, r: 8 },
   setup(c) {
     c.fire(SQ.x + 3, SQ.z + 7, { size: 0.45, n: 14, lightIntensity: 12, lightDist: 10 });
-    const s = c.person('SELA', { x: SQ.x + 4, z: SQ.z + 5.8, yaw: yawTo(SQ.x + 4, SQ.z + 5.8, SQ.x + 3, SQ.z + 7) - 0.5 });
+    const s = c.person('SELA', { x: SQ.x + 4, z: SQ.z + 5.8, yaw: yawTo(SQ.x + 4, SQ.z + 5.8, SQ.x + 5.4, SQ.z + 6.9) });
     s.anim = (P, t) => { P.pose('sitGround', t, { headX: 0.45 }); P.L.sh.rotation.x = -1.2; P.R.sh.rotation.x = -1.2; P.L.el.rotation.x = -0.9; P.R.el.rotation.x = -0.9; };
-    for (let i = 0; i < 4; i++) tablet(c, SQ.x + 4.8 + i * 0.4, c.h(SQ.x + 5, SQ.z + 6.6) + 0.32, SQ.z + 6.6 - i * 0.3, -0.6 + i * 0.2, -0.35);
+    for (let i = 0; i < 4; i++) { const tx = SQ.x + 4.9 + i * 0.45, tz = SQ.z + 6.9 - i * 0.25; tablet(c, tx, c.h(tx, tz) + 0.32, tz, yawTo(tx, tz, SQ.x + 6.6, SQ.z + 8.4) + (i - 1.5) * 0.15, -0.3); }
   },
 });
 shot('o04b', 'o04', {
@@ -118,7 +118,7 @@ shot('o04b', 'o04', {
   veg: { r0: 40 }, shadow: { x: SQ.x + 5, z: SQ.z + 6.5, r: 4 },
   setup(c) {
     c.fire(SQ.x + 4.2, SQ.z + 5.6, { size: 0.3, n: 10, lightIntensity: 7, lightDist: 6, embers: false });
-    tablet(c, SQ.x + 5.1, c.h(SQ.x + 5.1, SQ.z + 6.5) + 0.36, SQ.z + 6.5, Math.PI + yawTo(SQ.x + 5.1, SQ.z + 6.5, SQ.x + 4.9, SQ.z + 5.75), -0.25, 1.0);
+    tablet(c, SQ.x + 5.1, c.h(SQ.x + 5.1, SQ.z + 6.5) + 0.36, SQ.z + 6.5, yawTo(SQ.x + 5.1, SQ.z + 6.5, SQ.x + 4.9, SQ.z + 5.75), -0.25, 1.0);
   },
 }, 4.1);
 // o05: on the very first day — year zero (callback, with the flash)
@@ -214,7 +214,7 @@ shot('o11', 'o11', { kind: '2d', name: 'autosave', bg: 'o10', cam: K([0, [0, 10,
 // o12: they didn't invent a god at random (Sela on the temple, looking up)
 shot('o12', 'o12', {
   ...NIGHT, year: 1004,
-  cam: K([0, templeLocal(1.4, 5.6, 9.6), templeLocal(0, 8.4, 4.7), 30], [1, templeLocal(1.2, 5.5, 9.2), templeLocal(0, 8.6, 4.7), 28], { abs: true }),
+  cam: K([0, templeLocal(1.0, 6.2, 7.6), templeLocal(0, 8.0, 4.85), 32], [1, templeLocal(0.9, 6.15, 7.3), templeLocal(0, 8.1, 4.85), 30], { abs: true }),
   veg: { r0: 40 }, shadow: { x: TEMPLE_TOP[0], z: TEMPLE_TOP[2], r: 12 },
   setup(c) {
     const s = c.personAt('SELA', TEMPLE_TOP[0], TEMPLE_TOP[1], TEMPLE_TOP[2], { yaw: TEMPLE_YAW }); s.anim = (P, t) => P.pose('lookUp', t);

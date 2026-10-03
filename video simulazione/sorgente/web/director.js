@@ -136,7 +136,8 @@ class Ctx {
     const m = new THREE.Mesh(g, mat); m.renderOrder = 1; m.frustumCulled = false;
     m.position.set(x, levelFn(0), z); this.add(m);
     const keys = ['uTime', 'uSunDir', 'uSunCol', 'uSky', 'uHorizon', 'fogColor', 'fogDensity'];
-    this.after(t => { m.position.y = levelFn(t); for (const k of keys) { const v = E.water.uniforms[k].value; if (v && v.copy) mat.uniforms[k].value.copy(v); else mat.uniforms[k].value = v; } });
+    const dim = opts.dim ?? 0.6;
+    this.after(t => { m.position.y = levelFn(t); for (const k of keys) { const v = E.water.uniforms[k].value; if (v && v.copy) mat.uniforms[k].value.copy(v); else mat.uniforms[k].value = v; } mat.uniforms.uSky.value.multiplyScalar(dim); mat.uniforms.uHorizon.value.multiplyScalar(dim); });
     return m;
   }
   mesh(geo, mat, x, y, z) { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true; this.own(geo); return this.add(m); }
@@ -204,7 +205,7 @@ window.loadShot = function (id, dur, markers) {
   if (spec.interior) {
     setInterior(true);
     E.town.group.visible = false; ctx.townVis = []; GROUND_UNIFORMS.uGroundOn.value = 0;
-    E.atmo.sun.intensity = 0; E.atmo.hemi.intensity = spec.ambient ?? 0.1; E.scene.fog.density = 0;
+    E.atmo.sun.intensity = 0; E.atmo.hemi.intensity = spec.ambient ?? 0.22; E.scene.fog.density = 0;
     E.envIntensity = spec.env ?? 0.12;
     E.atmo.focusShadow(spec.shadow?.x ?? 0, spec.shadow?.y ?? 0, spec.shadow?.z ?? 0, 10);
   } else {
