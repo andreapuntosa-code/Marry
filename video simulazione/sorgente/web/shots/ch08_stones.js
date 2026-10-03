@@ -7,6 +7,7 @@ import { SPLIT_WALL } from '../lib/buildings.js';
 import { K, orbitCam, TIME, PRIMA, RIVERBANK, HILL, TEMPLE, CASTLE, PLAZA, NIGHT_FIELD, ROCK, SUNSET_YAW, yawTo, lerpAngle, smooth, eraAcc, crowdDisc,
   templeLocal, castleLocal, TEMPLE_YAW, CASTLE_YAW, LANDING, GUARD, BLUE, fieldNear, wheat, pebbles, rock, MEADOW_TREES } from './sets.js';
 import { buildRoom, creator, roomAt, resetButton } from './room.js';
+import { nuv, tam, herd, goatFlock, NUV_COLS, TAM_COLS } from './peoples.js';
 
 const vill = (c, i, x, z, o = {}) => c.person(VILLAGERS[i % VILLAGERS.length], { x, z, acc: eraAcc(o.era || 'stone', i), ...o });
 const HF = fieldNear(-60, -120, 1901);            // Orun's harvest field
@@ -71,7 +72,7 @@ shot('d03c', 'd03', {
   },
 }, 5.9);
 // d03L: "If a pebble can count a basket... why can't it count an opinion?"
-shot('d03L', 'd03L', {
+shot('d03L', 'd03L', { focus: 1.8,
   hours: TIME.night, cloud: 0.2, year: 1901, exposure: 1.3,
   cam: K([0, [O[0] + 1.3, 0.85, O[1] - 1.25], [O[0], 0.85, O[1]], 26], [1, [O[0] + 1.15, 0.85, O[1] - 1.1], [O[0], 0.9, O[1]], 24]),
   veg: { r0: 40 }, shadow: { x: O[0], z: O[1], r: 5 },
@@ -214,6 +215,47 @@ shot('d11b', 'd11', {
   veg: { r0: 40 },
   setup(c) { for (const [lx, lz] of [[-8, 13], [8, 13], [-13, 0], [13, 0], [0, 13.2]]) { const p = castleLocal(lx, 6.4, lz); c.proto('bannerRed', 0, p[0], p[2], CASTLE_YAW, 1.3, 0, { y: p[1] }); } },
 }, 2.7);
+// d11b (segment): Nuvian fishermen joined — Tamari herders joined — three peoples on the same side
+const NUV_BLUE = [{ type: 'headband', color: 0x2a9db0 }, { type: 'sash', color: 0x2a5bd7 }];
+shot('d11c', 'd11b', {
+  hours: TIME.morning + 1.8, cloud: 0.35, year: 1926,
+  cam: K([0, [ASM.x - 19, 2.0, ASM.z + 13], [ASM.x - 6, 1.3, ASM.z + 5], 32], [1, [ASM.x - 18, 2.0, ASM.z + 12.4], [ASM.x - 6, 1.3, ASM.z + 5], 30]),
+  veg: { r0: 40 }, shadow: { x: ASM.x - 3, z: ASM.z + 4, r: 12 },
+  setup(c) {
+    for (let k = 0; k < 3; k++) c.proto('bannerBlue', 0, ASM.x - 3 + k * 3, ASM.z - 3 + (k % 2), 0.3, 1.1);
+    crowdDisc(c, 160, ASM.x, ASM.z + 4, 2, 9, ASM.x, ASM.z - 3, { seed: 41, colors: [0xf2f2f2, 0x2a5bd7, 0xeeeeea] });
+    for (let i = 0; i < 6; i++) {
+      const x0 = ASM.x - 12 + (i % 3) * 1.2, z0 = ASM.z + 6 + Math.floor(i / 3) * 1.4, x1 = x0 + 6.5, z1 = z0 - 2.5;
+      const P = nuv(c, i, x0, z0, { acc: i % 2 ? NUV_BLUE : [{ type: 'headband', color: 0x2a9db0 }, 'staff'] });
+      P.anim = (Q, t) => c.walkTo(Q, x0, z0, x1, z1, t, 0.1 * i, 2.4 + 0.1 * i, { speed: 0.6, phase: i, endPose: i % 2 ? 'cheer' : 'idle' });
+    }
+  },
+});
+shot('d11d', 'd11b', {
+  hours: TIME.morning + 2.0, cloud: 0.35, year: 1926,
+  cam: K([0, [ASM.x + 21, 1.9, ASM.z + 14], [ASM.x + 7, 1.1, ASM.z + 6], 32], [1, [ASM.x + 20, 1.9, ASM.z + 13.4], [ASM.x + 7, 1.1, ASM.z + 6], 30]),
+  veg: { r0: 40 }, shadow: { x: ASM.x + 4, z: ASM.z + 5, r: 12 },
+  setup(c) {
+    for (let k = 0; k < 3; k++) c.proto('bannerBlue', 0, ASM.x - 3 + k * 3, ASM.z - 3 + (k % 2), 0.3, 1.1);
+    crowdDisc(c, 160, ASM.x, ASM.z + 4, 2, 9, ASM.x, ASM.z - 3, { seed: 41, colors: [0xf2f2f2, 0x2a5bd7, 0xeeeeea] });
+    for (let i = 0; i < 5; i++) {
+      const x0 = ASM.x + 13 + (i % 3) * 1.2, z0 = ASM.z + 7 + Math.floor(i / 3) * 1.5, x1 = x0 - 6, z1 = z0 - 2;
+      const P = tam(c, i, x0, z0, { acc: i % 2 ? [{ type: 'scarf', color: 0xb5813a }, { type: 'sash', color: 0x2a5bd7 }] : [{ type: 'hat', color: 0x8a5a2b }, 'staff'] });
+      P.anim = (Q, t) => c.walkTo(Q, x0, z0, x1, z1, t, 0.1 * i, 1.6 + 0.1 * i, { speed: 0.6, phase: i });
+    }
+    goatFlock(c, [...Array(8)].map((_, i) => ({ x: ASM.x + 15 + (i % 4) * 1.2, z: ASM.z + 9 + Math.floor(i / 4) * 1.3, yaw: -2.0, vx: -2.6, vz: -0.9 })), { seed: 5 });
+  },
+}, 1.74);
+shot('d11e', 'd11b', {
+  hours: TIME.golden - 0.3, cloud: 0.35, year: 1927,
+  cam: K([0, [ASM.x + 24, 19, ASM.z - 24], [ASM.x, 1.5, ASM.z + 4], 38], [1, [ASM.x + 26, 21, ASM.z - 25], [ASM.x, 1.5, ASM.z + 4], 38]),
+  veg: { r0: 40 }, clear: [[ASM.x, ASM.z + 6, 20]], shadow: { x: ASM.x, z: ASM.z + 6, r: 22 },
+  setup(c) {
+    for (let k = 0; k < 6; k++) c.proto('bannerBlue', 0, ASM.x - 7.5 + k * 3, ASM.z - 3 + (k % 2), 0.3, 1.15);
+    crowdDisc(c, 900, ASM.x, ASM.z + 6, 2, 17, ASM.x, ASM.z - 3, { seed: 44, colors: [0xf2f2f2, 0xeeeeea, 0x2a5bd7, 0x2a5bd7, ...NUV_COLS, ...TAM_COLS] });
+    herd(c, 30, ASM.x + 14, ASM.z + 12, 1, 6, { seed: 2 });
+  },
+}, 3.47);
 // d12: the king, Kassa the Nineteenth, did what kings do when they get scared
 shot('d12', 'd12', {
   hours: TIME.golden, cloud: 0.4, year: 1925,

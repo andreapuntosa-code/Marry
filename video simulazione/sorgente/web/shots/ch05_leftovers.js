@@ -287,7 +287,7 @@ shot('k22', 'k22', {
   },
 });
 // k23: "Why?" — a survivor looks up at the sky
-shot('k23', 'k23', {
+shot('k23', 'k23', { focus: 1.95,
   hours: TIME.afternoon + 1.3, storm: 0.5, cloud: 0.8, year: 611, grade: 'sad',
   cam: K([0, [PRIMA.x + 4.9, 0.9, PRIMA.z - 5.9], [PRIMA.x + 4, 1.45, PRIMA.z - 4], 30], [1, [PRIMA.x + 4.8, 0.88, PRIMA.z - 5.7], [PRIMA.x + 4, 1.5, PRIMA.z - 4], 28]),
   veg: { grassR: 0, r0: 40 }, shadow: { x: PRIMA.x + 4, z: PRIMA.z - 4, r: 6 },

@@ -295,6 +295,92 @@ function tent() {
   return paint(g, (x, y, z, c) => c.set(Math.floor((Math.atan2(z, x) + Math.PI) / (Math.PI / 4)) % 2 ? 0x2a5bd7 : 0xe8e4da).multiplyScalar(0.85 + 0.15 * (y / 3.4)));
 }
 
+// ---- the other peoples: Nuvia on the lake, the Tamari on the plain
+const WOOD = 0x8a6a45, WOOD_D = 0x5a3b22, REED = 0xb89a64, TEAL = 0x2a9db0;
+function stiltHouse(seed = 1) {
+  const r = mulberry32(seed * 13 + 5), parts = [];
+  const py = 2.3;                                       // platform height above the base (water or beach)
+  parts.push(paint(T(new THREE.BoxGeometry(4.6, 0.18, 4.0, 8, 1, 8), 0, py, 0), (x, y, z, c) => c.set(WOOD).multiplyScalar(0.72 + 0.32 * Math.abs(Math.sin(x * 6.1 + 0.3 * z)) + 0.04 * r())));
+  for (const [x, z] of [[-2.0, -1.7], [0, -1.8], [2.0, -1.7], [-2.0, 1.7], [0, 1.8], [2.0, 1.7]])
+    parts.push(paint(T(new THREE.CylinderGeometry(0.1, 0.13, py + 3.0, 6), x + (r() - 0.5) * 0.12, (py - 3.0) / 2, z + (r() - 0.5) * 0.12), solid(WOOD_D, 0.12, seed)));
+  const wall = paint(new THREE.CylinderGeometry(1.55, 1.6, 1.75, 16, 1, true), (x, y, z, c) => { const a = Math.atan2(z, x); c.set(REED).multiplyScalar(0.78 + 0.22 * Math.abs(Math.sin(a * 26)) + 0.08 * (y / 1.75)); });
+  T(wall, 0, py + 0.09 + 0.875);
+  const roof = thatch(2.35, 2.2, seed + 40); T(roof, 0, py + 1.84 + 1.05);
+  const door = paint(new THREE.PlaneGeometry(0.85, 1.35), solid(0x1d140d, 0)); T(door, 0, py + 0.78, 1.62);
+  const cloth = paint(new THREE.PlaneGeometry(0.95, 0.32), solid(TEAL, 0.05)); T(cloth, 0, py + 1.62, 1.64);
+  parts.push(wall, roof, door, cloth);
+  for (let k = 0; k < 7; k++) parts.push(paint(T(new THREE.CylinderGeometry(0.04, 0.04, 0.7, 5), -2.1 + k * 0.7, py + 0.42, 1.92), solid(WOOD_D)));
+  parts.push(paint(T(new THREE.BoxGeometry(4.4, 0.06, 0.06), 0, py + 0.74, 1.92), solid(WOOD)));
+  // ladder down to the water
+  const lad = [];
+  for (const x of [-0.32, 0.32]) lad.push(T(new THREE.BoxGeometry(0.07, 3.4, 0.07), x, 0, 0));
+  for (let k = 0; k < 7; k++) lad.push(T(new THREE.BoxGeometry(0.64, 0.05, 0.06), 0, -1.4 + k * 0.45, 0));
+  const lg = merge(lad.map(g => g.index ? g.toNonIndexed() : g)); lg.rotateX(-0.32); T(lg, 1.2, py - 1.3, 2.45);
+  parts.push(paint(lg, solid(WOOD_D)));
+  return merge(parts);
+}
+function pier(L = 18) {
+  const parts = [];
+  for (let k = 0; k < L / 0.5; k++) parts.push(paint(T(new THREE.BoxGeometry(1.6, 0.1, 0.46), 0, 1.7, -L / 2 + k * 0.5 + 0.25), solid(WOOD, 0.14, k)));
+  for (let k = 0; k <= L / 3; k++) for (const x of [-0.75, 0.75]) parts.push(paint(T(new THREE.CylinderGeometry(0.08, 0.1, 4.6, 6), x, -0.6, -L / 2 + k * 3), solid(WOOD_D)));
+  return merge(parts);
+}
+function canoe(seed = 1) {
+  const parts = [];
+  const hull = new THREE.SphereGeometry(1, 22, 8, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2); hull.scale(0.46, 0.34, 2.3);
+  parts.push(paint(hull, (x, y, z, c) => c.set(seed % 2 ? 0x6b4a2b : 0x7d5a36).multiplyScalar(0.78 + 0.22 * Math.abs(Math.sin(z * 2.7)) + 0.12 * (y + 0.34))));
+  const deck = new THREE.CircleGeometry(1, 22); deck.rotateX(-Math.PI / 2); deck.scale(0.4, 1, 2.18); T(deck, 0, -0.07, 0);
+  parts.push(paint(deck, solid(0x3a2716, 0.06)));
+  for (const z of [-0.8, 0.7]) parts.push(paint(T(new THREE.BoxGeometry(0.78, 0.05, 0.16), 0, -0.04, z), solid(WOOD)));
+  const stripe = new THREE.TorusGeometry(1, 0.025, 4, 32); stripe.rotateX(Math.PI / 2); stripe.scale(0.46, 1, 2.3); T(stripe, 0, -0.02, 0);
+  parts.push(paint(stripe, solid(TEAL, 0.05)));
+  return merge(parts);
+}
+function paddle() {
+  return merge([paint(T(new THREE.CylinderGeometry(0.025, 0.025, 1.5, 5), 0, 0.75, 0), solid(WOOD)), paint(T(new THREE.BoxGeometry(0.18, 0.45, 0.03), 0, 0.0, 0), solid(WOOD))]);
+}
+function tamariTent(seed = 1) {
+  const r = mulberry32(seed * 7 + 1), parts = [];
+  const R = 2.6, wh = 1.55;
+  const felt = [0xd8c39a, 0xcdb48a, 0xe0cfa8][seed % 3];
+  const wall = paint(new THREE.CylinderGeometry(R, R * 1.02, wh, 26, 1, true), (x, y, z, c) => {
+    const a = Math.atan2(z, x), band = Math.abs(y + 0.35) < 0.13 || Math.abs(y - 0.5) < 0.06;
+    c.set(band ? 0x9a3b2a : felt).multiplyScalar(0.84 + 0.1 * Math.abs(Math.sin(a * 13)) + 0.05 * r()); });
+  T(wall, 0, wh / 2);
+  const roof = new THREE.ConeGeometry(R * 1.06, 1.35, 26, 2, true); T(roof, 0, wh + 0.66);
+  parts.push(wall, paint(roof, (x, y, z, c) => { const a = Math.atan2(z, x); c.set(Math.floor((a + Math.PI) / (Math.PI / 6)) % 2 ? 0xb5813a : 0xa06e30).multiplyScalar(0.82 + 0.25 * (y + 0.68) / 1.35); }));
+  parts.push(paint(T(new THREE.CylinderGeometry(0.28, 0.32, 0.22, 10), 0, wh + 1.38, 0), solid(0x5a3b22)));
+  parts.push(paint(T(new THREE.PlaneGeometry(0.95, 1.3), 0, 0.65, R + 0.03), solid(0x7a2a1e, 0.05)));
+  for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2 + 0.4; const g = new THREE.CylinderGeometry(0.012, 0.012, 1.9, 4); g.rotateZ(0.95); g.rotateY(-a); T(g, Math.cos(a) * (R + 0.75), 0.8, Math.sin(a) * (R + 0.75)); parts.push(paint(g, solid(0xcdbd98))); }
+  return merge(parts);
+}
+function shrine() {
+  const parts = [];
+  parts.push(paint(T(new THREE.CylinderGeometry(0.22, 0.3, 6.6, 12, 12), 0, 3.3, 0), (x, y, z, c) => { const b = Math.floor(y / 0.55) % 3; c.set(b === 0 ? TEAL : b === 1 ? 0xe8e2d0 : WOOD).multiplyScalar(0.86 + 0.1 * Math.abs(Math.sin(Math.atan2(z, x) * 5))); }));
+  const fish = new THREE.SphereGeometry(1, 14, 10); fish.scale(0.28, 0.42, 1.05); T(fish, 0, 7.05, 0.1);
+  const tail = new THREE.ConeGeometry(0.45, 0.6, 4); tail.rotateX(-Math.PI / 2); tail.scale(0.25, 1, 1); T(tail, 0, 7.05, -1.15);
+  parts.push(paint(fish, solid(0x5fb7c4, 0.08)), paint(tail, solid(0x4aa0ae, 0.08)));
+  for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2; const g = new THREE.BoxGeometry(0.08, 2.0, 0.02); g.translate(0, -1.0, 0); g.rotateZ(0.12 * Math.sin(k * 2.1)); g.rotateY(-a); T(g, Math.cos(a) * 0.3, 5.7, Math.sin(a) * 0.3); parts.push(paint(g, solid(k % 2 ? TEAL : 0xf2eee2, 0.04))); }
+  for (let k = 0; k < 14; k++) { const a = k / 14 * Math.PI * 2; parts.push(paint(T(new THREE.IcosahedronGeometry(0.2 + 0.08 * Math.sin(k * 3.7), 0), Math.cos(a) * 1.3, 0.1, Math.sin(a) * 1.3, 0, 1, 0.6, 1), solid(0x8c8a84, 0.12, k))); }
+  return merge(parts);
+}
+function fishRack() {
+  const parts = [];
+  for (const x of [-1.5, 1.5]) parts.push(paint(T(new THREE.CylinderGeometry(0.05, 0.06, 1.9, 5), x, 0.95, 0), solid(WOOD_D)));
+  parts.push(paint(T(new THREE.CylinderGeometry(0.035, 0.035, 3.2, 5).rotateZ(Math.PI / 2), 0, 1.82, 0), solid(WOOD)));
+  for (let k = 0; k < 9; k++) { const f = new THREE.SphereGeometry(1, 8, 6); f.scale(0.05, 0.22, 0.08); T(f, -1.25 + k * 0.31, 1.55, 0); parts.push(paint(f, solid(0xaab8c2, 0.1, k))); }
+  return merge(parts);
+}
+function fishProp() {
+  const b = new THREE.SphereGeometry(1, 12, 8); b.scale(0.065, 0.09, 0.27);
+  const t = new THREE.ConeGeometry(0.09, 0.12, 4); t.rotateX(Math.PI / 2); t.scale(0.3, 1, 1); T(t, 0, 0, -0.3);
+  return merge([paint(b, (x, y, z, c) => c.set(y > 0.02 ? 0x6f8796 : 0xc9d4da).multiplyScalar(0.9 + 0.1 * Math.random())), paint(t, solid(0x6f8796, 0.05))]);
+}
+function cheeseWheel() {
+  const g = new THREE.CylinderGeometry(0.24, 0.24, 0.15, 20, 1); T(g, 0, 0.075, 0);
+  return paint(g, (x, y, z, c) => c.set(Math.hypot(x, z) > 0.225 || y < 0.012 || y > 0.14 ? 0xd08a2e : 0xf8e7a0).multiplyScalar(0.94 + 0.06 * Math.random()));
+}
+
 export function initProtos() {
   if (PROTO.hut) return PROTO;
   PROTO.hut = [1, 2, 3].map(hutRound); PROTO.leanTo = [leanTo()]; PROTO.pen = [fencePen()]; PROTO.firePit = [firePit()];
@@ -309,6 +395,8 @@ export function initProtos() {
   PROTO.stoneBridge = [stoneBridge()]; PROTO.cart = [cartBody()]; PROTO.wheel = [wheel()]; PROTO.anvil = [anvil()]; PROTO.forge = [forge()];
   PROTO.cage = [cage()]; PROTO.pedestal = [pedestal()]; PROTO.podium = [podium()]; PROTO.cheese = [cheese()]; PROTO.figurine = [figurine()];
   PROTO.grainBasket = [grainBasket()]; PROTO.slab = [stoneSlab()]; PROTO.tent = [tent()];
+  PROTO.stilt = [1, 2, 3].map(stiltHouse); PROTO.pier = [pier(18), pier(26)]; PROTO.canoe = [1, 2].map(canoe); PROTO.paddle = [paddle()];
+  PROTO.yurt = [0, 1, 2].map(tamariTent); PROTO.shrine = [shrine()]; PROTO.fishRack = [fishRack()]; PROTO.fish = [fishProp()]; PROTO.cheeseWheel = [cheeseWheel()];
   return PROTO;
 }
 
@@ -407,6 +495,10 @@ export function genTown() {
     if (b.type === 'temple' || b.type === 'castle') continue;
     if (Math.hypot(b.x - TEMPLE_POS.x, b.z - TEMPLE_POS.z) < 17) b.destroyed = Math.min(b.destroyed, 1002);
     if (Math.hypot(b.x - CASTLE_POS.x, b.z - CASTLE_POS.z) < 20) b.destroyed = Math.min(b.destroyed, 1421);
+    // the palace square: the forecourt in front of the gate stays open (castle-local lz 12..62, |lx| < 22)
+    const yc = Math.PI * 1.15, cc = Math.cos(yc), sc = Math.sin(yc), dx = b.x - CASTLE_POS.x, dz = b.z - CASTLE_POS.z;
+    const lx = dx * cc - dz * sc, lz = dx * sc + dz * cc;
+    if (lz > 12 && lz < 62 && Math.abs(lx) < 22 && b.type !== 'stall') b.destroyed = Math.min(b.destroyed, 1421);
   }
   // Kassa XIX's wall (1926): demolishes whatever stands on its line; torn down after the revolution
   const wd = (x, z) => { let best = 1e9; for (let i = 0; i < SPLIT_WALL.length - 1; i++) { const [ax, az] = SPLIT_WALL[i], [bx, bz] = SPLIT_WALL[i + 1]; const dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz; let t = ((x - ax) * dx + (z - az) * dz) / L2; t = Math.max(0, Math.min(1, t)); best = Math.min(best, Math.hypot(x - ax - dx * t, z - az - dz * t)); } return best; };

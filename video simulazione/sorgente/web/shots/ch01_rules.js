@@ -164,7 +164,7 @@ shot('r18', 'r18', {
   },
 });
 // r19: she eats a berry (close)
-shot('r19', 'r19', {
+shot('r19', 'r19', { aperture: 0.5,
   hours: TIME.afternoon + 0.5, cloud: 0.45, year: 0, town: false,
   cam: K([0, [BERRY.x - 3.6, 1.45, BERRY.z - 0.4], [BERRY.x - 1.6, 1.4, BERRY.z - 1.3], 26], [1, [BERRY.x - 3.3, 1.45, BERRY.z - 0.5], [BERRY.x - 1.6, 1.45, BERRY.z - 1.3], 24]),
   veg: { grassR: 10, extra: MEADOW_TREES },

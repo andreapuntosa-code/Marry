@@ -8,6 +8,7 @@ import { TorchField } from '../lib/fx.js';
 import { K, orbitCam, TIME, PRIMA, HILL, TEMPLE, CASTLE, PLAZA, PLAIN, yawTo, lerpAngle, smooth, eraAcc, crowdDisc,
   templeLocal, castleLocal, CASTLE_YAW, TEMPLE_YAW, BLUE } from './sets.js';
 import { buildRoom, creator, roomAt } from './room.js';
+import { nuv, tam, NUV_COLS, TAM_COLS } from './peoples.js';
 
 const vill = (c, i, x, z, o = {}) => c.person(VILLAGERS[i % VILLAGERS.length], { x, z, acc: eraAcc(o.era || 'stone', i), ...o });
 const NIGHT = { hours: TIME.night, cloud: 0.1, exposure: 1.3 };
@@ -89,6 +90,30 @@ shot('m02', 'm02', {
   veg: { r0: 40 },
   setup(c) { c.flashAt(1.3, 0.9, 12); },
 });
+// m03p: the Assembly voted — Prima, Nuvia and the Tamari, together (a line of all three peoples at the bowls)
+shot('m03p', 'm03', {
+  hours: TIME.afternoon + 0.4, cloud: 0.4, year: 1999,
+  cam: K([0, [PLAZA.x + 5.2, 1.6, PLAZA.z - 3.6], [PLAZA.x - 0.4, 1.0, PLAZA.z + 0.4], 32], [1, [PLAZA.x + 4.6, 1.6, PLAZA.z - 3.2], [PLAZA.x - 0.4, 1.0, PLAZA.z + 0.4], 30]),
+  veg: { r0: 40 }, shadow: { x: PLAZA.x, z: PLAZA.z, r: 8 },
+  setup(c) {
+    const b1 = [PLAZA.x - 1.4, PLAZA.z], b2 = [PLAZA.x + 1.4, PLAZA.z];
+    c.proto('bowl', 0, b1[0], b1[1], 0, 1.0); c.proto('bowl', 0, b2[0], b2[1], 0, 1.0);
+    const mk = [(i, x, z) => vill(c, i + 2, x, z, { acc: BLUE }), (i, x, z) => nuv(c, i, x, z), (i, x, z) => tam(c, i, x, z)];
+    for (let i = 0; i < 9; i++) {
+      const x0 = PLAZA.x - 1.4 - 1.0, z0 = PLAZA.z + 1.2 + i * 1.05, x1 = PLAZA.x - 2.1, z1 = PLAZA.z + 0.4;
+      const P = mk[i % 3](i, x0, z0);
+      const t0 = i * 0.42;
+      P.anim = (Q, t) => {
+        const u = t - t0;
+        if (u < 0) { Q.place(x0, c.h(x0, z0), z0, Math.PI); Q.pose('idle', t + i); return; }
+        const z = Math.max(z1, z0 - u * 1.3), x = x0 + (x1 - x0) * Math.min(1, u * 0.6);
+        Q.place(x, c.h(x, z), z, z > z1 + 0.05 ? Math.PI : Math.PI * 0.62);
+        if (z > z1 + 0.05) Q.pose('walk', t, { speed: 0.6, phase: i }); else { Q.pose('idle', t); Q.R.sh.rotation.x = -0.9; }
+      };
+    }
+    crowdDisc(c, 220, PLAZA.x, PLAZA.z, 6, 16, PLAZA.x, PLAZA.z, { seed: 52, colors: [0xf2f2f2, 0xeeeeea, 0x2a5bd7, ...NUV_COLS, ...TAM_COLS] });
+  },
+});
 // m03: almost every stone in the same bowl / not for each other — for me
 shot('m03a', 'm03', {
   hours: TIME.afternoon + 0.5, cloud: 0.4, year: 1999,
@@ -102,13 +127,13 @@ shot('m03a', 'm03', {
     for (let i = 0; i < n; i++) { const left = i < 40; const b = left ? b2 : b1; const a = r() * 6.28, rr = Math.sqrt(r()) * 0.78; const h = left ? 0.05 + r() * 0.05 : 0.08 + Math.pow(r(), 0.6) * 0.62; mx.makeTranslation(b[0] + Math.cos(a) * rr * (1 - h * 0.3), c.h(b[0], b[1]) + 0.12 + h, b[1] + Math.sin(a) * rr * (1 - h * 0.3)); im.setMatrixAt(i, mx); }
     im.instanceMatrix.needsUpdate = true;
   },
-});
+}, 3.55);
 shot('m03b', 'm03', {
   hours: TIME.afternoon + 0.6, cloud: 0.4, year: 1999,
   cam: K([0, [PLAZA.x + 1.2, 0.6, PLAZA.z + 5.5], [PLAZA.x - 0.6, 3.2, PLAZA.z + 2.0], 32], [1, [PLAZA.x + 1.1, 0.6, PLAZA.z + 5.3], [PLAZA.x - 0.6, 3.6, PLAZA.z + 2.0], 30]),
   veg: { r0: 40 }, shadow: { x: PLAZA.x, z: PLAZA.z + 2, r: 8 },
-  setup(c) { [[0, 2], [1.2, 2.6], [-1.1, 2.9], [0.4, 3.8], [-0.6, 1.2]].forEach(([dx, dz], i) => { const P = vill(c, i + 11, PLAZA.x + dx, PLAZA.z + dz, { yaw: Math.PI + (i - 2) * 0.3, acc: i % 2 ? BLUE : eraAcc('stone', i) }); P.anim = (Q, t) => Q.pose(t > 0.5 + i * 0.15 ? 'lookUp' : 'idle', t + i); }); },
-}, 4.5);
+  setup(c) { [[0, 2], [1.2, 2.6], [-1.1, 2.9], [0.4, 3.8], [-0.6, 1.2]].forEach(([dx, dz], i) => { const o = { yaw: Math.PI + (i - 2) * 0.3 }; const P = i === 1 ? nuv(c, 1, PLAZA.x + dx, PLAZA.z + dz, o) : i === 3 ? tam(c, 2, PLAZA.x + dx, PLAZA.z + dz, o) : vill(c, i + 11, PLAZA.x + dx, PLAZA.z + dz, { ...o, acc: i % 2 ? BLUE : eraAcc('stone', i) }); P.anim = (Q, t) => Q.pose(t > 0.5 + i * 0.15 ? 'lookUp' : 'idle', t + i); }); },
+}, 5.97);
 // m04a: a painter named Nia designed the letters
 shot('m04a', 'm04', {
   hours: TIME.morning + 1.5, cloud: 0.4, year: 1999,

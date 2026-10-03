@@ -177,10 +177,13 @@ function setInterior(on) {
   if (E.terrain.near) E.terrain.near.visible = !on;
 }
 
-window.loadShot = function (id, dur, markers) {
+window.loadShot = function (id, dur, markers, opts = {}) {
   const spec = SHOTS[id];
   if (!spec) throw new Error('unknown shot ' + id);
   if (CUR) CUR.ctx.dispose();
+  // key moments (hero shots): native resolution, depth of field, FXAA
+  const hero = !!opts.hero && spec.hero !== false;
+  const size = E.setQuality(hero ? { scale: 1, dof: spec.dof !== false, fxaa: true } : {});
   const ctx = new Ctx(id, dur, markers, spec);
   // atmosphere
   E.atmo.set(spec.hoursFn ? spec.hoursFn(0, dur) : (spec.hours ?? 11), { cloud: spec.cloud ?? 0.4, storm: spec.storm ?? 0, fog: spec.fog, azimuth: spec.azimuth });
@@ -254,8 +257,8 @@ window.loadShot = function (id, dur, markers) {
   // actors
   const upd = spec.setup ? spec.setup(ctx) : null;
   if (upd) ctx.updates.push(upd);
-  CUR = { id, spec, ctx, camFn, dur };
-  return { tris: E.veg.tris, town: (ctx.townVis || []).length };
+  CUR = { id, spec, ctx, camFn, dur, hero };
+  return { tris: E.veg.tris, town: (ctx.townVis || []).length, size };
 };
 
 let lastEnvH = -99;
@@ -281,6 +284,13 @@ window.renderShot = function (t) {
   E.camera.lookAt(c.target);
   if (c.roll) E.camera.rotateZ(c.roll);
   E.camera.fov = 2 * THREE.MathUtils.radToDeg(Math.atan(Math.tan(THREE.MathUtils.degToRad(c.fov / 2)) * FILM.vScale)); E.camera.aspect = FILM.aspect; E.camera.updateProjectionMatrix();
+  if (CUR.hero) {   // focus on the camera target unless the shot says otherwise (number | [x, y, z] | fn(t, ctx))
+    const fd = spec.focus;
+    E.dof.focus = typeof fd === 'function' ? fd(t, ctx) : typeof fd === 'number' ? fd : Array.isArray(fd) ? c.pos.distanceTo(tmpV.set(fd[0], fd[1], fd[2])) : c.pos.distanceTo(c.target);
+    const fovK = Math.tan(THREE.MathUtils.degToRad(21)) / Math.tan(THREE.MathUtils.degToRad(c.fov / 2));
+    E.dof.aperture = 30 * (spec.aperture ?? 1) * fovK;
+    E.dof.maxBlur = spec.maxBlur ?? 11;
+  }
   let ex = spec.exposure ?? 1.0;
   if (spec.exposureFn) ex *= spec.exposureFn(t, dur);
   for (const f of ctx.expo) ex *= f(t);

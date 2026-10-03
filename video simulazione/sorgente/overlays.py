@@ -229,11 +229,14 @@ def hud_search(c, u, t):
     txt(c, "NO SIGNAL", x, y + 18, 'mono_b', 34, '#ff4d4d', a * blink, 'center', 0.3, shadow=0)
 
 
-def kings_ticker(c, u):
+ROMAN = ['VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX']
+
+
+def kings_ticker(c, u, first='VII', last='XIX'):
     a = sm(0.0, 0.08, u) * (1 - sm(0.9, 1.0, u))
     if a <= 0:
         return
-    roman = ['VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX']
+    roman = ROMAN[ROMAN.index(first):ROMAN.index(last) + 1]
     i = min(len(roman) - 1, int(u * len(roman) * 1.05))
     txt(c, "KING KASSA", W / 2, BY1 - 170, 'ui_b', 40, '#ffb3b3', a, 'center', 0.25)
     txt(c, roman[i], W / 2, BY1 - 70, 'anton', 110, '#ffffff', a, 'center', 0.05, shadow=0.8)
@@ -296,9 +299,11 @@ def subtitle(c, u, who, line, color='#ffffff'):
 CREDITS = [
     ("STARRING", None),
     ("ISE", "A-07  ·  the one who found"), ("MIRA", "A-04  ·  the one who looks"), ("BO", "A-09  ·  the fire thief"), ("TAM", "A-11  ·  the goat guy"),
-    ("A-15", "the first to leave"), ("LIO", "potter"), ("KASSA", "farmer  ·  inventor of “mine”"), ("SELA", "priestess"), ("VARO", "high priest  ·  very practical"),
-    ("KING KASSA VII", "the first king"), ("PELL", "engineer"), ("KING KASSA XIX", "the last king"), ("ORUN", "harvester  ·  first speaker"), ("DORN", "captain of the guard"),
-    ("NIA", "painter"), ("THE GOATS", "as themselves"), ("AND", None), ("THE OBSERVER", "a guy in a hoodie"),
+    ("A-15", "the first to leave"), ("LIO", "potter"), ("KASSA", "farmer  ·  inventor of “mine”"), ("AMA", "founder of Nuvia"), ("YUNA", "Tamari herder  ·  inventor of trade"),
+    ("SELA", "priestess"), ("VARO", "high priest  ·  very practical"), ("KING KASSA VII", "the first king"), ("PELL", "engineer"),
+    ("KING KASSA XI", "the conqueror"), ("SEFA", "Tamari healer"), ("KING KASSA XIX", "the last king"), ("ORUN", "harvester  ·  first speaker"),
+    ("DORN", "captain of the guard"), ("NIA", "painter"), ("THE NUVIANS", "people of the lake"), ("THE TAMARI", "people of the herd"),
+    ("THE GOATS", "as themselves"), ("AND", None), ("THE OBSERVER", "a guy in a hoodie"),
 ]
 
 
@@ -320,3 +325,85 @@ def end_credits(c, u, top=BY0, bottom=BY1):
                 txt(c, role, x, y + 38, 'corsivo_b', 30, '#ffd27a', a, 'center', 0, shadow=0.7)
         y += 120
     c.restore()
+
+
+# ------------------------------------------------------------------------- YEAR + POPULATION HUD
+def _tri(c, x, y, size, up, hexs, a):
+    p = skia.Path()
+    if up:
+        p.moveTo(x, y - size * 0.6); p.lineTo(x + size * 0.6, y + size * 0.4); p.lineTo(x - size * 0.6, y + size * 0.4)
+    else:
+        p.moveTo(x, y + size * 0.6); p.lineTo(x + size * 0.6, y - size * 0.4); p.lineTo(x - size * 0.6, y - size * 0.4)
+    p.close(); c.drawPath(p, P(hexs, a))
+
+
+def _people_icon(c, x, y, s, hexs, a):
+    """two tiny mannequins (population)"""
+    for dx, k in ((-0.42, 0.8), (0.3, 1.0)):
+        cx = x + dx * s
+        c.drawCircle(cx, y - 0.62 * s * k, 0.2 * s * k, P(hexs, a))
+        c.drawRoundRect(skia.Rect(cx - 0.24 * s * k, y - 0.36 * s * k, cx + 0.24 * s * k, y + 0.3 * s), 0.12 * s, 0.12 * s, P(hexs, a))
+
+
+def hud(c, year, pop, a, sub=None, delta=None, du=0.0, trend=0, t=0.0):
+    """Top-right HUD shown in timelapses and transitions: YEAR (big) and POPULATION (with change chip / trend arrow)."""
+    if a <= 0:
+        return
+    x, y = W - 58, BY0 + 30
+    ys, ps = f"{int(round(year)):,}", f"{int(round(pop)):,}"
+    wy = text_width(ys, 'ui_b', 64)
+    wp = text_width(ps, 'ui_b', 34)
+    wl = text_width("POPULATION", 'ui', 16, 0.28)
+    inner = max(wy, wp + wl + 18 + (22 if trend else 0) + 30)
+    bw = inner + 44
+    bh = 160 if sub else 140
+    c.drawRoundRect(skia.Rect(x - bw, y, x, y + bh), 16, 16, P('#0a0e15', 0.5 * a))
+    c.drawRoundRect(skia.Rect(x - bw, y, x, y + bh), 16, 16, P('#ffffff', 0.08 * a, stroke=1.5))
+    txt(c, "YEAR", x - 22, y + 30, 'ui', 19, '#cfd8e6', a, 'right', 0.32, shadow=0)
+    txt(c, ys, x - 20, y + 88, 'ui_b', 64, '#ffffff', a, 'right', 0.01, shadow=0.3)
+    c.drawLine(x - bw + 20, y + 102, x - 20, y + 102, P('#ffffff', 0.18 * a, stroke=1.2))
+    py = y + 132
+    colr = '#ffffff' if trend == 0 else ('#9df5bf' if trend > 0 else '#ff9a9a')
+    txt(c, ps, x - 20, py, 'ui_b', 34, colr, a, 'right', 0.01, shadow=0.3)
+    xl = x - 20 - wp - 12
+    if trend:
+        pulse = 0.6 + 0.4 * math.sin(t * 9.0)
+        _tri(c, xl - 8, py - 12, 13, trend > 0, '#3ccf7a' if trend > 0 else '#ff5a5a', a * pulse)
+        xl -= 26
+    txt(c, "POPULATION", xl, py - 4, 'ui', 16, '#cfd8e6', a, 'right', 0.28, shadow=0)
+    _people_icon(c, xl - wl - 18, py - 8, 18, '#cfd8e6', a * 0.9)
+    if sub:
+        txt(c, sub, x - 20, y + bh - 10, 'ui_b', 18, '#ffd27a', a, 'right', 0.22, shadow=0)
+    if delta:
+        ca = a * sm(0.0, 0.08, du) * (1 - sm(0.85, 1.0, du))
+        if ca > 0:
+            up = delta > 0
+            ds = f"{'+' if up else '−'}{abs(int(round(delta))):,}"
+            pop_k = 1 + 0.25 * (1 - eo(clamp(du * 8)))
+            fs = 26 * pop_k
+            dw = text_width(ds, 'ui_b', fs) + 52
+            cx1 = x - bw - 14; cx0 = cx1 - dw
+            cy = py - 11
+            c.drawRoundRect(skia.Rect(cx0, cy - 22 * pop_k, cx1, cy + 22 * pop_k), 22, 22, P('#22a85a' if up else '#d93a3a', 0.9 * ca))
+            _tri(c, cx0 + 22, cy, 12 * pop_k, up, '#ffffff', ca)
+            txt(c, ds, cx1 - 16, cy + fs * 0.36, 'ui_b', fs, '#ffffff', ca, 'right', 0.01, shadow=0)
+
+
+def peoples_card(c, u, items):
+    """three columns: one per people (name + way of life)"""
+    a = sm(0.0, 0.1, u) * (1 - sm(0.9, 1.0, u))
+    if a <= 0:
+        return
+    g = skia.GradientShader.MakeLinear([skia.Point(0, BY0), skia.Point(0, BY1)], [col('#000000', 0.15 * a), col('#000000', 0.55 * a)])
+    c.drawRect(skia.Rect(0, BY0, W, BY1), skia.Paint(Shader=g))
+    n = len(items)
+    for i, (name, line, hexs) in enumerate(items):
+        ui = clamp(u * 3.2 - i * 0.45)
+        if ui <= 0:
+            continue
+        k = eo(ui)
+        x = W * (i + 0.5) / n
+        y = H / 2 + 10 + (1 - k) * 30
+        txt(c, name, x, y, 'titolo', 78, '#ffffff', a * k, 'center', 0.14, shadow=0.8)
+        c.drawLine(x - 90 * k, y + 30, x + 90 * k, y + 30, P(hexs, a * k, stroke=3))
+        txt(c, line, x, y + 80, 'corsivo_b', 40, hexs, a * k, 'center', 0, shadow=0.8)

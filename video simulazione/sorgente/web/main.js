@@ -48,14 +48,65 @@ E.water = waterMaterial();
 E.world = new THREE.Group();
 E.scene.add(E.world);
 
-// post: render -> FXAA -> output (tonemap + sRGB)
-E.composer = new EffectComposer(E.renderer);
-E.composer.addPass(new RenderPass(E.scene, E.camera));
-E.fxaa = new ShaderPass(FXAAShader);
-E.fxaa.material.uniforms['resolution'].value.set(1 / (W * SCALE), 1 / (H * SCALE));
-E.composer.addPass(E.fxaa);
-E.composer.addPass(new OutputPass());
-E.useComposer = params.get('fxaa') === '1';
+// ------------------------------------------------------------------ post (hero shots)
+// key moments are rendered at full resolution through: scene (+ depth) -> depth of field -> output (tonemap + sRGB) -> FXAA
+const DOF_SHADER = {
+  uniforms: { tDiffuse: { value: null }, tDepth: { value: null }, uFocus: { value: 10 }, uAperture: { value: 0 }, uMaxBlur: { value: 10 },
+    uTexel: { value: new THREE.Vector2(1 / W, 1 / H) }, uNear: { value: 0.1 }, uFar: { value: 30000 } },
+  vertexShader: 'varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  fragmentShader: `
+    #include <packing>
+    uniform sampler2D tDiffuse; uniform sampler2D tDepth;
+    uniform float uFocus, uAperture, uMaxBlur, uNear, uFar; uniform vec2 uTexel;
+    varying vec2 vUv;
+    float viewZ(vec2 uv) { return -perspectiveDepthToViewZ(texture2D(tDepth, uv).x, uNear, uFar); }
+    float coc(float z) { return min(uMaxBlur, uAperture * abs(1.0 / uFocus - 1.0 / z)); }
+    void main() {
+      vec4 c0 = texture2D(tDiffuse, vUv);
+      float z0 = viewZ(vUv), k0 = coc(z0);
+      vec3 acc = c0.rgb; float ws = 1.0;
+      const int N = 32;
+      for (int i = 0; i < N; i++) {
+        float fi = float(i) + 0.5;
+        float r = sqrt(fi / float(N)) * uMaxBlur;
+        vec2 uv = vUv + vec2(cos(fi * 2.39996323), sin(fi * 2.39996323)) * r * uTexel;
+        float z = viewZ(uv), k = coc(z);
+        // a sample counts when its blur disk reaches this pixel; behind a sharp pixel it is limited by our own blur (no halos)
+        float kk = z > z0 ? min(k, k0) : k;
+        float w = clamp(kk - r + 1.0, 0.0, 1.0);
+        acc += texture2D(tDiffuse, uv).rgb * w; ws += w;
+      }
+      gl_FragColor = vec4(acc / ws, c0.a);
+    }`,
+};
+class DofPass extends ShaderPass {
+  render(renderer, writeBuffer, readBuffer, dt, mask) { this.uniforms.tDepth.value = readBuffer.depthTexture; super.render(renderer, writeBuffer, readBuffer, dt, mask); }
+}
+const COMPOSERS = new Map();
+function composerFor(w, h) {
+  const key = w + 'x' + h;
+  if (COMPOSERS.has(key)) return COMPOSERS.get(key);
+  const rt = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType });
+  rt.depthTexture = new THREE.DepthTexture(w, h, THREE.FloatType);
+  const comp = new EffectComposer(E.renderer, rt);
+  comp.addPass(new RenderPass(E.scene, E.camera));
+  const dof = new DofPass(DOF_SHADER); comp.addPass(dof);
+  comp.addPass(new OutputPass());
+  const fxaa = new ShaderPass(FXAAShader); fxaa.material.uniforms.resolution.value.set(1 / w, 1 / h); comp.addPass(fxaa);
+  const o = { comp, dof, fxaa, w, h }; COMPOSERS.set(key, o); return o;
+}
+E.post = null;
+E.dof = { focus: 10, aperture: 0, maxBlur: 10 };
+// per-shot quality: {scale, dof, fxaa}; returns the canvas size the frame driver must grab
+E.setQuality = function (q = {}) {
+  const sc = q.scale ?? SCALE;
+  const w = Math.round(W * sc), h = Math.round(H * sc);
+  if (E.renderer.domElement.width !== w || E.renderer.domElement.height !== h) E.renderer.setSize(w, h);
+  E.post = (q.dof || q.fxaa || params.get('fxaa') === '1') ? composerFor(w, h) : null;
+  if (E.post) E.post.dof.enabled = !!q.dof;
+  return [w, h];
+};
+E.setQuality({});
 
 E.terrain = { far: null, near: null };
 E.buildTerrainView = function (cam, opts = {}) {
@@ -101,7 +152,14 @@ E.render = function (t) {
   E.syncWater(t);
   E.renderer.toneMappingExposure = E.atmo.exposure * (E.exposureMul ?? 1);
   IMPOSTOR_LIGHT.value.copy(E.atmo.sun.color).multiplyScalar(0.18 * E.atmo.sun.intensity).add(E.atmo.hemi.color.clone().multiplyScalar(0.55 * E.atmo.hemi.intensity));
-  if (E.useComposer) E.composer.render(); else E.renderer.render(E.scene, E.camera);
+  if (E.post) {
+    if (E.post.dof.enabled) {
+      const u = E.post.dof.uniforms, k = E.post.w / 1920;
+      u.uFocus.value = Math.max(0.3, E.dof.focus); u.uAperture.value = E.dof.aperture * k; u.uMaxBlur.value = E.dof.maxBlur * k;
+      u.uTexel.value.set(1 / E.post.w, 1 / E.post.h); u.uNear.value = E.camera.near; u.uFar.value = E.camera.far;
+    }
+    E.post.comp.render();
+  } else E.renderer.render(E.scene, E.camera);
 };
 
 window.E = E;

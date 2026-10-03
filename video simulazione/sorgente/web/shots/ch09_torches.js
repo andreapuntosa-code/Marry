@@ -7,6 +7,7 @@ import { TorchField } from '../lib/fx.js';
 import { K, orbitCam, TIME, PRIMA, HILL, TEMPLE, CASTLE, PLAZA, BRIDGE, yawTo, lerpAngle, smooth, eraAcc,
   castleLocal, castleXZ, CASTLE_YAW, LANDING, GUARD, BLUE } from './sets.js';
 import { crownProp } from './ch00_open.js';
+import { NUV_ACC, TAM_ACC } from '../lib/people.js';
 
 const vill = (c, i, x, z, o = {}) => c.person(VILLAGERS[i % VILLAGERS.length], { x, z, acc: eraAcc(o.era || 'stone', i), ...o });
 const NIGHT = { hours: TIME.night, cloud: 0.12, year: 1931, exposure: 1.3 };
@@ -114,7 +115,7 @@ shot('x02b', 'x02', {
     const dir = [98 - 64, 78 - 46]; const l = Math.hypot(...dir); const ux = dir[0] / l, uz = dir[1] / l;
     for (let i = 0; i < 10; i++) {
       const x0 = 76 - ux * (i % 5) * 1.8 + (i % 2 ? 1.4 : -1.4) * uz, z0 = 57 - uz * (i % 5) * 1.8 - (i % 2 ? 1.4 : -1.4) * ux - Math.floor(i / 5) * 2;
-      const P = vill(c, i + 4, x0, z0, { acc: i % 2 === 0 ? ['torch'] : (i % 3 === 0 ? ['staff'] : eraAcc('stone', i)) });
+      const P = vill(c, i + 4, x0, z0, { acc: i % 2 === 0 ? [...(c.spec.people === 'nuv' ? NUV_ACC[i % 5] : []), 'torch'] : (c.spec.people === 'nuv' ? NUV_ACC[i % 5] : i % 3 === 0 ? ['staff'] : eraAcc('stone', i)) });
       if (i % 2 === 0) c.torch(P, { size: 0.34, light: i % 4 === 0, lightIntensity: 8, lightDist: 10, seed: i });
       P.anim = (Q, t) => c.walkTo(Q, x0, z0, x0 + ux * 6, z0 + uz * 6, t, 0, 8, { speed: 0.7, movePose: i % 2 === 0 ? 'holdTorch' : 'walk', p: { walking: true }, phase: i });
     }
@@ -123,8 +124,9 @@ shot('x02b', 'x02', {
     for (let i = 0; i < n; i++) { const back = 6 + r() * 40, off = (r() - 0.5) * 10; const x = 76 - ux * back + uz * off, z = 57 - uz * back - ux * off; cr.set(i, x, c.h(x, z), z, Math.atan2(ux, uz), 1); if (i < 250) tp.push([x + 0.2, c.h(x, z) + 2, z]); }
     tf.setPositions(tp); c.on(t => cr.update(t));
   },
-}, 3.1);
-// x02c: somebody even brought the goats
+}, 3.29);
+shot('x02n', 'x02', { ...SHOTS.x02b, people: 'nuv', cam: K([0, [83.0, 1.6, 64.4], [73, 1.7, 55], 32], [1, [82.4, 1.6, 63.8], [72.4, 1.7, 54.4], 30]) }, 4.59);
+// x02c: and the Tamari even brought the goats
 shot('x02c', 'x02', {
   ...NIGHT,
   cam: K([0, [80.5, 0.6, 61.5], [77.5, 0.5, 58.6], 30], [1, [80.9, 0.6, 62.0], [77.9, 0.5, 59.1], 28]),
@@ -132,10 +134,10 @@ shot('x02c', 'x02', {
   setup(c) {
     const ux = 0.728, uz = 0.685;
     for (let i = 0; i < 4; i++) { const x0 = 75 + i * 0.9 - uz * (i % 2) * 1.2, z0 = 56 + i * 0.4 + ux * (i % 2) * 1.2; const g = c.animal('goat', i, x0, z0, Math.atan2(ux, uz)); c.on(t => { const x = x0 + ux * t * 0.9, z = z0 + uz * t * 0.9; g.root.position.set(x, c.h(x, z), z); g.animate(t, { speed: 0.6, phase: i }); }); }
-    const sh = vill(c, 2, 76.5, 54.5, { acc: ['torch'] }); c.torch(sh, { size: 0.34, light: true, lightIntensity: 8, lightDist: 10 });
+    const sh = vill(c, 2, 76.5, 54.5, { acc: [...TAM_ACC[1], 'torch'] }); c.torch(sh, { size: 0.34, light: true, lightIntensity: 8, lightDist: 10 });
     sh.anim = (Q, t) => c.walkTo(Q, 76.5, 54.5, 76.5 + ux * 3, 54.5 + uz * 3, t, 0, 3, { movePose: 'holdTorch', p: { walking: true } });
   },
-}, 5.6);
+}, 5.98);
 // x03: at the top, in front of the palace, forty guards with spears
 shot('x03', 'x03', {
   ...NIGHT,
@@ -183,7 +185,7 @@ shot('x06L', 'x06L', {
 const DORN_AT = L((9 - 9.5) * 1.15, 0, 14.2);
 shot('x07', 'x07', {
   ...NIGHT,
-  cam: K([0, L(-0.2, 1.75, 16.4), L(-0.55, 1.85, 14.2), 24], [1, L(-0.25, 1.75, 16.1), L(-0.55, 1.88, 14.2), 22], { abs: true }),
+  cam: K([0, L(0.9, 1.7, 16.9), L(-0.55, 1.8, 14.2), 26], [1, L(0.8, 1.7, 16.6), L(-0.55, 1.83, 14.2), 24], { abs: true }), focus: 3.0,
   veg: { r0: 40 }, shadow: { x: DORN_AT[0], z: DORN_AT[2], r: 8 },
   setup(c) {
     king(c);
@@ -312,7 +314,7 @@ shot('x17', 'x17', { ...SHOTS.op8, hours: TIME.dawn + 0.5 });
 // x18: they chose democracy — blue banners at sunrise
 shot('x18', 'x18', {
   hours: TIME.dawn + 0.8, cloud: 0.35, year: 1931,
-  cam: K([0, L(-3, 1.5, 20.5), L(0, 8, 6), 36], [1, L(-2.6, 1.5, 19.6), L(0, 8.4, 6), 34], { abs: true }),
+  cam: K([0, L(-7, 2.0, 36), L(0, 7.5, 8), 40], [1, L(-6.2, 2.0, 34.5), L(0, 7.8, 8), 38], { abs: true }),
   veg: { r0: 40 }, shadow: { x: L(0, 0, 18)[0], z: L(0, 0, 18)[2], r: 20 },
   setup(c) {
     for (const [lx, lz] of [[-8, 13], [8, 13], [-13, 0], [13, 0], [0, 13.2]]) { const p = L(lx, 6.4, lz); c.proto('bannerBlue', 0, p[0], p[2], CASTLE_YAW, 1.3, 0, { y: p[1] }); }
@@ -340,20 +342,22 @@ shot('x20', 'x20', {
   cam: K([0, [HILL.x - 6, 26, HILL.z - 12], [-40, 0, -30], 40], [1, [HILL.x - 8, 25, HILL.z - 14], [-44, 0, -34], 40]),
   veg: { r0: 30, rImp: 220 },
 });
-// x21: Fire. Farms. Gods. Kings. Revolution. — it's our story, just faster; their god was real.
+// x21: Fire. Farms. Gods. Kings. Wars. Plagues. Revolution. — it's our story, just faster; their god was real.
 shot('x21a', 'x21', { ...SHOTS.f15 });
-shot('x21b', 'x21', { ...SHOTS.a08a }, 0.46);
-shot('x21c', 'x21', { ...SHOTS.o09 }, 0.98);
-shot('x21d', 'x21', { ...SHOTS.c08 }, 1.44);
-shot('x21e', 'x21', { ...SHOTS.x02a }, 1.96);
+shot('x21b', 'x21', { ...SHOTS.a08a }, 0.6);
+shot('x21c', 'x21', { ...SHOTS.o09 }, 1.12);
+shot('x21d', 'x21', { ...SHOTS.c08 }, 1.63);
+shot('x21w', 'x21', { ...SHOTS.g03a }, 2.13);
+shot('x21p', 'x21', { ...SHOTS.g07b }, 2.66);
+shot('x21e', 'x21', { ...SHOTS.x02a }, 3.22);
 shot('x21f', 'x21', {
   hours: TIME.sunset - 0.05, cloud: 0.45, year: 1945,
   cam: K([0, [-260, 120, -200], [10, 0, 10], 40], [1, [-200, 100, -250], [10, 0, 10], 40]),
   veg: { r0: 0, rImp: 0, r1: 800, rFar: 2600 },
-}, 2.76);
+}, 3.93);
 shot('x21g', 'x21', {   // their god was real (looking up at the sky from among them)
   hours: TIME.dusk + 0.05, cloud: 0.35, year: 1945, exposure: 1.1,
   cam: K([0, [PLAZA.x, 1.4, PLAZA.z], [PLAZA.x + 4, 30, PLAZA.z + 30], 44], [1, [PLAZA.x, 1.4, PLAZA.z], [PLAZA.x + 2, 40, PLAZA.z + 26], 42]),
   veg: { r0: 40 },
   setup(c) { [[1.5, 2.5], [-1.5, 3.2], [0.4, 4.4]].forEach(([dx, dz], i) => { const P = vill(c, i + 5, PLAZA.x + dx, PLAZA.z + dz, { yaw: Math.PI + (i - 1) * 0.4 }); P.anim = (Q, t) => Q.pose('lookUp', t + i); }); },
-}, 5.6);
+}, 7.4);

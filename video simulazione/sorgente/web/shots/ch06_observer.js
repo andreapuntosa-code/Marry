@@ -40,19 +40,19 @@ function tablet(c, x, y, z, yaw = 0, tilt = -0.2, s = 1) {
 }
 
 shot('o_card', 'chap:o01', {
-  ...NIGHT, year: 700,
+  ...NIGHT, year: 912,
   cam: K([0, [HILL.x - 70, 6, HILL.z - 80], [HILL.x, 30, HILL.z], 40], [1, [HILL.x - 62, 6, HILL.z - 72], [HILL.x, 34, HILL.z], 40]),
   veg: { r0: 40 },
 });
 // o01: why does the world exist? / who put the animals here? / why does the river hate us?
 shot('o01a', 'o01', {
-  ...NIGHT, year: 640,
+  ...NIGHT, year: 912,
   cam: K([0, [SQ.x + 1.2, 0.6, SQ.z - 3.4], [SQ.x - 0.2, 2.6, SQ.z + 3], 38], [1, [SQ.x + 1.1, 0.55, SQ.z - 3.1], [SQ.x - 0.2, 2.8, SQ.z + 3], 36]),
   veg: { r0: 40 }, shadow: { x: SQ.x, z: SQ.z, r: 10 },
   setup(c) { [0, 1, 2].forEach(i => { const x = SQ.x - 1.1 + i * 1.1, z = SQ.z + 0.4 * (i % 2); const P = vill(c, i + 3, x, z, { yaw: (i - 1) * 0.3, era: 'clay' }); P.anim = (Q, t) => Q.pose('lookUp', t + i, { amount: 0.9 }); }); },
 });
 shot('o01b', 'o01', {
-  hours: TIME.golden - 0.4, cloud: 0.4, year: 640,
+  hours: TIME.golden - 0.4, cloud: 0.4, year: 912,
   cam: K([0, [GOATS.x - 7, 1.0, GOATS.z - 5], [GOATS.x, 0.7, GOATS.z + 1], 32], [1, [GOATS.x - 6.4, 1.0, GOATS.z - 4.4], [GOATS.x, 0.7, GOATS.z + 1], 30]),
   veg: { grassR: 12 },
   setup(c) {
@@ -61,14 +61,14 @@ shot('o01b', 'o01', {
   },
 }, 1.7);
 shot('o01c', 'o01', {
-  hours: TIME.sunset, storm: 0.3, cloud: 0.6, year: 640, grade: 'sad',
+  hours: TIME.sunset, storm: 0.3, cloud: 0.6, year: 912, grade: 'sad',
   cam: K([0, [-44.2, 1.4, -20.2], [-55, 1.0, -15.5], 32], [1, [-44.6, 1.38, -20.0], [-55, 1.0, -15.5], 30]),
   veg: { grassR: 0, r0: 40 }, shadow: { x: RIVERBANK.x, z: RIVERBANK.z, r: 10 },
   setup(c) { const P = vill(c, 8, -48, -18, { yaw: yawTo(-48, -18, -58, -15), era: 'early' }); P.anim = (Q, t) => Q.pose('sad', t); },
 }, 3.25);
 // o02: four hundred years... (timelapse 610 -> 1000)
 shot('o02', 'o02', {
-  yearFn: (t, d) => 610 + 390 * smooth(0.05, 0.9, t / d), yearStep: 3, groundStep: 30,
+  yearFn: (t, d) => 912 + 88 * smooth(0.05, 0.9, t / d), yearStep: 2, groundStep: 20,
   hoursFn: (t, d) => 7 + ((t / d) * 5 % 1) * 12, cloud: 0.45, tScale: 30, env: 0.6,
   cam: K([0, [40, 90, -150], [-10, 0, 10], 38], [1, [100, 80, -110], [-5, 0, 15], 38]),
   veg: { r0: 30, rImp: 220 },

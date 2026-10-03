@@ -17,5 +17,5 @@ export function shotOnly(id, spec) { SHOTS[id] = spec; }
 export function shot(id, at, spec, off = 0) {
   if (SHOTS[id]) throw new Error('duplicate shot ' + id);
   SHOTS[id] = spec;
-  LIST.push({ id, at, off, kind: spec.kind || '3d', name: spec.name || null, bg: spec.bg || null, grade: autoGrade(spec) });
+  LIST.push({ id, at, off, kind: spec.kind || '3d', name: spec.name || null, bg: spec.bg || null, grade: autoGrade(spec), forceHero: spec.hero === true, noHero: spec.hero === false });
 }

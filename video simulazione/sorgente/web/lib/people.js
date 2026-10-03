@@ -493,6 +493,10 @@ export const CAST = {
   ORUN:  { id: '9461', name: 'ORUN', color: 0x2f7bff, scale: 0.97 },
   DORN:  { id: '9307', name: 'DORN', color: 0xe3be62, scale: 1.14, width: 1.12, acc: [{ type: 'helmet', color: 0xc9a94a }, { type: 'sash', color: 0xb3122a }, 'spear'] },
   NIA:   { id: '11204', name: 'NIA', color: 0xff79bf, scale: 0.94, acc: [{ type: 'scarf', color: 0x2b2d42 }, 'flower'] },
+  AMA:   { id: '3071', name: 'AMA', color: 0x2fb3c6, scale: 0.97, acc: [{ type: 'headband', color: 0x1d5f6b }, { type: 'belt', color: 0x4a3a2a }] },
+  YUNA:  { id: '7711', name: 'YUNA', color: 0xc8553d, scale: 0.94, acc: [{ type: 'scarf', color: 0x8a4a22 }, 'staff'] },
+  SEFA:  { id: '16402', name: 'SEFA', color: 0x6fcf7f, scale: 0.96, acc: [{ type: 'scarf', color: 0x3d6b3a }, 'bag'] },
+  KASSA11: { id: '7316', name: 'KASSA XI', color: 0xb81c36, scale: 1.12, width: 1.08, acc: ['crown', { type: 'cape', color: 0x7a0f1f }] },
   HOODIE: { id: null, name: 'ME', color: 0x8d9099, scale: 1.0, acc: [{ type: 'hood', color: 0x2f333b }, { type: 'robe', color: 0x2f333b }] },
   STATUE: { id: null, name: 'STATUE', color: 0x948c7e, rough: 0.95, scale: 1.0 },
 };
@@ -520,3 +524,9 @@ for (let k = 1; k <= 16; k++) {
 }
 export const ALL20 = ['ISE', 'MIRA', 'BO', 'TAM', 'A15', ...EXTRA.map(n => 'A' + String(n).padStart(2, '0'))];
 export const VILLAGERS = [...Array(48)].map((_, k) => 'V' + (k + 1));
+
+// the other peoples: Nuvians (lake, teal) and Tamari (plain, ochre) — accessories for villager bodies
+export const NUV_ACC = [[{ type: 'headband', color: 0x2a9db0 }], [{ type: 'sash', color: 0x2a9db0 }], [{ type: 'scarf', color: 0x1f7f8f }],
+  [{ type: 'headband', color: 0x2a9db0 }, { type: 'belt', color: 0xd8cfb8 }], [{ type: 'sash', color: 0x58c4d4 }]];
+export const TAM_ACC = [[{ type: 'scarf', color: 0xb5813a }, 'staff'], [{ type: 'hat', color: 0x8a5a2b }], [{ type: 'scarf', color: 0x9a3b2a }],
+  [{ type: 'belt', color: 0x8a5a2b }, 'bag'], [{ type: 'hat', color: 0xc9a46a }, { type: 'scarf', color: 0x9a3b2a }]];

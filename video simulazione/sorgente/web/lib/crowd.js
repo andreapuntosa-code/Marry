@@ -26,7 +26,7 @@ export class Crowd {
     this.mesh = new THREE.InstancedMesh(crowdGeo(), mat, n);
     this.mesh.castShadow = opts.shadows ?? false; this.mesh.receiveShadow = false; this.mesh.frustumCulled = false;
     this.pos = new Float32Array(n * 3); this.yaw = new Float32Array(n); this.ph = new Float32Array(n); this.sc = new Float32Array(n);
-    this.walk = new Float32Array(n);
+    this.walk = new Float32Array(n); this.pitch = new Float32Array(n);
     const r = mulberry32(opts.seed ?? 3);
     for (let i = 0; i < n; i++) { this.ph[i] = r() * 6.28; this.sc[i] = 0.92 + 0.16 * r(); }
     this.colors = opts.colors || [0xf2f2f2, 0xeeeeea, 0xe6e6e6, 0xf4f1ec];
@@ -36,12 +36,15 @@ export class Crowd {
   }
   set(i, x, y, z, yaw = 0, walk = 0) { this.pos[i * 3] = x; this.pos[i * 3 + 1] = y; this.pos[i * 3 + 2] = z; this.yaw[i] = yaw; this.walk[i] = walk; }
   color(i, hex) { this.mesh.setColorAt(i, new THREE.Color(hex)); this.mesh.instanceColor.needsUpdate = true; }
+  colorRGB(i, c) { this.mesh.setColorAt(i, c); this.mesh.instanceColor.needsUpdate = true; }
+  // lying on the ground (shut down): pitch the body flat
+  lie(i, on = true) { this.pitch[i] = on ? -Math.PI / 2 : 0; }
   update(t) {
     for (let i = 0; i < this.n; i++) {
       const w = this.walk[i], ph = this.ph[i] + t * 6.5;
       const bob = w > 0 ? Math.abs(Math.sin(ph)) * 0.05 : Math.sin(t * 1.5 + this.ph[i]) * 0.008;
       this._p.set(this.pos[i * 3], this.pos[i * 3 + 1] + bob, this.pos[i * 3 + 2]);
-      this._e.set(0, this.yaw[i] + (w > 0 ? Math.sin(ph) * 0.06 : 0), w > 0 ? Math.sin(ph) * 0.04 : 0);
+      this._e.set(this.pitch[i], this.yaw[i] + (w > 0 ? Math.sin(ph) * 0.06 : 0), w > 0 ? Math.sin(ph) * 0.04 : 0, 'YXZ');
       this._q.setFromEuler(this._e);
       const s = this.sc[i] * 0.92; this._s.set(s, s, s);
       this.mesh.setMatrixAt(i, this._m.compose(this._p, this._q, this._s));

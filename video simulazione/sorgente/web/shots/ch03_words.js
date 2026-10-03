@@ -145,14 +145,14 @@ shot('w08', 'w08', {
   },
 });
 // w09: "Beautiful." — Mira against the sun
-shot('w09', 'w09', {
+shot('w09', 'w09', { aperture: 0.25,
   hours: TIME.sunset, cloud: 0.4, year: 13, town: false,
   cam: K([0, behindMira(2.4, 1.25, 0.25), [ROCK.x + sunsetDir[0] * 30, 3.5, ROCK.z + sunsetDir[1] * 30], 24], [1, behindMira(2.2, 1.25, 0.2), [ROCK.x + sunsetDir[0] * 30, 3.6, ROCK.z + sunsetDir[1] * 30], 22]),
   veg: { grassR: 8, extra: MEADOW_TREES },
   setup(c) { miraOnRock(c); },
 });
 // w09L: her line, front close-up in warm light
-shot('w09L', 'w09L', {
+shot('w09L', 'w09L', { aperture: 0.25,
   hours: TIME.sunset - 0.2, cloud: 0.4, year: 13, town: false,
   cam: K([0, [ROCK.x + sunsetDir[0] * 2.4 + 0.5, 1.45, ROCK.z + sunsetDir[1] * 2.4], [ROCK.x, 1.55, ROCK.z], 28], [1, [ROCK.x + sunsetDir[0] * 2.1 + 0.4, 1.45, ROCK.z + sunsetDir[1] * 2.1], [ROCK.x, 1.6, ROCK.z], 26]),
   veg: { grassR: 8, extra: MEADOW_TREES },

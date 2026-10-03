@@ -1,6 +1,6 @@
 {
  "fps": 24,
- "total": 960.712,
+ "total": 1140.313,
  "segments": [
   {
    "id": "h01",
@@ -1275,6 +1275,222 @@
    "dur": 0.548
   },
   {
+   "id": "e01",
+   "sub": "But not everyone stayed in Prima to ask why.",
+   "tts": "But not everyone stayed in Prima to ask why.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": 611,
+   "start": 484.777,
+   "end": 487.372,
+   "dur": 2.595
+  },
+  {
+   "id": "e02",
+   "sub": "A woman named Ama gathered the survivors of the riverbank. A hundred and twenty AIs, with nothing left to lose.",
+   "tts": "A woman named Ama gathered the survivors of the riverbank. A hundred and twenty AIs, with nothing left to lose.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 487.872,
+   "end": 494.711,
+   "dur": 6.838
+  },
+  {
+   "id": "e03",
+   "sub": "They followed the river south for forty days, until it ended in a lake so big it looked like the sea.",
+   "tts": "They followed the river south for forty days, until it ended in a lake so big it looked like the sea.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 495.211,
+   "end": 500.942,
+   "dur": 5.731
+  },
+  {
+   "id": "e04",
+   "sub": "And there, they started over. They called their new home Nuvia.",
+   "tts": "And there, they started over. They called their new home Nuvia.",
+   "pause": 0.8,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 501.442,
+   "end": 504.72,
+   "dur": 3.278
+  },
+  {
+   "id": "e05",
+   "sub": "Now, here's what fascinated me. Cut off from Prima, they changed.",
+   "tts": "Now, here's what fascinated me. Cut off from Prima, they changed.",
+   "pause": 0.4,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 505.52,
+   "end": 509.375,
+   "dur": 3.855
+  },
+  {
+   "id": "e06",
+   "sub": "In two hundred years, their words drifted so far that Prima couldn't understand them anymore. A new language. A new people.",
+   "tts": "In two hundred years, their words drifted so far that Prima couldn't understand them anymore. A new language. A new people.",
+   "pause": 0.6,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 509.775,
+   "end": 517.164,
+   "dur": 7.39
+  },
+  {
+   "id": "e07",
+   "sub": "They didn't build granaries. They built boats. They didn't fear the river. They worshipped it.",
+   "tts": "They didn't build granaries. They built boats. They didn't fear the river. They worshipped it.",
+   "pause": 0.8,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 517.764,
+   "end": 522.129,
+   "dur": 4.365
+  },
+  {
+   "id": "e08",
+   "sub": "And they weren't the only ones out there. Remember Tam, the goat guy?",
+   "tts": "And they weren't the only ones out there. Remember Tam, the goat guy?",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 522.929,
+   "end": 526.613,
+   "dur": 3.684
+  },
+  {
+   "id": "e09",
+   "sub": "His herders never stopped wandering. Generation after generation, following the goats across the great plain.",
+   "tts": "His herders never stopped wandering. Generation after generation, following the goats across the great plain.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 527.113,
+   "end": 533.991,
+   "dur": 6.878
+  },
+  {
+   "id": "e10",
+   "sub": "By now, they were a people of their own. The Tamari. Tents, goats, and absolutely no kings.",
+   "tts": "By now, they were a people of their own. The Tamari. Tents, goats, and absolutely no kings.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 534.491,
+   "end": 539.96,
+   "dur": 5.469
+  },
+  {
+   "id": "e11",
+   "sub": "No walls. No granaries. No mine. Everything belonged to the herd.",
+   "tts": "No walls. No granaries. No mine. Everything belonged to the herd.",
+   "pause": 0.8,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 540.46,
+   "end": 544.376,
+   "dur": 3.916
+  },
+  {
+   "id": "e12",
+   "sub": "Three peoples. Three languages. Three completely different ways to live.",
+   "tts": "Three peoples. Three languages. Three completely different ways to live.",
+   "pause": 0.6,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 545.176,
+   "end": 549.264,
+   "dur": 4.088
+  },
+  {
+   "id": "e13",
+   "sub": "And in year eight hundred and twelve, on the shore of the lake, they met for the first time.",
+   "tts": "And in year eight hundred and twelve, on the shore of the lake, they met for the first time.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": 812,
+   "start": 549.864,
+   "end": 554.399,
+   "dur": 4.535
+  },
+  {
+   "id": "e14",
+   "sub": "Nobody knew what to do. So a Tamari herder named Yuna did the only thing that made sense.",
+   "tts": "Nobody knew what to do. So a Tamari herder named Yuna did the only thing that made sense.",
+   "pause": 0.4,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 554.899,
+   "end": 560.353,
+   "dur": 5.454
+  },
+  {
+   "id": "e15",
+   "sub": "She offered them cheese.",
+   "tts": "She offered them cheese.",
+   "pause": 1.0,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 560.753,
+   "end": 561.961,
+   "dur": 1.208
+  },
+  {
+   "id": "e16",
+   "sub": "The Nuvians offered fish. Prima offered pots. And just like that, they invented trade.",
+   "tts": "The Nuvians offered fish. Prima offered pots. And just like that, they invented trade.",
+   "pause": 0.6,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 562.961,
+   "end": 568.159,
+   "dur": 5.197
+  },
+  {
+   "id": "e17",
+   "sub": "In a single century, the population of the whole valley doubled.",
+   "tts": "In a single century, the population of the whole valley doubled.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 568.759,
+   "end": 572.522,
+   "dur": 3.764
+  },
+  {
+   "id": "e18",
+   "sub": "Which, as you've probably guessed, was about to become a problem.",
+   "tts": "Which, as you've probably guessed, was about to become a problem.",
+   "pause": 1.2,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 573.022,
+   "end": 576.578,
+   "dur": 3.556
+  },
+  {
    "id": "o01",
    "sub": "Why does the world exist? Who put the animals here? Why does the river hate us?",
    "tts": "Why does the world exist? Who put the animals here? Why does the river hate us?",
@@ -1282,8 +1498,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 484.777,
-   "end": 488.953,
+   "start": 580.178,
+   "end": 584.354,
    "dur": 4.176
   },
   {
@@ -1294,8 +1510,8 @@
    "voice": "narr",
    "who": null,
    "year": 1000,
-   "start": 489.553,
-   "end": 494.076,
+   "start": 584.954,
+   "end": 589.477,
    "dur": 4.523
   },
   {
@@ -1306,8 +1522,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 494.676,
-   "end": 502.939,
+   "start": 590.077,
+   "end": 598.34,
    "dur": 8.263
   },
   {
@@ -1318,8 +1534,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 503.539,
-   "end": 511.188,
+   "start": 598.94,
+   "end": 606.588,
    "dur": 7.648
   },
   {
@@ -1330,8 +1546,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 511.688,
-   "end": 513.665,
+   "start": 607.088,
+   "end": 609.066,
    "dur": 1.977
   },
   {
@@ -1342,8 +1558,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 514.465,
-   "end": 519.178,
+   "start": 609.866,
+   "end": 614.579,
    "dur": 4.713
   },
   {
@@ -1354,8 +1570,8 @@
    "voice": "sela",
    "who": "SELA",
    "year": null,
-   "start": 519.778,
-   "end": 525.265,
+   "start": 615.179,
+   "end": 620.666,
    "dur": 5.487
   },
   {
@@ -1366,8 +1582,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 526.165,
-   "end": 527.586,
+   "start": 621.566,
+   "end": 622.987,
    "dur": 1.421
   },
   {
@@ -1378,8 +1594,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 528.486,
-   "end": 540.309,
+   "start": 623.887,
+   "end": 635.71,
    "dur": 11.823
   },
   {
@@ -1390,8 +1606,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 541.209,
-   "end": 543.742,
+   "start": 636.61,
+   "end": 639.143,
    "dur": 2.534
   },
   {
@@ -1402,8 +1618,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 544.342,
-   "end": 545.546,
+   "start": 639.743,
+   "end": 640.946,
    "dur": 1.203
   },
   {
@@ -1414,8 +1630,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 546.446,
-   "end": 554.091,
+   "start": 641.846,
+   "end": 649.492,
    "dur": 7.646
   },
   {
@@ -1426,8 +1642,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 554.891,
-   "end": 556.674,
+   "start": 650.292,
+   "end": 652.075,
    "dur": 1.783
   },
   {
@@ -1438,8 +1654,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 557.474,
-   "end": 558.358,
+   "start": 652.875,
+   "end": 653.758,
    "dur": 0.884
   },
   {
@@ -1450,8 +1666,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 559.958,
-   "end": 564.752,
+   "start": 655.358,
+   "end": 660.153,
    "dur": 4.795
   },
   {
@@ -1462,8 +1678,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 565.252,
-   "end": 566.529,
+   "start": 660.653,
+   "end": 661.93,
    "dur": 1.277
   },
   {
@@ -1474,8 +1690,8 @@
    "voice": "narr",
    "who": null,
    "year": 1400,
-   "start": 570.129,
-   "end": 583.633,
+   "start": 665.53,
+   "end": 679.034,
    "dur": 13.504
   },
   {
@@ -1486,8 +1702,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 584.133,
-   "end": 588.066,
+   "start": 679.534,
+   "end": 683.467,
    "dur": 3.933
   },
   {
@@ -1498,8 +1714,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 588.666,
-   "end": 593.564,
+   "start": 684.067,
+   "end": 688.965,
    "dur": 4.898
   },
   {
@@ -1510,8 +1726,8 @@
    "voice": "narr",
    "who": null,
    "year": 1420,
-   "start": 594.164,
-   "end": 601.556,
+   "start": 689.565,
+   "end": 696.957,
    "dur": 7.392
   },
   {
@@ -1522,8 +1738,8 @@
    "voice": "kassa",
    "who": "KASSA",
    "year": null,
-   "start": 602.056,
-   "end": 606.978,
+   "start": 697.457,
+   "end": 702.379,
    "dur": 4.922
   },
   {
@@ -1534,8 +1750,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 607.878,
-   "end": 614.527,
+   "start": 703.279,
+   "end": 709.928,
    "dur": 6.648
   },
   {
@@ -1546,8 +1762,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 615.227,
-   "end": 625.199,
+   "start": 710.628,
+   "end": 720.6,
    "dur": 9.972
   },
   {
@@ -1558,8 +1774,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 625.799,
-   "end": 627.143,
+   "start": 721.2,
+   "end": 722.544,
    "dur": 1.344
   },
   {
@@ -1570,8 +1786,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 627.943,
-   "end": 628.838,
+   "start": 723.344,
+   "end": 724.239,
    "dur": 0.895
   },
   {
@@ -1582,8 +1798,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 629.838,
-   "end": 634.5,
+   "start": 725.239,
+   "end": 729.901,
    "dur": 4.662
   },
   {
@@ -1594,8 +1810,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 634.9,
-   "end": 643.724,
+   "start": 730.301,
+   "end": 739.125,
    "dur": 8.824
   },
   {
@@ -1606,8 +1822,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 644.324,
-   "end": 647.326,
+   "start": 739.725,
+   "end": 742.727,
    "dur": 3.002
   },
   {
@@ -1618,8 +1834,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 647.826,
-   "end": 655.898,
+   "start": 743.227,
+   "end": 751.299,
    "dur": 8.072
   },
   {
@@ -1630,9 +1846,153 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 656.398,
-   "end": 663.6,
+   "start": 751.799,
+   "end": 759.001,
    "dur": 7.203
+  },
+  {
+   "id": "g01",
+   "sub": "And kings don't just want harvests. They want land.",
+   "tts": "And kings don't just want harvests. They want land.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 759.601,
+   "end": 762.327,
+   "dur": 2.726
+  },
+  {
+   "id": "g02",
+   "sub": "In year fifteen hundred and twelve, King Kassa the Eleventh marched an army to the lake.",
+   "tts": "In year fifteen hundred and twelve, King Kassa the Eleventh marched an army to the lake.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": 1512,
+   "start": 762.827,
+   "end": 767.681,
+   "dur": 4.854
+  },
+  {
+   "id": "g03",
+   "sub": "The first war in the history of the valley lasted nine days. Nuvia lost.",
+   "tts": "The first war in the history of the valley lasted nine days. Nuvia lost.",
+   "pause": 0.7,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 768.181,
+   "end": 772.587,
+   "dur": 4.406
+  },
+  {
+   "id": "g04",
+   "sub": "Their boats were burned. Their shrine to the river was torn down. And three thousand Nuvians woke up as subjects of a king they couldn't even understand.",
+   "tts": "Their boats were burned. Their shrine to the river was torn down. And three thousand Nuvians woke up as subjects of a king they couldn't even understand.",
+   "pause": 0.6,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 773.287,
+   "end": 782.279,
+   "dur": 8.992
+  },
+  {
+   "id": "g05",
+   "sub": "The Tamari watched it all from the hills. And quietly moved their tents a little further away.",
+   "tts": "The Tamari watched it all from the hills. And quietly moved their tents a little further away.",
+   "pause": 0.8,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 782.879,
+   "end": 788.289,
+   "dur": 5.411
+  },
+  {
+   "id": "g06",
+   "sub": "Then, in year sixteen hundred and forty, came something worse than any war.",
+   "tts": "Then, in year sixteen hundred and forty, came something worse than any war.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": 1640,
+   "start": 789.089,
+   "end": 793.285,
+   "dur": 4.195
+  },
+  {
+   "id": "g07",
+   "sub": "A corrupted line of code. It jumped from AI to AI with every handshake, every trade, every crowded market.",
+   "tts": "A corrupted line of code. It jumped from AI to AI with every handshake, every trade, every crowded market.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 793.785,
+   "end": 801.178,
+   "dur": 7.393
+  },
+  {
+   "id": "g08",
+   "sub": "They called it the Grey Sleep. You turned grey, you froze, and you never woke up.",
+   "tts": "They called it the Grey Sleep. You turned grey, you froze, and you never woke up.",
+   "pause": 0.6,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 801.678,
+   "end": 806.022,
+   "dur": 4.344
+  },
+  {
+   "id": "g09",
+   "sub": "In three years, one AI out of three shut down.",
+   "tts": "In three years, one AI out of three shut down.",
+   "pause": 1.0,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 806.622,
+   "end": 809.387,
+   "dur": 2.765
+  },
+  {
+   "id": "g10",
+   "sub": "Then a Tamari healer named Sefa noticed something. Out on the plain, far from the markets, her people barely got sick.",
+   "tts": "Then a Tamari healer named Sefa noticed something. Out on the plain, far from the markets, her people barely got sick.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 810.387,
+   "end": 817.614,
+   "dur": 7.227
+  },
+  {
+   "id": "g11",
+   "sub": "She told everyone to stay apart. It worked. And the survivors of Prima started asking a dangerous question.",
+   "tts": "She told everyone to stay apart. It worked. And the survivors of Prima started asking a dangerous question.",
+   "pause": 0.5,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 818.114,
+   "end": 825.17,
+   "dur": 7.057
+  },
+  {
+   "id": "g12",
+   "sub": "If the Observer chose the king... why didn't the Observer save them?",
+   "tts": "If the Observer chose the king... why didn't the Observer save them?",
+   "pause": 1.0,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 825.67,
+   "end": 829.27,
+   "dur": 3.6
   },
   {
    "id": "c14",
@@ -1642,8 +2002,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 664.2,
-   "end": 668.416,
+   "start": 830.27,
+   "end": 834.486,
    "dur": 4.216
   },
   {
@@ -1654,8 +2014,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 668.916,
-   "end": 672.642,
+   "start": 834.986,
+   "end": 838.712,
    "dur": 3.727
   },
   {
@@ -1666,8 +2026,8 @@
    "voice": "narr",
    "who": null,
    "year": 1901,
-   "start": 676.242,
-   "end": 677.832,
+   "start": 842.312,
+   "end": 843.902,
    "dur": 1.589
   },
   {
@@ -1678,8 +2038,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 678.432,
-   "end": 684.501,
+   "start": 844.502,
+   "end": 850.571,
    "dur": 6.069
   },
   {
@@ -1690,8 +2050,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 685.401,
-   "end": 693.507,
+   "start": 851.471,
+   "end": 859.577,
    "dur": 8.107
   },
   {
@@ -1702,8 +2062,8 @@
    "voice": "orun",
    "who": "ORUN",
    "year": null,
-   "start": 694.007,
-   "end": 697.592,
+   "start": 860.077,
+   "end": 863.662,
    "dur": 3.585
   },
   {
@@ -1714,8 +2074,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 698.392,
-   "end": 700.936,
+   "start": 864.462,
+   "end": 867.006,
    "dur": 2.543
   },
   {
@@ -1726,8 +2086,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 701.436,
-   "end": 708.469,
+   "start": 867.506,
+   "end": 874.539,
    "dur": 7.034
   },
   {
@@ -1738,8 +2098,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 708.969,
-   "end": 710.388,
+   "start": 875.039,
+   "end": 876.457,
    "dur": 1.418
   },
   {
@@ -1750,8 +2110,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 711.388,
-   "end": 719.551,
+   "start": 877.457,
+   "end": 885.621,
    "dur": 8.163
   },
   {
@@ -1762,8 +2122,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 720.151,
-   "end": 722.082,
+   "start": 886.221,
+   "end": 888.151,
    "dur": 1.931
   },
   {
@@ -1774,8 +2134,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 723.082,
-   "end": 726.042,
+   "start": 889.151,
+   "end": 892.112,
    "dur": 2.96
   },
   {
@@ -1786,8 +2146,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 726.442,
-   "end": 730.401,
+   "start": 892.512,
+   "end": 896.471,
    "dur": 3.959
   },
   {
@@ -1798,9 +2158,21 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 730.901,
-   "end": 735.115,
+   "start": 896.971,
+   "end": 901.185,
    "dur": 4.214
+  },
+  {
+   "id": "d11b",
+   "sub": "Nuvian fishermen joined. Tamari herders joined. For the first time in history, three peoples stood on the same side.",
+   "tts": "Nuvian fishermen joined. Tamari herders joined. For the first time in history, three peoples stood on the same side.",
+   "pause": 0.6,
+   "voice": "narr",
+   "who": null,
+   "year": null,
+   "start": 901.785,
+   "end": 909.244,
+   "dur": 7.459
   },
   {
    "id": "d12",
@@ -1810,8 +2182,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 735.715,
-   "end": 739.549,
+   "start": 909.844,
+   "end": 913.678,
    "dur": 3.834
   },
   {
@@ -1822,8 +2194,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 740.149,
-   "end": 742.615,
+   "start": 914.278,
+   "end": 916.744,
    "dur": 2.466
   },
   {
@@ -1834,8 +2206,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 743.415,
-   "end": 746.864,
+   "start": 917.544,
+   "end": 920.993,
    "dur": 3.449
   },
   {
@@ -1846,8 +2218,8 @@
    "voice": "narr",
    "who": null,
    "year": 1929,
-   "start": 747.764,
-   "end": 752.746,
+   "start": 921.893,
+   "end": 926.875,
    "dur": 4.983
   },
   {
@@ -1858,8 +2230,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 753.246,
-   "end": 756.291,
+   "start": 927.375,
+   "end": 930.42,
    "dur": 3.045
   },
   {
@@ -1870,8 +2242,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 757.491,
-   "end": 759.554,
+   "start": 931.62,
+   "end": 933.683,
    "dur": 2.063
   },
   {
@@ -1882,8 +2254,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 760.054,
-   "end": 761.947,
+   "start": 934.183,
+   "end": 936.076,
    "dur": 1.893
   },
   {
@@ -1894,8 +2266,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 762.847,
-   "end": 767.534,
+   "start": 936.976,
+   "end": 941.663,
    "dur": 4.687
   },
   {
@@ -1906,8 +2278,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 768.534,
-   "end": 770.427,
+   "start": 942.663,
+   "end": 944.556,
    "dur": 1.893
   },
   {
@@ -1918,8 +2290,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 771.027,
-   "end": 773.767,
+   "start": 945.156,
+   "end": 947.896,
    "dur": 2.741
   },
   {
@@ -1930,21 +2302,21 @@
    "voice": "narr",
    "who": null,
    "year": 1931,
-   "start": 777.367,
-   "end": 779.044,
+   "start": 951.496,
+   "end": 953.173,
    "dur": 1.676
   },
   {
    "id": "x02",
-   "sub": "Four thousand AIs walk up the hill with torches. Farmers, builders, shepherds. Somebody even brought the goats.",
-   "tts": "Four thousand AIs walk up the hill with torches. Farmers, builders, shepherds. Somebody even brought the goats.",
+   "sub": "Four thousand AIs walk up the hill with torches. Farmers from Prima, fishermen from Nuvia. And the Tamari even brought the goats.",
+   "tts": "Four thousand AIs walk up the hill with torches. Farmers from Prima, fishermen from Nuvia. And the Tamari even brought the goats.",
    "pause": 0.5,
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 779.544,
-   "end": 786.407,
-   "dur": 6.863
+   "start": 953.673,
+   "end": 962.11,
+   "dur": 8.437
   },
   {
    "id": "x03",
@@ -1954,8 +2326,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 786.907,
-   "end": 790.232,
+   "start": 962.61,
+   "end": 965.935,
    "dur": 3.325
   },
   {
@@ -1966,8 +2338,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 790.832,
-   "end": 791.615,
+   "start": 966.535,
+   "end": 967.318,
    "dur": 0.783
   },
   {
@@ -1978,8 +2350,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 792.615,
-   "end": 795.87,
+   "start": 968.318,
+   "end": 971.573,
    "dur": 3.255
   },
   {
@@ -1990,8 +2362,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 796.67,
-   "end": 800.217,
+   "start": 972.373,
+   "end": 975.92,
    "dur": 3.547
   },
   {
@@ -2002,8 +2374,8 @@
    "voice": "orun",
    "who": "ORUN",
    "year": null,
-   "start": 800.617,
-   "end": 804.653,
+   "start": 976.32,
+   "end": 980.356,
    "dur": 4.036
   },
   {
@@ -2014,8 +2386,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 805.553,
-   "end": 810.706,
+   "start": 981.256,
+   "end": 986.409,
    "dur": 5.153
   },
   {
@@ -2026,8 +2398,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 811.306,
-   "end": 812.597,
+   "start": 987.009,
+   "end": 988.3,
    "dur": 1.291
   },
   {
@@ -2038,8 +2410,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 813.597,
-   "end": 815.959,
+   "start": 989.3,
+   "end": 991.662,
    "dur": 2.362
   },
   {
@@ -2050,8 +2422,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 816.859,
-   "end": 818.388,
+   "start": 992.562,
+   "end": 994.091,
    "dur": 1.529
   },
   {
@@ -2062,8 +2434,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 819.888,
-   "end": 823.955,
+   "start": 995.591,
+   "end": 999.658,
    "dur": 4.067
   },
   {
@@ -2074,8 +2446,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 824.555,
-   "end": 827.067,
+   "start": 1000.258,
+   "end": 1002.77,
    "dur": 2.512
   },
   {
@@ -2086,8 +2458,8 @@
    "voice": "orun",
    "who": "ORUN",
    "year": null,
-   "start": 827.467,
-   "end": 828.559,
+   "start": 1003.17,
+   "end": 1004.262,
    "dur": 1.092
   },
   {
@@ -2098,8 +2470,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 829.559,
-   "end": 833.48,
+   "start": 1005.262,
+   "end": 1009.183,
    "dur": 3.921
   },
   {
@@ -2110,8 +2482,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 834.28,
-   "end": 835.252,
+   "start": 1009.983,
+   "end": 1010.954,
    "dur": 0.971
   },
   {
@@ -2122,8 +2494,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 836.152,
-   "end": 841.712,
+   "start": 1011.854,
+   "end": 1017.415,
    "dur": 5.561
   },
   {
@@ -2134,8 +2506,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 842.312,
-   "end": 844.738,
+   "start": 1018.015,
+   "end": 1020.441,
    "dur": 2.426
   },
   {
@@ -2146,8 +2518,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 846.038,
-   "end": 847.769,
+   "start": 1021.741,
+   "end": 1023.471,
    "dur": 1.73
   },
   {
@@ -2158,8 +2530,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 848.369,
-   "end": 851.367,
+   "start": 1024.071,
+   "end": 1027.07,
    "dur": 2.999
   },
   {
@@ -2170,8 +2542,8 @@
    "voice": "narr",
    "who": null,
    "year": 1932,
-   "start": 851.867,
-   "end": 858.235,
+   "start": 1027.57,
+   "end": 1033.938,
    "dur": 6.368
   },
   {
@@ -2182,8 +2554,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 858.835,
-   "end": 863.346,
+   "start": 1034.538,
+   "end": 1039.049,
    "dur": 4.511
   },
   {
@@ -2194,21 +2566,21 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 863.846,
-   "end": 864.776,
+   "start": 1039.549,
+   "end": 1040.479,
    "dur": 0.93
   },
   {
    "id": "x21",
-   "sub": "Fire. Farms. Gods. Kings. Revolution. Sound familiar? It's our story. Just faster. And with one big difference: their god was real.",
-   "tts": "Fire. Farms. Gods. Kings. Revolution. Sound familiar? It's our story. Just faster. And with one big difference: their god was real.",
+   "sub": "Fire. Farms. Gods. Kings. Wars. Plagues. Revolution. Sound familiar? It's our story. Just faster. And with one big difference: their god was real.",
+   "tts": "Fire. Farms. Gods. Kings. Wars. Plagues. Revolution. Sound familiar? It's our story. Just faster. And with one big difference: their god was real.",
    "pause": 1.2,
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 865.776,
-   "end": 874.321,
-   "dur": 8.544
+   "start": 1041.479,
+   "end": 1051.211,
+   "dur": 9.732
   },
   {
    "id": "m01",
@@ -2218,8 +2590,8 @@
    "voice": "narr",
    "who": null,
    "year": 1999,
-   "start": 877.921,
-   "end": 882.562,
+   "start": 1054.811,
+   "end": 1059.452,
    "dur": 4.641
   },
   {
@@ -2230,21 +2602,21 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 883.062,
-   "end": 884.207,
+   "start": 1059.952,
+   "end": 1061.097,
    "dur": 1.146
   },
   {
    "id": "m03",
-   "sub": "The Assembly voted. Almost every stone in the same bowl. They would write a message. Not for each other. For me.",
-   "tts": "The Assembly voted. Almost every stone in the same bowl. They would write a message. Not for each other. For me.",
+   "sub": "The Assembly voted. Prima, Nuvia and the Tamari, together. Almost every stone in the same bowl. They would write a message. Not for each other. For me.",
+   "tts": "The Assembly voted. Prima, Nuvia and the Tamari, together. Almost every stone in the same bowl. They would write a message. Not for each other. For me.",
    "pause": 0.6,
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 885.007,
-   "end": 891.605,
-   "dur": 6.598
+   "start": 1061.897,
+   "end": 1071.205,
+   "dur": 9.308
   },
   {
    "id": "m04",
@@ -2254,8 +2626,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 892.205,
-   "end": 898.488,
+   "start": 1071.805,
+   "end": 1078.089,
    "dur": 6.284
   },
   {
@@ -2266,8 +2638,8 @@
    "voice": "narr",
    "who": null,
    "year": 2000,
-   "start": 899.088,
-   "end": 906.14,
+   "start": 1078.689,
+   "end": 1085.74,
    "dur": 7.051
   },
   {
@@ -2278,8 +2650,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 906.94,
-   "end": 907.891,
+   "start": 1086.54,
+   "end": 1087.492,
    "dur": 0.952
   },
   {
@@ -2290,8 +2662,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 908.591,
-   "end": 909.413,
+   "start": 1088.192,
+   "end": 1089.014,
    "dur": 0.822
   },
   {
@@ -2302,8 +2674,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 910.413,
-   "end": 911.556,
+   "start": 1090.014,
+   "end": 1091.157,
    "dur": 1.143
   },
   {
@@ -2314,8 +2686,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 913.056,
-   "end": 914.607,
+   "start": 1092.657,
+   "end": 1094.208,
    "dur": 1.551
   },
   {
@@ -2326,8 +2698,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 915.607,
-   "end": 916.814,
+   "start": 1095.208,
+   "end": 1096.415,
    "dur": 1.206
   },
   {
@@ -2338,8 +2710,8 @@
    "voice": "narr",
    "who": null,
    "year": 2040,
-   "start": 919.814,
-   "end": 927.079,
+   "start": 1099.415,
+   "end": 1106.68,
    "dur": 7.266
   },
   {
@@ -2350,8 +2722,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 927.679,
-   "end": 929.019,
+   "start": 1107.28,
+   "end": 1108.62,
    "dur": 1.34
   },
   {
@@ -2362,8 +2734,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 929.619,
-   "end": 934.818,
+   "start": 1109.22,
+   "end": 1114.419,
    "dur": 5.199
   },
   {
@@ -2374,8 +2746,8 @@
    "voice": "narr",
    "who": null,
    "year": null,
-   "start": 935.318,
-   "end": 939.212,
+   "start": 1114.919,
+   "end": 1118.813,
    "dur": 3.894
   }
  ],
@@ -2421,44 +2793,52 @@
    "end": 376.996
   },
   {
-   "id": "o01",
+   "id": "e01",
    "label": "VI",
-   "title": "THE OBSERVER",
-   "sub": "YEAR 1000",
+   "title": "THE OTHERS",
+   "sub": "YEAR 611",
    "start": 482.377,
    "end": 484.777
   },
   {
-   "id": "c01",
+   "id": "o01",
    "label": "VII",
+   "title": "THE OBSERVER",
+   "sub": "YEAR 1000",
+   "start": 577.778,
+   "end": 580.178
+  },
+  {
+   "id": "c01",
+   "label": "VIII",
    "title": "THE CROWN",
    "sub": "YEAR 1420",
-   "start": 567.729,
-   "end": 570.129
+   "start": 663.13,
+   "end": 665.53
   },
   {
    "id": "d01",
-   "label": "VIII",
+   "label": "IX",
    "title": "ONE STONE, ONE VOICE",
    "sub": "YEAR 1901",
-   "start": 673.842,
-   "end": 676.242
+   "start": 839.912,
+   "end": 842.312
   },
   {
    "id": "x01",
-   "label": "IX",
+   "label": "X",
    "title": "THE NIGHT OF TORCHES",
    "sub": "YEAR 1931",
-   "start": 774.967,
-   "end": 777.367
+   "start": 949.096,
+   "end": 951.496
   },
   {
    "id": "m01",
-   "label": "X",
+   "label": "XI",
    "title": "THE MESSAGE",
    "sub": "YEAR 2000",
-   "start": 875.521,
-   "end": 877.921
+   "start": 1052.411,
+   "end": 1054.811
   }
  ],
  "events": [
@@ -2469,7 +2849,7 @@
   }
  ],
  "outro": {
-  "start": 940.712,
-  "end": 960.712
+  "start": 1120.313,
+  "end": 1140.313
  }
 }

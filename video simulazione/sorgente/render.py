@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Frame driver: for every frame finds the shot, asks the three.js director to render it
+Picture driver: for every frame finds the shot, asks the three.js director to render it
 (headless Chromium, SwiftShader), captures the 2.39:1 picture band, grades it like film,
-letterboxes it into 1920x1080, composites the on-screen graphics and pipes it to ffmpeg.
+letterboxes it into 1920x1080 and pipes it to ffmpeg. No on-screen text here: titles, the
+YEAR/POPULATION HUD and the end screen are composited afterwards by finish.py.
+Key moments (graphics_plan.KEY) are "hero" shots: native resolution, depth of field, FXAA, bloom.
 
   python3 render.py --preview 12.5 40.2 ...          # single frames -> jpg
   python3 render.py --range 0 240 --out x.mp4         # a frame range
@@ -97,107 +99,6 @@ GRADES = {   # (RGB curves LUT, saturation)
 }
 
 
-# ------------------------------------------------------------------ graphics schedule
-class Graphics:
-    def __init__(self, tl, seg_by, chap_by):
-        self.tl, self.seg_by, self.chap_by = tl, seg_by, chap_by
-        self.events = []
-        for kind, anchor, dur, p in GP.EVENTS:
-            s = seg_by[anchor]
-            t0 = s["start"] + p.get("delay", 0.0)
-            t1 = t0 + (dur if dur is not None else s["dur"] + s["pause"])
-            if dur is not None and "delay" in p:
-                t1 = s["start"] + dur
-            self.events.append((kind, t0, t1, p))
-        # characters' lines -> film subtitles
-        for s in tl["segments"]:
-            if s.get("who"):
-                self.events.append(("subtitle", s["start"] - 0.05, s["end"] + 0.35, {"who": s["who"], "line": s["sub"].strip("“”\"")}))
-        self.year_marks = sorted([(s["start"], s["year"]) for s in tl["segments"] if s.get("year") is not None])
-        self.ramps = [(seg_by[a]["start"], seg_by[b]["start"], y0, y1) for a, b, y0, y1 in GP.YEAR_RAMPS]
-        self.days = [(seg_by[a]["start"], seg_by[b]["start"], lab) for a, b, lab in GP.DAY_LABELS]
-        self.hidden = [(seg_by[a]["start"], seg_by[b]["start"] if b else 1e9) for a, b in GP.YEAR_HIDDEN]
-        self.year_on = seg_by["r09"]["start"]
-
-    def year_at(self, t):
-        for a, b, y0, y1 in self.ramps:
-            if a <= t < b:
-                u = (t - a) / (b - a)
-                u = u * u * (3 - 2 * u)
-                return y0 + (y1 - y0) * u
-        y = 0
-        for ts, yr in self.year_marks:
-            if ts <= t:
-                y = yr
-        for a, b, y0, y1 in self.ramps:
-            if t >= b and b > 0:
-                best = [m for m in self.year_marks if m[0] <= t]
-                last_mark_t = best[-1][0] if best else -1
-                if b > last_mark_t:
-                    y = y1
-        return y
-
-    def draw(self, canvas, t):
-        c = canvas
-        for ch in self.tl["chapters"]:
-            if ch["start"] <= t < ch["end"]:
-                OV.chapter_card(c, (t - ch["start"]) / (ch["end"] - ch["start"]), ch["label"], ch["title"], ch["sub"])
-        ev = self.tl["events"][0]
-        if ev["start"] <= t < ev["end"]:
-            OV.title_card(c, (t - ev["start"]) / (ev["end"] - ev["start"]))
-        for kind, t0, t1, p in self.events:
-            if not (t0 <= t < t1):
-                continue
-            u = (t - t0) / max(1e-3, t1 - t0)
-            if kind == "rule":
-                OV.rule_card(c, u, p["n"], p["l1"], p.get("l2"))
-            elif kind == "caption":
-                OV.caption(c, u, p["s"], p.get("color", "#ffffff"), p.get("y"), p.get("size", 78), p.get("key", "anton"), p.get("box"))
-            elif kind == "name":
-                OV.name_card(c, u, p["name"], p["role"], GP.C.get(p["c"], "#ffffff"))
-            elif kind == "glyph":
-                OV.glyph_card(c, u, p["key"], p["word"], p["meaning"], p.get("color", "#ffd27a"))
-            elif kind == "glyph3":
-                for i, (k, w_, m_, colr) in enumerate([("KRA", "Kra", "danger", "#ff5a5a"), ("NUA", "Nua", "night", "#8ea8ff"), ("TOH", "Toh", "come here", "#7ee08a")]):
-                    ui = (u * 3.0 - i * 0.55)
-                    if 0 <= ui <= 1.6:
-                        OV.glyph_card(c, min(1.0, ui / 1.6), k, w_, m_, colr, x=W * (0.22 + 0.28 * i) + 60)
-            elif kind == "energy":
-                lv = p["from"] + (p["to"] - p["from"]) * OV.sm(0.15, 0.85, u)
-                OV.energy_bar(c, u, p["x"], p["y"], lv, p.get("label", "ENERGY"))
-            elif kind == "place":
-                OV.place_card(c, u, p["name"], p["sub"])
-            elif kind == "search":
-                OV.hud_search(c, u, t)
-            elif kind == "kings":
-                OV.kings_ticker(c, u)
-            elif kind == "comment":
-                OV.comment_prompt(c, u, t)
-            elif kind == "subtitle":
-                OV.subtitle(c, u, p["who"], p["line"], GP.C.get(p["who"], "#ffffff"))
-            elif kind == "flash":
-                k = math.exp(-((t - (t0 + p["at"])) / 0.12) ** 2) if t >= t0 + p["at"] - 0.05 else 0.0
-                OV.flash(c, k)
-        # year counter (top-right of the picture)
-        if t >= self.year_on and not any(a <= t < b for a, b in self.hidden) and t < self.tl["outro"]["start"]:
-            a = OV.sm(self.year_on, self.year_on + 0.5, t)
-            for ch in self.tl["chapters"]:
-                if ch["start"] - 0.3 <= t < ch["end"] + 0.2:
-                    a = 0.0
-            if ev["start"] <= t < ev["end"]:
-                a = 0.0
-            sub = None
-            for d0, d1, lab in self.days:
-                if d0 <= t < d1:
-                    sub = lab
-            OV.year_counter(c, self.year_at(t), a, "YEAR", sub)
-        o = self.tl["outro"]
-        if t >= o["start"]:
-            u = (t - o["start"]) / (o["end"] - o["start"])
-            OV.end_screen(c, u)
-            OV.end_credits(c, u)
-
-
 # ------------------------------------------------------------------ 2D shots (inside the picture band)
 def render_2d(kind, lt, dur, bg):
     img = np.zeros((BH, BW, 4), np.uint8)
@@ -237,6 +138,22 @@ def render_2d(kind, lt, dur, bg):
     return img[..., :3].copy()
 
 
+# ------------------------------------------------------------------ key moments (hero shots)
+def key_windows(tl, seg_by):
+    out = []
+    for a, b in GP.KEY:
+        t0 = seg_by[a]["start"] - 0.05
+        t1 = seg_by[b]["start"] - 0.05 if b else tl["outro"]["start"]
+        out.append((t0, t1))
+    return out
+
+
+def is_hero(shot, keys):
+    """a shot is a hero shot when most of it lies inside a key window"""
+    inside = sum(max(0.0, min(shot["end"], b) - max(shot["start"], a)) for a, b in keys)
+    return inside >= 0.5 * max(1e-3, shot["end"] - shot["start"])
+
+
 # ------------------------------------------------------------------ worker
 class Worker:
     def __init__(self, scale=SCALE):
@@ -256,14 +173,17 @@ class Worker:
         self.cdp = self.page.context.new_cdp_session(self.page)
         self.cur = None
         self.shot_list = self.page.evaluate('window.SHOT_LIST')
-        self.cw, self.ch = int(round(BW * scale)), int(round(BH * scale))
+        self.size = (int(round(BW * scale)), int(round(BH * scale)))
 
-    def frame3d(self, shot, lt, markers):
-        if self.cur != shot["id"]:
-            self.page.evaluate(f"loadShot({json.dumps(shot['id'])}, {shot['dur']:.4f}, {json.dumps(markers)})")
-            self.cur = shot["id"]
+    def frame3d(self, shot, lt, markers, hero=False):
+        key = (shot["id"], hero)
+        if self.cur != key:
+            r = self.page.evaluate(f"loadShot({json.dumps(shot['id'])}, {shot['dur']:.4f}, {json.dumps(markers)}, {{hero: {'true' if hero else 'false'}}})")
+            self.size = tuple(r["size"])
+            self.cur = key
         self.page.evaluate(f"renderShot({lt:.4f})")
-        r = self.cdp.send('Page.captureScreenshot', {'format': 'jpeg', 'quality': 94, 'clip': {'x': 0, 'y': 0, 'width': self.cw, 'height': self.ch, 'scale': 1}})
+        cw, ch = self.size
+        r = self.cdp.send('Page.captureScreenshot', {'format': 'jpeg', 'quality': 95 if hero else 94, 'clip': {'x': 0, 'y': 0, 'width': cw, 'height': ch, 'scale': 1}})
         buf = np.frombuffer(base64.b64decode(r['data']), np.uint8)
         img = cv2.imdecode(buf, cv2.IMREAD_COLOR)
         if img.shape[1] != BW or img.shape[0] != BH:
@@ -280,34 +200,54 @@ class Worker:
 _rng = np.random.default_rng(7)
 GRAIN = [(_rng.standard_normal((BH // 2, BW // 2)) * 2.0).astype(np.float32) for _ in range(6)]
 yy, xx = np.mgrid[0:BH, 0:BW].astype(np.float32)
-VIGN = (1.0 - 0.24 * np.clip((((xx - BW / 2) / (BW / 2)) ** 2 * 0.75 + ((yy - BH / 2) / (BH / 2)) ** 2 * 0.55), 0, 1.5) ** 1.3).astype(np.float32)
-del yy, xx
+_r2 = np.clip((((xx - BW / 2) / (BW / 2)) ** 2 * 0.75 + ((yy - BH / 2) / (BH / 2)) ** 2 * 0.55), 0, 1.5)
+VIGN = (1.0 - 0.24 * _r2 ** 1.3).astype(np.float32)
+VIGN_HERO = (1.0 - 0.32 * _r2 ** 1.25).astype(np.float32)
+del yy, xx, _r2
 LUMA = np.array([[0.299, 0.587, 0.114]], np.float32)
+# bloom per grade: (threshold, strength); hero shots glow more and get an anamorphic streak on the brightest lights
+BLOOM = {"day": (215, 0.10), "golden": (190, 0.18), "dawn": (200, 0.14), "night": (150, 0.34), "storm": (200, 0.12), "room": (170, 0.22), "sad": (210, 0.08)}
 
 
-def post(img, fi, grade="day", sharpen=True):
+def bloom(f, grade, hero):
+    th, k = BLOOM.get(grade, BLOOM["day"])
+    if hero:
+        k *= 1.5
+    sw, sh = BW // 4, BH // 4
+    small = cv2.resize(f, (sw, sh), interpolation=cv2.INTER_AREA)
+    hi = np.maximum(small - th, 0) * (255.0 / (255.0 - th))
+    b = cv2.GaussianBlur(hi, (0, 0), 3.0) * 0.5 + cv2.GaussianBlur(hi, (0, 0), 10.0) * 0.5
+    out = b * k
+    if hero and grade in ("night", "room", "golden"):
+        hot = np.maximum(small - 228, 0) * (255.0 / 27.0)
+        streak = cv2.GaussianBlur(hot, (0, 0), sigmaX=46, sigmaY=0.8)
+        out += streak * np.array([0.55, 0.75, 1.0], np.float32) * 0.5
+    return f + cv2.resize(out, (BW, BH), interpolation=cv2.INTER_LINEAR)
+
+
+def post(img, fi, grade="day", sharpen=True, hero=False):
     f = img.astype(np.float32)
-    if sharpen and SCALE < 0.999:
+    if sharpen and not hero and SCALE < 0.999:
         bl = cv2.GaussianBlur(f, (0, 0), 1.1)
         f = f + (f - bl) * 0.5
+    f = bloom(f, grade, hero)
     lut, sat = GRADES.get(grade, GRADES["day"])
+    if hero:
+        sat *= 1.04
     if abs(sat - 1.0) > 1e-3:
         g = cv2.transform(f, LUMA)[..., None]
         f = g + (f - g) * sat
-    f *= VIGN[..., None]
+    f *= (VIGN_HERO if hero else VIGN)[..., None]
     gr = cv2.resize(GRAIN[fi % len(GRAIN)], (BW, BH), interpolation=cv2.INTER_LINEAR)
     f += gr[..., None]
     out = np.clip(f, 0, 255).astype(np.uint8)
     return cv2.LUT(out, lut)
 
 
-def compose(band_rgb, graphics, t):
-    rgba = np.zeros((H, W, 4), np.uint8)
-    rgba[BY:BY + BH, :, :3] = band_rgb
-    rgba[..., 3] = 255
-    surf = skia.Surface(rgba)
-    graphics.draw(surf.getCanvas(), t)
-    return rgba[..., :3].copy()
+def letterbox(band_rgb):
+    out = np.zeros((H, W, 3), np.uint8)
+    out[BY:BY + BH] = band_rgb
+    return out
 
 
 class Renderer:
@@ -316,10 +256,13 @@ class Renderer:
         self.wk = Worker()
         self.shots = build_shots(self.wk.shot_list, self.tl, self.seg_by, self.chap_by)
         self.starts = [s["start"] for s in self.shots]
-        self.gfx = Graphics(self.tl, self.seg_by, self.chap_by)
+        self.keys = key_windows(self.tl, self.seg_by)
+        for s in self.shots:
+            s["hero"] = s.get("kind") != "2d" and not s.get("noHero") and (s.get("forceHero") or is_hero(s, self.keys))
         self.bg_cache = {}
+        self.gfx = None
 
-    def frame(self, t, k):
+    def band(self, t, k, hero=None):
         i = max(0, bisect.bisect_right(self.starts, t) - 1)
         shot = self.shots[i]
         lt = t - shot["start"]
@@ -331,13 +274,24 @@ class Renderer:
             img = render_2d(shot["name"], lt, shot["dur"], self.bg_cache.get(bgid))
             img = post(img, k, "room", sharpen=False)
         else:
-            img = self.wk.frame3d(shot, lt, markers_for(shot, self.tl))
-            img = post(img, k, shot.get("grade") or "day")
+            h = shot["hero"] if hero is None else hero
+            img = self.wk.frame3d(shot, lt, markers_for(shot, self.tl), h)
+            img = post(img, k, shot.get("grade") or "day", hero=h)
         if self.wk.errors:
             print("PAGE ERRORS:", self.wk.errors[-3:], flush=True); self.wk.errors.clear()
-        return compose(img, self.gfx, t), shot
+        return img, shot
 
-    def range_to(self, f0, f1, out, fps=24, crf=15):
+    def frame(self, t, k, overlays=False, hero=None):
+        img, shot = self.band(t, k, hero)
+        out = letterbox(img)
+        if overlays:          # previews only: the film gets its graphics in finish.py
+            import finish
+            if self.gfx is None:
+                self.gfx = finish.Graphics(self.tl, self.seg_by, self.chap_by)
+            out = finish.draw_over(out, self.gfx, t)
+        return out, shot
+
+    def range_to(self, f0, f1, out, fps=24, crf=14):
         tmp = out + ".part.mp4"
         proc = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(fps), '-i', '-',
                                  '-c:v', 'libx264', '-preset', 'veryfast', '-crf', str(crf), '-pix_fmt', 'yuv420p', tmp], stdin=subprocess.PIPE)
@@ -346,7 +300,7 @@ class Renderer:
             img, shot = self.frame(f / fps, f)
             proc.stdin.write(img.tobytes())
             if k % 48 == 0:
-                print(f"[{os.getpid()}] {f0}-{f1}: {k}/{f1 - f0} shot={shot['id']} {(time.time() - t0) / (k + 1):.2f}s/frame", flush=True)
+                print(f"[{os.getpid()}] {f0}-{f1}: {k}/{f1 - f0} shot={shot['id']}{'*' if shot.get('hero') else ''} {(time.time() - t0) / (k + 1):.2f}s/frame", flush=True)
         proc.stdin.close(); proc.wait()
         os.replace(tmp, out)
 
@@ -416,18 +370,26 @@ if __name__ == "__main__":
     ap.add_argument("--frames", nargs=2, type=int)
     ap.add_argument("--sample", nargs="*", help="preview the middle frame of every shot whose id starts with one of these prefixes")
     ap.add_argument("--at", type=float, default=0.45)
+    ap.add_argument("--overlays", action="store_true", help="previews: draw the finish.py graphics on top")
+    ap.add_argument("--hero", choices=["auto", "on", "off"], default="auto", help="previews: force hero quality on/off")
+    ap.add_argument("--tag", default="")
+    ap.add_argument("--heroonly", action="store_true")
     a = ap.parse_args()
+    hero = None if a.hero == "auto" else (a.hero == "on")
     if a.sample is not None:
         r = Renderer()
         os.makedirs(os.path.join(SCRATCH, "frames"), exist_ok=True)
         t0 = time.time()
         for k, s in enumerate(r.shots):
-            if a.sample and not any(s["id"].startswith(p) for p in a.sample):
+            if a.sample and not any(s["id"] == p[:-1] if p.endswith("$") else s["id"].startswith(p) for p in a.sample):
+                continue
+            if a.heroonly and not s.get("hero"):
                 continue
             t = s["start"] + s["dur"] * a.at
-            img, shot = r.frame(t, k)
-            cv2.imwrite(os.path.join(SCRATCH, "frames", f"s_{t:08.3f}_{s['id']}.jpg"), cv2.cvtColor(img, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_JPEG_QUALITY, 88])
-            print(f"{t:8.2f} {shot['id']:10s} {time.time() - t0:6.1f}s", flush=True)
+            t1 = time.time()
+            img, shot = r.frame(t, k, a.overlays, hero)
+            cv2.imwrite(os.path.join(SCRATCH, "frames", f"s_{t:08.3f}_{s['id']}{a.tag}.jpg"), cv2.cvtColor(img, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_JPEG_QUALITY, 88])
+            print(f"{t:8.2f} {shot['id']:10s}{'*' if (shot.get('hero') if hero is None else hero) else ' '} {time.time() - t1:5.1f}s  total {time.time() - t0:6.1f}s", flush=True)
         r.close()
         sys.exit(0)
     if a.preview:
@@ -435,8 +397,8 @@ if __name__ == "__main__":
         os.makedirs(os.path.join(SCRATCH, "frames"), exist_ok=True)
         t0 = time.time()
         for k, t in enumerate(a.preview):
-            img, shot = r.frame(t, k)
-            cv2.imwrite(os.path.join(SCRATCH, "frames", f"prev_{t:08.3f}.jpg"), cv2.cvtColor(img, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_JPEG_QUALITY, 92])
+            img, shot = r.frame(t, k, a.overlays, hero)
+            cv2.imwrite(os.path.join(SCRATCH, "frames", f"prev_{t:08.3f}{a.tag}.jpg"), cv2.cvtColor(img, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_JPEG_QUALITY, 92])
             print(f"{t:8.2f} {shot['id']:10s} {time.time() - t0:6.1f}s", flush=True)
         r.close()
     elif a.range:
