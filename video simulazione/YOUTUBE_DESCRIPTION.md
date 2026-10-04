@@ -54,3 +54,22 @@ ai civilization, i let ai build a civilization, ai nations, ai war, ai plague, a
 - Altered or synthetic content: **Yes** (AI voices / generated visuals) — YouTube requires this disclosure for realistic-looking synthetic media
 - End screen: the last 20 seconds have space on the left for a "watch next" element and a subscribe button
 - Thumbnails: `copertina_A.jpg` (democracy vs monarchy) and `copertina_B.jpg` (the raised hand) — use Test & Compare
+
+---
+
+# YouTube Short — `short_I_let_AI_build_a_civilization.mp4`
+
+Vertical 1080×1920, 25 seconds, burned-in captions (Shorts are mostly watched muted), ends on a "WATCH THE FULL FILM" card.
+
+## Title
+I gave 20 AIs a world with zero rules… #shorts
+
+## Description (paste as is)
+20 AIs. Zero rules. 2,000 years. They stole fire, invented "mine", split into 3 peoples, traded cheese, crowned a king, fought a war, survived a plague… and found out someone was watching.
+Democracy or monarchy? 👉 Watch the full film: [LINK TO THE FULL VIDEO]
+#shorts #AI #civilization #simulation
+
+## After uploading
+- In YouTube Studio, open the Short → **Related video** → pick the full film: a clickable link to it appears under the Short (more effective than a link in the description).
+- Pin a comment: "Full 19-minute film here 👉 [link]".
+- Upload it 1–2 days after the full film, or the same day to push it.
