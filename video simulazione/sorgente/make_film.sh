@@ -30,6 +30,6 @@ printf '#!/bin/sh\ncd "$(dirname "$0")"\ncat I_let_AI_build_a_civilization.mp4.p
 chmod +x "$OUT/film_parti/unisci_mac_linux.sh"
 (cd "$OUT/film_parti" && sha256sum "$MASTER" | awk '{print $1"  I_let_AI_build_a_civilization.mp4"}' > SHA256.txt)
 # a small full-length preview that fits in one GitHub file
-ffmpeg -y -hide_banner -loglevel error -i "$MASTER" -vf scale=960:540 -c:v libx264 -preset slow -b:v 620k -maxrate 800k -bufsize 1600k \
-  -c:a aac -b:a 96k -movflags +faststart "$OUT/anteprima_completa_540p.mp4"
+ffmpeg -y -hide_banner -loglevel error -i "$MASTER" -vf scale=960:540 -c:v libx264 -preset slow -b:v 520k -maxrate 700k -bufsize 1400k \
+  -c:a aac -b:a 64k -movflags +faststart "$OUT/anteprima_completa_540p.mp4"
 ls -la "$OUT/film_parti" "$OUT/anteprima_completa_540p.mp4"
