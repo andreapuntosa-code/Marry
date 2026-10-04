@@ -8,5 +8,7 @@ import './f_hunger.js';
 import './g_coup.js';
 import './h_crack.js';
 import './i_last.js';
+import './j_war.js';
 export { SHOTS, LIST };
 window.SHOT_LIST = LIST;
+import './k_end.js';
