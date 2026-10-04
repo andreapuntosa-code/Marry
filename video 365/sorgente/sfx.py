@@ -293,170 +293,113 @@ def boom_low(level=1.0):
 
 
 # ------------------------------------------------------------------ the plan
-def build(tl, shots):
+def build(tl, shots=None):
     T = Track(tl['total'] + 2)
     seg = {s['id']: s for s in tl['segments']}
     chap = {c['id']: c for c in tl['chapters']}
+    total = tl['total']
 
-    def at(anchor):
-        if anchor == 'start': return 0.0
-        if anchor == 'title': return tl['events'][0]['start']
-        if anchor == 'outro': return tl['outro']['start']
-        if anchor.startswith('chap:'): return chap[anchor[5:]]['start']
-        if anchor.startswith('t:'): return float(anchor[2:])
-        return seg[anchor]['start']
-    for s in shots:
-        s['start'] = at(s['at']) + s.get('off', 0)
-    shots.sort(key=lambda s: s['start'])
-    for i, s in enumerate(shots):
-        s['end'] = shots[i + 1]['start'] if i + 1 < len(shots) else tl['total']
-    S = {s['id']: s for s in shots}
+    def at(a, off=0.0):
+        if a == 'start': return off
+        if a == 'title': return tl['events'][0]['start'] + off
+        if a == 'outro': return tl['outro']['start'] + off
+        if a == 'end': return total + off
+        if a.startswith('chap:'): return chap[a[5:]]['start'] + off
+        return seg[a]['start'] + off
 
-    def span(ids):
-        """merge contiguous shots into (t0, t1) spans"""
-        sp = []
-        for s in shots:
-            if any(s['id'] == i or (i.endswith('*') and s['id'].startswith(i[:-1])) for i in ids):
-                if sp and abs(sp[-1][1] - s['start']) < 0.05:
-                    sp[-1][1] = s['end']
-                else:
-                    sp.append([s['start'], s['end']])
-        return sp
+    def bed(a0, a1, fn, gain, **kw):
+        t0 = at(a0) - 0.3; d = at(a1) - t0 + 0.6
+        T.add(t0, fn(d, **kw) if kw else fn(d), gain=gain, pan=R.random() * 0.4 - 0.2)
 
-    # ---- ambience beds by shot light (contiguous shots of the same kind share one bed)
-    def amb(s):
-        if s.get('kind') == '2d': return 'room'
-        if s.get('interior'): return 'room'
-        g = s.get('grade', 'day')
-        if g == 'storm' or (s.get('storm') or 0) >= 0.5: return 'storm'
-        if g == 'night': return 'night'
-        if g == 'sad': return 'sad'
-        return 'day_wild' if (s.get('year') or 0) < 1100 else 'day_town'
-    spans = []
-    for s in shots:
-        a = amb(s)
-        if spans and spans[-1][0] == a and abs(spans[-1][2] - s['start']) < 0.05:
-            spans[-1][2] = s['end']
-        else:
-            spans.append([a, s['start'], s['end']])
-    for a, t0, t1 in spans:
-        t0 -= 0.3; d = t1 - t0 + 0.8
-        if a == 'room':
-            T.add(t0, room_tone(d), gain=0.9)
-        elif a == 'storm':
-            T.add(t0, rain(d, 1.0), gain=0.55); T.add(t0, wind(d, 1.2, 900), gain=0.5)
-        elif a == 'night':
-            T.add(t0, crickets(d), gain=0.8); T.add(t0, wind(d, 0.5, 450), gain=0.5)
-        elif a == 'sad':
-            T.add(t0, wind(d, 0.9, 500), gain=0.5)
-        else:
-            T.add(t0, wind(d, 0.7, 650), gain=0.45)
-            if a == 'day_wild':
-                T.add(t0, birds(d, 0.5), gain=0.5, pan=R.random() - 0.5)
-            else:
-                T.add(t0, crowd(d, 0.25), gain=0.3)
-    # ---- fire, crowds, rivers, marching
-    FIRE = ['op5a', 'op2', 'f14b', 'f15', 'f16', 'w_card', 'w01', 'w02a', 'w02b', 'w10', 'w11', 'w12', 'w16', 'a06', 'a16a', 'a16b', 'a17a', 'k03a', 'o03a', 'o03b', 'o04a', 'o04b', 'o06', 'o06L', 'o09', 'c01d',
-            'd03c', 'd03L', 'd04', 'd07a', 'd07b', 'd15', 'x_card', 'x01', 'x03', 'x04', 'x05', 'x06', 'x06L', 'x07', 'x08', 'x09', 'x10', 'x11', 'x12', 'x12L', 'x13', 'x14', 'm05a', 'm05b', 'm06', 'm07', 'm08', 'm09', 'm10', 'm14',
-            'f12b', 'f13', 'f14a']
-    for t0, t1 in span(FIRE):
-        T.add(t0, fire_bed(t1 - t0 + 0.4, 1.0), gain=0.55)
-    CROWD = ['op2', 'c01f', 'c01g', 'c02c', 'c04a', 'c04L', 'o03a', 'o06', 'd09', 'd10', 'd11a', 'm01', 'x05', 'x06', 'x06L', 'x13', 'x18', 'x18b', 'm03b', 'm05a', 'x02b', 'x02a']
-    for t0, t1 in span(CROWD):
-        T.add(t0, crowd(t1 - t0 + 0.5, 0.9), gain=0.5)
-    for t0, t1 in span(['x11']):
-        T.add(t0, crowd(t1 - t0 + 0.5, 1.2, excite=1.0), gain=0.6)
-    for t0, t1 in span(['x18', 'o03a']):
-        T.add(t0, crowd(t1 - t0 + 0.5, 1.0, excite=0.7), gain=0.45)
-    for t0, t1 in span(['a09a', 'k01a', 'k01b', 'k02', 'o01c', 'c12c', 'c12d', 'c02b', 'x19', 'k15b']):
-        T.add(t0, river(t1 - t0 + 0.4), gain=0.45)
-    for t0, t1 in span(['x02a', 'x02b', 'x02c']):
-        T.add(t0, march(t1 - t0 + 0.4), gain=0.6)
-    LAKE = ['e04', 'e05', 'e06a', 'e06b', 'e07a', 'e07b', 'e13', 'e14a', 'e14b', 'e15', 'e16a', 'e16b', 'e16c', 'e17', 'g03a', 'g03b', 'g04a', 'g04b', 'g04c', 'e03b']
-    for t0, t1 in span(LAKE):
-        T.add(t0, lap(t1 - t0 + 0.6), gain=0.55)
-    for t0, t1 in span(['e_card', 'e01', 'e02a', 'e02b', 'e03a']):
-        T.add(t0, river(t1 - t0 + 0.4, 0.7), gain=0.35)
-    for t0, t1 in span(['e02a', 'e02b']):
-        T.add(t0, crowd(t1 - t0 + 0.5, 0.5), gain=0.35)
-    for t0, t1 in span(['e03a', 'e09a', 'e09b']):
-        T.add(t0, march(t1 - t0 + 0.4, 84, 0.45), gain=0.4)
-    for t0, t1 in span(['e16c', 'e17', 'g06', 'g07a', 'g07b', 'd11c', 'd11d', 'd11e', 'm03p', 'e18']):
-        T.add(t0, crowd(t1 - t0 + 0.5, 0.9), gain=0.45)
-    for t0, t1 in span(['g02a', 'g02b']):
-        T.add(t0, march(t1 - t0 + 0.4, 104, 1.2), gain=0.7)
-    for t0, t1 in span(['g03a']):
-        T.add(t0, battle(t1 - t0 + 0.4), gain=0.6)
-    for t0, t1 in span(['g03a', 'g03b', 'g04a', 'g05a', 'e04', 'e10b', 'e11', 'e10a']):
-        T.add(t0, fire_bed(t1 - t0 + 0.4, 1.0), gain=0.5)
-    for t0, t1 in span(['g07c', 'g08a', 'g08b', 'g09', 'g12a', 'g12b']):
-        T.add(t0, wind(t1 - t0 + 0.6, 1.0, 420), gain=0.45)
-    for t0, t1 in span(['k17', 'k18', 'k19']):
-        T.add(t0, lowpass(brown(int((t1 - t0 + 1) * SR)), 180) * 0.8, gain=0.6)
+    # ---- ambience: forest chapters wind+birds; plain chapters wind; nights crickets; war battle
+    bed('title', 'chap:n01', wind, 0.45)
+    bed('chap:r01', 'chap:n01', birds, 0.4)
+    bed('chap:n01', 'n24', crickets, 0.8); bed('chap:n01', 'n24', wind, 0.45, level=0.5, bright=450)
+    bed('n24', 'chap:s01', wind, 0.45); bed('n24', 'chap:s01', birds, 0.45)
+    bed('chap:s01', 'chap:g01', wind, 0.4); bed('chap:s01', 'chap:g01', birds, 0.4)
+    bed('chap:g01', 'chap:v01', wind, 0.45)
+    bed('chap:v01', 'chap:u01', wind, 0.4); bed('chap:v01', 'chap:u01', birds, 0.35)
+    bed('chap:u01', 'chap:k01', wind, 0.5, level=0.9, bright=500)
+    bed('chap:k01', 'chap:c01', wind, 0.45)
+    bed('chap:c01', 'chap:p01', wind, 0.4); bed('chap:c01', 'chap:p01', birds, 0.3)
+    bed('chap:p01', 'chap:w01', crickets, 0.7); bed('chap:p01', 'chap:w01', wind, 0.4, level=0.6, bright=450)
+    bed('chap:w01', 'w08', wind, 0.5, level=1.0, bright=500)
+    bed('w08', 'w40', wind, 0.35)
+    bed('w40', 'w57', wind, 0.4)
+    bed('w57', 'chap:e01', wind, 0.5, level=0.9, bright=420)
+    bed('chap:e01', 'outro', wind, 0.45, level=0.8, bright=450)
+    bed('chap:e01', 'outro', crickets, 0.45)
+    # ---- fires, crowds, rivers, marching
+    for a, b in [('n05', 'n24'), ('s05', 's12'), ('g07', 'g10'), ('p04', 'p15')]:
+        bed(a, b, fire_bed, 0.5)
+    for a, b, k in [('n24', 'n25', 0.8), ('n25', 'chap:s01', 0.8), ('g19', 'chap:v01', 0.8), ('v06', 'v12', 0.9), ('v19', 'v22', 1.0), ('k05', 'k10', 1.1), ('k17', 'k22', 1.0), ('p08', 'p12', 0.9)]:
+        bed(a, b, crowd, 0.4, level=k)
+    bed('v10', 'v12', march, 0.5)
+    bed('u16', 'u21', crowd, 0.4, level=0.7)
+    for a, b in [('c01', 'c14'), ('c21', 'c26'), ('w40', 'w48'), ('e08', 'e12')]:
+        bed(a, b, river, 0.5)
+    bed('w01', 'w03', crowd, 0.2, level=0.4)
+    bed('w08', 'w10', march, 0.9, bpm=100, level=1.2)
+    bed('w09', 'w12', march, 0.8, bpm=110, level=1.2)
+    bed('w08', 'w19', battle, 0.55)
+    bed('w22', 'w29', battle, 0.5)
+    bed('w42', 'w49', battle, 0.55)
+    bed('w56', 'w57', battle, 0.15)
+    bed('p02', 'p08', fire_bed, 0.3)
     # ---- spot effects
-    def S0(i, off=0.0):
-        return S[i]['start'] + off
-    T.add(S0('f12a', 1.5), thunder(1.0, 0.0), gain=0.9)
-    for i, o in [('f11', 1.5), ('k16', 1.0), ('k17', 1.2), ('k17', 3.0), ('c12d', 1.0), ('d16', 1.5)]:
-        T.add(S0(i, o), thunder(0.6, 0.7), gain=0.6, pan=R.random() - 0.5)
-    T.add(S0('f02', 2.4), howl(1.0, 410), gain=0.55, pan=0.3)
-    T.add(S0('f02', 0.3), howl(0.5, 470), gain=0.35, pan=-0.5)
-    T.add(S0('f03', 0.25), howl(1.2, 430), gain=0.7)
-    T.add(S0('f04', 1.5), howl(0.4, 390), gain=0.3, pan=0.6)
-    for i, o, f in [('a02a', 1.0, 440), ('a03', 0.8, 470), ('a03', 2.2, 410), ('a04a', 1.2, 450), ('a05', 0.7, 400), ('a05', 1.9, 420), ('a06', 1.4, 380), ('x02c', 0.6, 450), ('x02c', 1.6, 420), ('a16c', 0.3, 400)]:
-        T.add(S0(i, o), bleat(1.0, f), gain=0.45, pan=R.random() * 0.6 - 0.3)
-    for i in ['d05b', 'd07b', 'x13']:
-        s = S[i]; d = s['end'] - s['start']; k = 0
-        t = s['start'] + 0.2
-        while t < s['end'] - 0.1:
-            T.add(t, stone_click(0.5 + R.random() * 0.5), gain=0.35, pan=R.random() - 0.5)
-            t += 0.05 + R.random() * (0.25 if i != 'x13' else 0.03); k += 1
-    T.add(S0('d06', 1.15), stone_click(1.2), gain=0.6)
-    for i, o, f in [('e08a', 0.6, 430), ('e08b', 0.4, 470), ('e09b', 0.5, 450), ('e09b', 2.2, 410), ('e10a', 1.0, 440), ('e10b', 0.9, 400), ('e11', 2.0, 460),
-                    ('e13', 1.5, 430), ('e14a', 1.2, 470), ('e16c', 1.4, 420), ('g05a', 1.0, 450), ('g05b', 1.2, 430), ('d11d', 0.8, 440)]:
-        T.add(S0(i, o), bleat(0.9, f), gain=0.4, pan=R.random() * 0.6 - 0.3)
-    s = S['e07a']; t = s['start'] + 0.3
-    while t < s['end'] - 0.2:
-        T.add(t, splash(0.6 + R.random() * 0.4), gain=0.35, pan=R.random() - 0.5); t += 0.45 + R.random() * 0.4
-    T.add(S0('e15', 0.2), whoosh(0.3, 0.3, True), gain=0.2)
-    T.add(S0('g03b', 0.85), clank(1.0), gain=0.6)
-    T.add(S0('g04b', 0.6), creak_fall(1.0), gain=0.7)
-    for i, o in [('g07a', 0.6), ('g07a', 1.2), ('g07b', 0.4), ('g07b', 1.6), ('g07c', 1.0), ('g08a', 0.5)]:
-        T.add(S0(i, o), glitch(0.5 + R.random() * 0.4, 0.8), gain=0.35, pan=R.random() - 0.5)
-    T.add(S0('x08', 1.0), clank(1.0), gain=0.6)
-    s = S['x09']; t = s['start'] + 0.5
+    for sid, o in [('g02', 1.0), ('g03', 0.5), ('g04', 0.5), ('g05', 1.0)]:
+        T.add(at(sid, o), thunder(1.0, 0.0), gain=0.9)
+    T.add(at('n06', 0.2), howl(1.0, 410), gain=0.55, pan=0.3)
+    T.add(at('n07', 0.5), howl(0.7, 450), gain=0.4, pan=-0.4)
+    T.add(at('u18', 0.5), howl(0.6, 420), gain=0.3, pan=0.5)
+    for sid in ['n10', 'n20', 's20', 'g16']:
+        T.add(at(sid, 0.6), thunder(0.5, 0.7), gain=0.4, pan=R.random() - 0.5)
+    for sid in ['s05', 's06', 's11', 's15', 'p09', 'w06']:
+        T.add(at(sid, 0.8), clink(1.0), gain=0.35, pan=R.random() - 0.5)
+    for sid in ['s12', 's13']:
+        t = at(sid, 0.3)
+        for k in range(8):
+            T.add(t, clank(0.5 + R.random() * 0.5), gain=0.35, pan=R.random() - 0.5); t += 0.35 + R.random() * 0.4
+    T.add(at('w03', 0.0), whoosh(2.0, 0.6, True), gain=0.4)
+    for k in range(8):
+        T.add(at('w03', 0.2 + k * 0.5), stone_click(0.8 + R.random() * 0.5), gain=0.5, pan=R.random() - 0.5)
+    T.add(at('w04', 0.0), thunder(1.2, 0.0), gain=1.0); T.add(at('w04', 0.2), boom_low(1.0), gain=0.8)
+    for k in range(10):
+        T.add(at('w04', 0.3 + k * 0.28), stone_click(1.0), gain=0.5, pan=R.random() - 0.5)
+        T.add(at('w04', 0.4 + k * 0.28), boom_low(0.4), gain=0.35)
+    T.add(at('w07', 0.3), whoosh(1.2, 0.6, True), gain=0.5)          # the horn
+    t = at('w12', 0.2)
     for k in range(18):
-        T.add(t, clank(0.6 + R.random() * 0.4), gain=0.35, pan=R.random() - 0.5); t += 0.12 + R.random() * 0.2
-    T.add(S0('x15a', 2.3), clink(1.0), gain=0.5)
-    for i, o in [('o03a', 2.7), ('o05', 0.4), ('o10', 0.3), ('m02', 1.3), ('m10', 3.4)]:
-        x, pre = flash_fx(1.0)
-        T.add(S0(i, o) - pre, x, gain=0.55)
-    # room
-    T.add(S0('o14'), keys(S['o14']['end'] - S['o14']['start'], 10), gain=0.6)
-    T.add(S0('c05'), crunch(S['c05']['end'] - S['c05']['start']), gain=0.55)
-    T.add(S0('d18', 0.8), beep(220, 0.25, 0.6), gain=0.4)
-    for i in ['o11', 'd19a', 'd20']:
-        s = S[i]; t = s['start'] + 0.3
-        while t < s['end'] - 0.2:
-            T.add(t, beep(1320 if i == 'o11' else 660, 0.06, 0.6), gain=0.3); t += 0.5 if i == 'o11' else 0.7
-        T.add(s['start'], keys(min(1.2, s['end'] - s['start']), 12), gain=0.5)
-    # chapter cards and the title: a deep boom
+        T.add(t, whoosh(0.3, 0.5, True), gain=0.25, pan=R.random() - 0.5); t += 0.1 + R.random() * 0.15
+    t = at('w14', 0.1)
+    for k in range(14):
+        T.add(t, bleat(0.9, 360 + R.random() * 140), gain=0.35, pan=R.random() - 0.5)
+        T.add(t + 0.1, creak_fall(0.6), gain=0.3, pan=R.random() - 0.5); t += 0.5 + R.random() * 0.5
+    T.add(at('w28', 0.3), creak_fall(1.0), gain=0.8); T.add(at('w29', 0.1), splash(1.0), gain=0.4)
+    T.add(at('w29', 0.2), boom_low(0.8), gain=0.5)
+    T.add(at('w38', 0.2), boom_low(0.6), gain=0.5)
+    T.add(at('w45', 0.3), splash(1.0), gain=0.5)
+    for k in range(10):
+        T.add(at('w54', 0.2 + k * 0.5), clank(0.5 + R.random() * 0.5), gain=0.4, pan=R.random() * 0.4 - 0.2)
+    T.add(at('w54', 4.5), boom_low(1.0), gain=0.6)
+    T.add(at('w63', 0.8), whoosh(2.5, 0.6, True), gain=0.3)          # the horns
+    T.add(at('e05', 0.0), boom_low(1.0), gain=0.6)
+    # chapter cards: a deep boom
     for c in tl['chapters']:
         T.add(c['start'], boom_low(0.8), gain=0.45); T.add(c['start'] - 0.45, whoosh(0.45, 0.6), gain=0.3)
     # whooshes on name cards and big captions
     import graphics_plan as GP
     for kind, anchor, dur, p in GP.EVENTS:
-        if kind in ('name', 'caption', 'rule', 'glyph', 'place', 'peoples'):
+        if kind in ('name', 'caption', 'rule', 'place', 'peoples', 'winner'):
             t = seg[anchor]['start'] + p.get('delay', 0.0)
-            T.add(t - 0.12, whoosh(0.35, 0.5, True), gain=0.25, pan=-0.3 if kind == 'name' else 0)
+            T.add(t - 0.12, whoosh(0.35, 0.5, True), gain=0.25, pan=-0.3 if kind == 'name' and p.get('side') == 'left' else 0.3 if kind == 'name' else 0)
     return T
 
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     tl = json.load(open(os.path.join(HERE, "timeline.json")))
-    shots = json.load(open(os.path.join(HERE, "shots.json")))
-    T = build(tl, shots)
+    T = build(tl)
     L, Rr = T.L.astype(np.float64), T.R.astype(np.float64)
     irL, irR = reverb_ir(1.6, 5)
     L = L + signal.fftconvolve(L, irL)[:len(L)] * 0.25
