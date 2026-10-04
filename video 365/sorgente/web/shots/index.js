@@ -1,0 +1,12 @@
+import { SHOTS, LIST } from './registry.js';
+import './a_open.js';
+import './b_night.js';
+import './c_survival.js';
+import './d_gods.js';
+import './e_vote.js';
+import './f_hunger.js';
+import './g_coup.js';
+import './h_crack.js';
+import './i_last.js';
+export { SHOTS, LIST };
+window.SHOT_LIST = LIST;
