@@ -396,10 +396,10 @@ export function motes(c, cx, cy, cz, o = {}) {
 }
 
 // a tall bare-trunk pine with foliage only near the top (so someone can climb it)
-export function tallPine(c, x, z, H = 42) {
+export function tallPine(c, x, z, H = 42, crownFrom = 0.6) {
   const y = height(x, z), fm = std('pinef', { color: 0x1f4f2c, roughness: 0.9, flatShading: true });
   cyl(c, 1.0, 0.38, H, M.dark(), x, y + H / 2, z, {}, 10);
-  for (let k = 0; k < 5; k++) { const hh = H * (0.6 + k * 0.085), r = 5.0 * (1 - k * 0.17); mesh(c, new THREE.ConeGeometry(r, 7.0, 9), fm, x, y + hh + 2.2, z, {}); }
+  for (let k = 0; k < 5; k++) { const hh = H * (crownFrom + k * 0.085 * (1 - crownFrom) / 0.4 * 0.4 / 0.4 * 1), r = 5.0 * (1 - k * 0.17); mesh(c, new THREE.ConeGeometry(r, 7.0, 9), fm, x, y + hh + 2.2, z, {}); }
   for (let k = 0; k < 6; k++) { const a = k * 1.1, hh = 4 + k * 3.2; cyl(c, 0.08, 0.1, 1.6, M.dark(), x + Math.cos(a) * 1.1, y + hh, z + Math.sin(a) * 1.1, { rz: Math.cos(a) * 0.9, rx: -Math.sin(a) * 0.9, shadow: false }, 4); }
   return { x, z, y, H };
 }
