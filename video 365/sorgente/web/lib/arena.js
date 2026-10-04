@@ -111,7 +111,7 @@ export function wall(c, o = {}) {
   const topLine = new THREE.Mesh(new THREE.BoxGeometry(8.3, 0.28, z1 - z0), new THREE.MeshBasicMaterial({ color: 0xff8a2a, fog: false, transparent: true, opacity: o.glow ?? 0 })); topLine.position.set(WX, topY, (z0 + z1) / 2); c.add(topLine); c.own(topLine.geometry);
   return {
     mesh: im, marks, setDay, setGlow(a) { mat.emissiveIntensity = a; topLine.material.opacity = Math.min(1, a); },
-    collapse(t, t0, zc) { place(t, t0, zc); marks.visible = (t - t0) < 0.2; },
+    collapse(t, t0, zc) { place(t, t0, zc); if (t - t0 > 0.3 && !mat._ruin) { mat._ruin = 1; mat.color.set(0xd9cdb8); mat.map = null; mat.emissiveMap = null; mat.emissive.set(0x4a4034); mat.emissiveIntensity = 0.55; mat.needsUpdate = true; } marks.visible = (t - t0) < 0.2; },
     rise(t, t0, zc, span = 1.4) {   // the wall grows out of the ground, block by block, outward from zc
       for (let i = 0; i < n; i++) { const b = base[i], delay = Math.abs(b.z - zc) / 160 + b.r * 0.1 + b.h * 0.25; let u = Math.max(0, Math.min(1, (t - t0 - delay) / span)); u = 1 - Math.pow(1 - u, 3); p.set(b.x, b.y - (1 - u) * 34, b.z); q.identity(); im.setMatrixAt(i, mtx.compose(p, q, s)); }
       im.instanceMatrix.needsUpdate = true; marks.visible = (t - t0) > 5;
