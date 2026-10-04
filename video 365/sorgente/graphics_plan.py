@@ -60,7 +60,7 @@ EVENTS = [
     ("caption", "u07", 3.4, {"s": "140 SACKS MISSING", "size": 72, "y": 190, "delay": 0.0, "box": "#b91c1c"}),
     ("caption", "u14", 3.0, {"s": "“HE'S SOFT”", "size": 74, "y": 190, "delay": 1.8, "key": "corsivo_b"}),
     ("caption", "u16", 3.6, {"s": "FERN: 9 DAYS · 41 SAVED", "size": 56, "y": 190, "delay": 3.8, "box": "#15803d"}),
-    ("caption", "u23", 3.0, {"s": "THE SPLINTER · 22", "size": 64, "y": 190, "delay": 3.0, "box": "#365314"}),
+    ("caption", "u24", 3.0, {"s": "THE SPLINTER · 22", "size": 64, "y": 190, "delay": 0.3, "box": "#365314"}),
     ("caption", "u28", 3.4, {"s": "FIRST KILLED BY ANOTHER AI", "size": 52, "y": 190, "delay": 0.0, "box": "#7f1d1d"}),
     ("rule", "u32", None, {"n": "P", "l1": "THE STREAM PACT", "l2": "the Splinter keeps its grove · it fights with the forest on Day 365"}),
     # --- the coup

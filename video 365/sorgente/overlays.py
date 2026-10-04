@@ -98,12 +98,12 @@ def title_card(c, u):
     a = sm(0.0, 0.12, u) * (1 - sm(0.86, 1.0, u))
     c.drawRect(skia.Rect(0, 0, W, H), P('#000000', 0.28 * a))
     k = eo(clamp(u * 1.8))
-    txt(c, "I LET AI BUILD", W / 2, H / 2 - 70 + (1 - k) * 20, 'anton', 110, '#ffffff', a, 'center', 0.02, shadow=0.8)
-    txt(c, "A CIVILIZATION", W / 2, H / 2 + 52 + (1 - k) * 20, 'anton', 110, '#ffffff', a, 'center', 0.02, shadow=0.8)
+    txt(c, "100 AIs IN A FOREST.", W / 2, H / 2 - 70 + (1 - k) * 20, 'anton', 110, '#ffffff', a, 'center', 0.02, shadow=0.8)
+    txt(c, "100 ON A PLAIN.", W / 2, H / 2 + 52 + (1 - k) * 20, 'anton', 110, '#ffffff', a, 'center', 0.02, shadow=0.8)
     a2 = a * sm(0.25, 0.4, u)
-    txt(c, "DEMOCRACY", W / 2 - 40, H / 2 + 140, 'ui_b', 44, '#5ea4ff', a2, 'right', 0.12)
-    txt(c, "OR", W / 2, H / 2 + 140, 'ui', 34, '#ffffff', a2, 'center', 0.1)
-    txt(c, "MONARCHY?", W / 2 + 40, H / 2 + 140, 'ui_b', 44, '#ff5a5a', a2, 'left', 0.12)
+    txt(c, "THE FOREST", W / 2 - 40, H / 2 + 140, 'ui_b', 44, '#6fd27c', a2, 'right', 0.12)
+    txt(c, "VS", W / 2, H / 2 + 140, 'ui', 34, '#ffffff', a2, 'center', 0.1)
+    txt(c, "THE PLAIN", W / 2 + 40, H / 2 + 140, 'ui_b', 44, '#f2c14a', a2, 'left', 0.12)
 
 
 def name_card(c, u, name, role, color='#ffffff', side='left'):
@@ -247,14 +247,14 @@ def end_screen(c, u):
     g = skia.GradientShader.MakeLinear([skia.Point(0, 0), skia.Point(W, 0)], [col('#000000', 0.62 * a), col('#000000', 0.25 * a), col('#000000', 0.55 * a)])
     c.drawRect(skia.Rect(0, BY0, W, BY1), skia.Paint(Shader=g))
     x = 120
-    txt(c, "WHAT SHOULD I", x, BY0 + 150, 'anton', 76, '#ffffff', a, 'left', 0.02, shadow=0.8)
-    txt(c, "TELL THEM?", x, BY0 + 236, 'anton', 76, '#ffffff', a, 'left', 0.02, shadow=0.8)
-    txt(c, "the most liked comment gets sent into the simulation", x, BY0 + 292, 'corsivo_b', 34, '#ffd27a', a, 'left', 0, shadow=0.8)
+    txt(c, "WHAT DO YOU DO", x, BY0 + 150, 'anton', 76, '#ffffff', a, 'left', 0.02, shadow=0.8)
+    txt(c, "WITH A VICTORY?", x, BY0 + 236, 'anton', 76, '#ffffff', a, 'left', 0.02, shadow=0.8)
+    txt(c, "the best answer gets sent to Ivy", x, BY0 + 292, 'corsivo_b', 34, '#ffd27a', a, 'left', 0, shadow=0.8)
     # end-screen slot (YouTube "watch next" element goes here)
     x0, y0, w, h = x, BY0 + 340, 576, 324
     c.drawRoundRect(skia.Rect(x0, y0, x0 + w, y0 + h), 16, 16, P('#ffffff', 0.07 * a))
     c.drawRoundRect(skia.Rect(x0, y0, x0 + w, y0 + h), 16, 16, P('#ffffff', 0.32 * a, stroke=2))
-    txt(c, "NEXT: WHAT HAPPENS WHEN THEY FIND OUT WHAT I AM", x0 + w / 2, y0 + h / 2 + 10, 'ui_b', 22, '#ffffff', a * 0.75, 'center', 0.12, shadow=0)
+    txt(c, "PART 2: ONE CITY", x0 + w / 2, y0 + h / 2 + 10, 'ui_b', 22, '#ffffff', a * 0.75, 'center', 0.12, shadow=0)
 
 
 def comment_prompt(c, u, t):
@@ -297,13 +297,11 @@ def subtitle(c, u, who, line, color='#ffffff'):
 
 
 CREDITS = [
-    ("STARRING", None),
-    ("ISE", "A-07  ·  the one who found"), ("MIRA", "A-04  ·  the one who looks"), ("BO", "A-09  ·  the fire thief"), ("TAM", "A-11  ·  the goat guy"),
-    ("A-15", "the first to leave"), ("LIO", "potter"), ("KASSA", "farmer  ·  inventor of “mine”"), ("AMA", "founder of Nuvia"), ("YUNA", "Tamari herder  ·  inventor of trade"),
-    ("SELA", "priestess"), ("VARO", "high priest  ·  very practical"), ("KING KASSA VII", "the first king"), ("PELL", "engineer"),
-    ("KING KASSA XI", "the conqueror"), ("SEFA", "Tamari healer"), ("KING KASSA XIX", "the last king"), ("ORUN", "harvester  ·  first speaker"),
-    ("DORN", "captain of the guard"), ("NIA", "painter"), ("THE NUVIANS", "people of the lake"), ("THE TAMARI", "people of the herd"),
-    ("THE GOATS", "as themselves"), ("AND", None), ("THE OBSERVER", "a guy in a hoodie"),
+    ("THE VERDANE", None),
+    ("WREN", "scout"), ("OAK", "builder"), ("FERN", "healer"), ("BRAM", "war chief"), ("MOSS", "priest of the Hollow Oak"), ("IVY", "the Speaker"), ("THORN", "rebel"),
+    ("THE AUREL", None),
+    ("SOL", "farmer  ·  chief"), ("DUNE", "rider"), ("ASH", "smith"), ("KESH", "marshal of the light"), ("LARK", "priestess of the sun"), ("REED", "merchant"), ("MARA", "populist"),
+    ("AND", None), ("THE HORSES", "as themselves"), ("THE OBSERVER", "a guy in a hoodie"),
 ]
 
 
@@ -345,48 +343,43 @@ def _people_icon(c, x, y, s, hexs, a):
         c.drawRoundRect(skia.Rect(cx - 0.24 * s * k, y - 0.36 * s * k, cx + 0.24 * s * k, y + 0.3 * s), 0.12 * s, 0.12 * s, P(hexs, a))
 
 
-def hud(c, year, pop, a, sub=None, delta=None, du=0.0, trend=0, t=0.0):
-    """Top-right HUD shown in timelapses and transitions: YEAR (big) and POPULATION (with change chip / trend arrow)."""
+def hud(c, day, popf, popp, a, trend_f=0, trend_p=0, t=0.0):
+    """Top-right HUD: DAY (big) and the two populations, forest (green) and plain (gold)."""
     if a <= 0:
         return
     x, y = W - 58, BY0 + 30
-    ys, ps = f"{int(round(year)):,}", f"{int(round(pop)):,}"
-    wy = text_width(ys, 'ui_b', 64)
-    wp = text_width(ps, 'ui_b', 34)
-    wl = text_width("POPULATION", 'ui', 16, 0.28)
-    inner = max(wy, wp + wl + 18 + (22 if trend else 0) + 30)
-    bw = inner + 44
-    bh = 160 if sub else 140
+    ds = f"{int(round(day))}"
+    bw, bh = 330, 214
     c.drawRoundRect(skia.Rect(x - bw, y, x, y + bh), 16, 16, P('#0a0e15', 0.5 * a))
     c.drawRoundRect(skia.Rect(x - bw, y, x, y + bh), 16, 16, P('#ffffff', 0.08 * a, stroke=1.5))
-    txt(c, "YEAR", x - 22, y + 30, 'ui', 19, '#cfd8e6', a, 'right', 0.32, shadow=0)
-    txt(c, ys, x - 20, y + 88, 'ui_b', 64, '#ffffff', a, 'right', 0.01, shadow=0.3)
+    txt(c, "DAY", x - bw + 24, y + 34, 'ui', 20, '#cfd8e6', a, 'left', 0.32, shadow=0)
+    txt(c, f"{ds} / 365", x - 20, y + 84, 'ui_b', 54, '#ffffff', a, 'right', 0.01, shadow=0.3)
     c.drawLine(x - bw + 20, y + 102, x - 20, y + 102, P('#ffffff', 0.18 * a, stroke=1.2))
-    py = y + 132
-    colr = '#ffffff' if trend == 0 else ('#9df5bf' if trend > 0 else '#ff9a9a')
-    txt(c, ps, x - 20, py, 'ui_b', 34, colr, a, 'right', 0.01, shadow=0.3)
-    xl = x - 20 - wp - 12
-    if trend:
-        pulse = 0.6 + 0.4 * math.sin(t * 9.0)
-        _tri(c, xl - 8, py - 12, 13, trend > 0, '#3ccf7a' if trend > 0 else '#ff5a5a', a * pulse)
-        xl -= 26
-    txt(c, "POPULATION", xl, py - 4, 'ui', 16, '#cfd8e6', a, 'right', 0.28, shadow=0)
-    _people_icon(c, xl - wl - 18, py - 8, 18, '#cfd8e6', a * 0.9)
-    if sub:
-        txt(c, sub, x - 20, y + bh - 10, 'ui_b', 18, '#ffd27a', a, 'right', 0.22, shadow=0)
-    if delta:
-        ca = a * sm(0.0, 0.08, du) * (1 - sm(0.85, 1.0, du))
-        if ca > 0:
-            up = delta > 0
-            ds = f"{'+' if up else '−'}{abs(int(round(delta))):,}"
-            pop_k = 1 + 0.25 * (1 - eo(clamp(du * 8)))
-            fs = 26 * pop_k
-            dw = text_width(ds, 'ui_b', fs) + 52
-            cx1 = x - bw - 14; cx0 = cx1 - dw
-            cy = py - 11
-            c.drawRoundRect(skia.Rect(cx0, cy - 22 * pop_k, cx1, cy + 22 * pop_k), 22, 22, P('#22a85a' if up else '#d93a3a', 0.9 * ca))
-            _tri(c, cx0 + 22, cy, 12 * pop_k, up, '#ffffff', ca)
-            txt(c, ds, cx1 - 16, cy + fs * 0.36, 'ui_b', fs, '#ffffff', ca, 'right', 0.01, shadow=0)
+    for k, (lab, v, tr, hexs) in enumerate((("FOREST", popf, trend_f, '#6fd27c'), ("PLAIN", popp, trend_p, '#f2c14a'))):
+        py = y + 146 + k * 50
+        c.drawRoundRect(skia.Rect(x - bw + 24, py - 22, x - bw + 36, py + 2), 3, 3, P(hexs, a))
+        txt(c, lab, x - bw + 50, py, 'ui', 20, hexs, a, 'left', 0.3, shadow=0)
+        colr = '#ffffff' if tr == 0 else ('#9df5bf' if tr > 0 else '#ff9a9a')
+        ps = f"{int(round(v))}"
+        txt(c, ps, x - 20, py + 4, 'ui_b', 38, colr, a, 'right', 0.01, shadow=0.3)
+        if tr:
+            pulse = 0.6 + 0.4 * math.sin(t * 9.0)
+            _tri(c, x - 20 - text_width(ps, 'ui_b', 38) - 18, py - 10, 13, tr > 0, '#3ccf7a' if tr > 0 else '#ff5a5a', a * pulse)
+
+
+def winner_card(c, u, name, a_, b_):
+    """Full-screen result: the winner and the final count."""
+    a = sm(0.0, 0.12, u) * (1 - sm(0.92, 1.0, u))
+    if a <= 0:
+        return
+    c.drawRect(skia.Rect(0, 0, W, H), P('#000000', 0.55 * a))
+    cy = H / 2
+    txt(c, "WINNER", W / 2, cy - 110, 'ui', 34, '#ffd27a', a, 'center', 0.6)
+    k = eo(clamp(u * 3))
+    txt(c, name, W / 2, cy + 20 + (1 - k) * 18, 'anton', 150, '#6fd27c', a, 'center', 0.04, shadow=0.8)
+    txt(c, f"{a_}", W / 2 - 150, cy + 130, 'anton', 86, '#6fd27c', a * sm(0.2, 0.35, u), 'right', 0.02, shadow=0.7)
+    txt(c, "to", W / 2, cy + 126, 'ui', 34, '#ffffff', a * sm(0.2, 0.35, u), 'center', 0.2, shadow=0)
+    txt(c, f"{b_}", W / 2 + 150, cy + 130, 'anton', 86, '#f2c14a', a * sm(0.2, 0.35, u), 'left', 0.02, shadow=0.7)
 
 
 def peoples_card(c, u, items):

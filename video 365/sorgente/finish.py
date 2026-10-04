@@ -9,7 +9,7 @@ The picture chunks (render.py) carry no text. Here we add, following graphics_pl
     while it is changing;
   - captions, name cards, rule cards... only outside KEY moments (KEY moments carry no text).
 
-  python3 finish.py                      # film_video.mp4 + audio/mix.wav -> I_let_AI_build_a_civilization.mp4
+  python3 finish.py                      # film_video.mp4 + audio/mix.wav -> 100_AIs_Forest_vs_Plain_Day_365.mp4
   python3 finish.py --preview 120 485.5  # frames from the chunks, with graphics -> frames/fin_*.jpg
   python3 finish.py --check              # list graphics that would collide with KEY moments
 """
@@ -69,50 +69,29 @@ class Graphics:
                         if verbose:
                             print(f"WARNING: {kind} at {anchor} ({t0:.1f}-{t1:.1f}) overlaps KEY {k0:.1f}-{k1:.1f}")
             self.events.append((kind, t0, t1, p))
-        self.year_marks = sorted([(s["start"], s["year"]) for s in tl["segments"] if s.get("year") is not None])
-        self.year_ramps = [(S(a), S(b), y0, y1) for a, b, y0, y1 in GP.YEAR_RAMPS]
-        self.pop_marks = sorted([(S(a), v) for a, v in GP.POP_MARKS])
-        self.pop_ramps = [(S(a), S(b), p0, p1) for a, b, p0, p1 in GP.POP_RAMPS]
-        self.days = [(S(a), S(b), lab) for a, b, lab in GP.DAY_LABELS]
-        self.hidden = [(S(a) - 0.05, (S(b) - 0.05) if b else 1e9) for a, b in GP.YEAR_HIDDEN]
-        self.year_on = S("r09")
+        self.day_marks = sorted([(S(a), v) for a, v in GP.DAY_MARKS])
+        self.day_ramps = [(S(a), S(b), d0, d1) for a, b, d0, d1 in GP.DAY_RAMPS]
+        self.pf_marks = sorted([(S(a), v) for a, v in GP.POP_F_MARKS]); self.pf_ramps = [(S(a), S(b), p0, p1) for a, b, p0, p1 in GP.POP_F_RAMPS]
+        self.pp_marks = sorted([(S(a), v) for a, v in GP.POP_P_MARKS]); self.pp_ramps = [(S(a), S(b), p0, p1) for a, b, p0, p1 in GP.POP_P_RAMPS]
+        self.hidden = []
+        self.year_on = S("r12")
         ev = tl["events"][0]
         self.title = (ev["start"], ev["end"])
         self.cards = [(c["start"], c["end"]) for c in tl["chapters"]]
-        # HUD windows (where it is visible) and the population change shown when it comes back
         self.hud_windows = []
-        n = int(math.ceil(tl["total"] * FPS))
-        on = None
-        for i in range(n + 1):
-            t = i / FPS
-            v = self.hud_alpha(t) > 0
-            if v and on is None:
-                on = t
-            elif not v and on is not None:
-                self.hud_windows.append((on, t)); on = None
-        if on is not None:
-            self.hud_windows.append((on, tl["total"]))
-        # chip = a change we missed while the HUD was away: an event (a mark that changes the count: death, war,
-        # plague, births) or a big jump (>= 3%) after a long absence
-        events = [tm for tm, v in self.pop_marks if abs(v - self.pop_at(tm - 1e-3)) >= 1]
         self.chips = []
-        last, last_t = None, None
-        for a, b in self.hud_windows:
-            now = round(self.pop_at(a + 0.05))
-            if last is not None and now != last:
-                event = any(last_t <= tm <= a + 0.05 for tm in events)
-                if event or (a - last_t >= 10 and abs(now - last) >= 0.03 * last):
-                    self.chips.append((a, a + 4.2, now - last))
-            last, last_t = round(self.pop_at(b - 0.05)), b
         # everything that draws something, for a quick "anything to draw?" test
-        self.active_iv = [(t0, t1) for _, t0, t1, _ in self.events] + self.hud_windows + self.cards + [self.title, (self.outro0, 1e9)]
+        self.active_iv = [(t0, t1) for _, t0, t1, _ in self.events] + [(self.year_on, self.outro0)] + self.cards + [self.title, (self.outro0, 1e9)]
 
     # ------------------------------------------------------------ values
-    def year_at(self, t):
-        return _value(t, self.year_marks, self.year_ramps)
+    def day_at(self, t):
+        return _value(t, self.day_marks, self.day_ramps)
 
-    def pop_at(self, t):
-        return _value(t, self.pop_marks, self.pop_ramps)
+    def pf_at(self, t):
+        return _value(t, self.pf_marks, self.pf_ramps)
+
+    def pp_at(self, t):
+        return _value(t, self.pp_marks, self.pp_ramps)
 
     def in_key(self, t):
         return any(a <= t < b for a, b in self.keys)
@@ -150,7 +129,7 @@ class Graphics:
             elif kind == "caption":
                 OV.caption(c, u, p["s"], p.get("color", "#ffffff"), p.get("y"), p.get("size", 78), p.get("key", "anton"), p.get("box"))
             elif kind == "name":
-                OV.name_card(c, u, p["name"], p["role"], GP.C.get(p["c"], "#ffffff"))
+                OV.name_card(c, u, p["name"], p["role"], GP.C.get(p["c"], "#ffffff"), p.get("side", "left"))
             elif kind == "glyph":
                 OV.glyph_card(c, u, p["key"], p["word"], p["meaning"], p.get("color", "#ffd27a"))
             elif kind == "glyph3":
@@ -169,6 +148,8 @@ class Graphics:
                 OV.hud_search(c, u, t)
             elif kind == "kings":
                 OV.kings_ticker(c, u, p.get("first", "VII"), p.get("last", "XIX"))
+            elif kind == "winner":
+                OV.winner_card(c, u, p["name"], p["a"], p["b"])
             elif kind == "comment":
                 OV.comment_prompt(c, u, t)
             elif kind == "flash":
@@ -176,17 +157,10 @@ class Graphics:
                 OV.flash(c, k)
         a = self.hud_alpha(t)
         if a > 0:
-            sub = None
-            for d0, d1, lab in self.days:
-                if d0 <= t < d1:
-                    sub = lab
-            dp = self.pop_at(t + 0.08) - self.pop_at(t - 0.08)
-            trend = 0 if abs(dp) < 0.05 else (1 if dp > 0 else -1)
-            delta, du = None, 0.0
-            for c0, c1, d in self.chips:
-                if c0 <= t < c1:
-                    delta, du = d, (t - c0) / (c1 - c0)
-            OV.hud(c, self.year_at(t), self.pop_at(t), a, sub, delta, du, trend, t)
+            def tr(fn):
+                dp = fn(t + 0.08) - fn(t - 0.08)
+                return 0 if abs(dp) < 0.05 else (1 if dp > 0 else -1)
+            OV.hud(c, self.day_at(t), self.pf_at(t), self.pp_at(t), a, tr(self.pf_at), tr(self.pp_at), t)
         if t >= self.outro0:
             o = self.tl["outro"]
             u = (t - o["start"]) / (o["end"] - o["start"])
@@ -232,7 +206,7 @@ def finish(video, audio, out, crf=19):
                             '-c:v', 'libx264', '-preset', 'slow', '-tune', 'film', '-crf', str(crf), '-maxrate', '9M', '-bufsize', '18M',
                             '-profile:v', 'high', '-pix_fmt', 'yuv420p', '-g', '48', '-bf', '2',
                             '-c:a', 'aac', '-b:a', '320k', '-ar', '48000', '-movflags', '+faststart', '-shortest',
-                            '-metadata', 'title=I Let AI Build a Civilization From Zero: Democracy or Monarchy?', out], stdin=subprocess.PIPE)
+                            '-metadata', 'title=100 AIs in a Forest vs 100 on a Plain: The Wall Falls on Day 365', out], stdin=subprocess.PIPE)
     t0 = time.time()
     fb = W * H * 3
     for i in range(n):
@@ -255,14 +229,12 @@ if __name__ == "__main__":
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--video", default=os.path.join(SCRATCH, "film_video.mp4"))
     ap.add_argument("--audio", default=os.path.join(SCRATCH, "audio", "mix.wav"))
-    ap.add_argument("--out", default=os.path.join(SCRATCH, "I_let_AI_build_a_civilization.mp4"))
+    ap.add_argument("--out", default=os.path.join(SCRATCH, "100_AIs_Forest_vs_Plain_Day_365.mp4"))
     a = ap.parse_args()
     if a.check:
         tl, sb, cb = load()
         g = Graphics(tl, sb, cb, verbose=True)
-        print(len(g.hud_windows), "HUD windows;", "chips:", [(round(c0, 1), d) for c0, _, d in g.chips])
-        for w0, w1 in g.hud_windows:
-            print(f"  HUD {w0:7.2f}-{w1:7.2f}  year {g.year_at(w0 + 0.1):7.0f} -> {g.year_at(w1 - 0.1):7.0f}   pop {g.pop_at(w0 + 0.1):7.0f} -> {g.pop_at(w1 - 0.1):7.0f}")
+        print("checked")
     elif a.preview:
         tl, sb, cb = load()
         g = Graphics(tl, sb, cb)
