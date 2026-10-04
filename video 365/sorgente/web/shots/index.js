@@ -12,3 +12,4 @@ import './j_war.js';
 export { SHOTS, LIST };
 window.SHOT_LIST = LIST;
 import './k_end.js';
+import './th.js';

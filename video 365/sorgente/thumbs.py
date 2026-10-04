@@ -51,71 +51,56 @@ def text(c, s, x, y, size, color='#ffffff', align='center', key='anton', stroke=
 
 def main():
     S = os.environ.get('SCRATCH', '/tmp/claude-0/-home-user-Marry/e61fd834-a8c5-5cc5-8204-6c637a41951f/scratchpad')
-    saved = [os.path.join(S, f'thumb_{n}.png') for n in ('king', 'vote', 'hand')]
+    saved = [os.path.join(S, f'thumb365_{n}.png') for n in ('f', 'p', 'wide')]
     if '--reuse' in sys.argv and all(os.path.exists(f) for f in saved):
-        king, vote, hand = [cv2.cvtColor(cv2.imread(f), cv2.COLOR_BGR2RGB) for f in saved]
-        return layout(king, vote, hand)
+        f_, p_, w_ = [cv2.cvtColor(cv2.imread(f), cv2.COLOR_BGR2RGB) for f in saved]
+        return layout(f_, p_, w_)
     pw = sync_playwright().start()
     br = pw.chromium.launch(executable_path=CHROME, headless=True, args=['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--use-gl=angle'])
     page = br.new_page(viewport={'width': W, 'height': H})
-    page.goto("http://127.0.0.1:8124/index.html?scale=1&scope=0")
+    page.goto("http://127.0.0.1:8125/index.html?scale=1&scope=0")
     page.wait_for_function('window.ready === true || window.loadError', timeout=300000)
     cdp = page.context.new_cdp_session(page)
-    king = grab(page, cdp, 'thumbA_king')
-    vote = grab(page, cdp, 'thumbA_vote')
-    hand = grab(page, cdp, 'thumbB')
+    f_ = grab(page, cdp, 'th_f'); p_ = grab(page, cdp, 'th_p'); w_ = grab(page, cdp, 'th_wide')
     br.close(); pw.stop()
-    for n, im in [('king', king), ('vote', vote), ('hand', hand)]:
-        cv2.imwrite(os.path.join(os.environ.get('SCRATCH', '/tmp/claude-0/-home-user-Marry/e61fd834-a8c5-5cc5-8204-6c637a41951f/scratchpad'), f'thumb_{n}.png'), cv2.cvtColor(im, cv2.COLOR_RGB2BGR))
+    for n, im in [('f', f_), ('p', p_), ('wide', w_)]:
+        cv2.imwrite(os.path.join(S, f'thumb365_{n}.png'), cv2.cvtColor(im, cv2.COLOR_RGB2BGR))
+    return layout(f_, p_, w_)
 
-    return layout(king, vote, hand)
 
-
-def layout(king, vote, hand):
-    # ---------- A: split screen
-    k = punch(king, 1.3, 1.15, 0.04)
-    v = punch(vote, 1.3, 1.15, -0.03)
-    # tint: red king, blue crowd
-    k = np.clip(k.astype(np.float32) * np.array([1.12, 0.9, 0.88]), 0, 255).astype(np.uint8)
-    v = np.clip(v.astype(np.float32) * np.array([0.85, 0.95, 1.15]), 0, 255).astype(np.uint8)
-    # the king's picture shifted so he sits in the right half; the vote picture in the left half
+def layout(fo, pl, wide):
+    # ---------- A: forest vs plain, diagonal split
+    f = punch(fo, 1.35, 1.15, -0.02)
+    p = punch(pl, 1.35, 1.15, 0.04)
+    f = np.clip(f.astype(np.float32) * np.array([0.85, 1.08, 0.9]), 0, 255).astype(np.uint8)
+    p = np.clip(p.astype(np.float32) * np.array([1.12, 1.02, 0.82]), 0, 255).astype(np.uint8)
     out = np.zeros((H, W, 3), np.uint8)
     yy, xx = np.mgrid[0:H, 0:W]
     split = (xx - W * 0.5) + (yy - H * 0.5) * 0.22 > 0
-    k_sh = np.roll(k, int(W * 0.18), axis=1); v_sh = np.roll(v, -int(W * 0.22), axis=1)
-    out[split] = k_sh[split]; out[~split] = v_sh[~split]
+    out[split] = p[split]; out[~split] = f[~split]
     rgba = np.dstack([out, np.full((H, W), 255, np.uint8)])
     surf = skia.Surface(rgba); c = surf.getCanvas()
-    # divider
-    p = skia.Path(); p.moveTo(W * 0.5 + H * 0.5 * 0.22, 0); p.lineTo(W * 0.5 - H * 0.5 * 0.22, H)
-    c.drawPath(p, skia.Paint(AntiAlias=True, Color=skia.ColorWHITE, Style=skia.Paint.kStroke_Style, StrokeWidth=14))
-    text(c, "DEMOCRACY", W * 0.26, H * 0.2, 150, '#5ea4ff', stroke=16)
-    text(c, "MONARCHY", W * 0.75, H * 0.2, 150, '#ff4d5e', stroke=16)
-    c.drawCircle(W * 0.5, H * 0.53, 120, OV.P('#ffd21f'))
-    c.drawCircle(W * 0.5, H * 0.53, 120, skia.Paint(AntiAlias=True, Color=skia.ColorBLACK, Style=skia.Paint.kStroke_Style, StrokeWidth=10))
-    text(c, "?", W * 0.5, H * 0.53 + 78, 230, '#101010', stroke=0, shadow=False)
-    text(c, "20 AIs · 2,000 YEARS", W * 0.5, H * 0.93, 92, '#ffffff', stroke=12)
+    pth = skia.Path(); pth.moveTo(W * 0.5 + H * 0.5 * 0.22, 0); pth.lineTo(W * 0.5 - H * 0.5 * 0.22, H)
+    c.drawPath(pth, skia.Paint(AntiAlias=True, Color=skia.ColorWHITE, Style=skia.Paint.kStroke_Style, StrokeWidth=14))
+    text(c, "FOREST", W * 0.25, H * 0.2, 170, '#6fe08a', stroke=16)
+    text(c, "PLAIN", W * 0.76, H * 0.2, 170, '#ffd048', stroke=16)
+    c.drawCircle(W * 0.5, H * 0.52, 118, OV.P('#ff3b30'))
+    c.drawCircle(W * 0.5, H * 0.52, 118, skia.Paint(AntiAlias=True, Color=skia.ColorBLACK, Style=skia.Paint.kStroke_Style, StrokeWidth=10))
+    text(c, "VS", W * 0.5, H * 0.52 + 52, 150, '#ffffff', stroke=0, shadow=False)
+    text(c, "100 AIs  ·  A WALL  ·  DAY 365", W * 0.5, H * 0.93, 88, '#ffffff', stroke=12)
     a = cv2.resize(rgba[..., :3], (1280, 720), interpolation=cv2.INTER_AREA)
     cv2.imwrite(os.path.join(OUTDIR, "copertina_A.jpg"), cv2.cvtColor(a, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_JPEG_QUALITY, 93])
 
-    # ---------- B: the raised hand
-    b = punch(hand, 1.25, 1.12, 0.03)
+    # ---------- B: the wall from above
+    b = punch(wide, 1.25, 1.12, 0.02)
     rgba = np.dstack([b, np.full((H, W), 255, np.uint8)])
     surf = skia.Surface(rgba); c = surf.getCanvas()
-    g = skia.GradientShader.MakeLinear([skia.Point(0, 0), skia.Point(0, H * 0.45)], [OV.col('#000000', 0.55), OV.col('#000000', 0)])
-    c.drawRect(skia.Rect(0, 0, W, H * 0.45), skia.Paint(Shader=g))
-    text(c, "20 AIs", W * 0.05, H * 0.2, 190, '#ffffff', align='left', stroke=16)
-    text(c, "0 RULES", W * 0.05, H * 0.38, 190, '#ffd21f', align='left', stroke=16)
-    # the film's HUD, top-right: YEAR 0 · POPULATION 20 (drawn 1.7x for the small thumbnail)
-    k = 1.7
-    c.save(); c.translate(W * (1 - k) + 40 * k, -(OV.BY0 - 4) * k); c.scale(k, k)
-    OV.hud(c, 0, 20, 1.0, "DAY 1")
-    c.restore()
-    # red arrow towards the raised hand
-    ar = skia.Path(); ar.moveTo(W * 0.69, H * 0.62); ar.lineTo(W * 0.6, H * 0.47)
-    c.drawPath(ar, skia.Paint(AntiAlias=True, Color=skia.Color(255, 40, 40), Style=skia.Paint.kStroke_Style, StrokeWidth=26, StrokeCap=skia.Paint.kRound_Cap))
-    hd = skia.Path(); hd.moveTo(W * 0.585, H * 0.44); hd.lineTo(W * 0.635, H * 0.475); hd.lineTo(W * 0.598, H * 0.51); hd.close()
-    c.drawPath(hd, skia.Paint(AntiAlias=True, Color=skia.Color(255, 40, 40)))
+    g = skia.GradientShader.MakeLinear([skia.Point(0, 0), skia.Point(0, H * 0.5)], [OV.col('#000000', 0.6), OV.col('#000000', 0)])
+    c.drawRect(skia.Rect(0, 0, W, H * 0.5), skia.Paint(Shader=g))
+    text(c, "THE WALL FALLS", W * 0.5, H * 0.2, 170, '#ffffff', stroke=16)
+    text(c, "200 AIs · 1 VALLEY", W * 0.5, H * 0.36, 100, '#ffd21f', stroke=12)
+    text(c, "FOREST", W * 0.2, H * 0.93, 96, '#6fe08a', stroke=12)
+    text(c, "PLAIN", W * 0.8, H * 0.93, 96, '#ffd048', stroke=12)
     bb = cv2.resize(rgba[..., :3], (1280, 720), interpolation=cv2.INTER_AREA)
     cv2.imwrite(os.path.join(OUTDIR, "copertina_B.jpg"), cv2.cvtColor(bb, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_JPEG_QUALITY, 93])
     print("thumbnails written")
