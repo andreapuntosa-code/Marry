@@ -13,15 +13,26 @@ CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
 JS = """async () => {
   const R = await import('./shots/registry.js');
   const S = await import('./shots/sets.js');
-  const M = S.M, x = M.x, z = M.z;
+  const T = window.THREE;
   R.SHOTS.avatar = {
-    hours: 17.0, cloud: 0.35, year: 0, town: false, aperture: 1.6, maxBlur: 14,
-    cam: S.K([0, [x + 0.15, 1.45, z + 2.3], [x, 1.52, z], 30], [1, [x + 0.15, 1.45, z + 2.3], [x, 1.52, z], 30]),
-    veg: { grassR: 10, grassAt: [x, z + 1] }, shadow: { x, z, r: 6 },
+    interior: true, ambient: 0.55, env: 0.5, aperture: 0.9, maxBlur: 10, grade: 'day',
+    cam: S.K([0, [0, 1.35, 2.9], [0, 1.3, 0], 30], [1, [0, 1.35, 2.9], [0, 1.3, 0], 30], { abs: true }),
+    shadow: { x: 0, y: 0, z: 0 },
     setup(c) {
-      const P = c.person('ISE', { x, z, yaw: 0.05 }); P.anim = (Q, t) => Q.pose('raiseHand', 1.2);
-      [[-1.6, -2.6, 'A03'], [1.5, -3.2, 'A06'], [-0.4, -4.5, 'A12'], [2.6, -5.0, 'A08'], [-2.8, -4.2, 'A17']].forEach(([dx, dz, w], i) => {
-        const Q = c.person(w, { x: x + dx, z: z + dz, yaw: S.yawTo(x + dx, z + dz, x, z) }); Q.anim = (q, t) => q.pose('idle', 1 + i);
+      // studio cyclorama: warm gradient wall + floor
+      const cv = document.createElement('canvas'); cv.width = 4; cv.height = 256; const g = cv.getContext('2d');
+      const gr = g.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, '#1d2b64'); gr.addColorStop(0.55, '#3b5bdb'); gr.addColorStop(1, '#7aa2ff');
+      g.fillStyle = gr; g.fillRect(0, 0, 4, 256); const tex = new T.CanvasTexture(cv); tex.colorSpace = T.SRGBColorSpace;
+      const wall = new T.Mesh(new T.PlaneGeometry(40, 20), new T.MeshBasicMaterial({ map: tex, toneMapped: false }));
+      wall.position.set(0, 6, -6); c.add(wall); c.own(wall.geometry);
+      const floor = new T.Mesh(new T.PlaneGeometry(40, 20).rotateX(-Math.PI / 2), new T.MeshStandardMaterial({ color: 0x6f8fe8, roughness: 0.9 }));
+      floor.receiveShadow = true; c.add(floor); c.own(floor.geometry);
+      const key = new T.DirectionalLight(0xfff1dc, 3.2); key.position.set(3, 6, 5); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
+      Object.assign(key.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4 }); c.add(key);
+      const rim = new T.DirectionalLight(0xbcd0ff, 2.0); rim.position.set(-4, 3, -4); c.add(rim);
+      const P = c.personAt('ISE', 0, 0, 0, { yaw: 0.15 }); P.anim = (Q) => Q.pose('raiseHand', 1.2);
+      [[-0.95, -1.4, 'A03', 0.4], [0.95, -1.4, 'A06', -0.4], [-1.9, -1.9, 'A12', 0.6], [1.9, -1.9, 'A08', -0.6]].forEach(([x, z, w, yaw], i) => {
+        const Q = c.personAt(w, x, 0, z, { yaw }); Q.anim = (q) => q.pose('idle', 1 + i);
       });
     },
   };
@@ -45,7 +56,7 @@ def main():
     g = img.mean(2, keepdims=True); img = g + (img - g) * 1.25
     img = 128 + (img - 128) * 1.1
     yy, xx = np.mgrid[0:1080, 0:1080]; d = np.hypot(xx - 540, yy - 520) / 540
-    img *= (1 - 0.35 * np.clip(d - 0.55, 0, 1) ** 1.5)[..., None]
+    img *= (1 - 0.25 * np.clip(d - 0.55, 0, 1) ** 1.5)[..., None]
     out = cv2.resize(np.clip(img, 0, 255).astype(np.uint8), (1024, 1024), interpolation=cv2.INTER_AREA)
     cv2.imwrite(OUT, out, [cv2.IMWRITE_JPEG_QUALITY, 95])
     print(OUT)
