@@ -296,9 +296,16 @@ class Renderer:
         proc = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(fps), '-i', '-',
                                  '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', str(crf), '-pix_fmt', 'yuv420p', tmp], stdin=subprocess.PIPE)
         t0 = time.time()
+        STRIDE = int(os.environ.get('FRAME_STRIDE', '1'))
+        last, last_id = None, None
         for k, f in enumerate(range(f0, f1)):
+            if STRIDE > 1 and f % STRIDE and last is not None:
+                sh_now = self.shots[max(0, bisect.bisect_right(self.starts, f / fps) - 1)]
+                if sh_now['id'] == last_id and not sh_now.get('hero'):
+                    proc.stdin.write(last); continue
             img, shot = self.frame(f / fps, f)
-            proc.stdin.write(img.tobytes())
+            last, last_id = img.tobytes(), shot['id']
+            proc.stdin.write(last)
             if k % 48 == 0:
                 print(f"[{os.getpid()}] {f0}-{f1}: {k}/{f1 - f0} shot={shot['id']}{'*' if shot.get('hero') else ''} {(time.time() - t0) / (k + 1):.2f}s/frame", flush=True)
         proc.stdin.close(); proc.wait()
