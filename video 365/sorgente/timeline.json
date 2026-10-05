@@ -1,6 +1,6 @@
 {
  "fps": 24,
- "total": 1795.765,
+ "total": 1820.965,
  "segments": [
   {
    "id": "h01",
@@ -2862,7 +2862,7 @@
    "id": "p21",
    "sub": "“Go. We have a crack to keep.”",
    "tts": "Go. We have a crack to keep.",
-   "pause": 0.8,
+   "pause": 1.6,
    "voice": "sol",
    "who": "SOL",
    "day": null,
@@ -2878,8 +2878,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1341.516,
-   "end": 1344.346,
+   "start": 1342.316,
+   "end": 1345.146,
    "dur": 2.829
   },
   {
@@ -2890,32 +2890,32 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1344.846,
-   "end": 1349.341,
+   "start": 1345.646,
+   "end": 1350.141,
    "dur": 4.495
   },
   {
    "id": "p24",
    "sub": "But I didn't. I just watched.",
    "tts": "But I didn't. I just watched.",
-   "pause": 0.6,
+   "pause": 1.4,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1350.041,
-   "end": 1351.569,
+   "start": 1350.841,
+   "end": 1352.369,
    "dur": 1.528
   },
   {
    "id": "p25",
    "sub": "The last mark goes dark at sunrise.",
    "tts": "The last mark goes dark at sunrise.",
-   "pause": 1.2,
+   "pause": 2.5,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1352.169,
-   "end": 1354.209,
+   "start": 1353.769,
+   "end": 1355.809,
    "dur": 2.04
   },
   {
@@ -2926,8 +2926,8 @@
    "voice": "narr",
    "who": null,
    "day": 365,
-   "start": 1357.809,
-   "end": 1359.481,
+   "start": 1360.709,
+   "end": 1362.381,
    "dur": 1.672
   },
   {
@@ -2938,8 +2938,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1360.281,
-   "end": 1364.647,
+   "start": 1363.181,
+   "end": 1367.547,
    "dur": 4.366
   },
   {
@@ -2950,20 +2950,20 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1365.147,
-   "end": 1369.982,
+   "start": 1368.047,
+   "end": 1372.882,
    "dur": 4.835
   },
   {
    "id": "w04",
    "sub": "And then it falls.",
    "tts": "And then it falls.",
-   "pause": 1.4,
+   "pause": 2.6,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1370.582,
-   "end": 1371.578,
+   "start": 1373.482,
+   "end": 1374.478,
    "dur": 0.996
   },
   {
@@ -2974,8 +2974,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1372.978,
-   "end": 1380.61,
+   "start": 1377.078,
+   "end": 1384.71,
    "dur": 7.632
   },
   {
@@ -2986,20 +2986,20 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1381.21,
-   "end": 1387.111,
+   "start": 1385.31,
+   "end": 1391.211,
    "dur": 5.901
   },
   {
    "id": "w07",
    "sub": "And then, a single horn.",
    "tts": "And then, a single horn.",
-   "pause": 1.0,
+   "pause": 1.8,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1387.711,
-   "end": 1389.005,
+   "start": 1391.811,
+   "end": 1393.105,
    "dur": 1.294
   },
   {
@@ -3010,8 +3010,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1390.005,
-   "end": 1391.142,
+   "start": 1394.905,
+   "end": 1396.042,
    "dur": 1.138
   },
   {
@@ -3022,8 +3022,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1391.942,
-   "end": 1399.342,
+   "start": 1396.842,
+   "end": 1404.242,
    "dur": 7.4
   },
   {
@@ -3034,8 +3034,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1399.892,
-   "end": 1401.719,
+   "start": 1404.792,
+   "end": 1406.619,
    "dur": 1.826
   },
   {
@@ -3046,8 +3046,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1402.219,
-   "end": 1404.152,
+   "start": 1407.119,
+   "end": 1409.052,
    "dur": 1.933
   },
   {
@@ -3058,8 +3058,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1404.852,
-   "end": 1409.623,
+   "start": 1409.752,
+   "end": 1414.523,
    "dur": 4.771
   },
   {
@@ -3070,8 +3070,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1410.173,
-   "end": 1416.008,
+   "start": 1415.073,
+   "end": 1420.908,
    "dur": 5.835
   },
   {
@@ -3082,8 +3082,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1416.558,
-   "end": 1422.691,
+   "start": 1421.458,
+   "end": 1427.591,
    "dur": 6.133
   },
   {
@@ -3094,8 +3094,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1423.241,
-   "end": 1426.625,
+   "start": 1428.141,
+   "end": 1431.525,
    "dur": 3.383
   },
   {
@@ -3106,8 +3106,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1427.125,
-   "end": 1432.339,
+   "start": 1432.025,
+   "end": 1437.239,
    "dur": 5.215
   },
   {
@@ -3118,8 +3118,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1432.889,
-   "end": 1435.719,
+   "start": 1437.789,
+   "end": 1440.619,
    "dur": 2.829
   },
   {
@@ -3130,8 +3130,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1436.219,
-   "end": 1439.639,
+   "start": 1441.119,
+   "end": 1444.539,
    "dur": 3.42
   },
   {
@@ -3142,8 +3142,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1440.239,
-   "end": 1449.059,
+   "start": 1445.139,
+   "end": 1453.959,
    "dur": 8.82
   },
   {
@@ -3154,8 +3154,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1449.659,
-   "end": 1451.315,
+   "start": 1454.559,
+   "end": 1456.215,
    "dur": 1.656
   },
   {
@@ -3166,8 +3166,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1452.115,
-   "end": 1459.59,
+   "start": 1457.015,
+   "end": 1464.49,
    "dur": 7.475
   },
   {
@@ -3178,8 +3178,8 @@
    "voice": "wren",
    "who": "WREN",
    "day": null,
-   "start": 1460.19,
-   "end": 1463.067,
+   "start": 1465.09,
+   "end": 1467.967,
    "dur": 2.876
   },
   {
@@ -3190,8 +3190,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1463.767,
-   "end": 1470.18,
+   "start": 1468.667,
+   "end": 1475.08,
    "dur": 6.413
   },
   {
@@ -3202,8 +3202,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1470.73,
-   "end": 1476.077,
+   "start": 1475.63,
+   "end": 1480.977,
    "dur": 5.347
   },
   {
@@ -3214,8 +3214,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1476.627,
-   "end": 1481.739,
+   "start": 1481.527,
+   "end": 1486.639,
    "dur": 5.112
   },
   {
@@ -3226,8 +3226,8 @@
    "voice": "oak",
    "who": "OAK",
    "day": null,
-   "start": 1482.239,
-   "end": 1483.855,
+   "start": 1487.139,
+   "end": 1488.755,
    "dur": 1.615
   },
   {
@@ -3238,44 +3238,44 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1484.555,
-   "end": 1490.964,
+   "start": 1489.455,
+   "end": 1495.864,
    "dur": 6.409
   },
   {
    "id": "w28",
    "sub": "He cuts the rope.",
    "tts": "He cuts the rope.",
-   "pause": 0.9,
+   "pause": 2.4,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1491.514,
-   "end": 1492.57,
+   "start": 1496.414,
+   "end": 1497.47,
    "dur": 1.056
   },
   {
    "id": "w29",
    "sub": "The bridge falls. Seven riders fall with it. And Oak, who was standing on it, falls too.",
    "tts": "The bridge falls. Seven riders fall with it. And Oak, who was standing on it, falls too.",
-   "pause": 0.6,
+   "pause": 1.4,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1493.47,
-   "end": 1498.562,
+   "start": 1499.87,
+   "end": 1504.962,
    "dur": 5.092
   },
   {
    "id": "w30",
    "sub": "He was the builder of Rootholm. Its first treehouse. Its first bridge. Its last bridge.",
    "tts": "He was the builder of Rootholm. Its first treehouse. Its first bridge. Its last bridge.",
-   "pause": 0.7,
+   "pause": 1.8,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1499.162,
-   "end": 1504.185,
+   "start": 1506.362,
+   "end": 1511.385,
    "dur": 5.023
   },
   {
@@ -3286,8 +3286,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1504.885,
-   "end": 1511.467,
+   "start": 1513.185,
+   "end": 1519.767,
    "dur": 6.581
   },
   {
@@ -3298,8 +3298,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1512.017,
-   "end": 1514.76,
+   "start": 1520.317,
+   "end": 1523.06,
    "dur": 2.743
   },
   {
@@ -3310,8 +3310,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1515.26,
-   "end": 1523.022,
+   "start": 1523.56,
+   "end": 1531.322,
    "dur": 7.761
   },
   {
@@ -3322,8 +3322,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1523.622,
-   "end": 1525.3,
+   "start": 1531.922,
+   "end": 1533.6,
    "dur": 1.679
   },
   {
@@ -3334,8 +3334,8 @@
    "voice": "thorn",
    "who": "THORN",
    "day": null,
-   "start": 1526.1,
-   "end": 1528.829,
+   "start": 1534.4,
+   "end": 1537.129,
    "dur": 2.729
   },
   {
@@ -3346,8 +3346,8 @@
    "voice": "mara",
    "who": "MARA",
    "day": null,
-   "start": 1529.529,
-   "end": 1531.819,
+   "start": 1537.829,
+   "end": 1540.119,
    "dur": 2.29
   },
   {
@@ -3358,32 +3358,32 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1532.519,
-   "end": 1537.118,
+   "start": 1540.819,
+   "end": 1545.418,
    "dur": 4.599
   },
   {
    "id": "w38",
    "sub": "The rider doesn't stop.",
    "tts": "The rider doesn't stop.",
-   "pause": 1.1,
+   "pause": 2.6,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1537.718,
-   "end": 1538.99,
+   "start": 1546.018,
+   "end": 1547.29,
    "dur": 1.273
   },
   {
    "id": "w39",
    "sub": "He saved forty AIs, by standing in the way of a single horse. It's the kind of thing a person does when it's too late to do anything else.",
    "tts": "He saved forty AIs, by standing in the way of a single horse. It's the kind of thing a person does when it's too late to do anything else.",
-   "pause": 0.6,
+   "pause": 1.2,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1540.09,
-   "end": 1548.46,
+   "start": 1549.89,
+   "end": 1558.26,
    "dur": 8.37
   },
   {
@@ -3394,8 +3394,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1549.06,
-   "end": 1551.038,
+   "start": 1559.46,
+   "end": 1561.438,
    "dur": 1.978
   },
   {
@@ -3406,8 +3406,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1551.538,
-   "end": 1555.778,
+   "start": 1561.938,
+   "end": 1566.178,
    "dur": 4.24
   },
   {
@@ -3418,8 +3418,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1556.328,
-   "end": 1563.657,
+   "start": 1566.728,
+   "end": 1574.057,
    "dur": 7.329
   },
   {
@@ -3430,8 +3430,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1564.257,
-   "end": 1569.306,
+   "start": 1574.657,
+   "end": 1579.706,
    "dur": 5.049
   },
   {
@@ -3442,32 +3442,32 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1569.906,
-   "end": 1575.317,
+   "start": 1580.306,
+   "end": 1585.717,
    "dur": 5.411
   },
   {
    "id": "w45",
    "sub": "And he throws it into the river.",
    "tts": "And he throws it into the river.",
-   "pause": 0.9,
+   "pause": 2.2,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1575.917,
-   "end": 1577.53,
+   "start": 1586.317,
+   "end": 1587.93,
    "dur": 1.614
   },
   {
    "id": "w46",
    "sub": "“Not them. Not them!”",
    "tts": "Not them. Not them!",
-   "pause": 0.7,
+   "pause": 1.0,
    "voice": "dune",
    "who": "DUNE",
    "day": null,
-   "start": 1578.43,
-   "end": 1579.938,
+   "start": 1590.13,
+   "end": 1591.638,
    "dur": 1.507
   },
   {
@@ -3478,8 +3478,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1580.638,
-   "end": 1585.963,
+   "start": 1592.638,
+   "end": 1597.963,
    "dur": 5.325
   },
   {
@@ -3490,8 +3490,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1586.513,
-   "end": 1592.217,
+   "start": 1598.513,
+   "end": 1604.217,
    "dur": 5.705
   },
   {
@@ -3502,8 +3502,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1592.817,
-   "end": 1600.6,
+   "start": 1604.817,
+   "end": 1612.6,
    "dur": 7.782
   },
   {
@@ -3514,8 +3514,8 @@
    "voice": "kesh",
    "who": "KESH",
    "day": null,
-   "start": 1601.2,
-   "end": 1602.662,
+   "start": 1613.2,
+   "end": 1614.662,
    "dur": 1.463
   },
   {
@@ -3526,8 +3526,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1603.362,
-   "end": 1608.795,
+   "start": 1615.362,
+   "end": 1620.795,
    "dur": 5.433
   },
   {
@@ -3538,8 +3538,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1609.345,
-   "end": 1615.649,
+   "start": 1621.345,
+   "end": 1627.649,
    "dur": 6.304
   },
   {
@@ -3550,8 +3550,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1616.249,
-   "end": 1620.486,
+   "start": 1628.249,
+   "end": 1632.486,
    "dur": 4.237
   },
   {
@@ -3562,8 +3562,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1620.986,
-   "end": 1627.081,
+   "start": 1632.986,
+   "end": 1639.081,
    "dur": 6.094
   },
   {
@@ -3574,8 +3574,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1627.731,
-   "end": 1630.626,
+   "start": 1639.731,
+   "end": 1642.626,
    "dur": 2.896
   },
   {
@@ -3586,8 +3586,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1631.326,
-   "end": 1640.937,
+   "start": 1643.326,
+   "end": 1652.937,
    "dur": 9.611
   },
   {
@@ -3598,20 +3598,20 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1641.587,
-   "end": 1644.63,
+   "start": 1653.587,
+   "end": 1656.63,
    "dur": 3.042
   },
   {
    "id": "w58",
    "sub": "Mara tries to run. Lark stands in the middle of the battlefield, with her golden disc, and says nothing, for the first time in her life. The sun is out, and she can't feel it.",
    "tts": "Mara tries to run. Lark stands in the middle of the battlefield, with her golden disc, and says nothing, for the first time in her life. The sun is out, and she can't feel it.",
-   "pause": 0.6,
+   "pause": 1.2,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1645.23,
-   "end": 1655.479,
+   "start": 1657.23,
+   "end": 1667.479,
    "dur": 10.249
   },
   {
@@ -3622,8 +3622,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1656.079,
-   "end": 1660.891,
+   "start": 1668.679,
+   "end": 1673.491,
    "dur": 4.812
   },
   {
@@ -3634,44 +3634,44 @@
    "voice": "moss",
    "who": "MOSS",
    "day": null,
-   "start": 1661.441,
-   "end": 1663.782,
+   "start": 1674.041,
+   "end": 1676.382,
    "dur": 2.341
   },
   {
    "id": "w61",
    "sub": "The Tree says nothing.",
    "tts": "The Tree says nothing.",
-   "pause": 1.1,
+   "pause": 2.6,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1664.982,
-   "end": 1666.216,
+   "start": 1677.582,
+   "end": 1678.816,
    "dur": 1.234
   },
   {
    "id": "w62",
    "sub": "It never did.",
    "tts": "It never did.",
-   "pause": 1.2,
+   "pause": 2.8,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1667.316,
-   "end": 1668.225,
+   "start": 1681.416,
+   "end": 1682.325,
    "dur": 0.909
   },
   {
    "id": "w63",
    "sub": "At sunset, the horns blow. The battle is over.",
    "tts": "At sunset, the horns blow. The battle is over.",
-   "pause": 0.8,
+   "pause": 2.0,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1669.425,
-   "end": 1672.13,
+   "start": 1685.125,
+   "end": 1687.83,
    "dur": 2.705
   },
   {
@@ -3682,8 +3682,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1675.33,
-   "end": 1677.547,
+   "start": 1692.23,
+   "end": 1694.447,
    "dur": 2.216
   },
   {
@@ -3694,8 +3694,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1678.247,
-   "end": 1681.377,
+   "start": 1695.147,
+   "end": 1698.277,
    "dur": 3.131
   },
   {
@@ -3706,8 +3706,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1681.927,
-   "end": 1684.941,
+   "start": 1698.827,
+   "end": 1701.841,
    "dur": 3.014
   },
   {
@@ -3718,20 +3718,20 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1685.491,
-   "end": 1686.89,
+   "start": 1702.391,
+   "end": 1703.79,
    "dur": 1.399
   },
   {
    "id": "e05",
    "sub": "The winner of the Wall... is the Forest.",
    "tts": "The winner of the Wall... is the Forest.",
-   "pause": 1.6,
+   "pause": 2.6,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1687.69,
-   "end": 1689.581,
+   "start": 1704.59,
+   "end": 1706.481,
    "dur": 1.891
   },
   {
@@ -3742,8 +3742,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1691.181,
-   "end": 1696.628,
+   "start": 1709.081,
+   "end": 1714.528,
    "dur": 5.447
   },
   {
@@ -3754,68 +3754,68 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1697.278,
-   "end": 1704.33,
+   "start": 1715.178,
+   "end": 1722.23,
    "dur": 7.051
   },
   {
    "id": "e08",
    "sub": "Sol is sitting there, in white, with his staff across his knees.",
    "tts": "Sol is sitting there, in white, with his staff across his knees.",
-   "pause": 0.5,
+   "pause": 1.0,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1704.93,
-   "end": 1708.22,
+   "start": 1722.83,
+   "end": 1726.12,
    "dur": 3.291
   },
   {
    "id": "e09",
    "sub": "She sits next to him. Neither of them says anything for a very long time.",
    "tts": "She sits next to him. Neither of them says anything for a very long time.",
-   "pause": 0.7,
+   "pause": 2.4,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1708.72,
-   "end": 1713.117,
+   "start": 1727.12,
+   "end": 1731.517,
    "dur": 4.397
   },
   {
    "id": "e10",
    "sub": "“Article three.”",
    "tts": "Article three.",
-   "pause": 0.8,
+   "pause": 1.6,
    "voice": "ivy",
    "who": "IVY",
    "day": null,
-   "start": 1713.817,
-   "end": 1715.037,
+   "start": 1733.917,
+   "end": 1735.137,
    "dur": 1.22
   },
   {
    "id": "e11",
    "sub": "“One city. Not two.”",
    "tts": "One city. Not two.",
-   "pause": 1.0,
+   "pause": 2.4,
    "voice": "sol",
    "who": "SOL",
    "day": null,
-   "start": 1715.837,
-   "end": 1717.267,
+   "start": 1736.737,
+   "end": 1738.167,
    "dur": 1.429
   },
   {
    "id": "e12",
    "sub": "And on the wall's broken top, two small figures are sitting side by side. Wren, and Reed. Looking at a sky with no line through it.",
    "tts": "And on the wall's broken top, two small figures are sitting side by side. Wren, and Reed. Looking at a sky with no line through it.",
-   "pause": 0.6,
+   "pause": 1.4,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1718.267,
-   "end": 1726.616,
+   "start": 1740.567,
+   "end": 1748.916,
    "dur": 8.349
   },
   {
@@ -3826,8 +3826,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1727.216,
-   "end": 1728.25,
+   "start": 1750.316,
+   "end": 1751.35,
    "dur": 1.034
   },
   {
@@ -3838,8 +3838,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1728.75,
-   "end": 1738.864,
+   "start": 1751.85,
+   "end": 1761.964,
    "dur": 10.114
   },
   {
@@ -3850,20 +3850,20 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1739.464,
-   "end": 1743.89,
+   "start": 1762.564,
+   "end": 1766.99,
    "dur": 4.427
   },
   {
    "id": "e16",
    "sub": "It was the people who said: not them.",
    "tts": "It was the people who said: not them.",
-   "pause": 0.9,
+   "pause": 2.0,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1744.44,
-   "end": 1746.354,
+   "start": 1767.54,
+   "end": 1769.454,
    "dur": 1.914
   },
   {
@@ -3874,20 +3874,20 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1747.254,
-   "end": 1757.972,
+   "start": 1771.454,
+   "end": 1782.172,
    "dur": 10.718
   },
   {
    "id": "e18",
    "sub": "What do you do with a victory like that?",
    "tts": "What do you do with a victory like that?",
-   "pause": 0.8,
+   "pause": 1.8,
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1758.622,
-   "end": 1760.519,
+   "start": 1782.822,
+   "end": 1784.719,
    "dur": 1.897
   },
   {
@@ -3898,8 +3898,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1761.319,
-   "end": 1767.884,
+   "start": 1786.519,
+   "end": 1793.084,
    "dur": 6.565
   },
   {
@@ -3910,8 +3910,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1768.484,
-   "end": 1772.444,
+   "start": 1793.684,
+   "end": 1797.644,
    "dur": 3.96
   },
   {
@@ -3922,8 +3922,8 @@
    "voice": "narr",
    "who": null,
    "day": null,
-   "start": 1773.044,
-   "end": 1774.765,
+   "start": 1798.244,
+   "end": 1799.965,
    "dur": 1.721
   }
  ],
@@ -4005,16 +4005,16 @@
    "label": "X",
    "title": "DAY 365",
    "sub": "THE WALL FALLS",
-   "start": 1355.409,
-   "end": 1357.809
+   "start": 1358.309,
+   "end": 1360.709
   },
   {
    "id": "e01",
    "label": "XI",
    "title": "THE WINNER",
    "sub": "SUNSET",
-   "start": 1672.93,
-   "end": 1675.33
+   "start": 1689.83,
+   "end": 1692.23
   }
  ],
  "events": [
@@ -4025,7 +4025,7 @@
   }
  ],
  "outro": {
-  "start": 1775.765,
-  "end": 1795.765
+  "start": 1800.965,
+  "end": 1820.965
  }
 }
