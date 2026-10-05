@@ -9,7 +9,7 @@ const hallAt = (c) => A.greatHall(c, HALL[0], HALL[1], 0.3);
 const ringRiders = (c, n, R, face = HALL, gait = 0) => { for (let i = 0; i < n; i++) { const a = i / n * 6.283, x = face[0] + Math.cos(a) * R, z = face[1] + Math.sin(a) * R; const h = horse(c, 10 + i, x, z, Math.atan2(face[0] - x, face[1] - z) + 1.57, { graze: 0, phase: i }); rider(c, i === 0 ? 'KESH' : AU(i * 3 + 1), h, { pose: 'rideSeat', phase: i }); } };
 const dawn = (o = {}) => envP(o.h ?? 5.6, { fog: 0.0007, ...o });
 // the coup
-sh('g00', 'chap:k01', dawn(), { hero: true, shadow: { x: 1228, z: 372, r: 50 }, cam: path3([[0, [1196, 4, 410], [1228, 4, 366], 46], [1, [1202, 4, 404], [1228, 4, 366], 44]]), set: (c) => { hallAt(c); A.motes(c, 1228, 1, 380, { n: 200, r: 40, h: 8, color: 0xd8c8a0, wind: [1.5, 0.4] }); } });
+sh('g00', 'chap:k01', dawn(), { shadow: { x: 1228, z: 372, r: 50 }, cam: path3([[0, [1196, 4, 410], [1228, 4, 366], 46], [1, [1202, 4, 404], [1228, 4, 366], 44]]), set: (c) => { hallAt(c); A.motes(c, 1228, 1, 380, { n: 200, r: 40, h: 8, color: 0xd8c8a0, wind: [1.5, 0.4] }); } });
 Q('g01', 'k01', 0, dawn(), [1208, 1.6, 396], [1210, 1.6, 394], [1228, 3, 366], null, 40, (c) => { hallAt(c); A.motes(c, 1215, 0.4, 385, { n: 240, r: 24, h: 3, color: 0xb8a888, wind: [2.5, 0.2], size: 0.2 }); }, [], { sr: 50 });
 Q('g02', 'k01', 2.2, dawn({ h: 5.4 }), [1150, 1.6, 380], [1152, 1.6, 382], [1180, 3, 390], null, 44, (c) => { for (let i = 0; i < 7; i++) { const h = horse(c, 20 + i, 1176 + i * 3, 390 + (i % 3) * 3, -1.5, { graze: 0 }); rider(c, AU(i * 3 + 1), h, { pose: 'rideSeat' }); } }, [], { sr: 40 });
 Q('g03', 'k02', 0, dawn({ h: 5.8 }), [1170, 22, 420], [1180, 20, 414], [1228, 2, 366], null, 50, (c) => { hallAt(c); ringRiders(c, 26, 17); }, [], { sr: 60 });
