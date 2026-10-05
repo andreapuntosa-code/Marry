@@ -123,3 +123,6 @@ KEY = [
     ("w01", "e04"),            # day 365
     ("e07", "e13"),            # the handshake
 ]
+
+# hero-quality (DOF, native res) only where it matters most; everything else is the normal pipeline
+HERO = [("h01", "r01"), ("w44", "w46"), ("w51", "w57"), ("e07", "e13")]

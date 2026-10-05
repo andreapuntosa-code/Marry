@@ -141,7 +141,7 @@ def render_2d(kind, lt, dur, bg):
 # ------------------------------------------------------------------ key moments (hero shots)
 def key_windows(tl, seg_by):
     out = []
-    for a, b in GP.KEY:
+    for a, b in getattr(GP, 'HERO', GP.KEY):
         t0 = seg_by[a]["start"] - 0.05
         t1 = seg_by[b]["start"] - 0.05 if b else tl["outro"]["start"]
         out.append((t0, t1))
