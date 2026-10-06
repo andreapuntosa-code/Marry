@@ -2,7 +2,7 @@
 import { dolly, sh, envF, envP, envW, who, horse, rider, mob, A, FP, PP, height, WX, THREE } from './stage.js';
 const FOG = envF(7.2, { fog: 0.004 });
 sh('th_wide', 't:99000', envW(17.6, { fog: 0.0004 }), { hero: true, clear: [[WX - 20, 300, 40]], shadow: { x: WX, z: 300, r: 90 },
-  cam: dolly([WX + 4, 22, 120], [WX + 4, 22, 120], [WX, 7, 360], [WX, 7, 360], 60),
+  cam: dolly([WX + 6, 70, 40], [WX + 6, 70, 40], [WX, 6, 330], [WX, 6, 330], 62),
   set: (c) => { A.wall(c, { day: 364, glow: 1.6 }); mob(c, 'F', 40, WX - 40, 320, 2, 12, [WX, 330], { seed: 2 }); mob(c, 'P', 40, WX + 40, 320, 2, 12, [WX, 330], { seed: 4 }); } });
 sh('th_f', 't:99100', envF(17.2, { fog: 0.0018 }), { hero: true, clear: [[930, 330, 30]], shadow: { x: 920, z: 330, r: 40 },
   cam: dolly([915, 1.5, 318], [915, 1.5, 318], [925, 2.1, 332], [925, 2.1, 332], 40),

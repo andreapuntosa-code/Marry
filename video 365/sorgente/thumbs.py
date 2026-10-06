@@ -77,6 +77,7 @@ def layout(fo, pl, wide):
     out = np.zeros((H, W, 3), np.uint8)
     yy, xx = np.mgrid[0:H, 0:W]
     split = (xx - W * 0.5) + (yy - H * 0.5) * 0.22 > 0
+    f = np.roll(f, -int(W * 0.2), axis=1); p = np.roll(p, int(W * 0.2), axis=1)
     out[split] = p[split]; out[~split] = f[~split]
     rgba = np.dstack([out, np.full((H, W), 255, np.uint8)])
     surf = skia.Surface(rgba); c = surf.getCanvas()
@@ -99,8 +100,8 @@ def layout(fo, pl, wide):
     c.drawRect(skia.Rect(0, 0, W, H * 0.5), skia.Paint(Shader=g))
     text(c, "THE WALL FALLS", W * 0.5, H * 0.2, 170, '#ffffff', stroke=16)
     text(c, "200 AIs · 1 VALLEY", W * 0.5, H * 0.36, 100, '#ffd21f', stroke=12)
-    text(c, "FOREST", W * 0.2, H * 0.93, 96, '#6fe08a', stroke=12)
-    text(c, "PLAIN", W * 0.8, H * 0.93, 96, '#ffd048', stroke=12)
+    text(c, "PLAIN", W * 0.2, H * 0.93, 96, '#ffd048', stroke=12)
+    text(c, "FOREST", W * 0.8, H * 0.93, 96, '#6fe08a', stroke=12)
     bb = cv2.resize(rgba[..., :3], (1280, 720), interpolation=cv2.INTER_AREA)
     cv2.imwrite(os.path.join(OUTDIR, "copertina_B.jpg"), cv2.cvtColor(bb, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_JPEG_QUALITY, 93])
     print("thumbnails written")

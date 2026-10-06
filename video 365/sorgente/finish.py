@@ -9,7 +9,7 @@ The picture chunks (render.py) carry no text. Here we add, following graphics_pl
     while it is changing;
   - captions, name cards, rule cards... only outside KEY moments (KEY moments carry no text).
 
-  python3 finish.py                      # film_video.mp4 + audio/mix.wav -> 100_AIs_Forest_vs_Plain_Day_365.mp4
+  python3 finish.py                      # film_video.mp4 + audio/mix.wav -> Forest_vs_Plain_Day_365.mp4
   python3 finish.py --preview 120 485.5  # frames from the chunks, with graphics -> frames/fin_*.jpg
   python3 finish.py --check              # list graphics that would collide with KEY moments
 """
@@ -229,7 +229,7 @@ if __name__ == "__main__":
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--video", default=os.path.join(SCRATCH, "film_video.mp4"))
     ap.add_argument("--audio", default=os.path.join(SCRATCH, "audio", "mix.wav"))
-    ap.add_argument("--out", default=os.path.join(SCRATCH, "100_AIs_Forest_vs_Plain_Day_365.mp4"))
+    ap.add_argument("--out", default=os.path.join(SCRATCH, "Forest_vs_Plain_Day_365.mp4"))
     a = ap.parse_args()
     if a.check:
         tl, sb, cb = load()
