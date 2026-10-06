@@ -130,7 +130,8 @@ class Ctx {
   }
   // lightning: visible for a few frames from t0; flashes the exposure
   bolt(from, to, t0, seed = 1) {
-    const g = lightningBolt(from, to, seed, 3); g.visible = false; this.add(g);
+    const V = (p) => Array.isArray(p) ? new THREE.Vector3(p[0], p[1], p[2]) : p;
+    const g = lightningBolt(V(from), V(to), seed, 3); g.visible = false; this.add(g);
     g.traverse(o => { if (o.isMesh) this.own(o.geometry); });
     this.on(t => { const d = t - t0; g.visible = d >= 0 && d < 0.32 && !(d > 0.1 && d < 0.16); });
     this.expo.push(t => { const d = t - t0; return d < 0 ? 1 : 1 + 2.6 * Math.exp(-d * 9) + (d > 0.16 && d < 0.3 ? 1.2 : 0); });
