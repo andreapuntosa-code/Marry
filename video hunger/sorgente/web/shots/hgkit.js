@@ -169,7 +169,7 @@ export function breadLoaf(c, x, y, z, s = 1) { const m = c.mesh(new THREE.Sphere
 export function medkit(c, x, z, s = 1) {
   const y = height(x, z), g = new THREE.Group(); g.position.set(x, y, z); c.add(g);
   const box = new THREE.Mesh(new THREE.BoxGeometry(1.1 * s, 0.8 * s, 0.8 * s), new THREE.MeshStandardMaterial({ color: 0xf2f4f6, roughness: 0.35, metalness: 0.5 })); box.position.y = 0.4 * s; box.castShadow = true; g.add(box); c.own(box.geometry);
-  const red = matC(0xd7263d); for (const [w, h] of [[0.5, 0.14], [0.14, 0.5]]) { const p = new THREE.Mesh(new THREE.BoxGeometry(w * s, h * s, 0.02), red); p.position.set(0, 0.4 * s, 0.41 * s); g.add(p); c.own(p.geometry); }
+  const red = matC(0xd7263d); for (const [w, h] of [[0.5, 0.14], [0.14, 0.5]]) { for (const zz of [0.41, -0.41]) { const p = new THREE.Mesh(new THREE.BoxGeometry(w * s, h * s, 0.02), red); p.position.set(0, 0.4 * s, zz * s); g.add(p); c.own(p.geometry); } }
   return g;
 }
 // a wall of fire: n flames scattered in a band, advancing along a heading

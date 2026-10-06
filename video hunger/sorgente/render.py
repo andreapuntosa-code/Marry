@@ -295,10 +295,10 @@ class Renderer:
             out = hgfx.draw_over(out, self.gfx, t)
         return out, shot
 
-    def range_to(self, f0, f1, out, fps=60, crf=16):
+    def range_to(self, f0, f1, out, fps=30, crf=16):
         tmp = out + ".part.mp4"
         proc = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(fps), '-i', '-',
-                                 '-c:v', 'libx264', '-preset', 'veryfast', '-crf', str(crf), '-pix_fmt', 'yuv420p', '-g', '120', tmp], stdin=subprocess.PIPE)
+                                 '-c:v', 'libx264', '-preset', 'veryfast', '-crf', str(crf), '-pix_fmt', 'yuv420p', '-g', '60', tmp], stdin=subprocess.PIPE)
         t0 = time.time()
         STRIDE = int(os.environ.get('FRAME_STRIDE', '1'))
         last, last_id = None, None
@@ -342,7 +342,7 @@ def worker_proc(q, wid):
     r.close()
 
 
-def render_all(workers=3, size=600, fps=60, frames=None):
+def render_all(workers=3, size=300, fps=30, frames=None):
     import multiprocessing as mp
     os.makedirs(CHUNKS, exist_ok=True)
     tl, _, _ = load()
@@ -377,7 +377,7 @@ if __name__ == "__main__":
     ap.add_argument("--out")
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--workers", type=int, default=3)
-    ap.add_argument("--chunk", type=int, default=600)
+    ap.add_argument("--chunk", type=int, default=300)
     ap.add_argument("--frames", nargs=2, type=int)
     ap.add_argument("--sample", nargs="*", help="preview the middle frame of every shot whose id starts with one of these prefixes")
     ap.add_argument("--at", type=float, default=0.45)

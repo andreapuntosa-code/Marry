@@ -4,7 +4,7 @@ import json, os
 import script_hg as S
 
 VOICE_DIR = os.environ.get("VOICE_DIR", "/tmp/claude-0/-home-user-Marry/e61fd834-a8c5-5cc5-8204-6c637a41951f/scratchpad/voice_hg")
-FPS = 60
+FPS = 30
 PAUSE_K = 0.85          # narrator pauses between ideas (question pauses are kept whole)
 LEAD_IN = 0.8          # silence before the first line
 TITLE_AFTER = "h09"    # the title card comes after this segment
