@@ -49,6 +49,10 @@ def resolve(anchor, tl, seg_by, chap_by):
         return chap_by[anchor[5:]]["start"]
     if anchor.startswith("t:"):
         return float(anchor[2:])
+    if "@" in anchor:                       # "r04@forest": the moment the narrator says that word (or Nth word)
+        import wordtimes
+        sid, w = anchor.split("@", 1)
+        return seg_by[sid]["start"] + wordtimes.word_start(sid, w)
     return seg_by[anchor]["start"]
 
 
@@ -284,17 +288,17 @@ class Renderer:
     def frame(self, t, k, overlays=False, hero=None):
         img, shot = self.band(t, k, hero)
         out = letterbox(img)
-        if overlays:          # previews only: the film gets its graphics in finish.py
-            import finish
+        if overlays:          # the graphics are drawn in the same pass (single render)
+            import hgfx
             if self.gfx is None:
-                self.gfx = finish.Graphics(self.tl, self.seg_by, self.chap_by)
-            out = finish.draw_over(out, self.gfx, t)
+                self.gfx = hgfx.Graphics(self.tl, self.seg_by, self.chap_by)
+            out = hgfx.draw_over(out, self.gfx, t)
         return out, shot
 
-    def range_to(self, f0, f1, out, fps=24, crf=13):
+    def range_to(self, f0, f1, out, fps=60, crf=16):
         tmp = out + ".part.mp4"
         proc = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(fps), '-i', '-',
-                                 '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', str(crf), '-pix_fmt', 'yuv420p', tmp], stdin=subprocess.PIPE)
+                                 '-c:v', 'libx264', '-preset', 'veryfast', '-crf', str(crf), '-pix_fmt', 'yuv420p', '-g', '120', tmp], stdin=subprocess.PIPE)
         t0 = time.time()
         STRIDE = int(os.environ.get('FRAME_STRIDE', '1'))
         last, last_id = None, None
@@ -303,7 +307,7 @@ class Renderer:
                 sh_now = self.shots[max(0, bisect.bisect_right(self.starts, f / fps) - 1)]
                 if sh_now['id'] == last_id and not sh_now.get('hero'):
                     proc.stdin.write(last); continue
-            img, shot = self.frame(f / fps, f)
+            img, shot = self.frame(f / fps, f, overlays=True)
             last, last_id = img.tobytes(), shot['id']
             proc.stdin.write(last)
             if k % 48 == 0:
@@ -338,7 +342,7 @@ def worker_proc(q, wid):
     r.close()
 
 
-def render_all(workers=3, size=240, fps=24, frames=None):
+def render_all(workers=3, size=600, fps=60, frames=None):
     import multiprocessing as mp
     os.makedirs(CHUNKS, exist_ok=True)
     tl, _, _ = load()
@@ -373,7 +377,7 @@ if __name__ == "__main__":
     ap.add_argument("--out")
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--workers", type=int, default=3)
-    ap.add_argument("--chunk", type=int, default=240)
+    ap.add_argument("--chunk", type=int, default=600)
     ap.add_argument("--frames", nargs=2, type=int)
     ap.add_argument("--sample", nargs="*", help="preview the middle frame of every shot whose id starts with one of these prefixes")
     ap.add_argument("--at", type=float, default=0.45)

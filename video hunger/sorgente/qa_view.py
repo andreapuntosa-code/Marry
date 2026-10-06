@@ -17,7 +17,9 @@ import render as R
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("items", nargs="+", help="shot_id:t1,t2,...")
+    ap.add_argument("items", nargs="*", help="shot_id:t1,t2,...")
+    ap.add_argument("--prefix", nargs="*", help="every shot whose id starts with one of these (middle frame, or --at)")
+    ap.add_argument("--at", type=float, default=0.5)
     ap.add_argument("--dur", type=float, default=4.0)
     ap.add_argument("--scale", type=float, default=0.6667)
     ap.add_argument("--hero", action="store_true")
@@ -29,7 +31,10 @@ def main():
     wk = R.Worker(scale=a.scale)
     lst = {s["id"]: s for s in wk.shot_list}
     tiles = []
-    for it in a.items:
+    items = list(a.items)
+    if a.prefix:
+        items += [x['id'] + ':' + str(round(a.dur * a.at, 3)) for x in wk.shot_list if any(x['id'].startswith(p) for p in a.prefix)]
+    for it in items:
         sid, _, ts = it.partition(":")
         if sid not in lst:
             print("unknown shot", sid); continue
@@ -39,7 +44,14 @@ def main():
         for t in times:
             t0 = time.time()
             shot = {"id": sid, "dur": dur, "start": 0, "end": dur}
-            img = wk.frame3d(shot, t, {}, a.hero)
+            try:
+                img = wk.frame3d(shot, t, {}, a.hero)
+            except Exception as e:
+                msg = str(e).split("\n")[0][:160]
+                print(f"ERROR {sid}: {msg}", flush=True)
+                wk.cur = None
+                img = np.full((R.BH, R.BW, 3), (90, 20, 20), np.uint8)
+                cv2.putText(img, msg[:90], (30, 200), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 3, cv2.LINE_AA)
             if not a.nograde:
                 img = R.post(img, 0, spec.get("grade") or "day", hero=a.hero)
             if wk.errors:

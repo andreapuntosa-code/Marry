@@ -5,10 +5,11 @@ import script_hg as S
 
 VOICE_DIR = os.environ.get("VOICE_DIR", "/tmp/claude-0/-home-user-Marry/e61fd834-a8c5-5cc5-8204-6c637a41951f/scratchpad/voice_hg")
 FPS = 60
-LEAD_IN = 0.6          # silence before the first line
+PAUSE_K = 0.85          # narrator pauses between ideas (question pauses are kept whole)
+LEAD_IN = 0.8          # silence before the first line
 TITLE_AFTER = "h09"    # the title card comes after this segment
 TITLE_DUR = 4.2
-OUTRO = 20.0           # end credits + YouTube end screen (5-20 s)
+OUTRO = 14.0           # end credits + YouTube end screen (5-20 s)
 
 
 def build():
@@ -25,7 +26,7 @@ def build():
         t += seg.get("pre", 0.0)
         d = dur[sid]["dur"]
         segs.append({**seg, "start": round(t, 3), "end": round(t + d, 3), "dur": round(d, 3)})
-        t += d + seg["pause"]
+        t += d + seg["pause"] * (1.0 if seg.get("q") else PAUSE_K)
         if sid == TITLE_AFTER:
             events.append({"type": "title", "start": round(t, 3), "end": round(t + TITLE_DUR, 3)})
             t += TITLE_DUR

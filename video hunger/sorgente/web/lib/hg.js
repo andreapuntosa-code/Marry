@@ -166,11 +166,12 @@ function staticMaterial() {
   });
   return _staticMat;
 }
-export function staticWall(c, radius, o = {}) {
-  const cx = o.x ?? HG.cx, cz = o.z ?? HG.cz, H = o.h ?? 140;
-  const geo = new THREE.CylinderGeometry(radius, radius, H, 128, 1, true); c.own(geo);
+export function staticWall(c, radius, o = {}) {   // radius: metres, or fn(t) -> metres (the zone closing)
+  const cx = o.x ?? HG.cx, cz = o.z ?? HG.cz, H = o.h ?? 140, fn = typeof radius === 'function';
+  const geo = new THREE.CylinderGeometry(fn ? 1 : radius, fn ? 1 : radius, H, 128, 1, true); c.own(geo);
   const m = new THREE.Mesh(geo, staticMaterial()); m.position.set(cx, HG.floorY + H / 2 - 8, cz); m.frustumCulled = false; m.renderOrder = 5; c.add(m);
-  const mat = staticMaterial(); c.on((t) => { mat.uniforms.uTime.value = t; mat.uniforms.uK.value = o.k ?? 1; });
+  const mat = staticMaterial();
+  c.on((t) => { mat.uniforms.uTime.value = t; mat.uniforms.uK.value = o.k ?? 1; if (fn) { const r = radius(t); m.scale.set(r, 1, r); } });
   return m;
 }
 // the zone radius on a given day (1000 m at day 0, the size of the Horn on day 100)
@@ -256,4 +257,84 @@ export function rubble(c, cx, cz, n = 10, R = 12, o = {}) {
     const a = r() * 6.28, d = Math.sqrt(r()) * R, x = cx + Math.cos(a) * d, z = cz + Math.sin(a) * d, s = (o.s ?? 1) * (0.5 + r() * 1.6);
     const m = put(c, new THREE.DodecahedronGeometry(s, 0), o.mat || MT.stoneD(), x, height(x, z) + s * 0.45, z, { rx: r() * 3, ry: r() * 3, s: [1, 0.7 + r() * 0.4, 1] });
   }
+}
+
+// ---------------------------------------------------------------- the stars: one for every AI, a gold point in the night sky
+// o: { alive: n lit stars, kill: [{ t0 }] stars that go dark during the shot (flash, then out), size, dark: stars already dark }
+export function skyStars(c, o = {}) {
+  const n = 100, r = mulberry32(o.seed ?? 11), R = 2600, cx = o.x ?? HG.cx, cz = o.z ?? HG.cz;
+  const pos = new Float32Array(n * 3), col = new Float32Array(n * 3), base = [];
+  for (let i = 0; i < n; i++) {
+    const az = r() * Math.PI * 2, el = (0.22 + r() * 0.62) * Math.PI / 2;
+    pos[i * 3] = cx + Math.cos(az) * Math.cos(el) * R; pos[i * 3 + 1] = Math.sin(el) * R; pos[i * 3 + 2] = cz + Math.sin(az) * Math.cos(el) * R;
+    base.push(0.7 + 0.3 * r());
+  }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  const mat = new THREE.PointsMaterial({ size: (o.size ?? 9) * 2.4, map: puffTex(), sizeAttenuation: false, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false });
+  const pts = new THREE.Points(geo, mat); pts.frustumCulled = false; pts.renderOrder = 3; c.add(pts); c.own(geo);
+  const alive = o.alive ?? 100, kills = o.kill || [];
+  c.on((t) => {
+    for (let i = 0; i < n; i++) {
+      let k = i < alive ? 1 : 0;
+      const kk = kills.find((q) => q.i === i || (q.i === undefined && i === alive - 1 - kills.indexOf(q)));
+      if (kk) { const d = t - kk.t0; k = d < 0 ? 1 : d < 0.3 ? 1 + 2.5 * (d / 0.3) : Math.max(0, 3.5 * Math.exp(-(d - 0.3) * 5) - 0.1) * (d < 1.5 ? 1 : 0); }
+      const tw = base[i] * (0.85 + 0.15 * Math.sin(t * (1.2 + base[i]) + i));
+      col[i * 3] = 1.0 * k * tw; col[i * 3 + 1] = 0.82 * k * tw; col[i * 3 + 2] = 0.38 * k * tw;
+    }
+    geo.attributes.color.needsUpdate = true;
+  });
+  return pts;
+}
+// a figure that has been shut down: it falls, then its colour drains to grey
+export function shutdown(P, t0, o = {}) {
+  const keep = P.anim;
+  P.anim = (Q, t) => {
+    if (t < t0) { if (keep) keep(Q, t); return; }
+    const d = t - t0;
+    Q.pose('fallDown', d, { phase: 0 });
+    Q.setEnergy(Math.max(0, 1 - d / (o.fade ?? 2.4)));
+  };
+  return P;
+}
+
+// ---------------------------------------------------------------- dust, the gong, sprinting crowds
+let _puff = null;
+function puffTex() {
+  if (_puff) return _puff;
+  const cv = document.createElement('canvas'); cv.width = cv.height = 64; const g = cv.getContext('2d');
+  const gr = g.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(255,255,255,0.9)'); gr.addColorStop(0.5, 'rgba(255,255,255,0.35)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 64, 64); _puff = new THREE.CanvasTexture(cv); return _puff;
+}
+// a drifting cloud of soft puffs around (x, z)
+export function dust(c, x, z, R = 12, o = {}) {
+  const n = o.n ?? 140, r = mulberry32(o.seed ?? 5), geo = new THREE.BufferGeometry(), pos = new Float32Array(n * 3), base = new Float32Array(n * 4);
+  for (let i = 0; i < n; i++) { const a = r() * 6.28, d = Math.sqrt(r()) * R; base[i * 4] = x + Math.cos(a) * d; base[i * 4 + 1] = (o.h ?? 6) * Math.pow(r(), 1.6); base[i * 4 + 2] = z + Math.sin(a) * d; base[i * 4 + 3] = r() * 6.28; }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const mat = new THREE.PointsMaterial({ map: puffTex(), color: o.color ?? 0xcbb48a, size: o.size ?? 9, transparent: true, opacity: o.opacity ?? 0.38, depthWrite: false, sizeAttenuation: true });
+  const pts = new THREE.Points(geo, mat); pts.frustumCulled = false; c.add(pts); c.own(geo);
+  c.on((t) => { for (let i = 0; i < n; i++) { const ph = base[i * 4 + 3]; pos[i * 3] = base[i * 4] + Math.sin(t * 0.5 + ph) * 1.6 + t * (o.wind ?? 0.6); pos[i * 3 + 1] = height(base[i * 4], base[i * 4 + 2]) + base[i * 4 + 1] + Math.sin(t * 0.7 + ph) * 0.4; pos[i * 3 + 2] = base[i * 4 + 2] + Math.cos(t * 0.45 + ph) * 1.6; } geo.attributes.position.needsUpdate = true; });
+  return pts;
+}
+// a bronze gong on a frame; hitAt rings it: the disc sways and flashes
+export function gong(c, x, z, yaw = 0, hitAt = 1.0) {
+  const g = new THREE.Group(); g.position.set(x, height(x, z), z); g.rotation.y = yaw; c.add(g);
+  for (const s of [-1, 1]) cyl(c, 0.2, 0.26, 5.6, MT.woodD(), s * 2.6, 2.8, 0, { parent: g }, 8);
+  cyl(c, 0.18, 0.18, 5.8, MT.woodD(), 0, 5.4, 0, { parent: g, rz: Math.PI / 2 }, 8);
+  const mat = new THREE.MeshStandardMaterial({ color: 0xd9a63a, roughness: 0.25, metalness: 0.95, emissive: 0xffa020, emissiveIntensity: 0.0 });
+  const disc = new THREE.Mesh(new THREE.CylinderGeometry(2.1, 2.1, 0.22, 40), mat); disc.rotation.x = Math.PI / 2; disc.castShadow = true;
+  const pivot = new THREE.Group(); pivot.position.set(0, 2.9, 0); pivot.add(disc); g.add(pivot); c.own(disc.geometry);
+  c.on((t) => { const d = t - hitAt; const k = d < 0 ? 0 : Math.exp(-d * 1.6); pivot.rotation.y = Math.sin(d * 23) * 0.09 * k; pivot.rotation.x = Math.sin(d * 17) * 0.04 * k; mat.emissiveIntensity = d < 0 ? 0 : 1.8 * Math.exp(-d * 3.5); });
+  return g;
+}
+// a crowd where each member runs from a to b between t0 and t1: list of {a:[x,z], b:[x,z], t0, t1}
+export function sprinters(c, list, o = {}) {
+  const cr = c.crowd(list.length, { colors: o.colors || [0xf2f2f2, 0xeeeeea, 0xe6e6e6, 0xf4f1ec, 0xdde4ee], seed: o.seed ?? 5, shadows: o.shadows ?? false });
+  c.on((t) => {
+    list.forEach((s, i) => {
+      const u = Math.max(0, Math.min(1, (t - s.t0) / Math.max(0.01, s.t1 - s.t0))), x = s.a[0] + (s.b[0] - s.a[0]) * u, zz = s.a[1] + (s.b[1] - s.a[1]) * u;
+      cr.set(i, x, height(x, zz), zz, Math.atan2(s.b[0] - s.a[0], s.b[1] - s.a[1]), u > 0 && u < 1 ? 1 : 0);
+    });
+    cr.update(t);
+  });
+  return cr;
 }

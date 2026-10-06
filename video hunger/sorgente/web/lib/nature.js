@@ -509,7 +509,7 @@ export class Vegetation {
         const rr = mulberry32((gi * 2654435761) ^ (gj * 40503) ^ 99);
         const x = (gi + rr()) * rs, z = (gj + rr()) * rs;
         const sl = slopeAt(x, z, 2);
-        if (arenaMask(x, z) > 0.5 && arenaR(x, z) > 455) continue;
+        if (arenaMask(x, z) > 0.5 && (arenaR(x, z) > 455 || sl > 0.7)) continue;
         const [dr, srv] = distToRiver(x, z);
         const riverside = dr < riverWidth(srv) * 1.8 ? 0.3 : 0;
         if (rr() > 0.05 + sl * 0.7 + riverside) continue;

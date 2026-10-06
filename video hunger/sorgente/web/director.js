@@ -4,6 +4,8 @@ import * as THREE from 'three';
 import { E, FILM } from './main.js';
 import { height, isWater, waterMaterial } from './lib/terrain.js';
 import { Person, CAST } from './lib/people.js';
+import * as PEOPLE from './lib/people.js';
+window.PEOPLE = PEOPLE; window.THREE_ = THREE;
 import { makeAnimal, Flock } from './lib/animals.js';
 import { Fire, TorchField, lightningBolt, Rain } from './lib/fx.js';
 import { Crowd } from './lib/crowd.js';
@@ -55,6 +57,7 @@ class Ctx {
     P.root.visible = true;
     P.root.scale.setScalar((o.scale ?? def.scale ?? 1) * 0.92);
     const x = o.x ?? 0, z = o.z ?? 0;
+    P._free = o.y !== undefined || o.dy !== undefined;
     P.place(x, (o.y !== undefined ? o.y : height(x, z) + (o.dy ?? 0)), z, o.yaw ?? 0);
     P.pose(o.pose || 'idle', 0, o.p || {});
     P.anim = o.anim || null;     // (P, t) => {...}
@@ -291,7 +294,7 @@ window.renderShot = function (t) {
   ctx.cam = c;
   applyShake(c, t, typeof spec.shake === 'function' ? spec.shake(t, ctx) : (spec.shake || 0));
   for (const fn of ctx.updates) fn(t);
-  for (const P of ctx.people) if (P.anim) P.anim(P, t);
+  for (const P of ctx.people) { if (P.anim) P.anim(P, t); P.groundFix(height, { free: P._free }); }
   for (const fn of ctx.post) fn(t);
   E.camera.position.copy(c.pos); E.camera.up.set(0, 1, 0);
   E.camera.lookAt(c.target);
