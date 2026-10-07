@@ -25,7 +25,7 @@ def main():
     music = sf.read(os.path.join(SCRATCH, "audio_p2", "music.wav"), dtype="float32")[0][:N]
     sfx = sf.read(os.path.join(SCRATCH, "audio_p2", "sfx.wav"), dtype="float32")[0][:N]
     act = (np.abs(voice) > 0.01).astype(np.float32)
-    k = int(0.35 * SR); env = np.convolve(act, np.ones(k) / k, "same"); env = np.convolve((env > 0.03).astype(np.float32), np.ones(int(0.25 * SR)) / int(0.25 * SR), "same")
+    k = int(0.35 * SR); env = signal.fftconvolve(act, np.ones(k) / k, "same"); env = signal.fftconvolve((env > 0.03).astype(np.float32), np.ones(int(0.25 * SR)) / int(0.25 * SR), "same")
     duck = 1.0 - 0.62 * env
     mix = music * (0.62 * duck)[:, None] + sfx * (0.8 * (1 - 0.35 * env))[:, None] + voice[:, None] * 1.0
     mix = mix / (np.abs(mix).max() + 1e-9) * 0.9
