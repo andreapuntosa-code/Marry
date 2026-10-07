@@ -12,7 +12,7 @@ window.SHORT = SHORT;
 // 1. the Horn, low and golden
 reg('horn', 4.0, S('t:' + (AT += 10), 0, {
   biome: 'center', hours: 17.6, cam: [C[0] - 18, 0.9, C[1] - 50], cam2: [C[0] - 10, 1.4, C[1] - 33], tgt: [C[0], 5, C[1]], tgt2: [C[0], 12, C[1]], fov: 62, fov2: 58,
-  clear: [[C[0], C[1], 75]], shadow: { x: C[0] - 8, z: C[1] - 25, r: 60 }, hero: true,
+  clear: [[C[0], C[1], 75]], shadow: { x: C[0] - 8, z: C[1] - 25, r: 60 }, hero: true, water: false,
   set: (c) => { H.horn(c, { yaw: Math.PI * 1.45, ripple: 0.006 }); lineup(c, [C[0] - 18, 0.9, C[1] - 50], 16, { pose: 'idle' }); const m = H.hornMouth(Math.PI * 1.45, 6.5); H.lootPile(c, m[0], m[1], { yaw: Math.PI * 1.45, n: 22, R: 5.5, seed: 3 }); },
 }));
 
