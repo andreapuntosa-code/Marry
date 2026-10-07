@@ -51,12 +51,14 @@ def starts():
 
 
 def tts():
+    """same narrator and settings as the first Shorts: am_puck at 1.05, one take per line (no clause splitting, no pitch edit)"""
     from kokoro_onnx import Kokoro
-    import sintesi_hg as SH
+    from sintesi_hg import trim
     k = Kokoro(f"{MODELS}/kokoro-v1.0.onnx", f"{MODELS}/voices-v1.0.bin")
     res = []
     for text in [s[2] for s in SHOTS] + [END_LINE]:
-        y, sr = SH.synth_segment(k, {"voice": "narr", "tts": text, "q": text.endswith("?") or "Who wins?" in text})
+        y, sr = k.create(text, voice="am_puck", speed=1.05, lang="en-us")
+        y = trim(np.asarray(y, np.float32), sr)
         g = np.gcd(SR, sr); y = signal.resample_poly(y, SR // g, sr // g)
         res.append(y.astype(np.float32))
     return res
