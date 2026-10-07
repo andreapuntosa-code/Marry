@@ -59,6 +59,8 @@ def resolve(anchor, tl, seg_by, chap_by):
 def build_shots(shot_list, tl, seg_by, chap_by):
     shots = []
     for s in shot_list:
+        if s['id'].startswith('cv_'):
+            continue
         st = resolve(s["at"], tl, seg_by, chap_by) + s.get("off", 0.0)
         shots.append({**s, "start": st})
     shots.sort(key=lambda s: s["start"])
