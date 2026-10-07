@@ -34,3 +34,16 @@ const FR = (id, names, fov = 36) => T(id, 'center', 15.5, [C[0], 1.4, C[1] - 10]
   set: (c) => { names.forEach((nm, i) => who(c, nm, C[0] - (names.length - 1) * 0.9 + i * 1.8, C[1] - 4, 'idle', { yaw: Math.PI, phase: i })); } });
 FR('t_front1', ['REX', 'VEX', 'JUNE', 'FINN', 'KAI', 'LUNA', 'TOBY', 'DAX']);
 FR('t_front2', ['BOLT', 'ROOK', 'ASTER', 'MARLO', 'SAGE', 'ECHO', 'ZARA', 'PIP']);
+
+// ---- cover / short shots (golden hour) ----
+const CAST = ['REX', 'VEX', 'JUNE', 'FINN', 'KAI', 'LUNA', 'TOBY', 'DAX', 'BOLT', 'ROOK', 'ASTER', 'MARLO', 'SAGE', 'ECHO', 'ZARA'];
+const hornSet = (c) => { H.horn(c, { yaw: Math.PI }); H.pedestals(c); };
+// A: the hundred on their pedestals around the Horn at golden hour, seen from the side and low
+T('th_a', 'center', 17.5, [C[0] - 24, 1.25, C[1] - 42], [C[0] + 3, 6.6, C[1] + 2], { fov: 50, clear: [[C[0], C[1], 70]], shadow: { x: C[0] - 8, z: C[1] - 26, r: 60 },
+  set: (c) => { H.horn(c, { yaw: Math.PI * 1.45, ripple: 0.006 }); const P = H.pedestals(c); P.slice(0, 60).forEach((p, i) => { if (p.z > C[1] + 6) return; who(c, i % 16 < CAST.length ? CAST[i % 16 % CAST.length] : 'X' + (15 + i), p.x, p.z, i % 5 === 2 ? 'guard' : 'idle', { y: p.y, yaw: p.yaw, phase: i * 0.7 }); }); } });
+// B: one contestant facing us, the Horn burning gold behind him
+T('th_b', 'center', 17.6, [C[0] - 14, 1.05, C[1] - 30], [C[0] - 11.4, 1.7, C[1] - 20.3], { fov: 34, clear: [[C[0], C[1] - 10, 40]], shadow: { x: C[0] - 12, z: C[1] - 22, r: 30 },
+  set: (c) => { H.horn(c, { yaw: Math.PI * 1.45, ripple: 0.006 }); H.pedestals(c); who(c, 'REX', C[0] - 13.6, C[1] - 25.5, 'guard', { yaw: 3.23, phase: 0.4 }); } });
+// C: wide: the dome's edge closing in (red static) with a tiny figure
+T('th_c', 'center', 17.2, [C[0], 2.2, C[1] - 60], [C[0], 6.5, C[1]], { fov: 50, clear: [[C[0], C[1] - 30, 50]], shadow: { x: C[0], z: C[1] - 20, r: 50 },
+  set: (c) => { hornSet(c); H.staticWall(c, H.zoneRadius(55)); CAST.slice(0, 9).forEach((nm, i) => who(c, nm, C[0] - 16 + i * 4, C[1] - 28 - (i % 2) * 3, i % 2 ? 'sprint' : 'guard', { yaw: 0, phase: i })); } });

@@ -73,7 +73,7 @@ export function horn(c, o = {}) {
   for (let i = 0; i <= N; i++) {
     const u = i / N, phi = u * phi1;
     pts.push(new THREE.Vector3(Rc * Math.sin(phi) * (1 - 0.18 * u), 5.4 + Rc * (1 - Math.cos(phi)) * 0.92, Rc * 0.38 * Math.sin(phi * 0.9) * u));
-    rad.push((5.4 * Math.pow(1 - u, 1.15) + 0.4) * (1 + 0.035 * Math.sin(u * 95)));
+    rad.push((5.4 * Math.pow(1 - u, 1.15) + 0.4) * (1 + (o.ripple ?? 0.035) * Math.sin(u * 95)));
   }
   const geo = tubeVar(pts, rad, 32);
   const mesh = new THREE.Mesh(geo, MT.gold()); mesh.castShadow = true; mesh.receiveShadow = true; g.add(mesh); c.own(geo);

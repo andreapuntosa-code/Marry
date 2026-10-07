@@ -196,7 +196,7 @@ window.loadShot = function (id, dur, markers, opts = {}) {
   if (CUR) CUR.ctx.dispose();
   // key moments (hero shots): native resolution, depth of field, FXAA
   const hero = !!opts.hero && spec.hero !== false;
-  const size = E.setQuality(hero ? { scale: 1, dof: spec.dof !== false, fxaa: true } : {});
+  const size = E.setQuality(hero ? { scale: opts.scale ?? 1, dof: spec.dof !== false, fxaa: true } : {});
   const ctx = new Ctx(id, dur, markers, spec);
   // atmosphere
   E.atmo.set(spec.hoursFn ? spec.hoursFn(0, dur) : (spec.hours ?? 11), { cloud: spec.cloud ?? 0.4, storm: spec.storm ?? 0, fog: spec.fog, azimuth: spec.azimuth });
