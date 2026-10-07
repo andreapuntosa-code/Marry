@@ -1,0 +1,11 @@
+import { SHOTS, LIST } from './registry.js';
+import { P1 } from './p1/index.js';
+import './p2_recap.js';
+import './p2_c1.js';
+import './p2_c2.js';
+import './p2_c3.js';
+import './p2_c4.js';
+import './p2_c5.js';
+for (const k of Object.keys(P1)) SHOTS['p1_' + k] = P1[k];
+export { SHOTS, LIST };
+window.SHOT_LIST = LIST;
