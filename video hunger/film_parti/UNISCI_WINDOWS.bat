@@ -1,0 +1,4 @@
+@echo off
+cd /d "%~dp0"
+copy /b Hunger_Arena_100.mp4.part00+Hunger_Arena_100.mp4.part01+Hunger_Arena_100.mp4.part02+Hunger_Arena_100.mp4.part03+Hunger_Arena_100.mp4.part04+Hunger_Arena_100.mp4.part05+Hunger_Arena_100.mp4.part06+Hunger_Arena_100.mp4.part07+Hunger_Arena_100.mp4.part08+Hunger_Arena_100.mp4.part09+Hunger_Arena_100.mp4.part10+Hunger_Arena_100.mp4.part11+Hunger_Arena_100.mp4.part12+Hunger_Arena_100.mp4.part13+Hunger_Arena_100.mp4.part14+Hunger_Arena_100.mp4.part15+Hunger_Arena_100.mp4.part16+Hunger_Arena_100.mp4.part17+Hunger_Arena_100.mp4.part18+Hunger_Arena_100.mp4.part19+Hunger_Arena_100.mp4.part20+Hunger_Arena_100.mp4.part21+Hunger_Arena_100.mp4.part22+Hunger_Arena_100.mp4.part23+Hunger_Arena_100.mp4.part24+Hunger_Arena_100.mp4.part25+Hunger_Arena_100.mp4.part26+Hunger_Arena_100.mp4.part27+Hunger_Arena_100.mp4.part28+Hunger_Arena_100.mp4.part29 Hunger_Arena_100.mp4
+pause
