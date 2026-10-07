@@ -47,6 +47,17 @@ class Grabber:
             print("PAGE ERRORS:", self.errors[-2:]); self.errors.clear()
         return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
+    def load(self, sid, dur, hero=True):
+        r = self.page.evaluate(f"loadShot({json.dumps(sid)}, {dur:.4f}, {{}}, {{hero: {'true' if hero else 'false'}, scale: {self.scale}}})")
+        self.cw, self.ch = r["size"]
+
+    def at(self, t):
+        """grab frame at local time t of the shot loaded with load() (no reload)"""
+        self.page.evaluate(f"renderShot({t:.4f})")
+        s = self.cdp.send('Page.captureScreenshot', {'format': 'png', 'clip': {'x': 0, 'y': 0, 'width': self.cw, 'height': self.ch, 'scale': 1}})
+        img = cv2.imdecode(np.frombuffer(base64.b64decode(s['data']), np.uint8), cv2.IMREAD_COLOR)
+        return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
     def shot(self, sid, t=1.0, dur=4.0, grade='golden', hero=True, **kw):
         return grade_img(self.raw(sid, t, dur, hero), grade, hero, **kw)
 
