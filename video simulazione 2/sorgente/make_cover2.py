@@ -78,7 +78,7 @@ def horn(c, x, y, s, flip):
 
 def orb(c, kind, cx, cy, r, tint, tint2):
     c.drawOval(skia.Rect((cx - r * 0.95) * U, (cy + r * 0.9) * U, (cx + r * 0.95) * U, (cy + r * 1.1) * U), P('#000000', 0.55, blur=r * 0.12 * U))
-    horn(c, cx - r * 0.62, cy - r * 0.78, r / 190, False); horn(c, cx + r * 0.62, cy - r * 0.78, r / 190, True)
+    c.drawCircle(cx * U, cy * U, r * 1.22 * U, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial(skia.Point(cx * U, cy * U), r * 1.25 * U, [OV.col('#fff2c0', 0.55), OV.col('#fff2c0', 0.0)], [0.7, 1.0])))
     sh = skia.GradientShader.MakeRadial(skia.Point((cx - r * 0.25) * U, (cy - r * 0.3) * U), r * 1.25 * U, [OV.col(tint2), OV.col(tint), OV.col('#000000', 0.55)], [0, 0.6, 1])
     c.drawCircle(cx * U, cy * U, r * U, skia.Paint(AntiAlias=True, Shader=sh))
     c.drawCircle(cx * U, cy * U, r * U, P('#ffffff', 0.55, stroke=r * 0.03 * U))
@@ -87,29 +87,70 @@ def orb(c, kind, cx, cy, r, tint, tint2):
     c.drawOval(skia.Rect((cx - r * 0.62) * U, (cy - r * 0.92) * U, (cx + r * 0.62) * U, (cy - r * 0.3) * U), skia.Paint(AntiAlias=True, Shader=hs))
 
 
+def sky(c):
+    sh = skia.GradientShader.MakeLinear([skia.Point(0, 0), skia.Point(0, H)], [OV.col('#0b2a6b'), OV.col('#2f7fd6'), OV.col('#9fd4ff'), OV.col('#ffe3a6')], [0, 0.45, 0.75, 1])
+    c.drawRect(skia.Rect(0, 0, W, H), skia.Paint(Shader=sh))
+    for i in range(60):   # stars in the dark top
+        c.drawCircle(rnd.uniform(0, 1920) * U, rnd.uniform(0, 300) * U, rnd.uniform(1, 3) * U, P('#ffffff', rnd.uniform(0.3, 0.9)))
+    for i in range(18):   # sunburst from the horizon
+        a0 = -math.pi + i * math.pi / 17; p = skia.Path(); p.moveTo(960 * U, 1000 * U)
+        for d in (0, 0.05):
+            p.lineTo(960 * U + math.cos(a0 + d) * 2400 * U, 1000 * U + math.sin(a0 + d) * 2400 * U)
+        p.close(); c.drawPath(p, P('#fff2c0', 0.09 if i % 2 else 0.0))
+
+
+def cloud(c, x, y, s, a=0.95):
+    for dx, dy, r in [(-1.0, 0.1, 0.7), (-0.4, -0.2, 0.9), (0.3, -0.1, 1.0), (1.0, 0.1, 0.75), (0.0, 0.25, 1.0)]:
+        c.drawCircle((x + dx * s) * U, (y + dy * s) * U, r * s * 0.7 * U, P('#ffffff', a, blur=s * 0.12 * U))
+
+
+def ladder(c, x, top, base, wb, wt):
+    """the Ladder: a tall lattice tower reaching the sky, behind the orbs"""
+    for sgn in (-1, 1):
+        c.drawLine((x + sgn * wb / 2) * U, base * U, (x + sgn * wt / 2) * U, top * U, P('#1c2540', 1.0, stroke=14 * U))
+    n = 16
+    for i in range(n + 1):
+        u = i / n; y = base + (top - base) * u; w = wb + (wt - wb) * u
+        c.drawLine((x - w / 2) * U, y * U, (x + w / 2) * U, y * U, P('#1c2540', 1.0, stroke=7 * U))
+        if i < n:
+            u2 = (i + 1) / n; y2 = base + (top - base) * u2; w2 = wb + (wt - wb) * u2
+            sg = 1 if i % 2 else -1
+            c.drawLine((x - sg * w / 2) * U, y * U, (x + sg * w2 / 2) * U, y2 * U, P('#1c2540', 1.0, stroke=5 * U))
+    c.drawCircle(x * U, (top - 14) * U, 22 * U, P('#fff2a0', 1.0, blur=12 * U)); c.drawCircle(x * U, (top - 14) * U, 9 * U, P('#ffffff'))
+
+
+def town(c, y0):
+    c.drawRect(skia.Rect(0, y0 * U, W, H), P('#3d8f3a'))
+    sh = skia.GradientShader.MakeLinear([skia.Point(0, y0 * U), skia.Point(0, H)], [OV.col('#5fb84a'), OV.col('#27622a')])
+    c.drawRect(skia.Rect(0, y0 * U, W, H), skia.Paint(Shader=sh))
+    for i in range(34):
+        x = 20 + i * 58 + rnd.uniform(-14, 14); y = y0 + 10 + (i * 37 % 70); w = rnd.uniform(36, 62); h = w * rnd.uniform(0.6, 0.9)
+        c.drawRect(skia.Rect(x * U, (y - h) * U, (x + w) * U, y * U), P(rnd.choice(['#f3ead8', '#e8d8c0', '#f6f0e4']))); 
+        p = skia.Path(); p.moveTo((x - 5) * U, (y - h) * U); p.lineTo((x + w / 2) * U, (y - h - w * 0.55) * U); p.lineTo((x + w + 5) * U, (y - h) * U); p.close()
+        c.drawPath(p, P('#c8392b')); c.drawRect(skia.Rect((x + w * 0.4) * U, (y - h * 0.5) * U, (x + w * 0.62) * U, y * U), P('#6b4a2b'))
+    for i in range(4):   # factories with chimneys
+        x = 150 + i * 520; c.drawRect(skia.Rect(x * U, (y0 - 62) * U, (x + 120) * U, (y0 + 20) * U), P('#a8412f')); c.drawRect(skia.Rect((x + 80) * U, (y0 - 150) * U, (x + 104) * U, (y0 - 60) * U), P('#7a2a20'))
+        for k in range(3): c.drawCircle((x + 92 + k * 14) * U, (y0 - 170 - k * 30) * U, (18 + k * 8) * U, P('#ffffff', 0.5 - k * 0.12, blur=8 * U))
+
+
 def main(path_name="copertina_P2_C"):
     img = np.zeros((H, W, 4), np.uint8); img[..., 3] = 255
     surf = skia.Surface(img); c = surf.getCanvas()
-    bg(c)
-    for x in range(-100, 2100, 150):
-        flame(c, x + rnd.uniform(-30, 30), 1110, rnd.uniform(220, 330), rnd.uniform(330, 560), 0.9)
-    for i in range(16):
-        bill(c, 120 + i * 110 + rnd.uniform(-30, 30), 975 + rnd.uniform(-20, 30), rnd.uniform(-28, 28), burn=rnd.uniform(0.0, 0.6))
-    orb(c, 'gemini', 1570, 720, 200, '#3d6df0', '#bcd0ff'); orb(c, 'claude', 350, 720, 200, '#e0612f', '#ffd0b0')
-    orb(c, 'gpt', 960, 700, 260, '#10a37f', '#b4f5df')
-    for x in range(40, 1900, 110):
-        flame(c, x + rnd.uniform(-20, 20), 1100, rnd.uniform(110, 190), rnd.uniform(140, 250), 0.85)
+    sky(c)
+    cloud(c, 260, 640, 210, 0.9); cloud(c, 1650, 600, 230, 0.9); cloud(c, 980, 560, 170, 0.8)
+    ladder(c, 60, 20, 960, 230, 30); ladder(c, 1860, 20, 960, 230, 30)
+    cloud(c, 150, 900, 250); cloud(c, 700, 940, 230); cloud(c, 1260, 920, 260); cloud(c, 1800, 900, 230)
+    town(c, 960)
+    orb(c, 'gemini', 1570, 700, 200, '#3d6df0', '#bcd0ff'); orb(c, 'claude', 350, 700, 200, '#e0612f', '#ffd0b0')
+    orb(c, 'gpt', 960, 690, 255, '#10a37f', '#b4f5df')
     big(c, "AIs START A", 960, 180, 190, '#ffffff', '#f2f2f2', align='center', stroke=0.1)
     big(c, "CIVILIZATION", 960, 372, 190, '#ffffff', '#f2f2f2', align='center', stroke=0.1)
-    # PART 2 badge
     c.save(); c.translate(1640 * U, 905 * U); c.rotate(-6)
     r = skia.RRect.MakeRectXY(skia.Rect(-190 * U, -82 * U, 190 * U, 82 * U), 22 * U, 22 * U)
-    c.drawRRect(r, P('#000000', 0.5, blur=14 * U)); c.drawRRect(r, P('#ffd21f'))
-    c.drawRRect(r, P('#000000', 1.0, stroke=9 * U))
+    c.drawRRect(r, P('#000000', 0.5, blur=14 * U)); c.drawRRect(r, P('#ffd21f')); c.drawRRect(r, P('#000000', 1.0, stroke=9 * U))
     OV.txt(c, "PART 2", 0, 52 * U, 'anton', 154 * U, '#d00018', 1.0, 'center', 0.02, shadow=0)
     c.restore()
-    rgb = img[..., :3].copy()
-    save(rgb, path_name)
+    save(img[..., :3].copy(), path_name)
 
 
 if __name__ == "__main__":
