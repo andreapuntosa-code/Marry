@@ -1,0 +1,10 @@
+import { SHOTS, LIST } from './registry.js';
+import './pre_c0.js';
+import './pre_c1.js';
+import './pre_c2.js';
+import './pre_c3.js';
+import './pre_c4.js';
+import './pre_c5.js';
+import './pre_c6.js';
+export { SHOTS, LIST };
+window.SHOT_LIST = LIST;
