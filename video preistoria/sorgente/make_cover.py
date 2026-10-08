@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""YouTube covers for the Part 2 (Bingus).
+"""YouTube covers for the the Stone Age film.
 Renders the cover shots (th_a, th_b in web/shots/t_test.js) at 3840x2160 hero quality, lays out the text with skia,
 and writes   ../copertina_P2_A.jpg / _B.jpg  (1280x720, <2 MB: YouTube's limit)  plus the 4K masters (PNG) in the scratchpad.
 
@@ -110,27 +110,19 @@ def logo(c, kind, cx, cy, r):
 
 def main():
     g = grab.Grabber(1920, 1080, 2.0)
-    a = punch(g.shot('cv_a', 1.0, grade='golden', sat_boost=1.08), 1.14, 1.08)
-    b = punch(g.shot('cv_b', 1.0, grade='night', sat_boost=1.1), 1.12, 1.08)
+    a = punch(g.shot('cv_a', 1.0, grade='golden', sat_boost=1.1), 1.14, 1.08)
     g.close()
-    # ---- A: the three of them below the Ladder
     surf, c, rgba = canvas(a)
-    shade(c, 0, 0, 0, 520, 0.55); shade(c, 0, 1080, 0, 820, 0.4)
-    big(c, "THEY ANSWERED.", 960, 190, 190, '#ffffff', '#ffe27a', align='center', glow='#ff9a1f')
-    for k, (x, y, nm) in {'claude': (640, 560, 'CLAUDE'), 'gpt': (1700, 560, 'CHATGPT'), 'gemini': (290, 560, 'GEMINI')}.items() if False else []:
-        pass
-    logo(c, 'gemini', 580, 400, 92); logo(c, 'claude', 1090, 355, 100); logo(c, 'gpt', 1700, 385, 92)
-    badge(c, 70, 1010, "PART 2")
-    save(rgba[..., :3].copy(), "copertina_P2_A")
-    # ---- B: facing the screen
-    surf, c, rgba = canvas(b)
-    shade(c, 0, 1080, 0, 700, 0.5)
-    big(c, "WHAT IS A", 960, 160, 120, '#ffffff', '#cfe6ff', align='center', glow='#4f7bf0')
-    big(c, "BINGUS?", 960, 400, 300, '#ffd54a', '#ff8a00', align='center', glow='#ff5a00')
-    logo(c, 'gemini', 330, 700, 84); logo(c, 'claude', 960, 640, 92); logo(c, 'gpt', 1600, 700, 84)
-    badge(c, 70, 1010, "PART 2")
-    save(rgba[..., :3].copy(), "copertina_P2_B")
+    shade(c, 0, 1080, 0, 700, 0.75); shade(c, 0, 0, 0, 200, 0.35)
+    big(c, "20 AIs vs", 960, 800, 120, '#ffffff', '#ffe27a', align='center', glow='#4aa8ff')
+    big(c, "THE STONE AGE", 960, 975, 190, '#ffffff', '#ffd54a', align='center', glow='#ff9a1f')
+    for kind, x, y, r in HEADS:
+        logo(c, kind, x, y, r)
+    badge(c, 70, 110, "WILL THEY SURVIVE?")
+    save(rgba[..., :3].copy(), "copertina_PRE")
 
+
+HEADS = [("claude", 1030, 372, 52), ("gpt", 580, 532, 42), ("gemini", 1440, 432, 42)]
 
 if __name__ == "__main__":
     main()
