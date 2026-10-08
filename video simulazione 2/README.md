@@ -10,7 +10,7 @@ Film di circa 14 minuti e mezzo (inglese, 1920×1080, 30 fps pieni, 2.39:1), seg
 |---|---|
 | `film_parti/` | il film in pezzi da 95 MB; `UNISCI_WINDOWS.bat` o `unisci_mac_linux.sh` lo ricompongono |
 | `anteprima_completa_540p.mp4` | anteprima leggera |
-| `copertina_P2_A.jpg`, `copertina_P2_B.jpg` | copertine 1280×720 |
+| `copertina_P2_C.jpg` (provocatoria), `copertina_P2_A.jpg`, `copertina_P2_B.jpg` | copertine 1280×720 |
 | `short_Bingus_P2.mp4` | Short verticale |
 | `YOUTUBE_DESCRIPTION.md` | titolo, descrizione, capitoli |
 | `sorgente/` | codice: `script_p2.py`, `sintesi_p2.py`, `music_p2.py`, `sfx_p2.py`, `mix_p2.py`, `render.py`, `cfx.py`, motore in `web/` |
