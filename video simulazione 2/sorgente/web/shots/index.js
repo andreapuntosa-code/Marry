@@ -7,6 +7,7 @@ import './p2_c3.js';
 import './p2_c4.js';
 import './p2_c5.js';
 import './p2_cover.js';
+import './p2_short.js';
 for (const k of Object.keys(P1)) SHOTS['p1_' + k] = P1[k];
 export { SHOTS, LIST };
 window.SHOT_LIST = LIST;
