@@ -114,9 +114,7 @@ def main():
     g.close()
     surf, c, rgba = canvas(a)
     shade(c, 0, 0, 0, 360, 0.35)
-    big(c, "AI STONE AGE", 40, 250, 245, '#ffffff', '#ffffff', stroke=0.05, glow=None)
-    for kind, x, y, r in [("gpt", 1795, 150, 100)]:
-        logo(c, kind, x, y, r)
+    big(c, "AI STONE AGE", 960, 225, 230, '#ffffff', '#ffffff', stroke=0.06, glow=None, align='center', key='poppins')
     save(rgba[..., :3].copy(), "copertina_PRE_B")
 
 

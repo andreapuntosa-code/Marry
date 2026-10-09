@@ -14,7 +14,7 @@ T('cv_a', 0, P, { hours: 17.4, snow: 0.95, cam: [0.2, 0.45, -3.0], tgt: [0.2, 2.
   } });
 // B: the "huge crowd" cover: a hero up close, hundreds of AIs in furs behind
 
-T('cv_b', 0, P, { hours: 12.4, snow: 0.0, cloud: 0.25, cam: [0.25, 1.05, -2.5], tgt: [0.1, 2.25, 30], fov: 60, cr: 90, sr: 70, hero: true,
+T('cv_b', 0, P, { hours: 15.2, snow: 0.0, cloud: 0.35, fog: 0.0006, veg: { r0: 30, rImp: 60, r1: 220, rFar: 1600 }, cam: [0.25, 1.05, -2.5], tgt: [0.1, 2.25, 30], fov: 60, cr: 90, sr: 70, hero: true,
   set(c, f) {
     const kinds = ['walker', 'rag', 'keeper', 'walker'];
     const names = ['GORN', 'LIA', 'TUK', 'RAX', 'ORIN', 'MEI', 'KRU', 'SOL', 'NIMA', 'DAK', 'ULA', 'PEK', 'ZAN', 'EDA', 'FEN', 'JUNO', 'TARO', 'VEL', 'MOK', 'PIA'];
@@ -27,4 +27,7 @@ T('cv_b', 0, P, { hours: 12.4, snow: 0.0, cloud: 0.25, cam: [0.25, 1.05, -2.5], 
     }
     crowdDisc(c, 700, f.x, f.z + 34, 9, 25, f.x, f.z - 20, { seed: 9, colors: [0xff8a3a, 0x6fd16a, 0x4aa8ff, 0xffc21a, 0xff5a4a, 0xc77dff] });
     ai(c, 'GORN', ...f.p(0, 0), 'point', [...KIT.walker(0, 2)], { yaw: f.yaw + Math.PI + 0.25 });
+    // the landscape behind: a wall of snowy peaks, mammoths on the rise, birds
+    const pk = f.p(0, 1100); PRE.peaks(c, pk[0], pk[1], f.yaw, { n: 13, width: 2600, h: 300, depth: 260, sink: 40, rock: 0x56637a });
+    const pk2 = f.p(-200, 1700); PRE.peaks(c, pk2[0], pk2[1], f.yaw, { n: 10, width: 3600, h: 480, depth: 260, seed: 7, rock: 0x6b7a92 });
   } });

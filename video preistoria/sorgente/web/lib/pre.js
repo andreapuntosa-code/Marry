@@ -143,3 +143,25 @@ export function boat(c, x, z, yaw = 0, o = {}) {
   const flag = new THREE.Mesh(new THREE.PlaneGeometry(0.7 * s, 0.45 * s), new THREE.MeshStandardMaterial({ color: 0xd0402a, side: THREE.DoubleSide })); flag.position.set(0.37 * s, 2.45 * s, 0); flag.rotation.y = Math.PI / 2; g.add(flag);
   g.traverse(n => { if (n.isMesh) n.castShadow = true; }); g.position.set(x, o.y ?? height(x, z), z); g.rotation.y = yaw; c.add(g); return g;
 }
+
+// ---- a backdrop of big snow-capped peaks (far behind a scene), centred on (x, z), spread across `width` perpendicular to `dir` (yaw)
+export function peaks(c, x, z, yaw = 0, o = {}) {
+  const g = new THREE.Group(), r = mulberry32(o.seed ?? 21), n = o.n ?? 9, W = o.width ?? 900;
+  const rockA = new THREE.Color(o.rock ?? 0x6f7d8e), snowC = new THREE.Color(0xe6edf7);
+  for (let i = 0; i < n; i++) {
+    const h = (o.h ?? 220) * (0.55 + r() * 0.7), rad = h * (0.75 + r() * 0.35);
+    const geo = new THREE.ConeGeometry(rad, h, 7 + (i % 3), 6);
+    const pos = geo.attributes.position, col = new Float32Array(pos.count * 3), cc = new THREE.Color();
+    for (let k = 0; k < pos.count; k++) {
+      const yy = pos.getY(k) / h + 0.5, jag = (Math.sin(pos.getX(k) * 0.07 + i) + Math.cos(pos.getZ(k) * 0.09)) * 0.04;
+      pos.setX(k, pos.getX(k) * (1 + (r() - 0.5) * 0.18)); pos.setZ(k, pos.getZ(k) * (1 + (r() - 0.5) * 0.18));
+      const s = yy > 0.7 + jag ? 1 : yy > 0.63 + jag ? 0.45 : 0; cc.copy(rockA).lerp(snowC, s).multiplyScalar(0.9 + r() * 0.15);
+      col[k * 3] = cc.r; col[k * 3 + 1] = cc.g; col[k * 3 + 2] = cc.b;
+    }
+    geo.setAttribute('color', new THREE.BufferAttribute(col, 3)); geo.computeVertexNormals();
+    const m = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, flatShading: true }));
+    const u = (i / (n - 1) - 0.5) * W + (r() - 0.5) * W * 0.08, d = (o.dist ?? 0) + (r() - 0.5) * (o.depth ?? 160);
+    m.position.set(u, h / 2 - (o.sink ?? 20), d); m.rotation.y = r() * 3; g.add(m);
+  }
+  g.position.set(x, o.y ?? height(x, z), z); g.rotation.y = yaw; c.add(g); return g;
+}

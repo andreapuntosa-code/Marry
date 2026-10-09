@@ -15,7 +15,7 @@ FONT_FILES = {
     "corpo": "Inter-400.ttf", "corpo_m": "Inter-600.ttf", "corpo_b": "Inter-800.ttf", "corpo_l": "Inter-300.ttf",
     "mono": "JetBrainsMono-400.ttf", "mono_b": "JetBrainsMono-700.ttf", "mono_l": "JetBrainsMono-300.ttf",
     "corsivo": "CormorantGaramond-500i.ttf", "corsivo_b": "CormorantGaramond-600i.ttf", "serif": "CormorantGaramond-500.ttf",
-    "anton": "Anton-400.ttf", "bebas": "BebasNeue-400.ttf",
+    "anton": "Anton-400.ttf", "bebas": "BebasNeue-400.ttf", "poppins": "Poppins-Black.ttf",
 }
 
 
