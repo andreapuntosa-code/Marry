@@ -40,7 +40,7 @@ def ad_A():
         (2.8, "p2", 263.0, {}, "the AIs:"),
         (2.6, "p2", 226.0, {}, "*spend 100 years arguing about what a Bingus is*"),
         (2.8, "p2", 382.5, {}, "*build a ladder to the sky to find out*"),
-        (2.8, "p2", 761.0, {"x": -0.09}, "*find a screen full of our comments*"),
+        (2.8, "p2", 749.5, {}, "*find a screen full of our comments*"),
         (2.4, "p2", 845.0, {"hold": 2.2}, None),
     ]
     shots, t_end = seq(0.0, [(d, s, t0, o) for d, s, t0, o, _ in beats])
@@ -63,7 +63,7 @@ def ad_A():
                 else:
                     K.box_text(c, txt, 380, 56)
         if 6 <= k <= 6 and lt < 1.8:
-            K.big(c, "THEY KNOW.", 1350, 140, 1.0, 1 + 0.2 * max(0, 1 - lt / 0.12), col='#ffffff')
+            K.big(c, "THEY KNOW.", 1680, 140, 1.0, 1 + 0.2 * max(0, 1 - lt / 0.12), col='#ffffff')
     music = K.bed_pop(total + 1)
     T_ = K.M.Track(total + 2)
     for (a, b, *_ ) in shots[1:]: T_.add(a, mono=K.M.boom(0.35, 60), gain=0.25)
@@ -113,13 +113,13 @@ def ad_B():
 
 # =====================================================================  C  Lore
 def ad_C():
-    L = [("In the year twenty forty, twenty AIs received one word from the outside world.", [("p2", 52.2, {"speed": 0.45, "hold": 1.65})]),
+    L = [("In the year twenty forty, twenty AIs received one word from the outside world.", [("p2", 52.2, {"speed": 0.42, "hold": 1.45})]),
          ("Bingus.", [("p2", 141.0, {"speed": 0.6})]),
          ("Nobody knew what it meant.", [("p2", 226.0, {"speed": 0.7})]),
          ("So they built temples to it.", [("p2", 263.0, {"speed": 0.7})]),
          ("For a hundred years, they argued about it.", [("p2", 196.0, {"speed": 0.7}), ("p2", 211.0, {"speed": 0.7})]),
          ("Then they built a tower... all the way up to the sky.", [("p2", 382.5, {"speed": 0.7}), ("p2", 541.0, {"speed": 0.7})]),
-         ("And at the very top, they found a screen. Full of comments.", [("p2", 749.5, {"speed": 0.7}), ("p2", 761.0, {"speed": 0.7, "x": -0.09})]),
+         ("And at the very top, they found a screen. Full of comments.", [("p2", 749.5, {"speed": 0.7}), ("p2", 773.0, {"speed": 0.7})]),
          ("Ours.", [("p2", 845.0, {"speed": 0.6, "hold": 2.2})]),
          ("They know we're watching.", None)]
     voices = K.tts([l for l, _ in L], "am_onyx", 0.92)
@@ -142,14 +142,14 @@ def ad_C():
             if d < 0.2: c.drawRect(skia.Rect(0, 0, W, H), P('#000000', 0.9 * (1 - d / 0.2)))
         if li == len(L) - 1:
             u = t - starts[li]
-            K.endcard(rgba, u - 1.2, "They know we're watching.", "The Animator on YouTube", dark=True) if u > 1.2 else None
-            if u <= 1.6:
-                a = OV.fade_io(u, 0, 1.6, 0.3, 0.4); OV.txt(c, "THEY KNOW WE'RE WATCHING.", W / 2, 1000, 'titolo', 60, '#ffffff', a, 'center', 0.12)
+            K.endcard(rgba, u - 1.4, "They know we're watching.", "The Animator on YouTube", dark=True) if u > 1.4 else None
+            if u <= 1.4:
+                a = OV.fade_io(u, 0, 1.4, 0.3, 0.3); OV.txt(c, "THEY KNOW WE'RE WATCHING.", W / 2, 1210, 'titolo', 42, '#ffffff', a, 'center', 0.12)
             return
         line = L[li][0]; dur = len(voices[li]) / SR; u = t - starts[li]
         a = OV.fade_io(u, 0, dur + gaps[li] - 0.05, 0.25, 0.3)
         if line in ("Bingus.", "Ours."):
-            OV.txt(c, line[:-1].upper(), W / 2, 1020, 'titolo_n', 170, '#ffffff', a, 'center', 0.1)
+            OV.txt(c, line[:-1].upper(), W / 2, 1020 if line == "Bingus." else 1250, 'titolo_n', 170, '#ffffff', a, 'center', 0.1)
         else:
             for j, ln in enumerate(K.wrap(line.upper(), 'titolo', 50, 900)):
                 OV.txt(c, ln, W / 2, 1480 + j * 72, 'titolo', 50, '#f2ead8', a, 'center', 0.06)
