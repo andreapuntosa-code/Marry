@@ -20,15 +20,20 @@ Ricostruire: `video simulazione 2/sorgente/make_promo.py` (usa le parti del film
 
 ---
 
-# Versione 2: "una persona che ne parla"
+# Versione 2: "un creator che ne parla" (canale vero, nessun numero inventato)
 
-`short_promo_persona.mp4`: 1080×1920, 30 secondi. Sembra la registrazione dello schermo di un telefono: pagina del canale, video che gira, commenti con "Bingus" (tap sul like), di nuovo il canale con tap su Iscriviti e adesivo "link in bio". Voce femminile informale (diversa dal narratore), didascalie stile TikTok in riquadro bianco.
+`short_promo_the_animator.mp4`: 1080×1920, ~30 secondi, nello stile del video di riferimento: tagli veloci tra spezzoni
+dei film a tutto schermo e riprese "a mano" di un monitor con la pagina YouTube vera del canale **The Animator**
+(@TheAnimator-j3t, avatar `avatar_the_animator.png`) e un dito che indica; sottotitoli una parola alla volta, voce maschile
+informale (diversa dal narratore del canale). Nessun numero di iscritti, visualizzazioni, like o commenti.
 
-> Okay, so I found this YouTube channel, and it's honestly insane. This guy built a whole civilization... out of AIs.
-> Twenty of them, starting from literally nothing. And here's the crazy part: the comments control it.
-> Every video, the most liked comment gets put into the simulation. Like, someone commented Bingus...
-> and now the AIs have a whole religion about it. They built a ladder to the sky, just to figure out what a Bingus is.
-> And at the top, they found our comments. I'm obsessed. Go comment on the next one. Link's in my bio.
+> Okay, this YouTube channel is doing something nobody else is doing. They drop twenty AIs into an empty world,
+> and the AIs have to build a whole civilization, from zero. But here's the crazy part. The comments control it.
+> The most liked comment goes straight into the next video. Someone commented Bingus,
+> and now the AIs have a whole religion about Bingus. They built a ladder to the sky, just to find out what it is.
+> And there's a brand new one in the Stone Age. Cavemen, mammoths, fire.
+> The channel's called The Animator. Go comment, you might end up in the next video. Link in bio.
 
-Il nome del canale nella finta app è "AI Civilization" (segnaposto) con numeri di iscritti/visualizzazioni inventati: cambiali con il nome vero e rigenera con
-`CHANNEL="Nome canale" python3 "video simulazione 2/sorgente/make_promo2.py"`.
+**Titolo**: This YouTube channel lets the comments control an AI civilization 🤯 #shorts
+
+Ricostruire: `python3 "video simulazione 2/sorgente/make_promo2.py"` (usa le parti dei film Parte 2 e Preistoria).
