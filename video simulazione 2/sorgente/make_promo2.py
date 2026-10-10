@@ -41,9 +41,9 @@ COMMENTS = [("@IsabellaDelaney-Dean", "Bingus", '#7a4bd6'), ("@zzzTom", "ok but 
 # (voice line, shot). Shots: ("film", source, t0)  or  ("mon", screen, focus keys, finger keys, extra)
 #   focus keys: [(t, cx, cy, width)] in screen pixels; finger keys: [(t, x, y, press)] (screen pixels) or None
 LINES = [
-    ("Okay, this YouTube channel is doing something nobody else is doing.", ("film", "p2", 51.1, 0.72)),
+    ("Okay, this YouTube channel is doing something nobody else is doing.", ("film", "p2", 52.0, 0.5, 1.75)),
     ("They drop twenty AIs into an empty world,", ("mon", "channel", [(0, 900, 360, 1300), (2.5, 760, 330, 1000)], [(0.4, 760, 300, 0), (1.3, 700, 250, 1), (2.5, 740, 280, 0)], {})),
-    ("and the AIs have to build a whole civilization, from zero.", ("film", "p2", 64.3)),
+    ("and the AIs have to build a whole civilization, from zero.", ("film", "p2", 65.0)),
     ("But here's the crazy part.", ("film", "p2", 140.5)),
     ("The comments control it.", ("mon", "comments", [(0, 640, 560, 1200), (1.6, 640, 600, 1000)], [(0.3, 900, 800, 0), (1.6, 880, 520, 0)], {"scroll": (0.0, 1.6, 300, 660)})),
     ("The most liked comment goes straight into the next video.", ("mon", "comments", [(0, 560, 470, 1000), (3.0, 520, 450, 900)], [(0.2, 700, 700, 0), (1.0, 182, 732, 0), (1.5, 182, 732, 1), (3.0, 200, 750, 0)], {"scroll": 660, "like_at": 1.5})),
@@ -318,8 +318,9 @@ def caption(c, word, age):
     c.restore()
 
 
-def clip_frames(src, t0, n, speed=1.0):
-    p = subprocess.Popen(['ffmpeg', '-v', 'error', '-ss', f'{t0:.3f}', '-t', f'{n * speed / FPS + 0.3:.3f}', '-i', SRC[src], '-vf', f'setpts=PTS/{speed},fps=30', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE)
+def clip_frames(src, t0, n, speed=1.0, hold=None):
+    """n frames from t0 (optionally slowed down); with hold, the source stops after that many seconds and the last frame freezes"""
+    p = subprocess.Popen(['ffmpeg', '-v', 'error', '-ss', f'{t0:.3f}', '-t', f'{min(n * speed / FPS + 0.3, hold or 1e9):.3f}', '-i', SRC[src], '-vf', f'setpts=PTS/{speed},fps=30', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE)
     last = np.zeros((1080, 1920, 3), np.uint8)
     for _ in range(n):
         b = p.stdout.read(1920 * 1080 * 3)
