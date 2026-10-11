@@ -1,0 +1,2045 @@
+{
+ "fps": 30,
+ "total": 479.631,
+ "segments": [
+  {
+   "id": "i01",
+   "sub": "Hello, friends! Welcome to the sunny meadow!",
+   "tts": "Hello, friends! Welcome to the sunny meadow!",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": null,
+   "start": 0.8,
+   "end": 3.554,
+   "dur": 2.754
+  },
+  {
+   "id": "i02",
+   "sub": "Look who's here... It's the Little AIs!",
+   "tts": "Look who's here... It's the Little AIs!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": null,
+   "start": 4.274,
+   "end": 6.649,
+   "dur": 2.375
+  },
+  {
+   "id": "i03",
+   "sub": "Hi, friends!",
+   "tts": "Hi, friends!",
+   "pause": 0.6,
+   "voice": "chorus",
+   "gfx": null,
+   "start": 7.249,
+   "end": 8.513,
+   "dur": 1.264
+  },
+  {
+   "id": "i04",
+   "sub": "Today we are going to learn colors, count to ten, and meet some funny animals!",
+   "tts": "Today we are going to learn colors, count to ten, and meet some funny animals!",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": null,
+   "start": 9.233,
+   "end": 14.177,
+   "dur": 4.944
+  },
+  {
+   "id": "i05",
+   "sub": "Are you ready? Let's go!",
+   "tts": "Are you ready? Let's go!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": null,
+   "start": 14.897,
+   "end": 16.664,
+   "dur": 1.767
+  },
+  {
+   "id": "c00",
+   "sub": "First, let's learn our colors! Every Little AI has a different color. Let's meet them!",
+   "tts": "First, let's learn our colors! Every Little AI has a different color. Let's meet them!",
+   "pause": 0.7,
+   "voice": "narr",
+   "gfx": null,
+   "start": 25.624,
+   "end": 30.993,
+   "dur": 5.369
+  },
+  {
+   "id": "c01a",
+   "sub": "Hi! I'm Red!",
+   "tts": "Hi! I'm Red!",
+   "pause": 0.35,
+   "voice": "red",
+   "gfx": {
+    "type": "color",
+    "color": "red",
+    "icon": "apple"
+   },
+   "start": 31.833,
+   "end": 32.693,
+   "dur": 0.86
+  },
+  {
+   "id": "c01b",
+   "sub": "Red, like a yummy red apple!",
+   "tts": "Red, like a yummy red apple!",
+   "pause": 0.45,
+   "voice": "narr",
+   "gfx": {
+    "type": "color",
+    "color": "red",
+    "icon": "apple"
+   },
+   "start": 33.113,
+   "end": 35.087,
+   "dur": 1.974
+  },
+  {
+   "id": "c01c",
+   "sub": "Can you say red?",
+   "tts": "Can you say red?",
+   "pause": 1.7,
+   "voice": "narr",
+   "gfx": {
+    "type": "say",
+    "color": "red"
+   },
+   "start": 35.627,
+   "end": 36.705,
+   "dur": 1.079
+  },
+  {
+   "id": "c01d",
+   "sub": "Red! Great job!",
+   "tts": "Red! Great job!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "star",
+    "color": "red"
+   },
+   "start": 38.745,
+   "end": 40.151,
+   "dur": 1.405
+  },
+  {
+   "id": "c01e",
+   "sub": "I love to jump!",
+   "tts": "I love to jump!",
+   "pause": 0.8,
+   "voice": "red",
+   "gfx": null,
+   "start": 40.751,
+   "end": 41.702,
+   "dur": 0.952
+  },
+  {
+   "id": "c02a",
+   "sub": "Hello! I'm Orange!",
+   "tts": "Hello! I'm Orange!",
+   "pause": 0.35,
+   "voice": "orange",
+   "gfx": {
+    "type": "color",
+    "color": "orange",
+    "icon": "orange"
+   },
+   "start": 42.662,
+   "end": 43.866,
+   "dur": 1.203
+  },
+  {
+   "id": "c02b",
+   "sub": "Orange, like a juicy orange!",
+   "tts": "Orange, like a juicy orange!",
+   "pause": 0.45,
+   "voice": "narr",
+   "gfx": {
+    "type": "color",
+    "color": "orange",
+    "icon": "orange"
+   },
+   "start": 44.286,
+   "end": 46.228,
+   "dur": 1.942
+  },
+  {
+   "id": "c02c",
+   "sub": "Can you say orange?",
+   "tts": "Can you say orange?",
+   "pause": 1.7,
+   "voice": "narr",
+   "gfx": {
+    "type": "say",
+    "color": "orange"
+   },
+   "start": 46.768,
+   "end": 48.1,
+   "dur": 1.332
+  },
+  {
+   "id": "c02d",
+   "sub": "Orange! Well done!",
+   "tts": "Orange! Well done!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "star",
+    "color": "orange"
+   },
+   "start": 50.14,
+   "end": 51.573,
+   "dur": 1.433
+  },
+  {
+   "id": "c02e",
+   "sub": "I love to dance!",
+   "tts": "I love to dance!",
+   "pause": 0.8,
+   "voice": "orange",
+   "gfx": null,
+   "start": 52.173,
+   "end": 53.175,
+   "dur": 1.002
+  },
+  {
+   "id": "c03a",
+   "sub": "Hi hi! I'm Yellow!",
+   "tts": "Hi hi! I'm Yellow!",
+   "pause": 0.35,
+   "voice": "yellow",
+   "gfx": {
+    "type": "color",
+    "color": "yellow",
+    "icon": "sun"
+   },
+   "start": 54.135,
+   "end": 55.569,
+   "dur": 1.434
+  },
+  {
+   "id": "c03b",
+   "sub": "Yellow, like the bright yellow sun!",
+   "tts": "Yellow, like the bright yellow sun!",
+   "pause": 0.45,
+   "voice": "narr",
+   "gfx": {
+    "type": "color",
+    "color": "yellow",
+    "icon": "sun"
+   },
+   "start": 55.989,
+   "end": 58.023,
+   "dur": 2.034
+  },
+  {
+   "id": "c03c",
+   "sub": "Can you say yellow?",
+   "tts": "Can you say yellow?",
+   "pause": 1.7,
+   "voice": "narr",
+   "gfx": {
+    "type": "say",
+    "color": "yellow"
+   },
+   "start": 58.563,
+   "end": 59.79,
+   "dur": 1.227
+  },
+  {
+   "id": "c03d",
+   "sub": "Yellow! Yes! Super!",
+   "tts": "Yellow! Yes! Super!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "star",
+    "color": "yellow"
+   },
+   "start": 61.83,
+   "end": 63.319,
+   "dur": 1.488
+  },
+  {
+   "id": "c03e",
+   "sub": "I love the sunshine!",
+   "tts": "I love the sunshine!",
+   "pause": 0.8,
+   "voice": "yellow",
+   "gfx": null,
+   "start": 63.919,
+   "end": 65.379,
+   "dur": 1.461
+  },
+  {
+   "id": "c04a",
+   "sub": "Hey there! I'm Green!",
+   "tts": "Hey there! I'm Green!",
+   "pause": 0.35,
+   "voice": "green",
+   "gfx": {
+    "type": "color",
+    "color": "green",
+    "icon": "leaf"
+   },
+   "start": 66.339,
+   "end": 67.972,
+   "dur": 1.633
+  },
+  {
+   "id": "c04b",
+   "sub": "Green, like the grass and the leaves!",
+   "tts": "Green, like the grass and the leaves!",
+   "pause": 0.45,
+   "voice": "narr",
+   "gfx": {
+    "type": "color",
+    "color": "green",
+    "icon": "leaf"
+   },
+   "start": 68.392,
+   "end": 70.562,
+   "dur": 2.17
+  },
+  {
+   "id": "c04c",
+   "sub": "Can you say green?",
+   "tts": "Can you say green?",
+   "pause": 1.7,
+   "voice": "narr",
+   "gfx": {
+    "type": "say",
+    "color": "green"
+   },
+   "start": 71.102,
+   "end": 72.341,
+   "dur": 1.239
+  },
+  {
+   "id": "c04d",
+   "sub": "Green! Wonderful!",
+   "tts": "Green! Wonderful!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "star",
+    "color": "green"
+   },
+   "start": 74.381,
+   "end": 75.756,
+   "dur": 1.376
+  },
+  {
+   "id": "c04e",
+   "sub": "I love to run!",
+   "tts": "I love to run!",
+   "pause": 0.8,
+   "voice": "green",
+   "gfx": null,
+   "start": 76.356,
+   "end": 77.893,
+   "dur": 1.537
+  },
+  {
+   "id": "c05a",
+   "sub": "Hello! I'm Blue!",
+   "tts": "Hello! I'm Blue!",
+   "pause": 0.35,
+   "voice": "blue",
+   "gfx": {
+    "type": "color",
+    "color": "blue",
+    "icon": "cloud_sky"
+   },
+   "start": 78.853,
+   "end": 80.0,
+   "dur": 1.146
+  },
+  {
+   "id": "c05b",
+   "sub": "Blue, like the big blue sky!",
+   "tts": "Blue, like the big blue sky!",
+   "pause": 0.45,
+   "voice": "narr",
+   "gfx": {
+    "type": "color",
+    "color": "blue",
+    "icon": "cloud_sky"
+   },
+   "start": 80.42,
+   "end": 82.306,
+   "dur": 1.887
+  },
+  {
+   "id": "c05c",
+   "sub": "Can you say blue?",
+   "tts": "Can you say blue?",
+   "pause": 1.7,
+   "voice": "narr",
+   "gfx": {
+    "type": "say",
+    "color": "blue"
+   },
+   "start": 82.846,
+   "end": 84.024,
+   "dur": 1.178
+  },
+  {
+   "id": "c05d",
+   "sub": "Blue! Great job!",
+   "tts": "Blue! Great job!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "star",
+    "color": "blue"
+   },
+   "start": 86.064,
+   "end": 87.404,
+   "dur": 1.339
+  },
+  {
+   "id": "c05e",
+   "sub": "I love to wave hello!",
+   "tts": "I love to wave hello!",
+   "pause": 0.8,
+   "voice": "blue",
+   "gfx": null,
+   "start": 88.004,
+   "end": 89.45,
+   "dur": 1.446
+  },
+  {
+   "id": "c06a",
+   "sub": "Hi! I'm Purple!",
+   "tts": "Hi! I'm Purple!",
+   "pause": 0.35,
+   "voice": "purple",
+   "gfx": {
+    "type": "color",
+    "color": "purple",
+    "icon": "grapes"
+   },
+   "start": 90.41,
+   "end": 91.644,
+   "dur": 1.234
+  },
+  {
+   "id": "c06b",
+   "sub": "Purple, like sweet purple grapes!",
+   "tts": "Purple, like sweet purple grapes!",
+   "pause": 0.45,
+   "voice": "narr",
+   "gfx": {
+    "type": "color",
+    "color": "purple",
+    "icon": "grapes"
+   },
+   "start": 92.064,
+   "end": 94.15,
+   "dur": 2.086
+  },
+  {
+   "id": "c06c",
+   "sub": "Can you say purple?",
+   "tts": "Can you say purple?",
+   "pause": 1.7,
+   "voice": "narr",
+   "gfx": {
+    "type": "say",
+    "color": "purple"
+   },
+   "start": 94.69,
+   "end": 95.962,
+   "dur": 1.272
+  },
+  {
+   "id": "c06d",
+   "sub": "Purple! Fantastic!",
+   "tts": "Purple! Fantastic!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "star",
+    "color": "purple"
+   },
+   "start": 98.002,
+   "end": 99.427,
+   "dur": 1.425
+  },
+  {
+   "id": "c06e",
+   "sub": "I love to spin around!",
+   "tts": "I love to spin around!",
+   "pause": 0.8,
+   "voice": "purple",
+   "gfx": null,
+   "start": 100.027,
+   "end": 101.572,
+   "dur": 1.545
+  },
+  {
+   "id": "c07a",
+   "sub": "Hello, friends! I'm Pink!",
+   "tts": "Hello, friends! I'm Pink!",
+   "pause": 0.35,
+   "voice": "pink",
+   "gfx": {
+    "type": "color",
+    "color": "pink",
+    "icon": "flower"
+   },
+   "start": 102.532,
+   "end": 104.106,
+   "dur": 1.574
+  },
+  {
+   "id": "c07b",
+   "sub": "Pink, like a pretty pink flower!",
+   "tts": "Pink, like a pretty pink flower!",
+   "pause": 0.45,
+   "voice": "narr",
+   "gfx": {
+    "type": "color",
+    "color": "pink",
+    "icon": "flower"
+   },
+   "start": 104.526,
+   "end": 106.548,
+   "dur": 2.022
+  },
+  {
+   "id": "c07c",
+   "sub": "Can you say pink?",
+   "tts": "Can you say pink?",
+   "pause": 1.7,
+   "voice": "narr",
+   "gfx": {
+    "type": "say",
+    "color": "pink"
+   },
+   "start": 107.088,
+   "end": 108.285,
+   "dur": 1.197
+  },
+  {
+   "id": "c07d",
+   "sub": "Pink! Well done!",
+   "tts": "Pink! Well done!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "star",
+    "color": "pink"
+   },
+   "start": 110.325,
+   "end": 111.488,
+   "dur": 1.162
+  },
+  {
+   "id": "c07e",
+   "sub": "I love flowers!",
+   "tts": "I love flowers!",
+   "pause": 0.8,
+   "voice": "pink",
+   "gfx": null,
+   "start": 112.088,
+   "end": 113.357,
+   "dur": 1.269
+  },
+  {
+   "id": "c08a",
+   "sub": "Hi! I'm Brown!",
+   "tts": "Hi! I'm Brown!",
+   "pause": 0.35,
+   "voice": "brown",
+   "gfx": {
+    "type": "color",
+    "color": "brown",
+    "icon": "cookie"
+   },
+   "start": 114.317,
+   "end": 115.29,
+   "dur": 0.973
+  },
+  {
+   "id": "c08b",
+   "sub": "Brown, like a chocolate cookie!",
+   "tts": "Brown, like a chocolate cookie!",
+   "pause": 0.45,
+   "voice": "narr",
+   "gfx": {
+    "type": "color",
+    "color": "brown",
+    "icon": "cookie"
+   },
+   "start": 115.71,
+   "end": 117.627,
+   "dur": 1.918
+  },
+  {
+   "id": "c08c",
+   "sub": "Can you say brown?",
+   "tts": "Can you say brown?",
+   "pause": 1.7,
+   "voice": "narr",
+   "gfx": {
+    "type": "say",
+    "color": "brown"
+   },
+   "start": 118.167,
+   "end": 119.429,
+   "dur": 1.262
+  },
+  {
+   "id": "c08d",
+   "sub": "Brown! Yummy! Great job!",
+   "tts": "Brown! Yummy! Great job!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "star",
+    "color": "brown"
+   },
+   "start": 121.469,
+   "end": 123.421,
+   "dur": 1.952
+  },
+  {
+   "id": "c08e",
+   "sub": "I love cookies! Yum!",
+   "tts": "I love cookies! Yum!",
+   "pause": 0.8,
+   "voice": "brown",
+   "gfx": null,
+   "start": 124.021,
+   "end": 125.287,
+   "dur": 1.266
+  },
+  {
+   "id": "c09a",
+   "sub": "Hello! I'm White!",
+   "tts": "Hello! I'm White!",
+   "pause": 0.35,
+   "voice": "white",
+   "gfx": {
+    "type": "color",
+    "color": "white",
+    "icon": "cloud"
+   },
+   "start": 126.247,
+   "end": 127.495,
+   "dur": 1.249
+  },
+  {
+   "id": "c09b",
+   "sub": "White, like a soft, fluffy cloud!",
+   "tts": "White, like a soft, fluffy cloud!",
+   "pause": 0.45,
+   "voice": "narr",
+   "gfx": {
+    "type": "color",
+    "color": "white",
+    "icon": "cloud"
+   },
+   "start": 127.915,
+   "end": 130.169,
+   "dur": 2.253
+  },
+  {
+   "id": "c09c",
+   "sub": "Can you say white?",
+   "tts": "Can you say white?",
+   "pause": 1.7,
+   "voice": "narr",
+   "gfx": {
+    "type": "say",
+    "color": "white"
+   },
+   "start": 130.709,
+   "end": 131.854,
+   "dur": 1.146
+  },
+  {
+   "id": "c09d",
+   "sub": "White! Super!",
+   "tts": "White! Super!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "star",
+    "color": "white"
+   },
+   "start": 133.894,
+   "end": 135.051,
+   "dur": 1.157
+  },
+  {
+   "id": "c09e",
+   "sub": "I love to sleep. Zzz...",
+   "tts": "I love to sleep. Zzz...",
+   "pause": 0.8,
+   "voice": "white",
+   "gfx": null,
+   "start": 135.651,
+   "end": 137.365,
+   "dur": 1.714
+  },
+  {
+   "id": "c10a",
+   "sub": "Hi! I'm Black!",
+   "tts": "Hi! I'm Black!",
+   "pause": 0.35,
+   "voice": "black",
+   "gfx": {
+    "type": "color",
+    "color": "black",
+    "icon": "stars"
+   },
+   "start": 138.325,
+   "end": 139.499,
+   "dur": 1.174
+  },
+  {
+   "id": "c10b",
+   "sub": "Black, like the night sky, full of twinkly stars!",
+   "tts": "Black, like the night sky, full of twinkly stars!",
+   "pause": 0.45,
+   "voice": "narr",
+   "gfx": {
+    "type": "color",
+    "color": "black",
+    "icon": "stars"
+   },
+   "start": 139.919,
+   "end": 142.904,
+   "dur": 2.985
+  },
+  {
+   "id": "c10c",
+   "sub": "Can you say black?",
+   "tts": "Can you say black?",
+   "pause": 1.7,
+   "voice": "narr",
+   "gfx": {
+    "type": "say",
+    "color": "black"
+   },
+   "start": 143.444,
+   "end": 144.638,
+   "dur": 1.194
+  },
+  {
+   "id": "c10d",
+   "sub": "Black! Wonderful!",
+   "tts": "Black! Wonderful!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "star",
+    "color": "black"
+   },
+   "start": 146.678,
+   "end": 147.913,
+   "dur": 1.235
+  },
+  {
+   "id": "c10e",
+   "sub": "I love the twinkly stars!",
+   "tts": "I love the twinkly stars!",
+   "pause": 0.8,
+   "voice": "black",
+   "gfx": null,
+   "start": 148.513,
+   "end": 150.274,
+   "dur": 1.761
+  },
+  {
+   "id": "c90",
+   "sub": "Wow! Now we know ten colors!",
+   "tts": "Wow! Now we know ten colors!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": null,
+   "start": 151.234,
+   "end": 152.99,
+   "dur": 1.756
+  },
+  {
+   "id": "c91",
+   "sub": "Red, orange, yellow, green, blue, purple, pink, brown, white, and black!",
+   "tts": "Red, orange, yellow, green, blue, purple, pink, brown, white, and black!",
+   "pause": 0.9,
+   "voice": "narr",
+   "gfx": {
+    "type": "rainbow"
+   },
+   "start": 153.47,
+   "end": 162.845,
+   "dur": 9.375
+  },
+  {
+   "id": "q00",
+   "sub": "Let's play a game! Can you find the right Little AI?",
+   "tts": "Let's play a game! Can you find the right Little AI?",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": null,
+   "start": 166.925,
+   "end": 170.019,
+   "dur": 3.094
+  },
+  {
+   "id": "q1a",
+   "sub": "Where is green? Can you find green?",
+   "tts": "Where is green? Can you find green?",
+   "pause": 2.2,
+   "voice": "narr",
+   "gfx": {
+    "type": "find",
+    "color": "green"
+   },
+   "start": 170.739,
+   "end": 172.868,
+   "dur": 2.129
+  },
+  {
+   "id": "q1b",
+   "sub": "There it is! Green, like the grass!",
+   "tts": "There it is! Green, like the grass!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "found",
+    "color": "green"
+   },
+   "start": 175.508,
+   "end": 177.621,
+   "dur": 2.112
+  },
+  {
+   "id": "q1c",
+   "sub": "That's me!",
+   "tts": "That's me!",
+   "pause": 0.6,
+   "voice": "green",
+   "gfx": null,
+   "start": 178.101,
+   "end": 179.13,
+   "dur": 1.029
+  },
+  {
+   "id": "q2a",
+   "sub": "Where is pink? Can you find pink?",
+   "tts": "Where is pink? Can you find pink?",
+   "pause": 2.2,
+   "voice": "narr",
+   "gfx": {
+    "type": "find",
+    "color": "pink"
+   },
+   "start": 179.85,
+   "end": 181.951,
+   "dur": 2.101
+  },
+  {
+   "id": "q2b",
+   "sub": "There it is! Pink, like a flower!",
+   "tts": "There it is! Pink, like a flower!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "found",
+    "color": "pink"
+   },
+   "start": 184.591,
+   "end": 186.712,
+   "dur": 2.122
+  },
+  {
+   "id": "q2c",
+   "sub": "That's me!",
+   "tts": "That's me!",
+   "pause": 0.6,
+   "voice": "pink",
+   "gfx": null,
+   "start": 187.192,
+   "end": 187.989,
+   "dur": 0.797
+  },
+  {
+   "id": "q3a",
+   "sub": "Where is blue? Can you find blue?",
+   "tts": "Where is blue? Can you find blue?",
+   "pause": 2.2,
+   "voice": "narr",
+   "gfx": {
+    "type": "find",
+    "color": "blue"
+   },
+   "start": 188.709,
+   "end": 190.694,
+   "dur": 1.985
+  },
+  {
+   "id": "q3b",
+   "sub": "There it is! Blue, like the sky!",
+   "tts": "There it is! Blue, like the sky!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "found",
+    "color": "blue"
+   },
+   "start": 193.334,
+   "end": 195.297,
+   "dur": 1.963
+  },
+  {
+   "id": "q3c",
+   "sub": "That's me!",
+   "tts": "That's me!",
+   "pause": 0.6,
+   "voice": "blue",
+   "gfx": null,
+   "start": 195.777,
+   "end": 196.573,
+   "dur": 0.796
+  },
+  {
+   "id": "n00",
+   "sub": "Now let's count the Little AIs! They will jump in, one by one. Count with me!",
+   "tts": "Now let's count the Little AIs! They will jump in, one by one. Count with me!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": null,
+   "start": 200.293,
+   "end": 205.348,
+   "dur": 5.055
+  },
+  {
+   "id": "n01",
+   "sub": "One!",
+   "tts": "One!",
+   "pause": 0.75,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 1,
+    "color": "red"
+   },
+   "start": 206.308,
+   "end": 206.937,
+   "dur": 0.628
+  },
+  {
+   "id": "n02",
+   "sub": "Two!",
+   "tts": "Two!",
+   "pause": 0.75,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 2,
+    "color": "orange"
+   },
+   "start": 207.837,
+   "end": 208.51,
+   "dur": 0.673
+  },
+  {
+   "id": "n03",
+   "sub": "Three!",
+   "tts": "Three!",
+   "pause": 0.75,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 3,
+    "color": "yellow"
+   },
+   "start": 209.41,
+   "end": 210.125,
+   "dur": 0.715
+  },
+  {
+   "id": "n04",
+   "sub": "Four!",
+   "tts": "Four!",
+   "pause": 0.75,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 4,
+    "color": "green"
+   },
+   "start": 211.025,
+   "end": 211.718,
+   "dur": 0.693
+  },
+  {
+   "id": "n05",
+   "sub": "Five!",
+   "tts": "Five!",
+   "pause": 0.75,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 5,
+    "color": "blue"
+   },
+   "start": 212.618,
+   "end": 213.361,
+   "dur": 0.743
+  },
+  {
+   "id": "n06",
+   "sub": "Six!",
+   "tts": "Six!",
+   "pause": 0.75,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 6,
+    "color": "purple"
+   },
+   "start": 214.261,
+   "end": 214.982,
+   "dur": 0.721
+  },
+  {
+   "id": "n07",
+   "sub": "Seven!",
+   "tts": "Seven!",
+   "pause": 0.75,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 7,
+    "color": "pink"
+   },
+   "start": 215.882,
+   "end": 216.58,
+   "dur": 0.698
+  },
+  {
+   "id": "n08",
+   "sub": "Eight!",
+   "tts": "Eight!",
+   "pause": 0.75,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 8,
+    "color": "brown"
+   },
+   "start": 217.48,
+   "end": 218.167,
+   "dur": 0.687
+  },
+  {
+   "id": "n09",
+   "sub": "Nine!",
+   "tts": "Nine!",
+   "pause": 0.75,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 9,
+    "color": "white"
+   },
+   "start": 219.067,
+   "end": 219.804,
+   "dur": 0.736
+  },
+  {
+   "id": "n10",
+   "sub": "Ten!",
+   "tts": "Ten!",
+   "pause": 0.75,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 10,
+    "color": "black"
+   },
+   "start": 220.704,
+   "end": 221.371,
+   "dur": 0.667
+  },
+  {
+   "id": "n11",
+   "sub": "Ten Little AIs! Hooray!",
+   "tts": "Ten Little AIs! Hooray!",
+   "pause": 0.3,
+   "voice": "narr",
+   "gfx": {
+    "type": "num",
+    "n": 10,
+    "color": "yellow",
+    "hold": true
+   },
+   "start": 222.271,
+   "end": 224.254,
+   "dur": 1.984
+  },
+  {
+   "id": "n12",
+   "sub": "Hooray!",
+   "tts": "Hooray!",
+   "pause": 0.8,
+   "voice": "chorus",
+   "gfx": null,
+   "start": 224.614,
+   "end": 225.502,
+   "dur": 0.887
+  },
+  {
+   "id": "n12b",
+   "sub": "Let's count again! This time, clap with me!",
+   "tts": "Let's count again! This time, clap with me!",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": null,
+   "start": 226.462,
+   "end": 229.112,
+   "dur": 2.651
+  },
+  {
+   "id": "n12c",
+   "sub": "One! Two! Three! Four! Five! Six! Seven! Eight! Nine! Ten!",
+   "tts": "One! Two! Three! Four! Five! Six! Seven! Eight! Nine! Ten!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "type": "claps"
+   },
+   "start": 229.832,
+   "end": 238.595,
+   "dur": 8.762
+  },
+  {
+   "id": "n13",
+   "sub": "Now let's count backwards, like a rocket! Ready?",
+   "tts": "Now let's count backwards, like a rocket! Ready?",
+   "pause": 0.7,
+   "voice": "narr",
+   "gfx": null,
+   "start": 239.555,
+   "end": 242.734,
+   "dur": 3.179
+  },
+  {
+   "id": "n14",
+   "sub": "Ten! Nine! Eight! Seven! Six! Five! Four! Three! Two! One!",
+   "tts": "Ten! Nine! Eight! Seven! Six! Five! Four! Three! Two! One!",
+   "pause": 0.3,
+   "voice": "narr",
+   "gfx": {
+    "type": "countdown"
+   },
+   "start": 243.574,
+   "end": 252.336,
+   "dur": 8.762
+  },
+  {
+   "id": "n15",
+   "sub": "Blast off!",
+   "tts": "Blast off!",
+   "pause": 1.2,
+   "voice": "narr",
+   "gfx": {
+    "type": "blast"
+   },
+   "start": 252.696,
+   "end": 253.663,
+   "dur": 0.966
+  },
+  {
+   "id": "n16",
+   "sub": "Wheee!",
+   "tts": "Wheee!",
+   "pause": 0.8,
+   "voice": "chorus",
+   "gfx": null,
+   "start": 255.103,
+   "end": 255.904,
+   "dur": 0.801
+  },
+  {
+   "id": "a00",
+   "sub": "The Little AIs are going for a walk to the farm. Let's see who lives there!",
+   "tts": "The Little AIs are going for a walk to the farm. Let's see who lives there!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": null,
+   "start": 259.864,
+   "end": 264.322,
+   "dur": 4.458
+  },
+  {
+   "id": "a1a",
+   "sub": "Look! Who's that? It's a cow!",
+   "tts": "Look! Who's that? It's a cow!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "cow"
+   },
+   "start": 265.282,
+   "end": 267.123,
+   "dur": 1.841
+  },
+  {
+   "id": "a1b",
+   "sub": "What does the cow say?",
+   "tts": "What does the cow say?",
+   "pause": 1.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "cow"
+   },
+   "start": 267.603,
+   "end": 268.955,
+   "dur": 1.351
+  },
+  {
+   "id": "a1c",
+   "sub": "Moo!",
+   "tts": "Moooo!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "sound",
+    "text": "MOO!"
+   },
+   "start": 270.755,
+   "end": 271.481,
+   "dur": 0.727
+  },
+  {
+   "id": "a1d",
+   "sub": "Hello, cow!",
+   "tts": "Hello, cow!",
+   "pause": 0.7,
+   "voice": "red",
+   "gfx": null,
+   "start": 272.081,
+   "end": 272.883,
+   "dur": 0.801
+  },
+  {
+   "id": "a2a",
+   "sub": "Look! Who's that? It's a sheep!",
+   "tts": "Look! Who's that? It's a sheep!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "sheep"
+   },
+   "start": 273.723,
+   "end": 275.507,
+   "dur": 1.785
+  },
+  {
+   "id": "a2b",
+   "sub": "What does the sheep say?",
+   "tts": "What does the sheep say?",
+   "pause": 1.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "sheep"
+   },
+   "start": 275.987,
+   "end": 277.34,
+   "dur": 1.353
+  },
+  {
+   "id": "a2c",
+   "sub": "Baa!",
+   "tts": "Baaaa!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "sound",
+    "text": "BAA!"
+   },
+   "start": 279.14,
+   "end": 279.862,
+   "dur": 0.722
+  },
+  {
+   "id": "a2d",
+   "sub": "So fluffy!",
+   "tts": "So fluffy!",
+   "pause": 0.7,
+   "voice": "pink",
+   "gfx": null,
+   "start": 280.462,
+   "end": 281.414,
+   "dur": 0.952
+  },
+  {
+   "id": "a3a",
+   "sub": "Look! Who's that? It's a horse!",
+   "tts": "Look! Who's that? It's a horse!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "horse"
+   },
+   "start": 282.254,
+   "end": 284.099,
+   "dur": 1.845
+  },
+  {
+   "id": "a3b",
+   "sub": "What does the horse say?",
+   "tts": "What does the horse say?",
+   "pause": 1.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "horse"
+   },
+   "start": 284.579,
+   "end": 285.847,
+   "dur": 1.268
+  },
+  {
+   "id": "a3c",
+   "sub": "Neigh!",
+   "tts": "Neeeigh!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "sound",
+    "text": "NEIGH!"
+   },
+   "start": 287.647,
+   "end": 288.365,
+   "dur": 0.718
+  },
+  {
+   "id": "a3d",
+   "sub": "Hello, horse!",
+   "tts": "Hello, horse!",
+   "pause": 0.7,
+   "voice": "blue",
+   "gfx": null,
+   "start": 288.965,
+   "end": 289.951,
+   "dur": 0.986
+  },
+  {
+   "id": "a4a",
+   "sub": "Look! Who's that? It's a goat!",
+   "tts": "Look! Who's that? It's a goat!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "goat"
+   },
+   "start": 290.791,
+   "end": 292.577,
+   "dur": 1.786
+  },
+  {
+   "id": "a4b",
+   "sub": "What does the goat say?",
+   "tts": "What does the goat say?",
+   "pause": 1.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "goat"
+   },
+   "start": 293.057,
+   "end": 294.388,
+   "dur": 1.331
+  },
+  {
+   "id": "a4c",
+   "sub": "Maa!",
+   "tts": "Maaaa!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "sound",
+    "text": "MAA!"
+   },
+   "start": 296.188,
+   "end": 296.905,
+   "dur": 0.717
+  },
+  {
+   "id": "a4d",
+   "sub": "Hee hee! Hello, goat!",
+   "tts": "Hee hee! Hello, goat!",
+   "pause": 0.7,
+   "voice": "yellow",
+   "gfx": null,
+   "start": 297.505,
+   "end": 298.955,
+   "dur": 1.45
+  },
+  {
+   "id": "a5a",
+   "sub": "Look! Who's that? It's a dog!",
+   "tts": "Look! Who's that? It's a dog!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "dog"
+   },
+   "start": 299.795,
+   "end": 301.659,
+   "dur": 1.864
+  },
+  {
+   "id": "a5b",
+   "sub": "What does the dog say?",
+   "tts": "What does the dog say?",
+   "pause": 1.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "dog"
+   },
+   "start": 302.139,
+   "end": 303.509,
+   "dur": 1.371
+  },
+  {
+   "id": "a5c",
+   "sub": "Woof! Woof!",
+   "tts": "Woof! Woof!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "sound",
+    "text": "WOOF! WOOF!"
+   },
+   "start": 305.309,
+   "end": 306.412,
+   "dur": 1.102
+  },
+  {
+   "id": "a5d",
+   "sub": "Good doggy!",
+   "tts": "Good doggy!",
+   "pause": 0.7,
+   "voice": "green",
+   "gfx": null,
+   "start": 307.012,
+   "end": 308.145,
+   "dur": 1.133
+  },
+  {
+   "id": "a5e",
+   "sub": "And look over there, near the trees! It's a deer! Deer are very quiet. Shhh!",
+   "tts": "And look over there, near the trees! It's a deer! Deer are very quiet. Shhh!",
+   "pause": 0.9,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "deer"
+   },
+   "start": 308.985,
+   "end": 314.403,
+   "dur": 5.418
+  },
+  {
+   "id": "a5f",
+   "sub": "Blue is riding the horse! Giddy up, horse!",
+   "tts": "Blue is riding the horse! Giddy up, horse!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": null,
+   "start": 315.483,
+   "end": 318.199,
+   "dur": 2.717
+  },
+  {
+   "id": "a5g",
+   "sub": "Wheee! This is fun!",
+   "tts": "Wheee! This is fun!",
+   "pause": 0.8,
+   "voice": "blue",
+   "gfx": null,
+   "start": 318.679,
+   "end": 319.809,
+   "dur": 1.129
+  },
+  {
+   "id": "a6a",
+   "sub": "How many sheep can you see? Let's count!",
+   "tts": "How many sheep can you see? Let's count!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": null,
+   "start": 320.769,
+   "end": 323.159,
+   "dur": 2.391
+  },
+  {
+   "id": "a6b",
+   "sub": "One... two... three! Three sheep!",
+   "tts": "One... two... three! Three sheep!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "type": "count3"
+   },
+   "start": 323.759,
+   "end": 327.496,
+   "dur": 3.737
+  },
+  {
+   "id": "a7a",
+   "sub": "Oh! What's that big, hairy animal? It's a woolly mammoth!",
+   "tts": "Oh! What's that big, hairy animal? It's a woolly mammoth!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "mammoth"
+   },
+   "start": 328.456,
+   "end": 331.789,
+   "dur": 3.333
+  },
+  {
+   "id": "a7b",
+   "sub": "What does the mammoth say?",
+   "tts": "What does the mammoth say?",
+   "pause": 1.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "animal",
+    "name": "mammoth"
+   },
+   "start": 332.389,
+   "end": 333.783,
+   "dur": 1.395
+  },
+  {
+   "id": "a7c",
+   "sub": "Pawoooo!",
+   "tts": "Pa-woooooo!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "sound",
+    "text": "PAWOOO!"
+   },
+   "start": 335.463,
+   "end": 336.381,
+   "dur": 0.918
+  },
+  {
+   "id": "a7d",
+   "sub": "Whoa! So big!",
+   "tts": "Whoa! So big!",
+   "pause": 0.9,
+   "voice": "chorus",
+   "gfx": null,
+   "start": 336.861,
+   "end": 338.185,
+   "dur": 1.323
+  },
+  {
+   "id": "o00",
+   "sub": "Now let's learn opposites!",
+   "tts": "Now let's learn opposites!",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": null,
+   "start": 342.265,
+   "end": 343.905,
+   "dur": 1.641
+  },
+  {
+   "id": "o01",
+   "sub": "The mammoth is big. The goat is small.",
+   "tts": "The mammoth is big. The goat is small.",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "opp",
+    "a": "BIG",
+    "b": "SMALL"
+   },
+   "start": 344.625,
+   "end": 347.064,
+   "dur": 2.438
+  },
+  {
+   "id": "o02",
+   "sub": "Big... and small!",
+   "tts": "Big... and small!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "type": "opp",
+    "a": "BIG",
+    "b": "SMALL"
+   },
+   "start": 347.544,
+   "end": 349.35,
+   "dur": 1.807
+  },
+  {
+   "id": "o03",
+   "sub": "Red runs fast! Brown walks slow.",
+   "tts": "Red runs fast! Brown walks slow.",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "opp",
+    "a": "FAST",
+    "b": "SLOW"
+   },
+   "start": 350.31,
+   "end": 352.698,
+   "dur": 2.388
+  },
+  {
+   "id": "o04",
+   "sub": "Fast... and slow!",
+   "tts": "Fast... and slow!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "type": "opp",
+    "a": "FAST",
+    "b": "SLOW"
+   },
+   "start": 353.178,
+   "end": 355.063,
+   "dur": 1.885
+  },
+  {
+   "id": "o05",
+   "sub": "Blue jumps up! And now, Blue sits down.",
+   "tts": "Blue jumps up! And now, Blue sits down.",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "opp",
+    "a": "UP",
+    "b": "DOWN"
+   },
+   "start": 356.023,
+   "end": 358.714,
+   "dur": 2.692
+  },
+  {
+   "id": "o06",
+   "sub": "Up... and down!",
+   "tts": "Up... and down!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "type": "opp",
+    "a": "UP",
+    "b": "DOWN"
+   },
+   "start": 359.194,
+   "end": 360.92,
+   "dur": 1.726
+  },
+  {
+   "id": "o07",
+   "sub": "Yellow is happy! But Orange is sad. Oh no!",
+   "tts": "Yellow is happy! But Orange is sad. Oh no!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": {
+    "type": "opp",
+    "a": "HAPPY",
+    "b": "SAD"
+   },
+   "start": 361.88,
+   "end": 364.958,
+   "dur": 3.078
+  },
+  {
+   "id": "o08",
+   "sub": "Let's give Orange a big hug!",
+   "tts": "Let's give Orange a big hug!",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": null,
+   "start": 365.558,
+   "end": 367.311,
+   "dur": 1.752
+  },
+  {
+   "id": "o09",
+   "sub": "Thank you! Now I'm happy!",
+   "tts": "Thank you! Now I'm happy!",
+   "pause": 0.8,
+   "voice": "orange",
+   "gfx": null,
+   "start": 368.031,
+   "end": 369.526,
+   "dur": 1.495
+  },
+  {
+   "id": "o10",
+   "sub": "Look at the sun. It's daytime...",
+   "tts": "Look at the sun. It's daytime...",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {
+    "type": "opp",
+    "a": "DAY",
+    "b": "NIGHT"
+   },
+   "start": 370.486,
+   "end": 372.522,
+   "dur": 2.036
+  },
+  {
+   "id": "o11",
+   "sub": "and now the sun goes down. It's nighttime! Day... and night!",
+   "tts": "and now the sun goes down. It's nighttime! Day... and night!",
+   "pause": 1.0,
+   "voice": "narr",
+   "gfx": {
+    "type": "opp",
+    "a": "DAY",
+    "b": "NIGHT"
+   },
+   "start": 373.002,
+   "end": 377.006,
+   "dur": 4.004
+  },
+  {
+   "id": "h00",
+   "sub": "Good morning! Let's play hide and seek! Purple is hiding. Where is Purple?",
+   "tts": "Good morning! Let's play hide and seek! Purple is hiding. Where is Purple?",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": null,
+   "start": 381.206,
+   "end": 385.677,
+   "dur": 4.471
+  },
+  {
+   "id": "h01",
+   "sub": "Is Purple behind the big rock?",
+   "tts": "Is Purple behind the big rock?",
+   "pause": 1.2,
+   "voice": "narr",
+   "gfx": null,
+   "start": 386.397,
+   "end": 388.303,
+   "dur": 1.906
+  },
+  {
+   "id": "h02",
+   "sub": "No! Not behind the rock.",
+   "tts": "No! Not behind the rock.",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": null,
+   "start": 389.743,
+   "end": 391.468,
+   "dur": 1.725
+  },
+  {
+   "id": "h03",
+   "sub": "Is Purple behind the tree?",
+   "tts": "Is Purple behind the tree?",
+   "pause": 1.2,
+   "voice": "narr",
+   "gfx": null,
+   "start": 392.068,
+   "end": 393.756,
+   "dur": 1.688
+  },
+  {
+   "id": "h04",
+   "sub": "Yes! Peekaboo!",
+   "tts": "Yes! Peekaboo!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": null,
+   "start": 395.196,
+   "end": 396.522,
+   "dur": 1.326
+  },
+  {
+   "id": "h05",
+   "sub": "Peekaboo! You found me!",
+   "tts": "Peekaboo! You found me!",
+   "pause": 0.7,
+   "voice": "purple",
+   "gfx": null,
+   "start": 397.002,
+   "end": 398.483,
+   "dur": 1.481
+  },
+  {
+   "id": "h06",
+   "sub": "Now Green is hiding! Where is Green? Is Green behind the cow?",
+   "tts": "Now Green is hiding! Where is Green? Is Green behind the cow?",
+   "pause": 1.3,
+   "voice": "narr",
+   "gfx": null,
+   "start": 399.323,
+   "end": 403.158,
+   "dur": 3.836
+  },
+  {
+   "id": "h07",
+   "sub": "Yes! There's Green!",
+   "tts": "Yes! There's Green!",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": null,
+   "start": 404.718,
+   "end": 406.068,
+   "dur": 1.35
+  },
+  {
+   "id": "h08",
+   "sub": "You found me too! Hee hee!",
+   "tts": "You found me too! Hee hee!",
+   "pause": 0.9,
+   "voice": "green",
+   "gfx": null,
+   "start": 406.548,
+   "end": 408.274,
+   "dur": 1.726
+  },
+  {
+   "id": "d00",
+   "sub": "Now it's time for a dance party! Everybody, dance with the Little AIs!",
+   "tts": "Now it's time for a dance party! Everybody, dance with the Little AIs!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": null,
+   "start": 412.354,
+   "end": 416.992,
+   "dur": 4.638
+  },
+  {
+   "id": "d01",
+   "sub": "Jump! Jump! Jump!",
+   "tts": "Jump! Jump! Jump!",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": {
+    "type": "dance",
+    "word": "JUMP!"
+   },
+   "start": 417.592,
+   "end": 420.153,
+   "dur": 2.561
+  },
+  {
+   "id": "d02",
+   "sub": "Clap your hands!",
+   "tts": "Clap your hands!",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": {
+    "type": "dance",
+    "word": "CLAP!"
+   },
+   "start": 420.873,
+   "end": 421.942,
+   "dur": 1.069
+  },
+  {
+   "id": "d03",
+   "sub": "Spin around!",
+   "tts": "Spin around!",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": {
+    "type": "dance",
+    "word": "SPIN!"
+   },
+   "start": 422.662,
+   "end": 423.67,
+   "dur": 1.008
+  },
+  {
+   "id": "d04",
+   "sub": "And wave your arms up high!",
+   "tts": "And wave your arms up high!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "type": "dance",
+    "word": "WAVE!"
+   },
+   "start": 424.39,
+   "end": 425.92,
+   "dur": 1.53
+  },
+  {
+   "id": "d05",
+   "sub": "Yay!",
+   "tts": "Yay!",
+   "pause": 1.0,
+   "voice": "chorus",
+   "gfx": null,
+   "start": 426.88,
+   "end": 427.698,
+   "dur": 0.818
+  },
+  {
+   "id": "g00",
+   "sub": "What a wonderful day! We learned colors, numbers, animals, and opposites!",
+   "tts": "What a wonderful day! We learned colors, numbers, animals, and opposites!",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": null,
+   "start": 431.898,
+   "end": 436.425,
+   "dur": 4.528
+  },
+  {
+   "id": "g01",
+   "sub": "Let's say our colors one more time, all together!",
+   "tts": "Let's say our colors one more time, all together!",
+   "pause": 0.5,
+   "voice": "narr",
+   "gfx": null,
+   "start": 437.145,
+   "end": 439.955,
+   "dur": 2.81
+  },
+  {
+   "id": "g02",
+   "sub": "Red! Orange! Yellow! Green! Blue! Purple! Pink! Brown! White! Black!",
+   "tts": "Red! Orange! Yellow! Green! Blue! Purple! Pink! Brown! White! Black!",
+   "pause": 0.9,
+   "voice": "chorus",
+   "gfx": {
+    "type": "rainbow"
+   },
+   "start": 440.555,
+   "end": 450.962,
+   "dur": 10.407
+  },
+  {
+   "id": "g03",
+   "sub": "You were amazing today! Give yourself a big clap!",
+   "tts": "You were amazing today! Give yourself a big clap!",
+   "pause": 0.9,
+   "voice": "narr",
+   "gfx": null,
+   "start": 452.042,
+   "end": 455.036,
+   "dur": 2.994
+  },
+  {
+   "id": "g04",
+   "sub": "Time to say goodbye. Wave bye-bye to the Little AIs!",
+   "tts": "Time to say goodbye. Wave bye-bye to the Little AIs!",
+   "pause": 0.6,
+   "voice": "narr",
+   "gfx": null,
+   "start": 456.116,
+   "end": 459.548,
+   "dur": 3.432
+  },
+  {
+   "id": "g05",
+   "sub": "Bye-bye, friends! See you next time!",
+   "tts": "Bye-bye, friends! See you next time!",
+   "pause": 1.0,
+   "voice": "chorus",
+   "gfx": null,
+   "start": 460.268,
+   "end": 462.431,
+   "dur": 2.163
+  }
+ ],
+ "chapters": [
+  {
+   "id": "c00",
+   "title": "COLORS",
+   "color": "#ff3b30",
+   "start": 22.624,
+   "end": 25.624
+  },
+  {
+   "id": "q00",
+   "title": "COLOR GAME",
+   "color": "#af52de",
+   "start": 163.925,
+   "end": 166.925
+  },
+  {
+   "id": "n00",
+   "title": "NUMBERS",
+   "color": "#0a84ff",
+   "start": 197.293,
+   "end": 200.293
+  },
+  {
+   "id": "a00",
+   "title": "ANIMALS",
+   "color": "#34c759",
+   "start": 256.864,
+   "end": 259.864
+  },
+  {
+   "id": "o00",
+   "title": "OPPOSITES",
+   "color": "#ff9500",
+   "start": 339.265,
+   "end": 342.265
+  },
+  {
+   "id": "h00",
+   "title": "HIDE AND SEEK",
+   "color": "#ff6fb5",
+   "start": 378.206,
+   "end": 381.206
+  },
+  {
+   "id": "d00",
+   "title": "DANCE PARTY",
+   "color": "#34c759",
+   "start": 409.354,
+   "end": 412.354
+  },
+  {
+   "id": "g00",
+   "title": "GOODBYE",
+   "color": "#ffd60a",
+   "start": 428.898,
+   "end": 431.898
+  }
+ ],
+ "events": [
+  {
+   "type": "title",
+   "start": 17.624,
+   "end": 22.624
+  }
+ ],
+ "outro": {
+  "start": 463.631,
+  "end": 479.631
+ }
+}

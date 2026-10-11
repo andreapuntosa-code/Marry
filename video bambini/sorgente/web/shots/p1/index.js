@@ -1,0 +1,15 @@
+import { P1 } from './p1registry.js';
+import './ch00_open.js';
+import './ch01_rules.js';
+import './ch02_fire.js';
+import './ch03_words.js';
+import './ch04_farm.js';
+import './ch05_leftovers.js';
+import './ch05b_others.js';
+import './ch06_observer.js';
+import './ch07_crown.js';
+import './ch07b_war.js';
+import './ch08_stones.js';
+import './ch09_torches.js';
+import './ch10_message.js';
+export { P1 };
