@@ -1,0 +1,159 @@
+{
+ "fps": 30,
+ "key": "F",
+ "total": 43.844,
+ "segments": [
+  {
+   "id": "F01",
+   "sub": "What if friction disappeared... for ten seconds?",
+   "tts": "What if friction disappeared... for ten seconds?",
+   "pause": 0.3,
+   "voice": "narr",
+   "gfx": {
+    "hook": true
+   },
+   "start": 0.15,
+   "end": 2.521,
+   "dur": 2.371
+  },
+  {
+   "id": "F02",
+   "sub": "Friction is the force that stops things from sliding. You use it every single time you take a step.",
+   "tts": "Friction is the force that stops things from sliding. You use it every single time you take a step.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 2.821,
+   "end": 8.595,
+   "dur": 5.774
+  },
+  {
+   "id": "F03",
+   "sub": "Without it, the ground becomes perfect ice. Your foot pushes back... and just slips.",
+   "tts": "Without it, the ground becomes perfect ice. Your foot pushes back... and just slips.",
+   "pause": 0.15,
+   "voice": "narr",
+   "gfx": {
+    "timer": "start"
+   },
+   "start": 8.795,
+   "end": 13.43,
+   "dur": 4.635
+  },
+  {
+   "id": "F03b",
+   "sub": "Whoa, whoa, whoa!",
+   "tts": "Whoa, whoa, whoa!",
+   "pause": 0.2,
+   "voice": "brown",
+   "gfx": {},
+   "start": 13.58,
+   "end": 14.411,
+   "dur": 0.831
+  },
+  {
+   "id": "F04",
+   "sub": "If you were already moving, you'd keep going. Nothing could slow you down.",
+   "tts": "If you were already moving, you'd keep going. Nothing could slow you down.",
+   "pause": 0.15,
+   "voice": "narr",
+   "gfx": {},
+   "start": 14.611,
+   "end": 18.312,
+   "dur": 3.701
+  },
+  {
+   "id": "F04b",
+   "sub": "I can't stoooop!",
+   "tts": "I can't stoooop!",
+   "pause": 0.2,
+   "voice": "red",
+   "gfx": {},
+   "start": 18.462,
+   "end": 19.357,
+   "dur": 0.895
+  },
+  {
+   "id": "F05",
+   "sub": "Every knot would untie. Shoelaces, ropes, even the knots in your hair.",
+   "tts": "Every knot would untie. Shoelaces, ropes, even the knots in your hair.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 19.557,
+   "end": 23.263,
+   "dur": 3.706
+  },
+  {
+   "id": "F06",
+   "sub": "Nails and screws would slide right out of the wood. Fences and furniture would fall apart.",
+   "tts": "Nails and screws would slide right out of the wood. Fences and furniture would fall apart.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 23.463,
+   "end": 28.533,
+   "dur": 5.069
+  },
+  {
+   "id": "F07",
+   "sub": "You couldn't hold anything. Your food would squirt right out of your hands.",
+   "tts": "You couldn't hold anything. Your food would squirt right out of your hands.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 28.733,
+   "end": 32.15,
+   "dur": 3.417
+  },
+  {
+   "id": "F08",
+   "sub": "Then friction comes back, all at once. Everything that was sliding stops... instantly.",
+   "tts": "Then friction comes back, all at once. Everything that was sliding stops... instantly.",
+   "pause": 0.15,
+   "voice": "narr",
+   "gfx": {
+    "timer": "end"
+   },
+   "start": 32.35,
+   "end": 36.999,
+   "dur": 4.649
+  },
+  {
+   "id": "F09",
+   "sub": "Ten seconds, and the whole world ends up on the floor.",
+   "tts": "Ten seconds, and the whole world ends up on the floor.",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {},
+   "start": 37.149,
+   "end": 39.928,
+   "dur": 2.78
+  },
+  {
+   "id": "F10",
+   "sub": "Follow for more what ifs!",
+   "tts": "Follow for more what ifs!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "end": true
+   },
+   "start": 40.328,
+   "end": 41.644,
+   "dur": 1.315
+  }
+ ],
+ "chapters": [],
+ "events": [
+  {
+   "type": "none",
+   "start": 0,
+   "end": 0
+  }
+ ],
+ "outro": {
+  "start": 43.844,
+  "end": 43.844
+ }
+}

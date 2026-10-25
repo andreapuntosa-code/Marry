@@ -1,0 +1,166 @@
+{
+ "fps": 30,
+ "key": "S",
+ "total": 42.748,
+ "segments": [
+  {
+   "id": "S01",
+   "sub": "What if the Sun disappeared... for ten seconds?",
+   "tts": "What if the Sun disappeared... for ten seconds?",
+   "pause": 0.3,
+   "voice": "narr",
+   "gfx": {
+    "hook": true
+   },
+   "start": 0.15,
+   "end": 2.519,
+   "dur": 2.369
+  },
+  {
+   "id": "S02",
+   "sub": "Here's the crazy part. For eight minutes... nothing happens.",
+   "tts": "Here's the crazy part. For eight minutes... nothing happens.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "clock": "start"
+   },
+   "start": 2.819,
+   "end": 5.841,
+   "dur": 3.022
+  },
+  {
+   "id": "S03",
+   "sub": "Sunlight takes eight minutes and twenty seconds to reach us. So we'd keep seeing a Sun that isn't there anymore.",
+   "tts": "Sunlight takes eight minutes and twenty seconds to reach us. So we'd keep seeing a Sun that isn't there anymore.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "big": "8 min 20 s"
+   },
+   "start": 6.041,
+   "end": 12.209,
+   "dur": 6.168
+  },
+  {
+   "id": "S04",
+   "sub": "Even gravity travels at the speed of light. So the Earth keeps going around... nothing.",
+   "tts": "Even gravity travels at the speed of light. So the Earth keeps going around... nothing.",
+   "pause": 0.25,
+   "voice": "narr",
+   "gfx": {},
+   "start": 12.409,
+   "end": 16.989,
+   "dur": 4.58
+  },
+  {
+   "id": "S04b",
+   "sub": "Nice day, huh?",
+   "tts": "Nice day, huh?",
+   "pause": 0.3,
+   "voice": "orange",
+   "gfx": {},
+   "start": 17.239,
+   "end": 18.014,
+   "dur": 0.776
+  },
+  {
+   "id": "S05",
+   "sub": "Then, eight minutes later... darkness.",
+   "tts": "Then, eight minutes later... darkness.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "timer": "start",
+    "clock": "stop"
+   },
+   "start": 18.314,
+   "end": 20.186,
+   "dur": 1.872
+  },
+  {
+   "id": "S06",
+   "sub": "Ten seconds of total night, in the middle of the day. Even the Moon goes dark, because it only reflects sunlight.",
+   "tts": "Ten seconds of total night, in the middle of the day. Even the Moon goes dark, because it only reflects sunlight.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 20.386,
+   "end": 26.618,
+   "dur": 6.233
+  },
+  {
+   "id": "S06b",
+   "sub": "Who turned off the lights?!",
+   "tts": "Who turned off the lights?!",
+   "pause": 0.2,
+   "voice": "purple",
+   "gfx": {},
+   "start": 26.818,
+   "end": 28.208,
+   "dur": 1.39
+  },
+  {
+   "id": "S07",
+   "sub": "Meanwhile, the Earth flies off in a straight line, three hundred kilometers.",
+   "tts": "Meanwhile, the Earth flies off in a straight line, three hundred kilometers.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "big": "300 km"
+   },
+   "start": 28.408,
+   "end": 32.263,
+   "dur": 3.854
+  },
+  {
+   "id": "S08",
+   "sub": "Then the light and the gravity come back, and everything returns to normal.",
+   "tts": "Then the light and the gravity come back, and everything returns to normal.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "timer": "end"
+   },
+   "start": 32.463,
+   "end": 36.276,
+   "dur": 3.814
+  },
+  {
+   "id": "S09",
+   "sub": "Except for a lot of very confused animals.",
+   "tts": "Except for a lot of very confused animals.",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {},
+   "start": 36.477,
+   "end": 38.833,
+   "dur": 2.356
+  },
+  {
+   "id": "S10",
+   "sub": "Follow for more what ifs!",
+   "tts": "Follow for more what ifs!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "end": true
+   },
+   "start": 39.233,
+   "end": 40.548,
+   "dur": 1.315
+  }
+ ],
+ "chapters": [],
+ "events": [
+  {
+   "type": "none",
+   "start": 0,
+   "end": 0
+  }
+ ],
+ "outro": {
+  "start": 42.748,
+  "end": 42.748
+ }
+}

@@ -1,0 +1,174 @@
+{
+ "fps": 30,
+ "key": "G",
+ "total": 47.301,
+ "segments": [
+  {
+   "id": "G01",
+   "sub": "What if gravity switched off... for ten seconds?",
+   "tts": "What if gravity switched off... for ten seconds?",
+   "pause": 0.3,
+   "voice": "narr",
+   "gfx": {
+    "hook": true
+   },
+   "start": 0.15,
+   "end": 2.603,
+   "dur": 2.453
+  },
+  {
+   "id": "G02",
+   "sub": "At first, almost nothing happens. You don't shoot off into space.",
+   "tts": "At first, almost nothing happens. You don't shoot off into space.",
+   "pause": 0.15,
+   "voice": "narr",
+   "gfx": {
+    "timer": "start"
+   },
+   "start": 2.903,
+   "end": 6.21,
+   "dur": 3.307
+  },
+  {
+   "id": "G02b",
+   "sub": "Huh. That's it?",
+   "tts": "Huh. That's it?",
+   "pause": 0.2,
+   "voice": "green",
+   "gfx": {},
+   "start": 6.36,
+   "end": 7.652,
+   "dur": 1.292
+  },
+  {
+   "id": "G03",
+   "sub": "But the Earth is spinning, and without gravity you keep going in a straight line. So the ground slowly curves away beneath you.",
+   "tts": "But the Earth is spinning, and without gravity you keep going in a straight line. So the ground slowly curves away beneath you.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 7.852,
+   "end": 14.845,
+   "dur": 6.993
+  },
+  {
+   "id": "G04",
+   "sub": "After ten seconds, you're floating almost two meters up.",
+   "tts": "After ten seconds, you're floating almost two meters up.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "big": "1.7 m"
+   },
+   "start": 15.045,
+   "end": 17.904,
+   "dur": 2.859
+  },
+  {
+   "id": "G05",
+   "sub": "And anyone who jumped right before it happened? They just keep going up. Twenty meters in ten seconds.",
+   "tts": "And anyone who jumped right before it happened? They just keep going up. Twenty meters in ten seconds.",
+   "pause": 0.15,
+   "voice": "narr",
+   "gfx": {
+    "big": "20 m"
+   },
+   "start": 18.104,
+   "end": 23.708,
+   "dur": 5.604
+  },
+  {
+   "id": "G05b",
+   "sub": "Heeelp!",
+   "tts": "Heeelp!",
+   "pause": 0.2,
+   "voice": "pink",
+   "gfx": {},
+   "start": 23.858,
+   "end": 24.546,
+   "dur": 0.688
+  },
+  {
+   "id": "G06",
+   "sub": "Animals float off the ground, water lifts out of lakes in giant wobbly blobs, and the air starts drifting up.",
+   "tts": "Animals float off the ground, water lifts out of lakes in giant wobbly blobs, and the air starts drifting up.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 24.746,
+   "end": 31.156,
+   "dur": 6.41
+  },
+  {
+   "id": "G07",
+   "sub": "Your ears would pop as the air pressure drops.",
+   "tts": "Your ears would pop as the air pressure drops.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 31.356,
+   "end": 33.533,
+   "dur": 2.177
+  },
+  {
+   "id": "G08",
+   "sub": "Then... gravity comes back.",
+   "tts": "Then... gravity comes back.",
+   "pause": 0.15,
+   "voice": "narr",
+   "gfx": {
+    "timer": "end"
+   },
+   "start": 33.733,
+   "end": 35.113,
+   "dur": 1.38
+  },
+  {
+   "id": "G09",
+   "sub": "And everything falls. Two meters, no problem. But twenty meters? That's a seven-story fall.",
+   "tts": "And everything falls. Two meters, no problem. But twenty meters? That's a seven-story fall.",
+   "pause": 0.3,
+   "voice": "narr",
+   "gfx": {},
+   "start": 35.263,
+   "end": 40.571,
+   "dur": 5.307
+  },
+  {
+   "id": "G10",
+   "sub": "So if gravity ever switches off... don't jump.",
+   "tts": "So if gravity ever switches off... don't jump.",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {},
+   "start": 40.871,
+   "end": 43.386,
+   "dur": 2.515
+  },
+  {
+   "id": "G11",
+   "sub": "Follow for more what ifs!",
+   "tts": "Follow for more what ifs!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "end": true
+   },
+   "start": 43.786,
+   "end": 45.101,
+   "dur": 1.315
+  }
+ ],
+ "chapters": [],
+ "events": [
+  {
+   "type": "none",
+   "start": 0,
+   "end": 0
+  }
+ ],
+ "outro": {
+  "start": 47.301,
+  "end": 47.301
+ }
+}

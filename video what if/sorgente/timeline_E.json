@@ -1,0 +1,199 @@
+{
+ "fps": 30,
+ "key": "E",
+ "total": 49.874,
+ "segments": [
+  {
+   "id": "E01",
+   "sub": "What if the Earth stopped spinning... for just ten seconds?",
+   "tts": "What if the Earth stopped spinning... for just ten seconds?",
+   "pause": 0.3,
+   "voice": "narr",
+   "gfx": {
+    "hook": true
+   },
+   "start": 0.15,
+   "end": 2.932,
+   "dur": 2.782
+  },
+  {
+   "id": "E02",
+   "sub": "Right now, you're spinning with the planet. At the equator, that's one thousand six hundred and seventy kilometers per hour.",
+   "tts": "Right now, you're spinning with the planet. At the equator, that's one thousand six hundred and seventy kilometers per hour.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "big": "1,670 km/h"
+   },
+   "start": 3.232,
+   "end": 9.734,
+   "dur": 6.502
+  },
+  {
+   "id": "E03",
+   "sub": "You don't feel it, because everything spins with you. The ground, the air, the oceans.",
+   "tts": "You don't feel it, because everything spins with you. The ground, the air, the oceans.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 9.934,
+   "end": 14.238,
+   "dur": 4.304
+  },
+  {
+   "id": "E04",
+   "sub": "Now... the Earth stops.",
+   "tts": "Now... the Earth stops.",
+   "pause": 0.15,
+   "voice": "narr",
+   "gfx": {
+    "timer": "start",
+    "stop": true
+   },
+   "start": 14.438,
+   "end": 15.654,
+   "dur": 1.216
+  },
+  {
+   "id": "E05",
+   "sub": "But you don't.",
+   "tts": "But you don't.",
+   "pause": 0.0,
+   "voice": "narr",
+   "gfx": {},
+   "start": 15.804,
+   "end": 16.519,
+   "dur": 0.716
+  },
+  {
+   "id": "E05b",
+   "sub": "Whoaaaa!",
+   "tts": "Whoaaaa!",
+   "pause": 0.2,
+   "voice": "red",
+   "gfx": {},
+   "start": 16.519,
+   "end": 17.19,
+   "dur": 0.671
+  },
+  {
+   "id": "E06",
+   "sub": "Everything that isn't bolted down keeps flying east. People, animals, cars... even the air itself.",
+   "tts": "Everything that isn't bolted down keeps flying east. People, animals, cars... even the air itself.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 17.39,
+   "end": 23.442,
+   "dur": 6.052
+  },
+  {
+   "id": "E07",
+   "sub": "The wind would be faster than a jet. Faster than the speed of sound.",
+   "tts": "The wind would be faster than a jet. Faster than the speed of sound.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "big": "SUPERSONIC WIND"
+   },
+   "start": 23.642,
+   "end": 27.013,
+   "dur": 3.371
+  },
+  {
+   "id": "E08",
+   "sub": "In ten seconds, you'd fly almost five kilometers.",
+   "tts": "In ten seconds, you'd fly almost five kilometers.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "big": "4.6 km"
+   },
+   "start": 27.213,
+   "end": 30.052,
+   "dur": 2.839
+  },
+  {
+   "id": "E09",
+   "sub": "The oceans would leave their beds and slam into the coasts as giant waves.",
+   "tts": "The oceans would leave their beds and slam into the coasts as giant waves.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 30.252,
+   "end": 34.192,
+   "dur": 3.94
+  },
+  {
+   "id": "E10",
+   "sub": "The safest place on Earth? The North Pole. There, you'd just... slowly turn in place.",
+   "tts": "The safest place on Earth? The North Pole. There, you'd just... slowly turn in place.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 34.392,
+   "end": 38.836,
+   "dur": 4.444
+  },
+  {
+   "id": "E11",
+   "sub": "Then the Earth starts spinning again, and everything gets thrown the other way.",
+   "tts": "Then the Earth starts spinning again, and everything gets thrown the other way.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "timer": "end"
+   },
+   "start": 39.036,
+   "end": 42.828,
+   "dur": 3.792
+  },
+  {
+   "id": "E11b",
+   "sub": "Not againnn!",
+   "tts": "Not againnn!",
+   "pause": 0.3,
+   "voice": "blue",
+   "gfx": {},
+   "start": 43.029,
+   "end": 43.911,
+   "dur": 0.883
+  },
+  {
+   "id": "E12",
+   "sub": "Ten seconds. That's all it would take.",
+   "tts": "Ten seconds. That's all it would take.",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {},
+   "start": 44.211,
+   "end": 45.959,
+   "dur": 1.747
+  },
+  {
+   "id": "E13",
+   "sub": "Follow for more what ifs!",
+   "tts": "Follow for more what ifs!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "end": true
+   },
+   "start": 46.359,
+   "end": 47.674,
+   "dur": 1.315
+  }
+ ],
+ "chapters": [],
+ "events": [
+  {
+   "type": "none",
+   "start": 0,
+   "end": 0
+  }
+ ],
+ "outro": {
+  "start": 49.874,
+  "end": 49.874
+ }
+}

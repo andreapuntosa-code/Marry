@@ -1,0 +1,163 @@
+{
+ "fps": 30,
+ "key": "L",
+ "total": 49.785,
+ "segments": [
+  {
+   "id": "L01",
+   "sub": "What if every atom lost just one electron... for ten seconds?",
+   "tts": "What if every atom lost just one electron... for ten seconds?",
+   "pause": 0.3,
+   "voice": "narr",
+   "gfx": {
+    "hook": true
+   },
+   "start": 0.15,
+   "end": 3.625,
+   "dur": 3.475
+  },
+  {
+   "id": "L02",
+   "sub": "Every atom is a tiny balance: a positive nucleus, and negative electrons around it.",
+   "tts": "Every atom is a tiny balance: a positive nucleus, and negative electrons around it.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 3.925,
+   "end": 9.164,
+   "dur": 5.239
+  },
+  {
+   "id": "L03",
+   "sub": "Take away one electron, and every atom becomes positive.",
+   "tts": "Take away one electron, and every atom becomes positive.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "big": "+ + + + +"
+   },
+   "start": 9.364,
+   "end": 12.761,
+   "dur": 3.397
+  },
+  {
+   "id": "L04",
+   "sub": "And positive charges push each other away. Hard.",
+   "tts": "And positive charges push each other away. Hard.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {
+    "timer": "start"
+   },
+   "start": 12.961,
+   "end": 15.869,
+   "dur": 2.908
+  },
+  {
+   "id": "L05",
+   "sub": "First, your skin would tingle, and every hair on your body would stand straight up.",
+   "tts": "First, your skin would tingle, and every hair on your body would stand straight up.",
+   "pause": 0.15,
+   "voice": "narr",
+   "gfx": {},
+   "start": 16.069,
+   "end": 20.124,
+   "dur": 4.055
+  },
+  {
+   "id": "L05b",
+   "sub": "Huh? Why is my hair floating?",
+   "tts": "Huh? Why is my hair floating?",
+   "pause": 0.2,
+   "voice": "yellow",
+   "gfx": {},
+   "start": 20.274,
+   "end": 21.985,
+   "dur": 1.711
+  },
+  {
+   "id": "L06",
+   "sub": "Then your body would try to push itself apart, with as much energy as the Sun gives off in a whole minute.",
+   "tts": "Then your body would try to push itself apart, with as much energy as the Sun gives off in a whole minute.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 22.185,
+   "end": 28.043,
+   "dur": 5.857
+  },
+  {
+   "id": "L07",
+   "sub": "The ground, the oceans, the entire planet would blast apart from the inside.",
+   "tts": "The ground, the oceans, the entire planet would blast apart from the inside.",
+   "pause": 0.2,
+   "voice": "narr",
+   "gfx": {},
+   "start": 28.243,
+   "end": 32.448,
+   "dur": 4.205
+  },
+  {
+   "id": "L08",
+   "sub": "With more energy than a billion billion billion supernovas.",
+   "tts": "With more energy than a billion billion billion supernovas.",
+   "pause": 0.25,
+   "voice": "narr",
+   "gfx": {
+    "big": "10²¹ SUPERNOVAS"
+   },
+   "start": 32.648,
+   "end": 36.031,
+   "dur": 3.383
+  },
+  {
+   "id": "L09",
+   "sub": "And the ten seconds? They don't matter. It would all be over in a tiny fraction of the very first second.",
+   "tts": "And the ten seconds? They don't matter. It would all be over in a tiny fraction of the very first second.",
+   "pause": 0.3,
+   "voice": "narr",
+   "gfx": {
+    "timer": "freeze"
+   },
+   "start": 36.281,
+   "end": 41.692,
+   "dur": 5.411
+  },
+  {
+   "id": "L10",
+   "sub": "So the next time you lose something small... be glad it wasn't an electron.",
+   "tts": "So the next time you lose something small... be glad it wasn't an electron.",
+   "pause": 0.4,
+   "voice": "narr",
+   "gfx": {},
+   "start": 41.992,
+   "end": 45.869,
+   "dur": 3.877
+  },
+  {
+   "id": "L11",
+   "sub": "Follow for more what ifs!",
+   "tts": "Follow for more what ifs!",
+   "pause": 0.8,
+   "voice": "narr",
+   "gfx": {
+    "end": true
+   },
+   "start": 46.269,
+   "end": 47.585,
+   "dur": 1.315
+  }
+ ],
+ "chapters": [],
+ "events": [
+  {
+   "type": "none",
+   "start": 0,
+   "end": 0
+  }
+ ],
+ "outro": {
+  "start": 49.785,
+  "end": 49.785
+ }
+}
