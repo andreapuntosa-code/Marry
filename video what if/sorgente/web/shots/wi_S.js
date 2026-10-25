@@ -19,6 +19,6 @@ D('S07', 'orbit_straight');
 T('S08', 0, M, { ...dark(-1, 1.2), cam: [0, 1.1, -5], cam2: [0, 1.2, -5.6], tgt: [0, 1.2, 1], fov: 64, cr: 5,
   set(c, f) { meadowDress(c, f); KIDS.slice(0, 5).forEach((k, i) => hopper(c, k, ...f.p(2 - i, 1 + (i % 2) * 0.5), { yaw: f.yaw + Math.PI, t0: 1.4 + i * 0.07, before: 'cower', amp: 0.35 })); } });
 // confused animals
-T('S09', 0, F, { hours: 11.6, cam: [-2, 1.1, 2.5], cam2: [-1, 1.1, 3.5], tgt: [0, 0.9, 10], fov: 62, cr: 6, sr: 30,
-  set(c, f) { farm(c, f); beast(c, 'cow', 1, ...f.p(-2, 10), f.yaw + 2.6, { graze: 0, look: -0.3 }); beast(c, 'sheep', 2, ...f.p(1.5, 11.5), f.yaw + 3.6, { graze: 0, look: -0.3 }); beast(c, 'goat', 1, ...f.p(-0.5, 8), f.yaw + 3.2, { graze: 0, look: -0.2 }); kid(c, 'brown', ...f.p(2.2, 7.4), 'scratchHead', { yaw: f.yaw + Math.PI - 0.5 }); } });
+T('S09', 0, F, { hours: 11.6, cam: [0, 1.3, 6.5], cam2: [0.5, 1.3, 7.0], tgt: [0, 0.9, 13], fov: 62, cr: 6, sr: 30,
+  set(c, f) { farm(c, f); beast(c, 'cow', 1, ...f.p(-2.4, 13), f.yaw + 2.6, { graze: 0, look: -0.3 }); beast(c, 'sheep', 2, ...f.p(1.5, 11.5), f.yaw + 3.6, { graze: 0, look: -0.3 }); beast(c, 'goat', 1, ...f.p(-0.5, 8), f.yaw + 3.2, { graze: 0, look: -0.2 }); kid(c, 'brown', ...f.p(1.8, 9.2), 'scratchHead', { yaw: f.yaw + Math.PI - 0.5 }); } });
 T('S10', 0, M, { cam: [0, 1.2, -4.6], cam2: [0, 1.25, -4.2], tgt: [0, 1.1, 1], fov: 62, cr: 5, set(c, f) { meadowDress(c, f); row(c, f, KIDS.slice(0, 5), 1, 0.95, 'wave', { arc: 0.2 }); } });

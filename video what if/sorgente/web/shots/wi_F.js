@@ -23,8 +23,8 @@ T('F06', 0, F, { cam: [0, 1.3, 1.0], cam2: [0.5, 1.2, 1.8], tgt: [0, 0.7, 5.5], 
 T('F07', 0, M, { cam: [0.6, 1.2, -2.4], cam2: [0.4, 1.2, -2.1], tgt: [0, 1.1, 0], fov: 56, cr: 5,
   set(c, f) { meadowDress(c, f); const P = kid(c, 'yellow', f.x, f.z, 'eat', { yaw: f.yaw + Math.PI }); P.anim = (Q, t) => Q.pose(t < 1.4 ? 'eat' : 'shrug', t, {}); squirt(c, P, 1.2, [0.8, 2.6, -1.4]); } });
 // friction is back: the sliders stop dead and tumble
-T('F08', 0, M, { cam: [0, 1.2, -5.5], tgt: [0, 0.9, 1.5], fov: 62, cr: 5, shake: (t, ctx) => (t > ctx.m('F08@instantly', 3.0) ? 0.05 : 0),
-  set(c, f) { meadowDress(c, f); const st = Math.max(1.2, c.m('F08@instantly', 3.0)); [['red', 1.0], ['orange', 2.2], ['green', 0.0]].forEach(([k, z], i) => slider(c, k, f, [9 + i * 2, z], [-9 + i * 2, z], 0.0, 7.0, { stopAt: (st / 7.0) })); } });
+T('F08', 0, M, { cam: [0, 1.4, -8.5], tgt: [0, 0.9, 1.5], fov: 62, cr: 5, shake: (t, ctx) => (t > ctx.m('F08@instantly', 3.0) ? 0.05 : 0),
+  set(c, f) { meadowDress(c, f); const st = Math.max(1.2, c.m('F08@instantly', 3.0)); [['red', 1.0], ['orange', 2.2], ['green', 0.0]].forEach(([k, z], i) => slider(c, k, f, [5 + i * 1.2, z], [-5 + i * 1.2, z], 0.0, 7.0, { stopAt: (st / 7.0) })); } });
 T('F09', 0, M, { cam: [0, 4.6, -3.0], cam2: [0, 6.0, -4.0], tgt: [0, 0.2, 1.2], fov: 60, cr: 5,
   set(c, f) { meadowDress(c, f); ['fallDown', 'sprawl', 'fallDown', 'sprawl', 'sitGround', 'fallDown'].forEach((p, i) => kid(c, KIDS[i], ...f.p(-1.8 + (i % 3) * 1.5, 0.3 + Math.floor(i / 3) * 1.3), p, { yaw: f.yaw + i * 1.1, phase: i })); } });
 T('F10', 0, M, { cam: [0, 1.2, -4.6], cam2: [0, 1.25, -4.2], tgt: [0, 1.1, 1], fov: 62, cr: 5, set(c, f) { meadowDress(c, f); row(c, f, KIDS.slice(0, 5), 1, 0.95, 'wave', { arc: 0.2 }); } });

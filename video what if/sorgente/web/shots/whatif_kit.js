@@ -2,6 +2,7 @@
 // hero quality by default), 2D shots, and the effects: flying sideways, floating, sparks, wind streaks, debris,
 // water blobs, slipping, sliding, toppling fences.
 import { shot } from './registry.js';
+import { who as who_ } from './hgkit.js';
 import { T as T0, L, KIDS, kid, kidName, row, hopper, dancer, walker, beast, dog, farm, tree, flowers, rock, meadowDress, height, lerp, yawTo, THREE, loc } from './kids_kit.js';
 export { L, KIDS, kid, kidName, row, hopper, dancer, walker, beast, dog, farm, tree, flowers, rock, meadowDress, height, lerp, yawTo, THREE, loc };
 
@@ -73,12 +74,14 @@ export function slider(c, k, f, a, b, t0, t1, o = {}) {
   return P;
 }
 // a kid that glows and jitters (charged), with hair-standing sparks around it
+import { CAST } from '../lib/people.js';
 export function charged(c, k, f, at, o = {}) {
-  const q = f.p(at[0], at[1]); const P = kid(c, k, q[0], q[1], o.pose || 'armsOpen', { yaw: f.yaw + Math.PI });
+  if (!CAST['C_' + k]) CAST['C_' + k] = { ...CAST['K_' + k] };   // own pool entry: the glowing materials never leak into other shots
+  const q = f.p(at[0], at[1]); const P = who_(c, 'C_' + k, q[0], q[1], o.pose || 'armsOpen', { yaw: f.yaw + Math.PI });
   const mats = []; P.root.traverse(n => { if (n.isMesh && n.material && n.material.emissive && !mats.includes(n.material)) mats.push(n.material); });
   const own = mats.map(m => { const cl = m.clone(); return cl; });
   P.root.traverse(n => { if (n.isMesh && n.material && mats.includes(n.material)) n.material = own[mats.indexOf(n.material)]; });
-  c.on((t) => { const g = (o.glow ? o.glow(t) : 0.5); own.forEach(m => { m.emissive.setRGB(0.5 * g, 0.75 * g, 1.0 * g); m.emissiveIntensity = 1.0; }); P.root.position.x += Math.sin(t * 60) * 0.006 * g; });
+  c.on((t) => { const g = (o.glow ? o.glow(t) : 0.5); own.forEach(m => { m.emissive.setRGB(0.12 * g, 0.2 * g, 0.32 * g); m.emissiveIntensity = 1.0; }); P.root.position.x += Math.sin(t * 60) * 0.006 * g; });
   sparks(c, q[0], height(q[0], q[1]) + 1.0, q[1], o);
   return P;
 }
