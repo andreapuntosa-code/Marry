@@ -97,52 +97,114 @@ def sticker(c, s, x, y, colr, rot, a=1.0, k=1.0, size=52):
 
 
 # ------------------------------------------------------------------ backgrounds (world coordinates)
+def _blot(c, x, y, rx, ry, h, a, seed=0):
+    """an irregular stain (soda, water, grease)"""
+    rg = np.random.default_rng(seed); p = skia.Path()
+    for k in range(18):
+        ang = k / 18 * 2 * math.pi; r = 1 + 0.25 * math.sin(3 * ang + seed) + 0.12 * rg.uniform(-1, 1)
+        (p.moveTo if k == 0 else p.lineTo)(x + math.cos(ang) * rx * r, y + math.sin(ang) * ry * r)
+    p.close(); pt = fill(h, a); pt.setMaskFilter(skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 6)); c.drawPath(p, pt)
+
+
+def postit(c, x, y, s, colr, rot, lines, red=False):
+    c.save(); c.translate(x, y); c.rotate(rot)
+    c.drawRect(skia.Rect(-s / 2 + 5, -s / 2 + 7, s / 2 + 5, s / 2 + 7), fill('#000000', 0.25))
+    c.drawRect(skia.Rect(-s / 2, -s / 2, s / 2, s / 2), fill(colr)); c.drawRect(skia.Rect(-s / 2, -s / 2, s / 2, s / 2), stroke(OUT, 4))
+    c.drawRect(skia.Rect(-s / 2, -s / 2, s / 2, -s / 2 + 14), fill('#000000', 0.08))
+    for i, ln in enumerate(lines):
+        text(c, ln, 0, -s / 2 + 44 + i * (s * 0.24), s * 0.2, '#e8413b' if (red and i == 0) else '#2a2340', sw=0, shadow=False)
+    c.restore()
+
+
 def bg_basement(c, t, night=False):
-    k = 0.55 if night else 1.0
-    g = skia.Paint(AntiAlias=True); g.setShader(skia.GradientShader.MakeLinear([skia.Point(0, 0), skia.Point(0, 1500)], [col('#4a3290' if not night else '#251a52'), col('#2f2063' if not night else '#160f35')]))
+    # damp, peeling, sticky: a broke basement
+    k = 0.45 if night else 1.0
+    g = skia.Paint(AntiAlias=True); g.setShader(skia.GradientShader.MakeLinear([skia.Point(0, 0), skia.Point(0, 1560)], [col('#6b6247' if not night else '#2c2a24'), col('#4a4433' if not night else '#1c1a16')]))
     c.drawRect(skia.Rect(-400, -400, W + 400, 1560), g)
-    c.drawRect(skia.Rect(-400, 1180, W + 400, 1190), fill('#ff5fb0', 0.9 * k)); c.drawRect(skia.Rect(-400, 1196, W + 400, 1204), fill('#5be1ff', 0.9 * k))
-    c.drawRect(skia.Rect(-400, 1560, W + 400, H + 400), fill('#2a1f4d' if not night else '#140e2c'))
-    c.drawOval(skia.Rect(140, 1620, 940, 1820), fill('#5b3fa0' if not night else '#2e2158'))
-    # window with the moon
-    c.drawRoundRect(skia.Rect(40, 420, 340, 700), 10, 10, fill('#151a3f')); c.drawRoundRect(skia.Rect(40, 420, 340, 700), 10, 10, stroke(OUT, 8))
-    c.drawLine(190, 420, 190, 700, stroke(OUT, 8)); c.drawCircle(270, 500, 40, fill('#fff3a8'))
-    for x, y in [(90, 470), (120, 620), (230, 650), (300, 600)]: c.drawCircle(x, y, 4, fill('#ffffff', 0.5 + 0.5 * math.sin(t * 3 + x)))
-    # poster and desk with a red falling chart
-    c.save(); c.rotate(-4, 860, 860); c.drawRect(skia.Rect(760, 760, 980, 960), fill('#ffd60a')); c.drawRect(skia.Rect(760, 760, 980, 960), stroke(OUT, 6))
-    text(c, "HUSTLE", 870, 850, 46, '#1d1530', sw=0, shadow=False); text(c, "24/7", 870, 930, 60, '#e8413b', sw=0, shadow=False); c.restore()
-    c.drawRect(skia.Rect(700, 1300, 1120, 1340), fill('#8a5a34')); c.drawRect(skia.Rect(700, 1300, 1120, 1340), stroke(OUT, 6))
-    for x in (730, 1080): c.drawRect(skia.Rect(x, 1340, x + 26, 1560), fill('#6b4428'))
-    c.drawRoundRect(skia.Rect(760, 1080, 1060, 1280), 14, 14, fill('#22223a')); c.drawRoundRect(skia.Rect(780, 1100, 1040, 1260), 8, 8, fill('#0f1830' if night else '#16264a'))
-    pts = [(790, 1130), (840, 1150), (880, 1140), (930, 1190), (970, 1180), (1030, 1245)]
-    p = skia.Path(); p.moveTo(*pts[0]); [p.lineTo(*q) for q in pts[1:]]; c.drawPath(p, stroke('#ff4d4d', 8))
-    c.drawRect(skia.Rect(890, 1280, 930, 1300), fill('#22223a'))
-    # energy drink pyramid
-    for r, n in enumerate([3, 2, 1]):
-        for i in range(n):
-            x = 30 + i * 62 + r * 31; y = 1500 - r * 92
-            c.drawRoundRect(skia.Rect(x, y - 90, x + 52, y), 10, 10, fill('#3ad46a')); c.drawRoundRect(skia.Rect(x, y - 90, x + 52, y), 10, 10, stroke(OUT, 4))
-            c.drawRect(skia.Rect(x + 6, y - 60, x + 46, y - 40), fill('#1d1530'))
-    # piggy bank on the desk
-    c.drawOval(skia.Rect(800, 1220, 900, 1300), fill('#ff8fb5')); c.drawOval(skia.Rect(800, 1220, 900, 1300), stroke(OUT, 5))
-    if night:
-        c.drawCircle(910, 1180, 260, fill('#5be1ff', 0.08))
+    for x in range(-380, W + 400, 64):   # old striped wallpaper
+        c.drawRect(skia.Rect(x, -400, x + 26, 1560), fill('#ffffff', 0.05 * k))
+    for (x0, y0, w0, h0, rot) in [(-60, 300, 180, 340, 4), (420, 120, 140, 220, -6), (600, 1000, 160, 260, 3)]:   # peeled patches (bare concrete)
+        c.save(); c.rotate(rot, x0, y0); p = skia.Path(); p.moveTo(x0, y0); p.lineTo(x0 + w0, y0 + 20); p.lineTo(x0 + w0 - 30, y0 + h0); p.lineTo(x0 + 20, y0 + h0 - 40); p.close()
+        c.drawPath(p, fill('#8f8a7c' if not night else '#3a3934')); c.drawPath(p, stroke('#3a3326', 4)); c.restore()
+    for (x, y, rx, ry, sd) in [(250, 230, 160, 110, 1), (880, 360, 130, 160, 2), (120, 1080, 110, 70, 3), (980, 980, 90, 140, 4)]:
+        _blot(c, x, y, rx, ry, '#3a2e14', 0.35, sd); _blot(c, x, y, rx * 0.7, ry * 0.7, '#2a200c', 0.25, sd + 9)
+    for (x0, y0) in [(700, 80), (180, 760)]:   # cracks
+        p = skia.Path(); p.moveTo(x0, y0)
+        for j in range(1, 6): p.lineTo(x0 + j * 26 * (1 if j % 2 else -0.4), y0 + j * 44)
+        c.drawPath(p, stroke('#2a2216', 4))
+    c.drawRect(skia.Rect(-400, 1200, W + 400, 1222), fill('#3a3326'))   # dirty baseboard line
+    # floor: stained concrete, a sticky soda puddle, crumbs
+    c.drawRect(skia.Rect(-400, 1560, W + 400, H + 400), fill('#57503f' if not night else '#24221d'))
+    _blot(c, 700, 1720, 170, 46, '#8a1f2b', 0.55, 7); c.drawOval(skia.Rect(640, 1700, 700, 1716), fill('#ffffff', 0.35))
+    for i in range(30): c.drawCircle(80 + (i * 97) % 940, 1600 + (i * 53) % 260, 4, fill('#2a2216', 0.6))
+    # a bare bulb on a wire
+    sw = math.sin(t * 1.4) * 4
+    c.drawLine(540, -400, 540 + sw, 330, stroke('#1d1530', 5))
+    fl = 1.0 if (t * 7.3) % 4 > 0.25 else 0.4
+    c.drawCircle(540 + sw, 365, 260, fill('#ffe9a0', 0.10 * fl * (1.6 if night else 1)))
+    c.drawCircle(540 + sw, 365, 36, fill('#fff2b8' if fl > 0.5 else '#b8a870')); c.drawCircle(540 + sw, 365, 36, stroke(OUT, 5)); c.drawRect(skia.Rect(522 + sw, 322, 558 + sw, 338), fill('#8a8a8a'))
+    # tiny cracked window, taped, half covered with cardboard
+    c.drawRect(skia.Rect(40, 600, 330, 780), fill('#1e2340')); c.drawCircle(270, 650, 30, fill('#fff3a8', 0.9))
+    c.drawRect(skia.Rect(40, 700, 190, 780), fill('#b08a5a')); text(c, "THIS SIDE UP", 115, 750, 20, '#5a4020', sw=0, shadow=False, key='corpo_b')
+    c.drawLine(60, 610, 320, 770, stroke('#d8d0b0', 14, 0.9)); c.drawLine(320, 610, 60, 770, stroke('#d8d0b0', 14, 0.9))
+    c.drawRect(skia.Rect(40, 600, 330, 780), stroke(OUT, 8))
+    # sticky notes and unpaid bills on the wall
+    postit(c, 170, 960, 150, '#ffe14d', 6, ["RENT", "DUE!!"], red=True)
+    postit(c, 980, 800, 130, '#ff9ec7', -8, ["IOU", "MOM", "$20"])
+    postit(c, 860, 900, 140, '#9be7ff', -3, ["WIFI =", "NEIGH-", "BOR'S"])
+    c.save(); c.translate(-230, 380); c.rotate(5, 380, 800); c.drawRect(skia.Rect(300, 700, 470, 900), fill('#f4f1e8')); c.drawRect(skia.Rect(300, 700, 470, 900), stroke(OUT, 4))
+    text(c, "FINAL", 385, 745, 30, '#e8413b', sw=0, shadow=False); text(c, "NOTICE", 385, 780, 30, '#e8413b', sw=0, shadow=False)
+    for j in range(4): c.drawLine(320, 810 + j * 20, 450, 810 + j * 20, stroke('#b8b4a8', 4))
+    c.restore(); c.drawCircle(155, 1092, 8, fill('#e8413b'))
+    # desk = a cardboard box; a cracked laptop with a falling red chart
+    c.drawRect(skia.Rect(720, 1330, 1080, 1560), fill('#b08a5a')); c.drawRect(skia.Rect(720, 1330, 1080, 1560), stroke(OUT, 6))
+    c.drawLine(720, 1400, 1080, 1400, stroke('#d6b98a', 18)); text(c, "FRAGILE", 900, 1490, 40, '#8a3a20', sw=0, shadow=False)
+    c.drawRoundRect(skia.Rect(780, 1150, 1030, 1320), 12, 12, fill('#2a2a33')); c.drawRoundRect(skia.Rect(796, 1166, 1014, 1306), 6, 6, fill('#0f1830' if night else '#16264a'))
+    pts = [(806, 1190), (850, 1206), (884, 1198), (930, 1240), (966, 1232), (1006, 1296)]
+    p = skia.Path(); p.moveTo(*pts[0]); [p.lineTo(*q) for q in pts[1:]]; c.drawPath(p, stroke('#ff4d4d', 7))
+    c.drawLine(820, 1170, 880, 1260, stroke('#ffffff', 2, 0.7)); c.drawLine(880, 1260, 860, 1300, stroke('#ffffff', 2, 0.7))
+    c.drawRect(skia.Rect(760, 1316, 1050, 1334), fill('#2a2a33'))
+    # pizza boxes with grease spots, squashed cans, a laundry pile
+    for i in range(3):
+        y = 1540 - i * 34; x = 40 + i * 8
+        c.drawRect(skia.Rect(x, y - 30, x + 240, y), fill('#e2c08a')); c.drawRect(skia.Rect(x, y - 30, x + 240, y), stroke(OUT, 4))
+        _blot(c, x + 60 + i * 40, y - 15, 24, 8, '#8a5a20', 0.5, i + 20)
+    text(c, "PIZZA", 160, 1460, 34, '#e8413b', sw=0, shadow=False)
+    for (x, y, rot) in [(330, 1600, 70), (880, 1650, -40), (980, 1590, 15)]:
+        c.save(); c.rotate(rot, x, y); c.drawRoundRect(skia.Rect(x - 22, y - 34, x + 22, y + 34), 8, 8, fill('#c8d2da')); c.drawRoundRect(skia.Rect(x - 22, y - 34, x + 22, y + 34), 8, 8, stroke(OUT, 4)); c.restore()
+    for (x, y, r, cc) in [(130, 1690, 70, '#5a6fb0'), (210, 1700, 60, '#c0504d'), (160, 1640, 55, '#e0d6c0')]:
+        c.drawCircle(x, y, r, fill(cc if not night else '#3a3a44')); c.drawCircle(x, y, r, stroke(OUT, 4))
+    # flies
+    for j in range(3):
+        fx = 300 + 400 * j + 60 * math.sin(t * 3.1 + j * 2); fy = 900 + 50 * math.sin(t * 4.3 + j)
+        c.drawCircle(fx, fy, 5, fill(OUT)); c.drawOval(skia.Rect(fx - 9, fy - 9, fx - 1, fy - 3), fill('#ffffff', 0.6)); c.drawOval(skia.Rect(fx + 1, fy - 9, fx + 9, fy - 3), fill('#ffffff', 0.6))
+    if night: c.drawRect(skia.Rect(-400, -400, W + 400, H + 400), fill('#000020', 0.25))
 
 
 def bg_kitchen(c, t):
-    c.drawRect(skia.Rect(-400, -400, W + 400, 1560), fill('#f6e3b4'))
-    for y in range(-400, 1560, 90): c.drawLine(-400, y, W + 400, y, stroke('#e2c98f', 3))
-    for x in range(-400, W + 400, 90): c.drawLine(x, 1000, x, 1560, stroke('#e2c98f', 3))
-    c.drawRect(skia.Rect(-400, 380, W + 400, 640), fill('#c98a4a')); c.drawRect(skia.Rect(-400, 380, W + 400, 640), stroke(OUT, 7))
+    c.drawRect(skia.Rect(-400, -400, W + 400, 1560), fill('#d8cfa6'))
+    for y in range(-400, 1560, 90): c.drawLine(-400, y, W + 400, y, stroke('#b8ad80', 3))
+    for x in range(-400, W + 400, 90): c.drawLine(x, 900, x, 1560, stroke('#b8ad80', 3))
+    for (x, y, rx, ry, sd) in [(200, 820, 120, 80, 11), (560, 1100, 70, 110, 12), (380, 300, 140, 90, 13)]: _blot(c, x, y, rx, ry, '#7a5a20', 0.3, sd)
+    # cupboards, one door hanging off
+    c.drawRect(skia.Rect(-400, 380, W + 400, 640), fill('#a8763e')); c.drawRect(skia.Rect(-400, 380, W + 400, 640), stroke(OUT, 7))
     for x in range(-300, W + 400, 220): c.drawLine(x, 380, x, 640, stroke(OUT, 6)); c.drawCircle(x + 190, 600, 9, fill(OUT))
-    c.drawRect(skia.Rect(-400, 1360, W + 400, 1560), fill('#c98a4a')); c.drawRect(skia.Rect(-400, 1330, W + 400, 1370), fill('#e8e2d0')); c.drawRect(skia.Rect(-400, 1330, W + 400, 1370), stroke(OUT, 6))
-    c.drawRect(skia.Rect(-400, 1560, W + 400, H + 400), fill('#d9b98a'))
-    # fridge with mom's note
-    c.drawRoundRect(skia.Rect(800, 700, 1100, 1560), 24, 24, fill('#f2f4f8')); c.drawRoundRect(skia.Rect(800, 700, 1100, 1560), 24, 24, stroke(OUT, 8))
+    c.save(); c.rotate(14, 360, 390); c.drawRect(skia.Rect(360, 390, 560, 650), fill('#b88648')); c.drawRect(skia.Rect(360, 390, 560, 650), stroke(OUT, 6)); c.restore()
+    # counter, a sink tower of dirty dishes
+    c.drawRect(skia.Rect(-400, 1360, W + 400, 1560), fill('#a8763e')); c.drawRect(skia.Rect(-400, 1330, W + 400, 1370), fill('#cfc6ad')); c.drawRect(skia.Rect(-400, 1330, W + 400, 1370), stroke(OUT, 6))
+    for i in range(7):
+        y = 1330 - i * 26; x = 60 + (i % 2) * 14
+        c.drawOval(skia.Rect(x, y - 20, x + 200, y + 6), fill('#eef0f0')); c.drawOval(skia.Rect(x, y - 20, x + 200, y + 6), stroke(OUT, 4))
+        _blot(c, x + 100, y - 8, 30, 6, '#c08a3a', 0.6, 30 + i)
+    c.drawRect(skia.Rect(-400, 1560, W + 400, H + 400), fill('#b39a6a')); _blot(c, 380, 1740, 150, 40, '#8a1f2b', 0.45, 31)
+    # overflowing trash bag
+    c.drawCircle(130, 1620, 110, fill('#2a2a33')); c.drawCircle(130, 1620, 110, stroke(OUT, 6)); c.drawLine(110, 1510, 150, 1490, stroke('#ffd60a', 8))
+    # fridge covered in notes
+    c.drawRoundRect(skia.Rect(800, 700, 1100, 1560), 24, 24, fill('#e6e8e0')); c.drawRoundRect(skia.Rect(800, 700, 1100, 1560), 24, 24, stroke(OUT, 8))
     c.drawLine(800, 1040, 1100, 1040, stroke(OUT, 6)); c.drawRect(skia.Rect(830, 900, 846, 1010), fill('#b0b6c2'))
-    c.save(); c.rotate(5, 950, 820); c.drawRect(skia.Rect(870, 760, 1040, 900), fill('#fffbe0')); c.drawRect(skia.Rect(870, 760, 1040, 900), stroke(OUT, 4))
-    text(c, "GET A JOB", 955, 815, 30, '#e8413b', sw=0, shadow=False); text(c, "♥ MOM", 955, 870, 34, '#1d1530', sw=0, shadow=False); c.restore()
-    c.drawCircle(950, 760, 12, fill('#e8413b'))
+    postit(c, 950, 820, 150, '#fffbe0', 5, ["GET A", "JOB", "♥ MOM"], red=True)
+    postit(c, 880, 1150, 110, '#ffe14d', -9, ["PAY", "BACK", "$$$"])
+    postit(c, 1010, 1260, 110, '#ff9ec7', 7, ["DON'T", "EAT", "(MOM)"])
 
 
 def bg_store(c, t):
@@ -161,8 +223,10 @@ def bg_store(c, t):
 
 
 def bg_phone(c, t, mode, u):
-    c.drawRect(skia.Rect(-400, -400, W + 400, H + 400), fill('#3a2a7a'))
-    for k in range(14): c.drawCircle((k * 211) % W, (k * 397) % H, 60, fill('#ffffff', 0.04))
+    c.drawRect(skia.Rect(-400, -400, W + 400, H + 400), fill('#6b4e33'))
+    for k in range(26): c.drawLine(-400, k * 90, W + 400, k * 90 + 30, stroke('#5a3f28', 6))
+    for k in range(5): _blot(c, (k * 331) % W, 300 + (k * 389) % 1500, 90, 50, '#2a1a0c', 0.3, 60 + k)
+    c.drawCircle(160, 1500, 90, stroke('#3a2614', 10, 0.5)); c.drawCircle(940, 400, 70, stroke('#3a2614', 10, 0.5))
     x0, y0, x1, y1 = 150, 380, 930, 1820
     c.drawRoundRect(skia.Rect(x0 + 14, y0 + 20, x1 + 14, y1 + 20), 70, 70, fill('#000000', 0.35))
     c.drawRoundRect(skia.Rect(x0, y0, x1, y1), 70, 70, fill('#1d1530')); c.drawRoundRect(skia.Rect(x0 + 22, y0 + 22, x1 - 22, y1 - 22), 52, 52, fill('#ffffff'))
@@ -199,8 +263,16 @@ def bg_phone(c, t, mode, u):
 
 
 def bg_poll(c, t, segs, n18):
-    c.drawRect(skia.Rect(-400, -400, W / 2, H + 400), fill('#2f6bff')); c.drawRect(skia.Rect(W / 2, -400, W + 400, H + 400), fill('#28b85a'))
-    for k in range(18): c.drawLine(-400 + k * 120, -400, -400 + k * 120 + 600, H + 400, stroke('#ffffff', 30, 0.05))
+    # two halves of a torn cardboard sign, pinned to the basement wall
+    bg_basement(c, t)
+    c.drawRect(skia.Rect(-400, -400, W + 400, H + 400), fill('#000000', 0.35))
+    for side, colr in ((0, '#ffd23a'), (1, '#3fd0a0')):
+        p = skia.Path(); xa = 20 if side == 0 else W / 2 + 6; xb = W / 2 - 6 if side == 0 else W - 20
+        p.moveTo(xa, 380); p.lineTo(xb, 392)
+        for k in range(16): p.lineTo(xb + (8 if k % 2 else -6) * (1 if side == 0 else -1), 392 + k * 92)
+        p.lineTo(xa, 1880); p.close()
+        c.drawPath(p, fill(colr)); c.drawPath(p, stroke(OUT, 6))
+        for k in range(6): _blot(c, xa + 80 + (k * 137) % 400, 600 + (k * 263) % 1100, 40, 22, '#000000', 0.08, 50 + k + side * 9)
 
 
 # ------------------------------------------------------------------ popups (screen space)
@@ -216,7 +288,7 @@ def popup(c, kind, u, t, talk=0.0):
     elif kind == 'coupon':
         c.save(); c.translate(560, 760); c.rotate(-7); c.scale(k, k)
         c.drawRoundRect(skia.Rect(-300, -150, 300, 150), 24, 24, fill('#ffd60a')); c.drawRoundRect(skia.Rect(-300, -150, 300, 150), 24, 24, stroke(OUT, 6))
-        c.drawLine(-120, -150, -120, 150, stroke(OUT, 4)); c.drawCircle(-300, 0, 30, fill('#4a3290')); c.drawCircle(300, 0, 30, fill('#4a3290'))
+        c.drawLine(-120, -150, -120, 150, stroke(OUT, 4)); c.drawCircle(-300, 0, 30, fill('#4a4433')); c.drawCircle(300, 0, 30, fill('#4a4433'))
         p = skia.Path(); p.moveTo(-250, -90); p.lineTo(-150, -90); p.lineTo(-200, 90); p.close(); shape(c, p, '#ff9500'); c.drawCircle(-200, -30, 12, fill('#e8413b')); c.drawCircle(-185, 10, 10, fill('#e8413b'))
         text(c, "1/2 PIZZA", 90, -10, 64, '#1d1530', sw=0, shadow=False); text(c, "COUPON", 90, 70, 54, '#e8413b', sw=0, shadow=False)
         c.restore()
@@ -257,15 +329,42 @@ def popup(c, kind, u, t, talk=0.0):
 
 # ------------------------------------------------------------------ HUD, title, captions, poll
 def hud(c, days, bank, mom, ep=1):
-    c.drawRoundRect(skia.Rect(16, 150, W - 16, 320), 26, 26, fill('#120c26', 0.92)); c.drawRoundRect(skia.Rect(16, 150, W - 16, 320), 26, 26, stroke('#2e2358', 4))
-    text(c, "DAYS LEFT", 108, 200, 28, '#ffffff', sw=0, shadow=False, key='corpo_b')
-    text(c, str(days), 108, 290, 80, '#ffd60a', sw=0, shadow=False)
-    c.drawLine(206, 172, 206, 300, stroke('#2e2358', 4))
-    text(c, f"BANK  ${bank:,.2f}", 236, 205, 30, '#ffffff', sw=0, shadow=False, align='left', key='corpo_b'); text(c, "GOAL $1,000,000", W - 40, 205, 26, '#9a90c0', sw=0, shadow=False, align='right', key='corpo_b')
-    c.drawRoundRect(skia.Rect(236, 220, W - 40, 236), 8, 8, fill('#2e2358')); c.drawRoundRect(skia.Rect(236, 220, 236 + max(10, (W - 276) * bank / 1e6), 236), 8, 8, fill('#34c759'))
-    text(c, f"MOM'S PATIENCE ♥ {int(round(mom))}%", 236, 280, 30, '#ffffff', sw=0, shadow=False, align='left', key='corpo_b')
-    c.drawRoundRect(skia.Rect(236, 294, W - 40, 310), 8, 8, fill('#2e2358')); c.drawRoundRect(skia.Rect(236, 294, 236 + (W - 276) * mom / 100, 310), 8, 8, fill('#ff5fb0'))
-    c.save(); c.rotate(4, W - 90, 375); c.drawRoundRect(skia.Rect(W - 150, 345, W - 30, 405), 12, 12, fill('#e8413b')); text(c, f"EP {ep}", W - 90, 393, 44, '#ffffff', sw=0, shadow=False); c.restore()
+    """a tear-off calendar, a crumpled receipt with the wallet, a battery for Mom's patience, a coin for the episode"""
+    # calendar page
+    c.save(); c.rotate(-4, 120, 240)
+    c.drawRoundRect(skia.Rect(34, 160, 214, 330), 14, 14, fill('#000000', 0.3)); c.drawRoundRect(skia.Rect(26, 150, 206, 320), 14, 14, fill('#fbf8ef'))
+    c.drawRoundRect(skia.Rect(26, 150, 206, 200), 14, 14, fill('#e8413b')); c.drawRect(skia.Rect(26, 186, 206, 200), fill('#e8413b'))
+    c.drawRoundRect(skia.Rect(26, 150, 206, 320), 14, 14, stroke(OUT, 5))
+    for x in (66, 116, 166): c.drawCircle(x, 152, 9, fill('#cfcfcf')); c.drawCircle(x, 152, 9, stroke(OUT, 3))
+    text(c, "DAYS LEFT", 116, 188, 24, '#ffffff', sw=0, shadow=False, key='corpo_b')
+    text(c, str(days), 116, 296, 92, '#1d1530', sw=0, shadow=False)
+    c.restore()
+    # receipt (zig-zag bottom edge)
+    x0, y0, x1, y1 = 236, 156, 760, 318
+    p = skia.Path(); p.moveTo(x0, y0); p.lineTo(x1, y0); p.lineTo(x1, y1)
+    n = 18
+    for k in range(n + 1): p.lineTo(x1 - (x1 - x0) * k / n, y1 + (12 if k % 2 else 0))
+    p.close()
+    c.save(); c.rotate(1.5, 500, 240)
+    c.drawPath(p, fill('#000000', 0.25)); c.translate(-6, -6); c.drawPath(p, fill('#f3eee0')); c.drawPath(p, stroke(OUT, 4))
+    for yy in (196, 262): c.drawLine(x0 + 18, yy, x1 - 18, yy, stroke('#b8b0a0', 3))
+    text(c, "WALLET", x0 + 22, 188, 30, '#2a2340', sw=0, shadow=False, align='left', key='mono_b')
+    text(c, f"${bank:,.2f}", x1 - 22, 188, 34, '#1f9e4f' if bank >= 1 else '#e8413b', sw=0, shadow=False, align='right', key='mono_b')
+    text(c, "GOAL", x0 + 22, 246, 26, '#6a6478', sw=0, shadow=False, align='left', key='mono_b'); text(c, "$1,000,000", x1 - 22, 246, 26, '#6a6478', sw=0, shadow=False, align='right', key='mono_b')
+    nb = 20; filled = max(1, int(round(nb * bank / 1e6)))
+    for k in range(nb):
+        c.drawRect(skia.Rect(x0 + 22 + k * 24, 278, x0 + 40 + k * 24, 300), fill('#1f9e4f' if k < filled else '#d6cfbf'))
+    c.restore()
+    # battery: Mom's patience
+    bx0, by0, bx1, by1 = 790, 176, 1010, 266
+    c.drawRoundRect(skia.Rect(bx0, by0, bx1, by1), 16, 16, fill('#1d1530')); c.drawRoundRect(skia.Rect(bx1, by0 + 26, bx1 + 22, by1 - 26), 6, 6, fill('#1d1530'))
+    cc = '#34c759' if mom > 50 else ('#ffb020' if mom > 25 else '#ff3b30')
+    c.drawRoundRect(skia.Rect(bx0 + 10, by0 + 10, bx0 + 10 + (bx1 - bx0 - 20) * mom / 100, by1 - 10), 8, 8, fill(cc))
+    text(c, f"{int(round(mom))}%", (bx0 + bx1) / 2, by1 - 26, 40, '#ffffff', sw=8, strokec='#1d1530', shadow=False)
+    text(c, "MOM'S PATIENCE", (bx0 + bx1) / 2 + 10, by1 + 40, 26, '#ffffff', sw=6, strokec='#1d1530', shadow=False, key='corpo_b')
+    # episode coin
+    c.drawCircle(W - 80, 372, 50, fill('#000000', 0.3)); c.drawCircle(W - 86, 366, 50, fill('#ffd60a')); c.drawCircle(W - 86, 366, 50, stroke(OUT, 5)); c.drawCircle(W - 86, 366, 38, stroke('#e0a800', 4))
+    text(c, f"EP{ep}", W - 86, 382, 40, '#1d1530', sw=0, shadow=False)
 
 
 def title(c, u, a=1.0):
@@ -283,7 +382,7 @@ def caption(c, word, age, y=1470):
 
 
 def poll(c, t, u, insane_u=None):
-    text(c, "COMMENT ONE WORD", 540, 470, 66, '#ffffff', sw=12)
+    text(c, "COMMENT ONE WORD", 540, 470, 66, '#ffffff', sw=12)  # over the sign halves
     for x, lab in ((270, "LEMONADE"), (810, "CRYPTO")): text(c, lab, x, 610, 96 if lab == "CRYPTO" else 86, '#ffffff', sw=14)
     c.drawCircle(540, 1000, 80, fill('#ffffff')); c.drawCircle(540, 1000, 80, stroke(OUT, 7)); text(c, "VS", 540, 1028, 76, '#1d1530', sw=0, shadow=False)
     sticker(c, "MOST LIKED WINS", 540, 780, '#ffffff', -3, 1.0, eob((u - 0.6) / 0.3), 48)
