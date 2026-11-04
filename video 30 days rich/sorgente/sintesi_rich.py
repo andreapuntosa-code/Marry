@@ -8,7 +8,7 @@ MODELS = os.environ.get("MODELS_DIR", "/tmp/claude-0/-home-user-Marry/e61fd834-a
 EPN = int(os.environ.get("EP", "1"))
 OUT = os.environ.get("VOICE_DIR", "/tmp/claude-0/-home-user-Marry/e61fd834-a8c5-5cc5-8204-6c637a41951f/scratchpad/voice_rich" + ("" if EPN == 1 else str(EPN)))
 SR = 24000
-VOICES = {"narr": ("am_puck", 1.14, 1.0), "kevin": ("am_echo", 1.12, 1.12), "mom": ("af_sarah", 1.02, 1.0)}   # voice, tempo, pitch
+VOICES = {"narr": ("am_puck", 1.14, 1.0), "kevin": ("am_echo", 1.12, 1.12), "mom": ("af_sarah", 1.02, 1.0), "lily": ("af_bella", 1.05, 1.22)}   # voice, tempo, pitch
 
 
 def trim(x, sr, thr_db=-50, pad_start=0.02, pad_end=0.06):

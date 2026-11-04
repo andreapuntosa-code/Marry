@@ -280,6 +280,7 @@ def bg_poll(c, t, segs, n18):
 # ------------------------------------------------------------------ popups (screen space)
 def popup(c, kind, u, t, talk=0.0):
     if kind in ('voted', 'lemons', 'price', 'price_drop', 'rival', 'rival2'): return popup_ep2(c, kind, u, t)
+    if kind in EP3_POPS: return popup_ep3(c, kind, u, t, talk)
     a = clamp(u / 0.12); k = eob(u / 0.35)
     if kind in ('mom', 'mom_talk'):
         c.save(); c.translate(540, 820); c.rotate(-4 + math.sin(t * 2) * 1.5); c.scale(k, k)
@@ -428,6 +429,8 @@ def poll_prop(c, prop, x, y, t):
         c.drawRoundRect(skia.Rect(-80, -140, 80, 140), 26, 26, fill('#1d1530')); c.drawRoundRect(skia.Rect(-66, -120, 66, 120), 16, 16, fill('#ff2d6a'))
         tri = skia.Path(); tri.moveTo(-22, -36); tri.lineTo(36, 0); tri.lineTo(-22, 36); tri.close(); c.drawPath(tri, fill('#ffffff'))
         for k in range(3): c.drawCircle(-30 + k * 30, 90, 8, fill('#ffffff', 0.8))
+    elif prop == 'shirt':
+        tshirt(c, 0, 0, 1.0); tshirt(c, 60, 30, 0.7, '#ff9ec7')
     elif prop == 'kid':
         draw_kid(c, -30, 150, 0.55, t); lemon(c, 80, 40, 34, -12)
     c.restore()
@@ -439,7 +442,10 @@ def popup_ep2(c, kind, u, t):
         c.save(); c.translate(540, 820); c.rotate(-3); c.scale(k, k)
         c.drawRoundRect(skia.Rect(-370, -230, 390, 250), 40, 40, fill('#000000', 0.3)); c.drawRoundRect(skia.Rect(-380, -240, 380, 240), 40, 40, fill('#ffffff')); c.drawRoundRect(skia.Rect(-380, -240, 380, 240), 40, 40, stroke(OUT, 7))
         text(c, "YOU VOTED", 0, -150, 58, '#7a7a88', sw=0, shadow=False)
-        text(c, "LEMONADE", -40, 0, 104, '#1d1530', sw=0, shadow=False); lemon(c, 300, -30, 46, -15)
+        vw, vi = getattr(SC, "VOTED", ("LEMONADE", "lemon"))
+        text(c, vw, -40, 0, 104 if len(vw) > 7 else 120, '#1d1530', sw=0, shadow=False)
+        if vi == "lemon": lemon(c, 300, -30, 46, -15)
+        else: draw_kid(c, 290, 40, 0.3, t)
         c.drawRoundRect(skia.Rect(-300, 70, 300, 180), 30, 30, fill('#ffd60a')); c.drawRoundRect(skia.Rect(-300, 70, 300, 180), 30, 30, stroke(OUT, 6))
         text(c, "WINNER!", 0, 152, 72, '#1d1530', sw=0, shadow=False)
         c.restore()
@@ -500,6 +506,112 @@ def popup_ep2(c, kind, u, t):
         c.restore()
         if kind == 'rival2':
             sticker(c, "LINE AROUND THE BLOCK", 540, 1360, '#ffd60a', -4, a, eob((u - 0.9) / 0.3), 46)
+
+
+# ------------------------------------------------------------------ EP3: Lily's stand, the sign guy, the money
+def lily_stand(c, x, y, s, t, talk=0.0):
+    """Lily's tidy stand: striped awning, real sign, Lily behind the counter; (x, y) = bottom centre"""
+    c.save(); c.translate(x, y); c.scale(s, s)
+    for dx in (-150, 136): c.drawRect(skia.Rect(dx, -560, dx + 14, 0), fill('#ffffff')); c.drawRect(skia.Rect(dx, -560, dx + 14, 0), stroke(OUT, 4))
+    for j in range(7): c.drawRect(skia.Rect(-170 + j * 48, -620, -122 + j * 48, -540), fill('#ff5f7a' if j % 2 == 0 else '#ffffff'))
+    c.drawRect(skia.Rect(-170, -620, 166, -540), stroke(OUT, 6))
+    draw_kid(c, 0, -120, 0.75, t, talk)
+    c.drawRect(skia.Rect(-180, -260, 176, 0), fill('#fff27a')); c.drawRect(skia.Rect(-180, -260, 176, 0), stroke(OUT, 6))
+    text(c, "LILY'S", 0, -170, 56, '#ff5f7a', sw=0, shadow=False); text(c, "LEMONADE", 0, -100, 56, '#1d1530', sw=0, shadow=False)
+    text(c, "$1", 0, -30, 50, '#1f9e4f', sw=0, shadow=False)
+    c.restore()
+
+
+def fg_lily(c, t, dance, sign=True):
+    lily_stand(c, 150, 1800, 0.85, t, 0.5 + 0.5 * math.sin(t * 7))
+    if not sign: return
+    # the big sign Kevin holds over his head
+    w = math.sin(t * (9 if dance else 3)) * (14 if dance else 4)
+    c.save(); c.translate(540 + (math.sin(t * 4.5) * 30 if dance else 0), 600); c.rotate(w)
+    c.drawRect(skia.Rect(-12, 0, 12, 120), fill('#8a5a34'))
+    c.drawRoundRect(skia.Rect(-280, -110, 280, 40), 16, 16, fill('#ffd60a')); c.drawRoundRect(skia.Rect(-280, -110, 280, 40), 16, 16, stroke(OUT, 7))
+    text(c, "LEMONADE $1", -30, -14, 62, '#1d1530', sw=0, shadow=False)
+    p = skia.Path(); p.moveTo(212, -62); p.lineTo(262, -35); p.lineTo(212, -8); p.close(); c.drawPath(p, fill('#e8413b'))
+    c.restore()
+
+
+def tshirt(c, x, y, s, colr='#5be1ff'):
+    c.save(); c.translate(x, y); c.scale(s, s)
+    p = skia.Path(); p.moveTo(-40, -100); p.lineTo(-110, -60); p.lineTo(-80, 0); p.lineTo(-60, -20); p.lineTo(-60, 100); p.lineTo(60, 100); p.lineTo(60, -20)
+    p.lineTo(80, 0); p.lineTo(110, -60); p.lineTo(40, -100); p.quadTo(0, -60, -40, -100); p.close(); shape(c, p, colr, 7)
+    c.drawRoundRect(skia.Rect(-30, 10, 30, 60), 6, 6, fill('#ffffff')); text(c, "$2", 0, 50, 34, '#e8413b', sw=0, shadow=False)
+    c.restore()
+
+
+def jar(c, x, y, s, level):
+    c.save(); c.translate(x, y); c.scale(s, s)
+    c.save(); c.clipRect(skia.Rect(-150, 180 - 340 * level, 150, 200))
+    for k in range(60):
+        cx_, cy_ = -110 + (k * 53) % 220, 170 - (k // 6) * 34
+        c.drawCircle(cx_, cy_, 26, fill('#ffd60a' if k % 3 else '#34c759')); c.drawCircle(cx_, cy_, 26, stroke('#c89a00', 4))
+    c.restore()
+    c.drawRoundRect(skia.Rect(-150, -170, 150, 200), 50, 50, fill('#bfe6ff', 0.35)); c.drawRoundRect(skia.Rect(-150, -170, 150, 200), 50, 50, stroke(OUT, 7))
+    c.drawRoundRect(skia.Rect(-110, -210, 110, -160), 12, 12, fill('#8a5a34')); c.drawRoundRect(skia.Rect(-110, -210, 110, -160), 12, 12, stroke(OUT, 6))
+    c.drawRoundRect(skia.Rect(-120, -120, -90, 120), 12, 12, fill('#ffffff', 0.4))
+    c.restore()
+
+
+def popup_ep3(c, kind, u, t, talk=0.0):
+    a = clamp(u / 0.12); k = eob(u / 0.35)
+    if kind == 'lily_talk':
+        c.save(); c.translate(540, 820); c.rotate(4 + math.sin(t * 2) * 1.5); c.scale(k, k)
+        c.drawRect(skia.Rect(-300, -360, 300, 390), fill('#000000', 0.3)); c.drawRect(skia.Rect(-310, -380, 310, 380), fill('#ffffff')); c.drawRect(skia.Rect(-310, -380, 310, 380), stroke(OUT, 6))
+        c.drawRect(skia.Rect(-270, -340, 270, 250), fill('#bfe6ff'))
+        c.save(); c.clipRect(skia.Rect(-270, -340, 270, 250)); draw_kid(c, 0, 520, 1.4, t, talk); c.restore()
+        text(c, "LILY, 7", 0, 340, 64, '#ff5f7a', sw=0, shadow=False); text(c, "CEO", 200, -280, 44, '#1d1530', sw=0, shadow=False)
+        c.restore()
+    elif kind == 'line':
+        c.save(); c.translate(540, 860); c.rotate(-2); c.scale(k, k)
+        c.drawRect(skia.Rect(-400, -440, 420, 460), fill('#000000', 0.3)); c.drawRect(skia.Rect(-410, -450, 410, 450), fill('#ffffff')); c.drawRect(skia.Rect(-410, -450, 410, 450), stroke(OUT, 7))
+        c.save(); c.clipRect(skia.Rect(-380, -420, 380, 330))
+        c.drawRect(skia.Rect(-380, -420, 380, 330), fill('#ffc98a')); c.drawRect(skia.Rect(-380, 160, 380, 330), fill('#c8c4bc'))
+        for j in range(3):   # cars stopping
+            cx_ = -300 + j * 230 - 260 * max(0, 1 - u / (0.6 + 0.3 * j))
+            c.drawRoundRect(skia.Rect(cx_ - 90, -40, cx_ + 90, 40), 24, 24, fill(['#0a84ff', '#ff3b30', '#af52de'][j])); c.drawRoundRect(skia.Rect(cx_ - 90, -40, cx_ + 90, 40), 24, 24, stroke(OUT, 5))
+            c.drawRoundRect(skia.Rect(cx_ - 50, -80, cx_ + 50, -36), 16, 16, fill('#bfe6ff')); c.drawRoundRect(skia.Rect(cx_ - 50, -80, cx_ + 50, -36), 16, 16, stroke(OUT, 4))
+            for dx in (-50, 50): c.drawCircle(cx_ + dx, 42, 22, fill(OUT))
+        n = 4 + int(clamp(u / 1.8) * 8)
+        cols = ['#0a84ff', '#ff9500', '#34c759', '#af52de', '#ff3b30', '#5be1ff', '#ffd60a', '#ff7ab6', '#8a5a34', '#1d1530', '#e8413b', '#34c759']
+        for j in range(n): person(c, -330 + j * 62, 300 - (j % 2) * 10, 0.62, cols[j], t, j)
+        c.restore()
+        text(c, "BUSINESS IS BOOMING", 0, 400, 50, '#1d1530', sw=0, shadow=False)
+        c.restore()
+    elif kind == 'jar':
+        c.save(); c.translate(540, 840); c.scale(k, k); jar(c, 0, 0, 1.3, clamp(u / 2.2)); c.restore()
+        cups = int(120 * eio(u / 2.2))
+        sticker(c, f"{cups} CUPS", 540, 520, '#ffffff', -4, a, k, 70)
+    elif kind == 'split':
+        c.save(); c.translate(540, 860); c.scale(k, k)
+        c.drawCircle(10, 14, 300, fill('#000000', 0.3)); c.drawCircle(0, 0, 300, fill('#ff7ab6'))
+        sw_ = 36 * eio((u - 0.2) / 0.5)
+        c.drawArc(skia.Rect(-300, -300, 300, 300), -90, sw_, True, fill('#34c759')); c.drawCircle(0, 0, 300, stroke(OUT, 8))
+        c.drawArc(skia.Rect(-300, -300, 300, 300), -90, sw_, True, stroke(OUT, 6))
+        text(c, "LILY 90%", -20, 60, 84, '#ffffff', sw=12)
+        c.restore()
+        kk = eob((u - 0.6) / 0.3)
+        if kk > 0: sticker(c, "KEVIN 10%", 800, 520, '#34c759', 8, 1.0, kk, 56)
+    elif kind in ('invoice', 'invoice2'):
+        c.save(); c.translate(540, 830); c.rotate(-4); c.scale(k if kind == 'invoice' else 1.0, k if kind == 'invoice' else 1.0)
+        c.drawRect(skia.Rect(-300, -380, 320, 400), fill('#000000', 0.25)); c.drawRect(skia.Rect(-310, -390, 310, 390), fill('#fffdf6')); c.drawRect(skia.Rect(-310, -390, 310, 390), stroke(OUT, 6))
+        for y in range(-260, 380, 56): c.drawLine(-310, y, 310, y, stroke('#9fd0ff', 3))
+        c.drawLine(-230, -390, -230, 390, stroke('#ff9ec7', 4))
+        text(c, "INVOICE", 20, -300, 80, '#ff5f7a', sw=0, shadow=False)
+        text(c, "FOR: KEVIN", -200, -200, 46, '#1d1530', sw=0, shadow=False, align='left')
+        text(c, "COOLER RENT", -200, -90, 46, '#1d1530', sw=0, shadow=False, align='left'); text(c, "$5", 270, -90, 54, '#e8413b', sw=0, shadow=False, align='right')
+        if kind == 'invoice2':
+            ka = clamp((u - 0.2) / 0.25)
+            text(c, "1 LEMONADE", -200, 20, 46, '#1d1530', ka, sw=0, shadow=False, align='left'); text(c, "$2", 270, 20, 54, '#e8413b', ka, sw=0, shadow=False, align='right')
+            text(c, "(EMPLOYEE PRICE)", -200, 76, 30, '#7a7a88', ka, sw=0, shadow=False, align='left')
+        c.drawLine(-200, 150, 270, 150, stroke('#1d1530', 5))
+        text(c, "TOTAL", -200, 230, 56, '#1d1530', sw=0, shadow=False, align='left')
+        text(c, "$7" if kind == 'invoice2' else "$5", 270, 230, 70, '#e8413b', sw=0, shadow=False, align='right')
+        text(c, "THANK YOU ♥ LILY", 20, 330, 38, '#ff5f7a', sw=0, shadow=False)
+        c.restore()
 
 
 # ------------------------------------------------------------------ HUD, title, captions, poll
@@ -582,7 +694,8 @@ def confetti(c, u, seed=3):
 
 
 # ------------------------------------------------------------------ the frame
-SMALL_POP = ("mom", "mom_talk", "coupon", "gauge_up", "gauge_down", "book", "declined", "expired", "voted", "lemons", "price", "price_drop", "rival", "rival2")   # Kevin shrinks to a corner
+EP3_POPS = ("lily_talk", "line", "jar", "split", "invoice", "invoice2")
+SMALL_POP = EP3_POPS + ("mom", "mom_talk", "coupon", "gauge_up", "gauge_down", "book", "declined", "expired", "voted", "lemons", "price", "price_drop", "rival", "rival2")   # Kevin shrinks to a corner
 
 
 class Film:
@@ -590,7 +703,7 @@ class Film:
         self.segs, self.total = timeline()
         self.env = {}
         for s in self.segs:
-            if s["voice"] in ("kevin", "mom"):
+            if s["voice"] in ("kevin", "mom", "lily"):
                 y, sr = load_voice(s["id"]); win = int(sr / 30)
                 e = np.sqrt(np.convolve(y ** 2, np.ones(win) / win, mode="same")); self.env[s["id"]] = (e / (e.max() + 1e-9), sr)
         # persistent state along the film: scene, expression, pose, zoom, hud
@@ -633,21 +746,22 @@ class Film:
             bg_poll(c, t, self.segs, None)
         else:
             c.translate(540 + sh, 1060); c.scale(z, z); c.translate(-540, -fy)
-            {"basement": lambda: bg_basement(c, t), "night": lambda: bg_basement(c, t, True), "kitchen": lambda: bg_kitchen(c, t), "store": lambda: bg_store(c, t), "street": lambda: bg_street(c, t)}[scene]()
+            {"basement": lambda: bg_basement(c, t), "night": lambda: bg_basement(c, t, True), "kitchen": lambda: bg_kitchen(c, t), "store": lambda: bg_store(c, t), "street": lambda: bg_street(c, t), "lilystand": lambda: bg_street(c, t)}[scene]()
             look = (0.4 * math.sin(t * 0.7), 0.0) if not talker else (0, 0.2)
             small = s["cue"].get("popup") in SMALL_POP
             if not small:
                 KV.draw_kevin(c, 540, 1780, 1.08, st["expr"], st["pose"], t, talk, look, blink)
             if scene == "street": fg_stand(c, t, st["price"])
+            if scene == "lilystand": fg_lily(c, t, cue.get("dance"), sign=not small and z < 1.15)
             if cue.get("tumble"): tumbleweed(c, u)
         c.restore()
         if scene not in ("phone", "poll"):
             if s["cue"].get("popup") in SMALL_POP:
-                KV.draw_kevin(c, 950 if scene == "street" else 880, 1860, 0.42, st["expr"], st["pose"], t, 0, (-0.6, 0), blink)
+                KV.draw_kevin(c, 950 if scene in ("street", "lilystand") else 880, 1860, 0.42, st["expr"], st["pose"], t, 0, (-0.6, 0), blink)
         # popups
         pk = cue.get("popup")
         if pk and scene != "phone":
-            popup(c, pk, u, t, self.talk(s, t) if s["voice"] == "mom" else 0.0)
+            popup(c, pk, u, t, self.talk(s, t) if s["voice"] in ("mom", "lily") else 0.0)
         if scene == "poll":
             first_poll = next(x for x in self.segs if x["state"]["scene"] == "poll")
             ins = next((x for x in self.segs if x["cue"].get("insane")), None)
@@ -665,7 +779,7 @@ class Film:
         if s["start"] <= t < s["end"] + 0.15:
             cur = max([j for j, (_, wt) in enumerate(s["words"]) if u >= wt - 0.02] or [0])
             wd = re.sub(r"[^\w$'.,!?/-]", "", s["words"][cur][0]).strip(",.!?").upper()
-            if wd: caption(c, wd, u - s["words"][cur][1], {"poll": 1560, "phone": 1790, "street": 1840}.get(scene, 1500))
+            if wd: caption(c, wd, u - s["words"][cur][1], {"poll": 1560, "phone": 1790, "street": 1840, "lilystand": 1840}.get(scene, 1500))
         # scene-change whip
         if i > 0 and scene != prev["scene"] and u < 0.12:
             a2 = arr[..., :3].copy(); kx = int(60 * (1 - u / 0.12)) * 2 + 1
@@ -705,8 +819,11 @@ def build_audio(film):
         prev_scene = st["scene"]
         for (_, wi, *_r) in cue.get("stickers", []): add(s["start"] + s["words"][min(wi, len(s["words"]) - 1)][1], pop(), 0.35)
         pk = cue.get("popup")
-        if pk in ("coupon", "mom", "book", "listing", "offer", "gauge_up", "voted", "lemons", "price", "rival"): add(s["start"], pop(500, 1200, 0.1), 0.45)
+        if pk in ("coupon", "mom", "book", "listing", "offer", "gauge_up", "voted", "lemons", "price", "rival", "lily_talk", "line", "split", "invoice"): add(s["start"], pop(500, 1200, 0.1), 0.45)
         if pk == "price_drop": add(s["start"] + 0.1, scratch(), 0.45); add(s["start"] + 0.35, FX.boom_low(0.4), 0.35)
+        if pk == "jar":
+            for j in range(10): add(s["start"] + 0.2 + j * 0.2, pop(1800, 2600, 0.05), 0.25)
+        if pk == "invoice2": add(s["start"] + 0.2, pop(400, 300, 0.12), 0.4)
         if cue.get("tumble"): add(s["start"], FX.whoosh(1.6, 0.5, True), 0.3)
         if pk == "gauge_up": add(s["start"] + 0.3, FX.whoosh(0.6, 0.8, True), 0.4)
         if pk == "gauge_down": add(s["start"] + 0.3, FX.whoosh(0.8, 0.8, False), 0.45)

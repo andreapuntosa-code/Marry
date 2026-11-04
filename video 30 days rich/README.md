@@ -13,6 +13,10 @@ diventare ricco o lavorare al Burger Barn. Tono comico leggero.
   della pizza, prezzo $50 a bicchiere, zero clienti, una bambina di 7 anni apre il banco di fronte a $1, unico cliente:
   la mamma (che scala $1 dal debito → IOU $19).
   Finale: **COMMENT ONE WORD: TIKTOK vs PARTNER** (PARTNER = si allea con la bambina).
+- `30_days_to_get_rich_ep3.mp4` — EP3 (vinto PARTNER), 52 s. Kevin propone 50/50 a Lily (7 anni), lei risponde 90/10
+  e gli fa portare il frigo portatile. Kevin fa l'uomo-cartello, vendono 120 bicchieri: il suo 10% è $12, meno la fattura
+  di Lily (noleggio frigo $5, una limonata "prezzo dipendenti" $2) = $5, i primi soldi veri. Mamma: "almost proud".
+  Finale: **COMMENT ONE WORD: STOCKS vs THRIFT**.
 
 HUD: DAYS LEFT · BANK (obiettivo $1.000.000) · MOM'S PATIENCE ♥ (scende a ogni episodio).
 
@@ -25,4 +29,8 @@ HUD: DAYS LEFT · BANK (obiettivo $1.000.000) · MOM'S PATIENCE ♥ (scende a og
 #30days #getrich #lemonade #storytime #animation #cartoon #shorts #series
 
 Ricostruire: `cd sorgente && python3 sintesi_rich.py && python3 rich.py` (testi e regia in `script_rich.py`, personaggi in `kevin.py`).
-EP2: `EP=2 python3 sintesi_rich.py && EP=2 python3 rich.py` (testi in `script_rich_ep2.py`).
+**EP3 — Titolo**: I partnered with a 7-year-old 🤝🍋 (Day 3/30) #shorts
+**Descrizione**: Day 3 of 30. You voted PARTNER… Lily took 90%. Kevin finally made $5. Comment STOCKS or THRIFT — the most liked comment decides Day 4 👇
+#30days #getrich #lemonade #storytime #animation #cartoon #shorts #series
+
+EP2/EP3: `EP=2 python3 sintesi_rich.py && EP=2 python3 rich.py` (testi in `script_rich_ep2.py`, `script_rich_ep3.py`; con EP=3 per il terzo).
