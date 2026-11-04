@@ -14,15 +14,17 @@ import soundfile as sf
 from scipy import signal
 
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
-import script_rich as SC
+import importlib
+EPN = int(os.environ.get("EP", "1"))
+SC = importlib.import_module("script_rich" if EPN == 1 else f"script_rich_ep{EPN}")
 import kevin as KV
 from kevin import fill, stroke, shape, oval, rrect, col, OUT
 import overlays as OV
 
 S_DIR = os.environ.get("SCRATCH", "/tmp/claude-0/-home-user-Marry/e61fd834-a8c5-5cc5-8204-6c637a41951f/scratchpad")
-VOICE = os.path.join(S_DIR, "voice_rich")
+VOICE = os.path.join(S_DIR, "voice_rich" if EPN == 1 else f"voice_rich{EPN}")
 W, H, FPS, SR = 1080, 1920, 30, 48000
-OUTF = os.path.join(os.path.dirname(HERE), "30_days_to_get_rich_ep1.mp4")
+OUTF = os.path.join(os.path.dirname(HERE), f"30_days_to_get_rich_ep{EPN}.mp4")
 LEAD, TAIL = 0.2, 0.0
 
 
@@ -277,6 +279,7 @@ def bg_poll(c, t, segs, n18):
 
 # ------------------------------------------------------------------ popups (screen space)
 def popup(c, kind, u, t, talk=0.0):
+    if kind in ('voted', 'lemons', 'price', 'price_drop', 'rival', 'rival2'): return popup_ep2(c, kind, u, t)
     a = clamp(u / 0.12); k = eob(u / 0.35)
     if kind in ('mom', 'mom_talk'):
         c.save(); c.translate(540, 820); c.rotate(-4 + math.sin(t * 2) * 1.5); c.scale(k, k)
@@ -327,6 +330,178 @@ def popup(c, kind, u, t, talk=0.0):
         text(c, "DECLINED", 0, 40, 110, '#e8413b', kk, sw=0, shadow=False); c.restore()
 
 
+# ------------------------------------------------------------------ EP2: the street, the stand, lemons, the kid
+def lemon(c, x, y, r, rot=0.0):
+    c.save(); c.translate(x, y); c.rotate(rot)
+    p = skia.Path(); p.moveTo(-r * 1.25, 0); p.cubicTo(-r, -r * 0.95, r, -r * 0.95, r * 1.25, 0); p.cubicTo(r, r * 0.95, -r, r * 0.95, -r * 1.25, 0); p.close()
+    shape(c, p, '#ffd93a', max(3, r * 0.09)); c.drawOval(skia.Rect(-r * 0.6, -r * 0.55, -r * 0.05, -r * 0.25), fill('#ffffff', 0.5))
+    c.drawLine(r * 1.15, -r * 0.05, r * 1.4, -r * 0.25, stroke('#3a7a2a', max(3, r * 0.12))); c.restore()
+
+
+def draw_kid(c, x, y, s, t, talk=0.0):
+    """Lily, seven: pigtails, a pink dress; (x, y) = feet"""
+    c.save(); c.translate(x, y + math.sin(t * 5) * 3 * s); c.scale(s, s)
+    for dx in (-26, 26): c.drawRoundRect(skia.Rect(dx - 12, -120, dx + 12, 0), 10, 10, fill('#f2c39a')); c.drawRoundRect(skia.Rect(dx - 12, -120, dx + 12, 0), 10, 10, stroke(OUT, 5))
+    d = skia.Path(); d.moveTo(-50, -300); d.lineTo(50, -300); d.lineTo(90, -100); d.lineTo(-90, -100); d.close(); shape(c, d, '#ff7ab6', 6)
+    for sd in (-1, 1):
+        a = math.sin(t * 6 + sd) * 12
+        c.save(); c.translate(sd * 46, -280); c.rotate(sd * (150 + a)); c.drawRoundRect(skia.Rect(-11, 0, 11, 100), 10, 10, fill('#f2c39a')); c.drawRoundRect(skia.Rect(-11, 0, 11, 100), 10, 10, stroke(OUT, 5)); c.restore()
+    for sd in (-1, 1): c.drawCircle(sd * 92, -400, 34, fill('#7a4a24')); c.drawCircle(sd * 92, -400, 34, stroke(OUT, 5))
+    c.drawCircle(0, -390, 84, fill('#f2c39a')); c.drawCircle(0, -390, 84, stroke(OUT, 6))
+    hp = skia.Path(); hp.moveTo(-86, -390); hp.cubicTo(-86, -500, 86, -500, 86, -390); hp.cubicTo(40, -440, -40, -440, -86, -390); hp.close(); shape(c, hp, '#7a4a24', 5)
+    for sd in (-1, 1): c.drawCircle(sd * 30, -390, 11, fill(OUT)); c.drawCircle(sd * 30 + 4, -394, 4, fill('#ffffff')); c.drawCircle(sd * 50, -362, 12, fill('#ff7a7a', 0.5))
+    m = skia.Path(); m.moveTo(-26, -350); m.quadTo(0, -322 - 10 * talk, 26, -350); c.drawPath(m, stroke(OUT, 6))
+    c.restore()
+
+
+def person(c, x, y, s, colr, t, ph=0.0):
+    """a simple customer in the queue"""
+    b = math.sin(t * 4 + ph) * 3
+    c.drawRoundRect(skia.Rect(x - 30 * s, y - 150 * s + b, x + 30 * s, y), 26 * s, 26 * s, fill(colr)); c.drawRoundRect(skia.Rect(x - 30 * s, y - 150 * s + b, x + 30 * s, y), 26 * s, 26 * s, stroke(OUT, 4))
+    c.drawCircle(x, y - 182 * s + b, 34 * s, fill('#f2c39a' if int(ph * 3) % 2 else '#b9805a')); c.drawCircle(x, y - 182 * s + b, 34 * s, stroke(OUT, 4))
+
+
+def bg_street(c, t):
+    g = skia.Paint(AntiAlias=True); g.setShader(skia.GradientShader.MakeLinear([skia.Point(0, -400), skia.Point(0, 1200)], [col('#7cc8f0'), col('#d8f0ff')]))
+    c.drawRect(skia.Rect(-400, -400, W + 400, 1560), g)
+    c.drawCircle(880, 520, 90, fill('#fff3a0')); c.drawCircle(880, 520, 90, stroke('#f0c040', 6))
+    for (x, y, k) in [(160, 560, 1.0), (620, 460, 0.8)]:
+        for dx, r in ((-50, 40), (0, 56), (50, 42)): c.drawCircle(x + dx * k + 20 * math.sin(t * 0.2), y, r * k, fill('#ffffff'))
+    # Mom's house: tired siding, a crooked gutter, the basement window at ground level
+    c.drawRect(skia.Rect(-400, 640, 720, 1500), fill('#c9b98f')); c.drawRect(skia.Rect(-400, 640, 720, 1500), stroke(OUT, 7))
+    for y in range(680, 1500, 46): c.drawLine(-400, y, 720, y, stroke('#a8986e', 4))
+    p = skia.Path(); p.moveTo(-440, 660); p.lineTo(160, 420); p.lineTo(760, 660); p.close(); shape(c, p, '#8a4a3a', 7)
+    c.save(); c.rotate(-3, 160, 640); c.drawRect(skia.Rect(-400, 640, 740, 662), fill('#7a7a80')); c.restore()
+    c.drawRect(skia.Rect(40, 760, 300, 980), fill('#ffe9a8')); c.drawRect(skia.Rect(40, 760, 300, 980), stroke(OUT, 7)); c.drawLine(170, 760, 170, 980, stroke(OUT, 5))
+    c.drawRect(skia.Rect(440, 1060, 700, 1500), fill('#6a4a8a')); c.drawRect(skia.Rect(440, 1060, 700, 1500), stroke(OUT, 7)); c.drawCircle(660, 1290, 12, fill('#ffd60a'))
+    for (x, y, rx, ry, sd) in [(120, 1150, 90, 60, 71), (600, 800, 60, 90, 72)]: _blot(c, x, y, rx, ry, '#5a4a20', 0.3, sd)
+    # the neighbour's fence and a sad lawn
+    for x in range(720, W + 400, 54):
+        c.drawRect(skia.Rect(x, 1200, x + 40, 1500), fill('#f0ead8')); c.drawRect(skia.Rect(x, 1200, x + 40, 1500), stroke(OUT, 4))
+    c.drawRect(skia.Rect(-400, 1480, W + 400, 1560), fill('#a6b05a'))
+    for i in range(40): c.drawLine(-380 + i * 40, 1560, -372 + i * 40, 1500 + (i * 37) % 30, stroke('#7f8a3a', 4))
+    # sidewalk: cracks, gum, a sticky soda splash
+    c.drawRect(skia.Rect(-400, 1560, W + 400, H + 400), fill('#b4b0a8'))
+    for x in range(-400, W + 400, 240): c.drawLine(x, 1560, x - 60, H + 400, stroke('#8f8b83', 5))
+    for i in range(16): c.drawCircle(60 + (i * 131) % 980, 1620 + (i * 71) % 320, 9, fill('#6a6a72', 0.8))
+    _blot(c, 900, 1880, 130, 34, '#c0a020', 0.5, 73)
+
+
+def fg_stand(c, t, price):
+    """the stand: stacked pizza boxes, a pitcher, cups, the price tag (drawn in front of Kevin)"""
+    for i in range(4):
+        y0 = 1470 + i * 86; x0 = 250 + (i % 2) * 12
+        c.drawRect(skia.Rect(x0, y0, x0 + 580, y0 + 86), fill('#e2c08a')); c.drawRect(skia.Rect(x0, y0, x0 + 580, y0 + 86), stroke(OUT, 6))
+        _blot(c, x0 + 120 + i * 90, y0 + 40, 30, 12, '#8a5a20', 0.45, 80 + i)
+    text(c, "PIZZA", 380, 1720, 36, '#e8413b', sw=0, shadow=False)
+    c.save(); c.rotate(-4, 540, 1560); c.drawRect(skia.Rect(300, 1500, 780, 1610), fill('#fffbe0')); c.drawRect(skia.Rect(300, 1500, 780, 1610), stroke(OUT, 6))
+    text(c, "LEMONADE", 540, 1585, 76, '#e0a800', sw=10, strokec=OUT, shadow=False); c.restore()
+    c.drawRect(skia.Rect(236, 1440, 844, 1478), fill('#c89a5a')); c.drawRect(skia.Rect(236, 1440, 844, 1478), stroke(OUT, 6))
+    # pitcher + cups on the counter
+    pp = skia.Path(); pp.moveTo(290, 1440); pp.lineTo(300, 1300); pp.lineTo(400, 1300); pp.lineTo(410, 1440); pp.close(); shape(c, pp, '#fff27a', 6)
+    c.drawRect(skia.Rect(304, 1300, 396, 1330), fill('#ffffff', 0.6)); lemon(c, 350, 1390, 22, 10)
+    for x in (720, 780):
+        cp = skia.Path(); cp.moveTo(x - 24, 1380); cp.lineTo(x + 24, 1380); cp.lineTo(x + 18, 1440); cp.lineTo(x - 18, 1440); cp.close(); shape(c, cp, '#fff6c0', 5)
+    # hanging price tag
+    c.save(); c.translate(860, 1480); c.rotate(8 + math.sin(t * 2) * 3)
+    c.drawLine(0, -40, 0, 0, stroke(OUT, 4)); c.drawRoundRect(skia.Rect(-80, 0, 80, 100), 14, 14, fill('#ffffff')); c.drawRoundRect(skia.Rect(-80, 0, 80, 100), 14, 14, stroke(OUT, 5))
+    text(c, f"${price}", 0, 72, 60 if price < 10 else 54, '#e8413b' if price > 1 else '#1f9e4f', sw=0, shadow=False); c.restore()
+
+
+def tumbleweed(c, u):
+    x = -200 + u * 700; y = 1640 - abs(math.sin(u * 5)) * 80
+    c.save(); c.translate(x, y); c.rotate(math.degrees(u * 6))
+    for k in range(11): c.drawCircle(math.cos(k * 0.7) * 40, math.sin(k * 1.3) * 40, 66 + (k % 3) * 10, stroke('#5a3a14', 8))
+    c.restore()
+
+
+def poll_prop(c, prop, x, y, t):
+    c.save(); c.translate(x, y)
+    if prop == 'cup':
+        cup = skia.Path(); cup.moveTo(-60, -90); cup.lineTo(60, -90); cup.lineTo(44, 90); cup.lineTo(-44, 90); cup.close(); shape(c, cup, '#fff27a')
+        c.drawLine(20, -90, 50, -170, stroke(OUT, 10)); c.drawCircle(40, -100, 26, fill('#ffd60a'))
+    elif prop == 'chart':
+        c.drawRoundRect(skia.Rect(-110, -100, 110, 100), 16, 16, fill('#1d1530')); pts = [(-90, 60), (-50, 20), (-10, 40), (30, -30), (70, -60), (90, -80)]
+        p = skia.Path(); p.moveTo(*pts[0]); [p.lineTo(*q) for q in pts[1:]]; c.drawPath(p, stroke('#34c759', 10))
+    elif prop == 'phone':
+        c.rotate(-8 + math.sin(t * 2) * 3)
+        c.drawRoundRect(skia.Rect(-80, -140, 80, 140), 26, 26, fill('#1d1530')); c.drawRoundRect(skia.Rect(-66, -120, 66, 120), 16, 16, fill('#ff2d6a'))
+        tri = skia.Path(); tri.moveTo(-22, -36); tri.lineTo(36, 0); tri.lineTo(-22, 36); tri.close(); c.drawPath(tri, fill('#ffffff'))
+        for k in range(3): c.drawCircle(-30 + k * 30, 90, 8, fill('#ffffff', 0.8))
+    elif prop == 'kid':
+        draw_kid(c, -30, 150, 0.55, t); lemon(c, 80, 40, 34, -12)
+    c.restore()
+
+
+def popup_ep2(c, kind, u, t):
+    a = clamp(u / 0.12); k = eob(u / 0.35)
+    if kind == 'voted':
+        c.save(); c.translate(540, 820); c.rotate(-3); c.scale(k, k)
+        c.drawRoundRect(skia.Rect(-370, -230, 390, 250), 40, 40, fill('#000000', 0.3)); c.drawRoundRect(skia.Rect(-380, -240, 380, 240), 40, 40, fill('#ffffff')); c.drawRoundRect(skia.Rect(-380, -240, 380, 240), 40, 40, stroke(OUT, 7))
+        text(c, "YOU VOTED", 0, -150, 58, '#7a7a88', sw=0, shadow=False)
+        text(c, "LEMONADE", -40, 0, 104, '#1d1530', sw=0, shadow=False); lemon(c, 300, -30, 46, -15)
+        c.drawRoundRect(skia.Rect(-300, 70, 300, 180), 30, 30, fill('#ffd60a')); c.drawRoundRect(skia.Rect(-300, 70, 300, 180), 30, 30, stroke(OUT, 6))
+        text(c, "WINNER!", 0, 152, 72, '#1d1530', sw=0, shadow=False)
+        c.restore()
+    elif kind == 'lemons':
+        c.save(); c.translate(480, 800); c.rotate(-5); c.scale(k, k)
+        p = skia.Path(); p.moveTo(-250, -320); p.lineTo(250, -320); p.lineTo(250, 300)
+        for j in range(21): p.lineTo(250 - 500 * j / 20, 300 + (16 if j % 2 else 0))
+        p.close(); c.drawPath(p, fill('#000000', 0.25)); c.translate(-8, -8); c.drawPath(p, fill('#f3eee0')); c.drawPath(p, stroke(OUT, 5))
+        text(c, "FRESH MART", 0, -240, 52, '#1d1530', sw=0, shadow=False, key='mono_b')
+        c.drawLine(-220, -200, 220, -200, stroke('#b8b0a0', 4))
+        text(c, "LEMON x2", -220, -120, 44, '#2a2340', sw=0, shadow=False, align='left', key='mono_b'); text(c, "$3.47", 220, -120, 44, '#2a2340', sw=0, shadow=False, align='right', key='mono_b')
+        text(c, "BAG", -220, -50, 44, '#2a2340', sw=0, shadow=False, align='left', key='mono_b'); text(c, "$0.00", 220, -50, 44, '#2a2340', sw=0, shadow=False, align='right', key='mono_b')
+        c.drawLine(-220, 0, 220, 0, stroke('#b8b0a0', 4))
+        text(c, "TOTAL", -220, 80, 54, '#1d1530', sw=0, shadow=False, align='left', key='mono_b'); text(c, "$3.47", 220, 80, 54, '#e8413b', sw=0, shadow=False, align='right', key='mono_b')
+        text(c, "CHANGE  $0.00", 0, 160, 40, '#6a6478', sw=0, shadow=False, key='mono_b'); text(c, "THANK U :)", 0, 240, 40, '#6a6478', sw=0, shadow=False, key='mono_b')
+        c.restore()
+        for j, (x, y) in enumerate(((800, 1150), (900, 1210))):
+            kk = eob((u - 0.4 - 0.15 * j) / 0.3)
+            if kk > 0: lemon(c, x, y, 60 * kk, -20 + 30 * j)
+    elif kind in ('price', 'price_drop'):
+        c.save(); c.translate(540, 820); c.rotate(4 + math.sin(t * 2) * 1.5); c.scale(k, k)
+        c.drawRect(skia.Rect(-20, 150, 20, 420), fill('#8a5a34')); c.drawRect(skia.Rect(-20, 150, 20, 420), stroke(OUT, 6))
+        c.drawRoundRect(skia.Rect(-320, -220, 320, 200), 20, 20, fill('#c89a5a')); c.drawRoundRect(skia.Rect(-320, -220, 320, 200), 20, 20, stroke(OUT, 7))
+        c.drawRoundRect(skia.Rect(-290, -190, 290, 170), 14, 14, fill('#fffbe0'))
+        text(c, "1 CUP", 0, -110, 60, '#1d1530', sw=0, shadow=False)
+        text(c, "$50", 0, 100, 190, '#e8413b', sw=0, shadow=False)
+        if kind == 'price_drop':
+            kk = clamp((u - 0.15) / 0.2); c.drawLine(-200, 60, -200 + 400 * kk, -10 - 40 * kk, stroke('#1d1530', 22))
+        c.restore()
+        if kind == 'price':
+            sticker(c, "PREMIUM", 800, 560, '#ffd60a', 10, a, eob((u - 0.3) / 0.3), 54)
+        else:
+            kk = eob((u - 0.45) / 0.3)
+            if kk > 0:
+                c.save(); c.translate(780, 1080); c.rotate(-12); c.scale(kk, kk)
+                c.drawCircle(0, 0, 150, fill('#34c759')); c.drawCircle(0, 0, 150, stroke(OUT, 8)); text(c, "$1", 0, 50, 140, '#ffffff', sw=0, shadow=False); c.restore()
+    elif kind in ('rival', 'rival2'):
+        kk = k if kind == 'rival' else 1.0
+        c.save(); c.translate(540, 860); c.rotate(-2); c.scale(kk, kk)
+        c.drawRect(skia.Rect(-400, -440, 420, 460), fill('#000000', 0.3)); c.drawRect(skia.Rect(-410, -450, 410, 450), fill('#ffffff')); c.drawRect(skia.Rect(-410, -450, 410, 450), stroke(OUT, 7))
+        c.save(); c.clipRect(skia.Rect(-380, -420, 380, 330))
+        c.drawRect(skia.Rect(-380, -420, 380, 330), fill('#bfe6ff')); c.drawRect(skia.Rect(-380, 160, 380, 330), fill('#c8c4bc'))
+        # a perfect little stand: striped awning, real sign
+        c.drawRect(skia.Rect(-110, -200, -96, 180), fill('#ffffff')); c.drawRect(skia.Rect(96, -200, 110, 180), fill('#ffffff'))
+        for j in range(6):
+            c.drawRect(skia.Rect(-130 + j * 44, -250, -86 + j * 44, -190), fill('#ff5f7a' if j % 2 == 0 else '#ffffff'))
+        c.drawRect(skia.Rect(-130, -250, 134, -190), stroke(OUT, 5))
+        draw_kid(c, 0, 120, 0.45, t, 0.5 + 0.5 * math.sin(t * 8))
+        c.drawRect(skia.Rect(-130, 40, 134, 180), fill('#fff27a')); c.drawRect(skia.Rect(-130, 40, 134, 180), stroke(OUT, 5))
+        text(c, "LILY'S", 2, 100, 40, '#ff5f7a', sw=0, shadow=False); text(c, "LEMONADE", 2, 150, 40, '#1d1530', sw=0, shadow=False)
+        c.drawCircle(150, -40, 60, fill('#34c759')); c.drawCircle(150, -40, 60, stroke(OUT, 5)); text(c, "$1", 150, -18, 60, '#ffffff', sw=0, shadow=False)
+        n = 4 if kind == 'rival' else 4 + int(clamp(u / 1.6) * 6)
+        cols = ['#0a84ff', '#ff9500', '#34c759', '#af52de', '#ff3b30', '#5be1ff', '#ffd60a', '#ff7ab6', '#8a5a34', '#1d1530']
+        for j in range(n):
+            person(c, 210 + j * 70, 300 - (j % 2) * 8, 0.7, cols[j % len(cols)], t, j)
+        c.restore()
+        text(c, "ACROSS THE STREET", 0, 400, 50, '#1d1530', sw=0, shadow=False)
+        c.restore()
+        if kind == 'rival2':
+            sticker(c, "LINE AROUND THE BLOCK", 540, 1360, '#ffd60a', -4, a, eob((u - 0.9) / 0.3), 46)
+
+
 # ------------------------------------------------------------------ HUD, title, captions, poll
 def hud(c, days, bank, mom, ep=1):
     """a tear-off calendar, a crumpled receipt with the wallet, a battery for Mom's patience, a coin for the episode"""
@@ -371,6 +546,7 @@ def title(c, u, a=1.0):
     k1, k2 = eob(u / 0.35), eob((u - 0.15) / 0.35)
     c.save(); c.translate(540, 560); c.scale(k1, k1); c.rotate(-3); text(c, "30 DAYS", 0, 0, 150, '#ffd60a', a, sw=22); c.restore()
     c.save(); c.translate(540, 680); c.scale(k2, k2); c.rotate(-3); text(c, "TO GET RICH", 0, 0, 104, '#ffffff', a, sw=18); c.restore()
+    if SC.EP > 1: sticker(c, f"EPISODE {SC.EP}", 800, 990, '#ff7ab6', 6, a, eob((u - 0.3) / 0.3), 50)
 
 
 def caption(c, word, age, y=1470):
@@ -383,23 +559,18 @@ def caption(c, word, age, y=1470):
 
 def poll(c, t, u, insane_u=None):
     text(c, "COMMENT ONE WORD", 540, 470, 66, '#ffffff', sw=12)  # over the sign halves
-    for x, lab in ((270, "LEMONADE"), (810, "CRYPTO")): text(c, lab, x, 610, 96 if lab == "CRYPTO" else 86, '#ffffff', sw=14)
+    opts = getattr(SC, "POLL", (("LEMONADE", "cup"), ("CRYPTO", "chart")))
+    for x, (lab, _) in zip((270, 810), opts): text(c, lab, x, 610, min(96, 96 * 6 / max(6, len(lab))), '#ffffff', sw=14)
     c.drawCircle(540, 1000, 80, fill('#ffffff')); c.drawCircle(540, 1000, 80, stroke(OUT, 7)); text(c, "VS", 540, 1028, 76, '#1d1530', sw=0, shadow=False)
     sticker(c, "MOST LIKED WINS", 540, 780, '#ffffff', -3, 1.0, eob((u - 0.6) / 0.3), 48)
-    # props: a lemonade stand cup and a crypto chart
-    c.save(); c.translate(270, 1030)
-    cup = skia.Path(); cup.moveTo(-60, -90); cup.lineTo(60, -90); cup.lineTo(44, 90); cup.lineTo(-44, 90); cup.close(); shape(c, cup, '#fff27a')
-    c.drawLine(20, -90, 50, -170, stroke(OUT, 10)); c.drawCircle(40, -100, 26, fill('#ffd60a')); c.restore()
-    c.save(); c.translate(810, 1030)
-    c.drawRoundRect(skia.Rect(-110, -100, 110, 100), 16, 16, fill('#1d1530')); pts = [(-90, 60), (-50, 20), (-10, 40), (30, -30), (70, -60), (90, -80)]
-    p = skia.Path(); p.moveTo(*pts[0]); [p.lineTo(*q) for q in pts[1:]]; c.drawPath(p, stroke('#34c759', 10)); c.restore()
+    for x, (_, prop) in zip((270, 810), opts): poll_prop(c, prop, x, 1030, t)
     for x, e in ((270, 'excited'), (810, 'greedy')):
         KV.draw_kevin(c, x, 1760, 0.56, e, 'cheer' if x < 540 else 'point', t + x)
     if insane_u is not None and insane_u > 0:
         kk = eob(insane_u / 0.3)
         c.save(); c.translate(540, 1170); c.rotate(-6); c.scale(kk, kk)
         c.drawRoundRect(skia.Rect(-390, -80, 390, 80), 16, 16, fill('#ffffff')); c.drawRoundRect(skia.Rect(-390, -80, 390, 80), 16, 16, stroke('#e8413b', 10))
-        text(c, "DAY 30 IS INSANE", 0, 34, 84, '#e8413b', sw=0, shadow=False); c.restore()
+        text(c, getattr(SC, "OUTRO", "DAY 30 IS INSANE"), 0, 34, 84, '#e8413b', sw=0, shadow=False); c.restore()
 
 
 def confetti(c, u, seed=3):
@@ -411,7 +582,7 @@ def confetti(c, u, seed=3):
 
 
 # ------------------------------------------------------------------ the frame
-SMALL_POP = ("mom", "mom_talk", "coupon", "gauge_up", "gauge_down", "book", "declined", "expired")   # Kevin shrinks to a corner
+SMALL_POP = ("mom", "mom_talk", "coupon", "gauge_up", "gauge_down", "book", "declined", "expired", "voted", "lemons", "price", "price_drop", "rival", "rival2")   # Kevin shrinks to a corner
 
 
 class Film:
@@ -423,10 +594,11 @@ class Film:
                 y, sr = load_voice(s["id"]); win = int(sr / 30)
                 e = np.sqrt(np.convolve(y ** 2, np.ones(win) / win, mode="same")); self.env[s["id"]] = (e / (e.max() + 1e-9), sr)
         # persistent state along the film: scene, expression, pose, zoom, hud
-        st = {"scene": "basement", "expr": "happy", "pose": "idle", "zoom": 1.0, "days": 30, "bank": 3.47, "mom": 55}
+        st = {"scene": "basement", "expr": "happy", "pose": "idle", "zoom": 1.0, "days": 30, "bank": 3.47, "mom": 55, "price": 50}
+        st.update(getattr(SC, "START", {}))
         for s in self.segs:
             cue = s["cue"]
-            for k in ("scene", "expr", "pose", "zoom"):
+            for k in ("scene", "expr", "pose", "zoom", "price"):
                 if k in cue: st[k] = cue[k]
             if "hud" in cue: st.update(cue["hud"])
             s["state"] = dict(st)
@@ -461,15 +633,17 @@ class Film:
             bg_poll(c, t, self.segs, None)
         else:
             c.translate(540 + sh, 1060); c.scale(z, z); c.translate(-540, -fy)
-            {"basement": lambda: bg_basement(c, t), "night": lambda: bg_basement(c, t, True), "kitchen": lambda: bg_kitchen(c, t), "store": lambda: bg_store(c, t)}[scene]()
+            {"basement": lambda: bg_basement(c, t), "night": lambda: bg_basement(c, t, True), "kitchen": lambda: bg_kitchen(c, t), "store": lambda: bg_store(c, t), "street": lambda: bg_street(c, t)}[scene]()
             look = (0.4 * math.sin(t * 0.7), 0.0) if not talker else (0, 0.2)
             small = s["cue"].get("popup") in SMALL_POP
             if not small:
                 KV.draw_kevin(c, 540, 1780, 1.08, st["expr"], st["pose"], t, talk, look, blink)
+            if scene == "street": fg_stand(c, t, st["price"])
+            if cue.get("tumble"): tumbleweed(c, u)
         c.restore()
         if scene not in ("phone", "poll"):
             if s["cue"].get("popup") in SMALL_POP:
-                KV.draw_kevin(c, 880, 1860, 0.42, st["expr"], st["pose"], t, 0, (-0.6, 0), blink)
+                KV.draw_kevin(c, 950 if scene == "street" else 880, 1860, 0.42, st["expr"], st["pose"], t, 0, (-0.6, 0), blink)
         # popups
         pk = cue.get("popup")
         if pk and scene != "phone":
@@ -486,12 +660,12 @@ class Film:
         if cue.get("title"): title(c, u)
         # HUD (animated values)
         k = eio(u / 0.8)
-        hud(c, st["days"], prev["bank"] + (st["bank"] - prev["bank"]) * k, prev["mom"] + (st["mom"] - prev["mom"]) * k)
+        hud(c, st["days"], prev["bank"] + (st["bank"] - prev["bank"]) * k, prev["mom"] + (st["mom"] - prev["mom"]) * k, SC.EP)
         # one giant word at a time
         if s["start"] <= t < s["end"] + 0.15:
             cur = max([j for j, (_, wt) in enumerate(s["words"]) if u >= wt - 0.02] or [0])
             wd = re.sub(r"[^\w$'.,!?/-]", "", s["words"][cur][0]).strip(",.!?").upper()
-            if wd: caption(c, wd, u - s["words"][cur][1], {"poll": 1560, "phone": 1790}.get(scene, 1500))
+            if wd: caption(c, wd, u - s["words"][cur][1], {"poll": 1560, "phone": 1790, "street": 1840}.get(scene, 1500))
         # scene-change whip
         if i > 0 and scene != prev["scene"] and u < 0.12:
             a2 = arr[..., :3].copy(); kx = int(60 * (1 - u / 0.12)) * 2 + 1
@@ -531,12 +705,14 @@ def build_audio(film):
         prev_scene = st["scene"]
         for (_, wi, *_r) in cue.get("stickers", []): add(s["start"] + s["words"][min(wi, len(s["words"]) - 1)][1], pop(), 0.35)
         pk = cue.get("popup")
-        if pk in ("coupon", "mom", "book", "listing", "offer", "gauge_up"): add(s["start"], pop(500, 1200, 0.1), 0.45)
+        if pk in ("coupon", "mom", "book", "listing", "offer", "gauge_up", "voted", "lemons", "price", "rival"): add(s["start"], pop(500, 1200, 0.1), 0.45)
+        if pk == "price_drop": add(s["start"] + 0.1, scratch(), 0.45); add(s["start"] + 0.35, FX.boom_low(0.4), 0.35)
+        if cue.get("tumble"): add(s["start"], FX.whoosh(1.6, 0.5, True), 0.3)
         if pk == "gauge_up": add(s["start"] + 0.3, FX.whoosh(0.6, 0.8, True), 0.4)
         if pk == "gauge_down": add(s["start"] + 0.3, FX.whoosh(0.8, 0.8, False), 0.45)
         if pk == "declined": add(s["start"] + 0.1, buzz(), 0.6)
         if pk == "expired": add(s["start"] + 0.05, FX.boom_low(0.5), 0.4); add(s["start"], scratch(), 0.4)
-        if cue.get("confetti") or s["id"] == "k02": add(s["start"], ching(), 0.5)
+        if cue.get("confetti") or cue.get("ching") or (EPN == 1 and s["id"] == "k02"): add(s["start"], ching(), 0.5)
         if cue.get("insane"): add(s["start"], FX.boom_low(0.7), 0.5)
     voice = np.zeros(N, np.float32)
     for s in film.segs:
@@ -550,7 +726,7 @@ def build_audio(film):
     env = signal.fftconvolve(act, np.ones(kk) / kk, "same"); env = signal.fftconvolve((env > 0.03).astype(np.float32), np.ones(int(0.2 * SR)) / int(0.2 * SR), "same")
     mix = mus * (0.4 * (1 - 0.45 * env))[:, None] + sfx * 0.55 + voice[:, None]
     mix *= np.clip((total - np.arange(N) / SR) / 0.4, 0, 1)[:, None]; mix = mix / (np.abs(mix).max() + 1e-9) * 0.9
-    out = os.path.join(S_DIR, "rich_mix.wav"); sf.write(out, mix.astype(np.float32), SR, subtype="FLOAT"); return out
+    out = os.path.join(S_DIR, f"rich_mix{EPN}.wav"); sf.write(out, mix.astype(np.float32), SR, subtype="FLOAT"); return out
 
 
 def main():
@@ -560,7 +736,7 @@ def main():
         ims = [cv2.cvtColor(film.frame(t), cv2.COLOR_RGB2BGR) for t in a.preview]
         ims = [cv2.resize(x, (360, 640)) for x in ims]
         while len(ims) % 6: ims.append(np.zeros_like(ims[0]))
-        cv2.imwrite(os.path.join(S_DIR, "rich_prev.jpg"), np.vstack([np.hstack(ims[k:k + 6]) for k in range(0, len(ims), 6)]))
+        cv2.imwrite(os.path.join(S_DIR, f"rich_prev{EPN}.jpg"), np.vstack([np.hstack(ims[k:k + 6]) for k in range(0, len(ims), 6)]))
         print("total", round(film.total, 2)); return
     wav = build_audio(film)
     enc = subprocess.Popen(['ffmpeg', '-y', '-v', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-i', wav,
