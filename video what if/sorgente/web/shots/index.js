@@ -4,5 +4,6 @@ import './wi_L.js';
 import './wi_G.js';
 import './wi_S.js';
 import './wi_F.js';
+import './iq_X.js';
 export { SHOTS, LIST };
 window.SHOT_LIST = LIST;

@@ -23,7 +23,7 @@ import graphics_plan as GP
 W, H = 1080, 1920
 BW, BH = 1080, 1920             # vertical Short, full frame
 BY = (H - BH) // 2              # 138
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = os.environ.get("CHROME", "/opt/pw-browsers/chromium-1243/chrome-linux64/chrome")
 URL = os.environ.get("RENDER_URL", "http://127.0.0.1:8128/index.html")
 KEY = os.environ.get("WHATIF", "E")
 SCALE = float(os.environ.get("RENDER_SCALE", "1.0"))
