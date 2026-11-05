@@ -1,0 +1,38 @@
+# Stile "Roblox"
+
+Quando l'utente chiede "fai un video che … con **animazione Roblox**", si usa questo stile e questo kit
+(definito dal video di riferimento del 05/11/2026: storie in prima persona in una città a blocchi).
+
+**Grafica**: personaggi a blocchi (testa cilindrica con faccia disegnata, busto/braccia/gambe squadrati, capelli a
+blocchi, accessori: occhiali, occhiali da sole, camice, cravatta, catena, fascia), città suburbana colorata (case con
+tetto a falde, finestre bianche, porte rosse, staccionate bianche, alberi tondi, strada con linea gialla, marciapiedi),
+interni semplici (camera, aula, garage), luce piena e colori saturi, un cane a blocchi.
+**Inquadrature**: primi piani verticali come il riferimento (testa nel terzo alto, badge sopra la testa, parola
+sul petto), più qualche campo largo della strada.
+**Grafica sopra**: badge viola-blu arrotondato con numero bianco sopra le teste (appare con un "pop"), e una sola
+parola gigante alla volta, bianca con contorno nero, minuscola, al 60% dell'altezza.
+**Audio**: narratore calmo in prima persona (Kokoro am_michael), musica originale "simile" al riferimento: campane
+morbide sostenute in Re maggiore (D–Bm–G–A), una nota ogni ~0,65 s, pad leggero, niente batteria; "pop" sui badge.
+(La musica del riferimento non viene copiata: è di qualcun altro; si compone una traccia con lo stesso feeling.)
+
+## Kit
+- `sorgente/web/kit.js` — avatar, pose, cane, città, stanze, luci, sistema di inquadrature (riutilizzabile)
+- `sorgente/web/film_<nome>.js` — le inquadrature di un video (ancorate alle frasi del copione)
+- `sorgente/script_<nome>.py` — il copione (frasi)
+- `sorgente/sintesi.py` — voce: `SCRIPT=script_<nome> python3 sintesi.py`
+- `sorgente/roblox.py` — render (Chromium headless) + badge + parole + musica + mix:
+  `python3 roblox.py --film film_<nome> --script script_<nome> --preview 3 8 12` (anteprime)
+  `python3 roblox.py --film film_<nome> --script script_<nome> --render --workers 3 --out ../<nome>.mp4`
+
+Requisiti: `python3 -m pip install --break-system-packages playwright skia-python kokoro-onnx soundfile scipy opencv-python-headless`,
+three.js in `video simulazione/sorgente/web/node_modules` (`npm install three@0.180.0`), modelli Kokoro nello scratchpad.
+
+## Video
+- `i_woke_up_with_my_iq_above_my_head.mp4` — "One morning, I woke up with a number floating above my head…":
+  il QI di Kevin sopra la testa sale (100 → 250 a scuola → 500 prende ogni palla senza guardare → 1.000 arrivano gli
+  scienziati, materia oscura spiegata su un tovagliolo → 10.000 una piccola stella in garage che accende la città →
+  1.000.000 nessuno lo capisce più → sa tutto), poi guarda il suo cane: il numero del cane è ∞. Finale:
+  "What number would float above your head? Comment below."
+  **Titolo**: I woke up with my IQ above my head 🧠 #shorts
+  **Descrizione**: Everyone in my town has a number above their head. Mine kept going up… until I looked at my dog 🐶
+  What number would float above YOUR head? 👇  #roblox #story #iq #animation #shorts #storytime

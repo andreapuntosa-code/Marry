@@ -1,0 +1,9 @@
+<!doctype html><html><head><meta charset="utf-8"><title>roblox-style render</title>
+<style>@font-face{font-family:'Poppins';src:url('../font/Poppins-Black.ttf')}html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"/video%20simulazione/sorgente/web/node_modules/three/build/three.module.js"}}</script>
+</head><body>
+<script type="module">
+import { init } from './kit.js';
+const film = new URLSearchParams(location.search).get('film') || 'film_iq';
+try { await document.fonts.load("64px Poppins"); init(); await import('./' + film + '.js'); window.ready = true; } catch (e) { window.loadError = String(e) + '\n' + (e.stack || ''); }
+</script></body></html>
