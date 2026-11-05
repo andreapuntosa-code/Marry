@@ -191,7 +191,7 @@ def render_range(film, script, f0, f1, out):
 
 
 # ------------------------------------------------------------------ score: soft sustained bells in D major, no drums
-def build_audio(script, segs, total, events=()):
+def build_audio(script, segs, total, events=(), music=True):
     import music as M
     N = int(total * SR); T = M.Track(total + 4); X = M.Track(total + 4)
     beat = 0.65                                      # ~92 bpm, a new note every beat, a chord every 2 bars
@@ -221,10 +221,10 @@ def build_audio(script, segs, total, events=()):
     fx = np.stack([X.L[:N], X.R[:N]], 1); fx /= np.abs(fx).max() + 1e-9
     act = (np.abs(voice) > 0.01).astype(np.float32); kk = int(0.3 * SR)
     env = signal.fftconvolve(act, np.ones(kk) / kk, "same"); env = signal.fftconvolve((env > 0.03).astype(np.float32), np.ones(int(0.2 * SR)) / int(0.2 * SR), "same")
-    mix = mus * (0.4 * (1 - 0.3 * env))[:, None] + fx * 0.35 + voice[:, None]
+    mix = (mus * (0.4 * (1 - 0.3 * env))[:, None] if music else 0) + fx * 0.35 + voice[:, None]
     q = np.arange(N) / SR; mix *= (np.clip(q / 0.3, 0, 1) * np.clip((total - q) / 0.7, 0, 1))[:, None]
     mix = mix / (np.abs(mix).max() + 1e-9) * 0.9
-    out = os.path.join(S_DIR, f"rbx_{script}_mix.wav"); sf.write(out, mix.astype(np.float32), SR, subtype="FLOAT"); return out
+    out = os.path.join(S_DIR, f"rbx_{script}_mix{'' if music else '_nomusic'}.wav"); sf.write(out, mix.astype(np.float32), SR, subtype="FLOAT"); return out
 
 
 def badge_events(film, script):
@@ -264,11 +264,14 @@ def main():
         lst = os.path.join(cdir, "list.txt"); open(lst, "w").write("".join(f"file '{j[2]}'\n" for j in jobs))
         vid = os.path.join(S_DIR, f"rbx_{a.film}_video.mp4")
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', vid], check=True)
-        wav = build_audio(a.script, segs, total, badge_events(a.film, a.script))
-        out = a.out or os.path.join(os.path.dirname(HERE), f"{a.film}.mp4")
-        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', vid, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p',
-                        '-af', 'loudnorm=I=-14:TP=-1.5:LRA=9', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', '-shortest', out], check=True)
-        print(out, round(total, 2), "s")
+        ev = badge_events(a.film, a.script); out = a.out or os.path.join(os.path.dirname(HERE), f"{a.film}.mp4")
+        # main file: voice + pops only (add the original song as a sound in TikTok/CapCut); second file: with our score
+        for music, path in ((False, out), (True, out[:-4] + "_with_music.mp4")):
+            wav = build_audio(a.script, segs, total, ev, music=music)
+            subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', vid, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p',
+                            '-af', 'loudnorm=I=-14:TP=-1.5:LRA=9', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', '-shortest', path], check=True)
+            print(path, round(total, 2), "s")
+
 
 
 if __name__ == "__main__":

@@ -25,7 +25,7 @@ def main(only=None):
     path = f"{OUT}/durations.json"; info = json.load(open(path)) if os.path.exists(path) else {}
     for s in S.SEGMENTS:
         if only and s["id"] not in only: continue
-        v, tempo, pitch = ("am_michael", 1.08, 1.0)
+        v, tempo, pitch = (os.environ.get("RBX_VOICE", "am_fenrir"), float(os.environ.get("RBX_SPEED", "1.22")), float(os.environ.get("RBX_PITCH", "1.03")))   # am_fenrir: closest to the reference narrator (pitch, expressiveness, timbre)
         y, sr = k.create(s["tts"], voice=v, speed=tempo / pitch, lang="en-us")
         y = np.asarray(y, np.float32)
         if pitch != 1.0: y = signal.resample_poly(y, 100, int(round(100 * pitch))).astype(np.float32)

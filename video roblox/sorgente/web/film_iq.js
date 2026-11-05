@@ -102,7 +102,7 @@ shot('R11', { scene: { interior: true }, build() {
   shadowAt(0, -2, 8);
 }, cam: dolly(P([0.6, 2.1, 1.6], [0.0, 1.7, -2.4], 56), P([0.4, 2.0, 0.8], [0.0, 1.75, -2.4], 56)) });
 // R11b: the whole town lights up (dusk)
-shot('R11', { off: 2.75, scene: { sky: ['#2b3b7a', '#f59a6a'] }, build() {
+shot('R11', { off: 2.55, scene: { sky: ['#2b3b7a', '#f59a6a'] }, build() {
   street({ lit: true }); const A = person(ME, 0, -5.5, 0, 'cheer', { badge: 10000 }); A.id = 'me';
   getSun().intensity = 0.8; getScene().userData.hemi.intensity = 0.9; shadowAt(0, -6, 14);
 }, cam: dolly(P([0, 3.2, 4.5], [0, 2.4, -10], 60), P([0, 2.6, 2.6], [0, 2.2, -10], 60)) });

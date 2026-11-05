@@ -11,9 +11,11 @@ interni semplici (camera, aula, garage), luce piena e colori saturi, un cane a b
 sul petto), più qualche campo largo della strada.
 **Grafica sopra**: badge viola-blu arrotondato con numero bianco sopra le teste (appare con un "pop"), e una sola
 parola gigante alla volta, bianca con contorno nero, minuscola, al 60% dell'altezza.
-**Audio**: narratore calmo in prima persona (Kokoro am_michael), musica originale "simile" al riferimento: campane
+**Audio**: narratore in prima persona con la voce più simile a quella del riferimento: Kokoro **am_fenrir**, velocità 1,22, tono +3% (misurato: altezza ~158 Hz contro 157, stessa espressività e timbro), musica originale "simile" al riferimento: campane
 morbide sostenute in Re maggiore (D–Bm–G–A), una nota ogni ~0,65 s, pad leggero, niente batteria; "pop" sui badge.
-(La musica del riferimento non viene copiata: è di qualcun altro; si compone una traccia con lo stesso feeling.)
+(La musica del riferimento non viene copiata: è di qualcun altro e nel video è mescolata alla voce. Per questo il render
+produce due file: `<nome>.mp4` con sola voce + effetti, a cui aggiungere la canzone originale come "suono" in TikTok/CapCut,
+e `<nome>_with_music.mp4` con la nostra traccia.)
 
 ## Kit
 - `sorgente/web/kit.js` — avatar, pose, cane, città, stanze, luci, sistema di inquadrature (riutilizzabile)
@@ -28,7 +30,7 @@ Requisiti: `python3 -m pip install --break-system-packages playwright skia-pytho
 three.js in `video simulazione/sorgente/web/node_modules` (`npm install three@0.180.0`), modelli Kokoro nello scratchpad.
 
 ## Video
-- `i_woke_up_with_my_iq_above_my_head.mp4` — "One morning, I woke up with a number floating above my head…":
+- `i_woke_up_with_my_iq_above_my_head.mp4` (solo voce, per la canzone originale) e `..._with_music.mp4` (con la nostra musica), 38 s — "One morning, I woke up with a number floating above my head…":
   il QI di Kevin sopra la testa sale (100 → 250 a scuola → 500 prende ogni palla senza guardare → 1.000 arrivano gli
   scienziati, materia oscura spiegata su un tovagliolo → 10.000 una piccola stella in garage che accende la città →
   1.000.000 nessuno lo capisce più → sa tutto), poi guarda il suo cane: il numero del cane è ∞. Finale:
