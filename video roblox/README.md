@@ -47,3 +47,10 @@ three.js in `video simulazione/sorgente/web/node_modules` (`npm install three@0.
   **Descrizione**: In my town, your number is how attractive you are. Mine is locked until I turn 18… What do you
   think my number is? 👇 Part 2 tomorrow
   #roblox #story #storytime #animation #shorts #glowup
+- `everyone_has_a_number_above_their_head_part2.mp4` (solo voce, 28 s) — Parte 2: il lucchetto si apre, **100**. La
+  mattina dopo tutta la città aspetta davanti a casa, chi mi evitava vuole essere mio amico, l'altro 100 perde metà
+  dei fan, tutti vogliono il mio numero (di telefono). Mia non cambia: "I liked you before I knew your number" (voce
+  femminile). Colpo di scena: un altro ragazzo con un lucchetto sopra la testa… e fissa Mia. "Comment lock if you want
+  part three." **Titolo**: My lock finally opened… 100 🔒 (Part 2) #shorts
+  **Descrizione**: The whole town changed overnight. She didn't. But who is the other guy with a lock? 👀 Comment LOCK for part 3
+  #roblox #story #storytime #animation #shorts #part2
