@@ -55,7 +55,9 @@ def word_times(script, seg):
         bounds, t = [], 0.0
         for a, b in gaps: bounds.append((t, a)); t = b
         bounds.append((t, dur))
-        for txt, (a, b) in zip(cl, bounds):
+        tot_c = sum(len(re.sub(r"\W", "", c)) + 1 for c in cl)
+        ok = all((b - a) > 0.35 * dur * (len(re.sub(r"\W", "", c)) + 1) / tot_c for c, (a, b) in zip(cl, bounds))
+        for txt, (a, b) in (zip(cl, bounds) if ok else []):
             ws = re.findall(r"\S+", txt); wts = [len(re.sub(r"\W", "", w)) + 1.0 for w in ws]; tot = sum(wts); acc = 0
             for w, k in zip(ws, wts): out.append((w, a + (b - a) * acc / tot)); acc += k
     if len(out) != len(toks):

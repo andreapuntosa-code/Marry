@@ -62,3 +62,10 @@ three.js in `video simulazione/sorgente/web/node_modules` (`npm install three@0.
   **Titolo**: I can see how many lies you told today 🤥 #shorts
   **Descrizione**: Only I can see the number. Everyone lies… except my girlfriend. Until tonight 💔 Comment TRUTH for part 2 👇
   #roblox #story #storytime #animation #shorts #lies
+- `what_if_gravity_was_10.mp4` (solo voce, 42 s) — What if gravity was 10 m/s² instead of 9.81? Solo +2%, "sembra niente":
+  70 kg pesano come 71,4; salti 50 → 49 cm; aerei e razzi consumano di più; la Stazione Spaziale diventa troppo lenta,
+  scende a ~150 km nell'atmosfera e inizia a cadere; migliaia di satelliti la seguono; la Luna si avvicina, maree più
+  forti; gli orologi a pendolo vanno avanti di quasi 14 minuti al giorno. (Calcoli nell'intestazione di `script_gravity.py`.)
+  **Titolo**: What if gravity was 10 instead of 9.81? 🌍 #shorts
+  **Descrizione**: Just 2% stronger… sounds like nothing. Until the Space Station starts falling 😳
+  #whatif #gravity #science #physics #roblox #animation #shorts
