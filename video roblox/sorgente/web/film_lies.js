@@ -45,7 +45,7 @@ function bench(o = {}) {
 // B01: I can see a number above everyone's head
 shot('B01', { build() {
   street(); const A = person(ME, 0, -5.4, 0, 'idle'); A.id = 'me';
-  [[P_[0], -2.4, -6.6, 1, 2], [P_[3], 2.6, -6.8, -1, 0], [P_[5], -1.0, -7.2, 1, 5]].forEach(([d, x, z, dir, b], i) => walk(d, x, z, dir, b, 0.9).id = 'w' + i);
+  [[P_[0], -2.4, -6.6, 1, 2], [P_[3], 2.6, -6.8, -1, 0], [P_[5], -3.4, -7.4, 1, 5]].forEach(([d, x, z, dir, b], i) => walk(d, x, z, dir, b, 0.9).id = 'w' + i);
   shadowAt(0, -6, 10);
 }, cam: dolly(P([0.4, 2.0, -1.6], [0, 1.6, -6.2], 56), P([0.2, 1.95, -2.4], [0, 1.65, -6.2], 56)) });
 // B02: lies told today; only I can see them
