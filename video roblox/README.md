@@ -38,3 +38,12 @@ three.js in `video simulazione/sorgente/web/node_modules` (`npm install three@0.
   **Titolo**: I woke up with my IQ above my head 🧠 #shorts
   **Descrizione**: Everyone in my town has a number above their head. Mine kept going up… until I looked at my dog 🐶
   What number would float above YOUR head? 👇  #roblox #story #iq #animation #shorts #storytime
+- `everyone_has_a_number_above_their_head.mp4` (solo voce, 41 s) — tutti hanno un numero sopra la testa: il voto di
+  bellezza da 1 a 100. Nessuno esce con chi ha un numero più basso, tutti cercano di "salire" (ragazzi e ragazze), il 100
+  è inseguito da tutta la città. Tranne me: ho un lucchetto, il dottore dice che si apre a 18 anni. Mia (74) si siede
+  con me lo stesso; le sue amiche non sanno se sta "scendendo" o "salendo". Mezzanotte del mio diciottesimo: il
+  lucchetto si apre, i numeri girano… "?". Finale: "Comment what you think my number is. Part two tomorrow."
+  **Titolo**: Everyone has a number above their head… except me 🔒 #shorts
+  **Descrizione**: In my town, your number is how attractive you are. Mine is locked until I turn 18… What do you
+  think my number is? 👇 Part 2 tomorrow
+  #roblox #story #storytime #animation #shorts #glowup

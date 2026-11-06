@@ -85,10 +85,13 @@ class Overlay:
 
     def badge(self, c, b, t):
         txt = fmt(b["v"]); key = b.get("id") or f"{int(b['x'])}"
+        special = txt if txt in ("LOCK", "UNLOCK", "SPIN") else None
+        if special == "SPIN": txt = str(1 + (int(t * 22) * 37) % 99)
         last = self.seen.get(key)
         if last is None or last[0] != txt:
             # a new value: pop (only when it is a new appearance or a jump, not every roll step)
             pop = last is None or (t - last[1] > 0.5 and abs(len(txt) - len(last[0])) > 0) or not txt[0].isdigit()
+            if special == "SPIN" and last is not None and last[0].isdigit(): pop = False
             self.seen[key] = (txt, t if (last is None or pop) else last[1], last[2] if last else t)
         first = self.seen[key][2]
         k = eob((t - first) / 0.35)
@@ -97,7 +100,13 @@ class Overlay:
         size = hpx * 0.66; f = skia.Font(FONT, size); tw = f.measureText(txt)
         if tw + hpx * 0.8 > W - 80:                                     # huge numbers: shrink the text to fit
             size *= (W - 80 - hpx * 0.8) / tw; f = skia.Font(FONT, size); tw = f.measureText(txt)
+        if special in ("LOCK", "UNLOCK"): tw = hpx * 0.5
         w = max(hpx * 1.7, tw + hpx * 0.8); x, y = clamp(b["x"], w / 2 + 30, W - w / 2 - 30), b["y"] - hpx * 0.6
+        age = t - self.seen[key][1]
+        if special == "UNLOCK":                                         # shaking, glowing, the shackle lifts
+            x += math.sin(t * 61) * hpx * 0.05 * (1 - clamp((age - 2.2) / 0.4)); gl = clamp(age / 1.5)
+            gp = skia.Paint(Color=skia.Color(255, 220, 90, int(150 * gl)), AntiAlias=True); gp.setMaskFilter(skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, hpx * 0.5))
+            c.drawRoundRect(skia.Rect(x - w / 2 - hpx * 0.3, y - hpx * 0.8, x + w / 2 + hpx * 0.3, y + hpx * 0.8), hpx * 0.5, hpx * 0.5, gp)
         r = skia.Rect(x - w / 2, y - hpx / 2, x + w / 2, y + hpx / 2); rad = hpx * 0.32
         sh = skia.Paint(Color=skia.Color(0, 0, 0, 90), AntiAlias=True); sh.setMaskFilter(skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, hpx * 0.06))
         c.drawRoundRect(r.makeOffset(0, hpx * 0.07), rad, rad, sh)
@@ -107,7 +116,22 @@ class Overlay:
         c.drawRoundRect(skia.Rect(r.left() + 3, r.top() + 3, r.right() - 3, r.centerY()), rad * 0.8, rad * 0.8, hi)
         c.drawRoundRect(r, rad, rad, skia.Paint(Color=skia.Color(30, 22, 120), AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=max(2, hpx * 0.06)))
         c.drawRoundRect(r.makeInset(hpx * 0.06, hpx * 0.06), rad * 0.8, rad * 0.8, skia.Paint(Color=skia.Color(170, 200, 255, 160), AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=max(1.5, hpx * 0.03)))
+        if special in ("LOCK", "UNLOCK"):
+            op = clamp((age - 0.4) / 1.6) if special == "UNLOCK" else 0.0
+            bw, bh = hpx * 0.56, hpx * 0.42; by = y + hpx * 0.1
+            c.drawRoundRect(skia.Rect(x - bw / 2, by - bh / 2, x + bw / 2, by + bh / 2), hpx * 0.06, hpx * 0.06, skia.Paint(Color=skia.Color(255, 214, 64), AntiAlias=True))
+            c.drawRoundRect(skia.Rect(x - bw / 2, by - bh / 2, x + bw / 2, by + bh / 2), hpx * 0.06, hpx * 0.06, skia.Paint(Color=skia.Color(25, 18, 90), AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=hpx * 0.035))
+            c.drawCircle(x, by - bh * 0.05, hpx * 0.045, skia.Paint(Color=skia.Color(25, 18, 90), AntiAlias=True)); c.drawRect(skia.Rect(x - hpx * 0.018, by, x + hpx * 0.018, by + bh * 0.28), skia.Paint(Color=skia.Color(25, 18, 90), AntiAlias=True))
+            c.save(); c.translate(x + bw * 0.3, by - bh / 2 - op * hpx * 0.12); c.rotate(-op * 35); c.translate(-(x + bw * 0.3), -(by - bh / 2))
+            sp = skia.Path(); r0 = bw * 0.3; sp.moveTo(x - r0, by - bh / 2); sp.lineTo(x - r0, by - bh / 2 - hpx * 0.1); sp.arcTo(skia.Rect(x - r0, by - bh / 2 - hpx * 0.1 - r0, x + r0, by - bh / 2 - hpx * 0.1 + r0), 180, 180, False); sp.lineTo(x + r0, by - bh / 2)
+            c.drawPath(sp, skia.Paint(Color=skia.Color(25, 18, 90), AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=hpx * 0.11, StrokeCap=skia.Paint.kRound_Cap))
+            c.drawPath(sp, skia.Paint(Color=skia.Color(235, 235, 245), AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=hpx * 0.06, StrokeCap=skia.Paint.kRound_Cap))
+            c.restore(); return
         ty = y + size * 0.36
+        if special == "SPIN":                                           # a blur of numbers rolling past
+            c.save(); c.clipRRect(skia.RRect.MakeRectXY(r, rad, rad), doAntiAlias=True)
+            for dy, a_ in ((-0.5, 60), (0.5, 60)): c.drawString(str(1 + (int(t * 22 + 1) * 53) % 99), x - tw / 2, ty + dy * hpx, f, skia.Paint(Color=skia.Color(255, 255, 255, a_), AntiAlias=True))
+            c.restore()
         c.drawString(txt, x - tw / 2, ty, f, skia.Paint(Color=skia.Color(25, 18, 90), AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=size * 0.14, StrokeJoin=skia.Paint.kRound_Join))
         c.drawString(txt, x - tw / 2, ty, f, skia.Paint(Color=skia.Color(255, 255, 255), AntiAlias=True))
 
@@ -242,7 +266,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--film", default="film_iq"); ap.add_argument("--script", default="script_iq")
     ap.add_argument("--preview", nargs="*", type=float); ap.add_argument("--render", action="store_true"); ap.add_argument("--workers", type=int, default=3)
-    ap.add_argument("--out", default=None)
+    ap.add_argument("--out", default=None); ap.add_argument("--nomusic", action="store_true", help="only the voice-only version")
     a = ap.parse_args()
     segs, total = timeline(a.script)
     if a.preview:
@@ -266,7 +290,7 @@ def main():
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', vid], check=True)
         ev = badge_events(a.film, a.script); out = a.out or os.path.join(os.path.dirname(HERE), f"{a.film}.mp4")
         # main file: voice + pops only (add the original song as a sound in TikTok/CapCut); second file: with our score
-        for music, path in ((False, out), (True, out[:-4] + "_with_music.mp4")):
+        for music, path in ((False, out),) + (() if a.nomusic else ((True, out[:-4] + "_with_music.mp4"),)):
             wav = build_audio(a.script, segs, total, ev, music=music)
             subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', vid, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p',
                             '-af', 'loudnorm=I=-14:TP=-1.5:LRA=9', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', '-shortest', path], check=True)
