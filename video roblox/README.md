@@ -69,3 +69,11 @@ three.js in `video simulazione/sorgente/web/node_modules` (`npm install three@0.
   **Titolo**: What if gravity was 10 instead of 9.81? 🌍 #shorts
   **Descrizione**: Just 2% stronger… sounds like nothing. Until the Space Station starts falling 😳
   #whatif #gravity #science #physics #roblox #animation #shorts
+- `what_if_light_was_2x_slower.mp4` (solo voce, 39 s) — What if light traveled at half its speed? Escalation fino al
+  blackout: all'inizio non te ne accorgi (luce del Sole vecchia 16 minuti invece di 8), poi il GPS impazzisce (auto,
+  aerei e navi persi), le calamite diventano 4 volte più forti (attirano oggetti di metallo, strappano le pentole dai
+  fornelli), i generatori danno troppa tensione, i trasformatori esplodono uno dopo l'altro, gli ospedali perdono anche
+  i generatori di riserva, persino l'oro cambia colore… e il pianeta resta al buio. (Fisica nell'intestazione di `script_light.py`.)
+  **Titolo**: What if light was 2x slower? 💡 #shorts
+  **Descrizione**: At first you wouldn't notice… then the whole planet goes dark 😳
+  #whatif #science #physics #light #roblox #animation #shorts
