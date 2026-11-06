@@ -81,6 +81,19 @@ def fmt(v):
     return f"{int(round(v)):,}"
 
 
+# v2 finish: a soft vignette and a little film grain
+_yy, _xx = np.mgrid[0:H, 0:W].astype(np.float32)
+VIGN = (1.0 - 0.22 * np.clip(((_xx - W / 2) / (W / 2)) ** 2 * 0.7 + ((_yy - H / 2) / (H / 2)) ** 2 * 0.5, 0, 1.4) ** 1.4).astype(np.float32)[..., None]
+GRAIN = [(np.random.default_rng(k).standard_normal((H // 2, W // 2)) * 3.2).astype(np.float32) for k in range(6)]
+del _yy, _xx
+
+
+def cinematic(img, k):
+    if os.environ.get("RBX_FINISH", "1") == "0": return img
+    g = cv2.resize(GRAIN[k % len(GRAIN)], (W, H), interpolation=cv2.INTER_LINEAR)[..., None]
+    return np.clip(img.astype(np.float32) * VIGN + g, 0, 255).astype(np.uint8)
+
+
 class Overlay:
     def __init__(self, segs):
         self.segs = segs; self.seen = {}
@@ -154,6 +167,7 @@ class Overlay:
         c.restore()
 
     def draw(self, img, badges, t):
+        img = cinematic(img, int(t * FPS))
         buf = np.ascontiguousarray(np.dstack([img, np.full(img.shape[:2], 255, np.uint8)]))
         surf = skia.Surface(buf); c = surf.getCanvas()
         for b in sorted(badges, key=lambda b: b["k"]): self.badge(c, b, t)

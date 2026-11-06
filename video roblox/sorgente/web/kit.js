@@ -3,6 +3,15 @@
 // the Python driver steps frame by frame. Each avatar can carry a number badge: the driver draws it at the projected
 // point above the head (window.renderAt returns the badges on screen).
 import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { BokehPass } from 'three/addons/postprocessing/BokehPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
+export { RoundedBoxGeometry, Reflector };
 export { THREE };
 
 export const W = 1080, H = 1920;
@@ -12,9 +21,11 @@ const rr = (seed) => { let s = seed * 9301 + 49297; return () => ((s = (s * 9301
 export const sm = (a, b, x) => { const u = Math.max(0, Math.min(1, (x - a) / (b - a))); return u * u * (3 - 2 * u); };
 export const lerp = (a, b, u) => a + (b - a) * u;
 const mat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: o.r ?? 0.62, metalness: 0.0, emissive: o.em ?? 0x000000, emissiveIntensity: o.ei ?? 1, ...(o.extra || {}) });
-function box(w, h, d, c, o = {}) { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), typeof c === 'number' ? mat(c, o) : c); m.castShadow = o.cast ?? true; m.receiveShadow = true; return m; }
+export const rbox = (w, h, d, k = 0.12) => new RoundedBoxGeometry(w, h, d, 2, Math.min(w, h, d) * k);
+function box(w, h, d, c, o = {}) { const m = new THREE.Mesh(o.sharp ? new THREE.BoxGeometry(w, h, d) : rbox(w, h, d, o.round ?? 0.12), typeof c === 'number' ? mat(c, o) : c); m.castShadow = o.cast ?? true; m.receiveShadow = true; return m; }
 
 // ------------------------------------------------------------------ renderer / world
+let ENV = null, composer = null, bloomPass = null, bokehPass = null;
 export function init() {
   renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(1); renderer.setSize(W, H);
@@ -22,6 +33,7 @@ export function init() {
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.2; renderer.outputColorSpace = THREE.SRGBColorSpace;
   document.body.appendChild(renderer.domElement);
   camera = new THREE.PerspectiveCamera(40, W / H, 0.05, 900);
+  const pm = new THREE.PMREMGenerator(renderer); ENV = pm.fromScene(new RoomEnvironment(), 0.04).texture;
 }
 export function newScene(o = {}) {
   if (scene) { scene.traverse(n => { if (n.geometry) n.geometry.dispose(); if (n.material) { (Array.isArray(n.material) ? n.material : [n.material]).forEach(m => { if (m.map) m.map.dispose(); m.dispose(); }); } }); }
@@ -33,7 +45,16 @@ export function newScene(o = {}) {
   const sun = new THREE.DirectionalLight(night ? 0xb0c0ff : 0xfff3e0, night ? 1.1 : 2.5); sun.position.set(14, 30, 20); sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048); const sc = sun.shadow.camera; sc.left = -22; sc.right = 22; sc.top = 22; sc.bottom = -22; sc.near = 1; sc.far = 90; sun.shadow.bias = -0.0005; sun.shadow.normalBias = 0.03;
   scene.add(sun); scene.add(sun.target);
-  scene.userData = { sun, hemi, updates: [], avatars: [], night };
+  scene.userData = { sun, hemi, updates: [], avatars: [], night, dof: o.dof || null };
+  // v2 look: image-based lighting, bloom on everything bright, optional depth of field
+  scene.environment = ENV; scene.environmentIntensity = o.env ?? 0.55;
+  renderer.toneMappingExposure = o.exposure ?? 1.2;
+  composer = new EffectComposer(renderer); composer.setSize(W, H); composer.setPixelRatio(1);
+  composer.addPass(new RenderPass(scene, camera));
+  bokehPass = null;
+  if (o.dof) { bokehPass = new BokehPass(scene, camera, { focus: 5, aperture: o.dof.aperture ?? 0.004, maxblur: o.dof.maxblur ?? 0.008 }); composer.addPass(bokehPass); }
+  bloomPass = new UnrealBloomPass(new THREE.Vector2(W / 2, H / 2), o.bloom ?? 0.35, o.bloomRadius ?? 0.55, o.bloomThreshold ?? 0.82); composer.addPass(bloomPass);
+  composer.addPass(new OutputPass());
   if (o.interior) { hemi.intensity = 1.0; sun.intensity = 1.6; }
   return scene;
 }
@@ -288,7 +309,8 @@ window.renderAt = (t) => {
   for (const A of scene.userData.avatars) { if (A.anim) A.anim(A, u, S.dur); if (!A.isDog) posePerson(A, u); }
   const c = S.cam(u, S.dur); camera.position.set(...c.pos); camera.lookAt(...c.tgt); camera.fov = c.fov ?? 40; camera.updateProjectionMatrix();
   if (c.shake) camera.position.x += Math.sin(u * 50) * c.shake;
-  renderer.render(scene, camera);
+  if (bokehPass) { const f = (S.focus ? S.focus(u, S.dur) : null) ?? camera.position.distanceTo(new THREE.Vector3(...c.tgt)); bokehPass.uniforms.focus.value = f; }
+  composer.render();
   // badges on screen: the point above each head
   const out = [];
   for (const A of scene.userData.avatars) {
