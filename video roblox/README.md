@@ -54,3 +54,11 @@ three.js in `video simulazione/sorgente/web/node_modules` (`npm install three@0.
   part three." **Titolo**: My lock finally opened… 100 🔒 (Part 2) #shorts
   **Descrizione**: The whole town changed overnight. She didn't. But who is the other guy with a lock? 👀 Comment LOCK for part 3
   #roblox #story #storytime #animation #shorts #part2
+- `i_can_see_how_many_lies_you_told_today.mp4` (solo voce, 36 s) — vedo sopra la testa di tutti quante bugie hanno
+  detto oggi (si azzera a mezzanotte), solo io posso vederlo. Mamma: "adoro come cucini" +1; prof: "non sarà nel
+  compito" +1; il sindaco al comizio: 47. La mia ragazza Emma è sempre a zero, l'unica di cui mi fido. Stanotte le
+  chiedo dov'era ieri: "a casa, tutta la notte" (voce femminile) — resta a zero. Poi sorride e dice "I love you"…
+  e il suo numero sale a 1. "Comment truth if you want part two."
+  **Titolo**: I can see how many lies you told today 🤥 #shorts
+  **Descrizione**: Only I can see the number. Everyone lies… except my girlfriend. Until tonight 💔 Comment TRUTH for part 2 👇
+  #roblox #story #storytime #animation #shorts #lies
