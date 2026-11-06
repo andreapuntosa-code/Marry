@@ -77,3 +77,23 @@ three.js in `video simulazione/sorgente/web/node_modules` (`npm install three@0.
   **Titolo**: What if light was 2x slower? 💡 #shorts
   **Descrizione**: At first you wouldn't notice… then the whole planet goes dark 😳
   #whatif #science #physics #light #roblox #animation #shorts
+
+## Grafica v2 (dal 06/11/2026)
+Obiettivo: qualità e realismo molto più alti (riferimento di qualità, non da copiare). Nel kit: illuminazione da
+ambiente (RoomEnvironment/PMREM), bloom, profondità di campo (il cielo è escluso dal pre-passaggio di profondità),
+parti arrotondate (RoundedBoxGeometry), pavimenti a specchio (Reflector), vignettatura e grana. Soglie del bloom
+diverse per giorno/notte/interni (in luce lineare i muri al sole superano 1). Set ricchi in `web/sets.js`: biblioteca
+magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, porta antica, regno fantasy; particelle
+(polvere, pagine, scintille), raggi di luce, lampadari, cerchio magico, libro luminoso, peluche, torcia.
+
+- `test_v2_midnight_library.mp4` — test della v2 (11 s).
+- `in_this_town_lost_things.mp4` (solo voce, ~1:53) — **"In this town, lost things end up in the same room."**
+  Un ragazzo di 16 anni perde il peluche (Mister Button) che il papà gli regalò il giorno prima di andarsene. La
+  signora della bottega di antiquariato: "Segui il suono della cosa che ti manca di più… e non restare dopo l'alba".
+  Una porta mai vista in fondo alla strada; la Stanza: montagne di ombrelli, fiumi di calzini spaiati, chiavi, anelli,
+  telefoni, aquiloni, lettere, palloncini sul soffitto. Dietro una pila di giocattoli, un bambino che piange e
+  abbraccia il peluche: è lui a sei anni, la parte di sé che ha perso il giorno in cui il papà se n'è andato. L'alba,
+  la porta che si chiude… "Comment found for part two." (voci: narratore, papà, signora, bambino)
+  **Titolo**: In this town, lost things end up in the same room… 🧸 #shorts
+  **Descrizione**: I went looking for my old stuffed bunny. I found something I lost a long time ago 🥺 Comment FOUND for part 2
+  #roblox #story #storytime #animation #emotional #intheTown

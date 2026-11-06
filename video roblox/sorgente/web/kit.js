@@ -47,13 +47,20 @@ export function newScene(o = {}) {
   scene.add(sun); scene.add(sun.target);
   scene.userData = { sun, hemi, updates: [], avatars: [], night, dof: o.dof || null };
   // v2 look: image-based lighting, bloom on everything bright, optional depth of field
-  scene.environment = ENV; scene.environmentIntensity = o.env ?? 0.55;
+  const outdoorDay = !o.interior && !night; scene.environment = ENV; scene.environmentIntensity = o.env ?? (night ? 0.1 : outdoorDay ? 0.3 : 0.5);
   renderer.toneMappingExposure = o.exposure ?? 1.2;
   composer = new EffectComposer(renderer); composer.setSize(W, H); composer.setPixelRatio(1);
   composer.addPass(new RenderPass(scene, camera));
   bokehPass = null;
-  if (o.dof) { bokehPass = new BokehPass(scene, camera, { focus: 5, aperture: o.dof.aperture ?? 0.004, maxblur: o.dof.maxblur ?? 0.008 }); composer.addPass(bokehPass); }
-  bloomPass = new UnrealBloomPass(new THREE.Vector2(W / 2, H / 2), o.bloom ?? 0.35, o.bloomRadius ?? 0.55, o.bloomThreshold ?? 0.82); composer.addPass(bloomPass);
+  if (o.dof) {
+    bokehPass = new BokehPass(scene, camera, { focus: 5, aperture: o.dof.aperture ?? 0.004, maxblur: o.dof.maxblur ?? 0.008 });
+    // the depth pre-pass must not draw the sky texture (it would read as depth and wash the frame white)
+    const r0 = bokehPass.render.bind(bokehPass); const sc = scene;
+    bokehPass.render = (...args) => { const bg = sc.background; sc.background = null; try { r0(...args); } finally { sc.background = bg; } };
+    composer.addPass(bokehPass);
+  }
+  // thresholds are in linear light: sunlit walls are already > 1, so daylight needs a much higher threshold
+  bloomPass = new UnrealBloomPass(new THREE.Vector2(W / 2, H / 2), o.bloom ?? (outdoorDay ? 0.25 : 0.35), o.bloomRadius ?? 0.55, o.bloomThreshold ?? (outdoorDay ? 1.8 : night ? 0.95 : 0.85)); composer.addPass(bloomPass);
   composer.addPass(new OutputPass());
   if (o.interior) { hemi.intensity = 1.0; sun.intensity = 1.6; }
   return scene;
@@ -79,6 +86,10 @@ function faceTex(expr) {
   else if (expr === 'smug') { g.lineWidth = 12; g.beginPath(); g.moveTo(cx - 84, 100); g.lineTo(cx - 34, 100); g.stroke(); g.beginPath(); g.moveTo(cx + 34, 100); g.lineTo(cx + 84, 100); g.stroke(); g.beginPath(); g.moveTo(cx - 50, 175); g.quadraticCurveTo(cx + 10, 205, cx + 60, 160); g.stroke(); }
   else if (expr === 'confused') { eye(cx - 58, 105, 15, 22); eye(cx + 58, 98, 15, 22); g.lineWidth = 10; g.beginPath(); g.moveTo(cx - 40, 185); g.quadraticCurveTo(cx - 10, 170, cx + 10, 185); g.quadraticCurveTo(cx + 30, 200, cx + 50, 182); g.stroke(); }
   else if (expr === 'sleep') { g.lineWidth = 10; g.beginPath(); g.arc(cx - 58, 95, 22, 0.2, 2.9); g.stroke(); g.beginPath(); g.arc(cx + 58, 95, 22, 0.2, 2.9); g.stroke(); g.beginPath(); g.arc(cx, 165, 26, 0.3, 2.8); g.stroke(); }
+  else if (expr === 'sad' || expr === 'cry') { eye(cx - 58, 108, 14, 19); eye(cx + 58, 108, 14, 19); g.lineWidth = 9;
+    g.beginPath(); g.moveTo(cx - 88, 78); g.lineTo(cx - 36, 70); g.stroke(); g.beginPath(); g.moveTo(cx + 36, 70); g.lineTo(cx + 88, 78); g.stroke();
+    g.beginPath(); g.arc(cx, 205, 40, 3.5, 5.9); g.stroke();
+    if (expr === 'cry') { g.fillStyle = '#5ab8ff'; for (const sx of [-1, 1]) { g.beginPath(); g.moveTo(cx + sx * 64, 128); g.quadraticCurveTo(cx + sx * 80, 170, cx + sx * 66, 186); g.quadraticCurveTo(cx + sx * 52, 170, cx + sx * 64, 128); g.fill(); } g.fillStyle = '#1b1b1f'; } }
   else if (expr === 'wink') { eye(cx - 58, 100, 15, 22); g.lineWidth = 10; g.beginPath(); g.moveTo(cx + 34, 102); g.lineTo(cx + 84, 102); g.stroke(); g.beginPath(); g.arc(cx, 150, 52, 0.25, 2.9); g.stroke(); }
   else { eye(cx - 58, 100, 15, 22); eye(cx + 58, 100, 15, 22); g.lineWidth = 10; g.beginPath(); g.arc(cx, 140, 56, 0.3, 2.85); g.stroke(); }
   const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;

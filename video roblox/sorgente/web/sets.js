@@ -157,3 +157,133 @@ export function kingdom() {
   blk(26, 10, 18, stone, 0, 5, -40, { k: 0.02 }); tower(0, -40, 26, 3.2); for (const [x, z] of [[-13, -31], [13, -31], [-13, -49], [13, -49]]) tower(x, z, 16, 2.2);
   for (let i = 0; i < 40; i++) { const x = -40 + (i % 10) * 9, z = -5 + Math.floor(i / 10) * 9; blk(5, 3.5, 4, M_(0xf0ead8), x, 1.75, z, { k: 0.05 }); const rf = new THREE.Mesh(new THREE.ConeGeometry(3.7, 2.4, 4), M_(0xc8463a)); rf.rotation.y = Math.PI / 4; rf.position.set(x, 4.7, z); add(rf); }
 }
+
+// ------------------------------------------------------------------ "lost things" story props
+// Mister Button: a small blocky stuffed bunny (worn, with a button eye)
+export function bunny(o = {}) {
+  const g = new THREE.Group(); const fur = M_(o.color ?? 0xe8dcc8, { r: 0.95 }), inner = M_(0xf2b8c0, { r: 0.9 }), dark = M_(0x2a2a30, { r: 0.4 });
+  const part = (w, h, d, m, x, y, z, rx = 0, rz = 0) => { const p = new THREE.Mesh(rbox(w, h, d, 0.3), m); p.position.set(x, y, z); p.rotation.set(rx, 0, rz); p.castShadow = true; g.add(p); return p; };
+  part(0.36, 0.38, 0.28, fur, 0, 0.2, 0); part(0.32, 0.28, 0.28, fur, 0, 0.52, 0.02);
+  for (const s of [-1, 1]) { part(0.09, 0.34, 0.06, fur, s * 0.09, 0.82, 0, 0, s * -0.18); part(0.05, 0.24, 0.02, inner, s * 0.09, 0.82, 0.035, 0, s * -0.18); part(0.12, 0.1, 0.14, fur, s * 0.13, 0.04, 0.08); part(0.08, 0.18, 0.08, fur, s * 0.22, 0.26, 0.04, 0, s * 0.5); }
+  const e1 = new THREE.Mesh(new THREE.SphereGeometry(0.03, 10, 8), dark); e1.position.set(-0.07, 0.56, 0.16); g.add(e1);
+  const bt = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.015, 12), M_(0x3a6fd6, { r: 0.4 })); bt.rotation.x = Math.PI / 2; bt.position.set(0.07, 0.56, 0.16); g.add(bt);
+  const ns = new THREE.Mesh(new THREE.SphereGeometry(0.025, 8, 6), inner); ns.position.set(0, 0.5, 0.17); g.add(ns);
+  if (o.parent) o.parent.add(g); else add(g); g.scale.setScalar(o.scale ?? 1); return g;
+}
+// a flashlight beam (spot light + a soft additive cone) following a target
+export function flashlight(fromFn, toFn, o = {}) {
+  const sp = new THREE.SpotLight(0xfff2d0, o.power ?? 40, 18, 0.32, 0.5, 1.2); sp.castShadow = false; add(sp); add(sp.target);
+  const cone = new THREE.Mesh(new THREE.ConeGeometry(1.1, 6, 24, 1, true), new THREE.MeshBasicMaterial({ color: 0xfff0c0, transparent: true, opacity: 0.07, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+  cone.geometry.translate(0, -3, 0); add(cone);
+  const v = new THREE.Vector3(), w = new THREE.Vector3(), up = new THREE.Vector3(0, -1, 0);
+  on((u) => { const a = fromFn(u), b = toFn(u); sp.position.set(...a); sp.target.position.set(...b); cone.position.set(...a); v.set(b[0] - a[0], b[1] - a[1], b[2] - a[2]).normalize(); cone.quaternion.setFromUnitVectors(up, v); });
+  return sp;
+}
+// heaps of lost things: umbrellas, socks, keys, suitcases, toys, phones, books, rings
+export function heap(cx, cz, R, H, n, kinds, seed = 1) {
+  const r = rnd(seed); const C = new THREE.Color(); const M4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), p = new THREE.Vector3(), sc = new THREE.Vector3();
+  const geos = {
+    sock: [new THREE.BoxGeometry(0.16, 0.42, 0.08), [0xd23a3a, 0x3a6fd6, 0xf5c84a, 0x3aa655, 0xffffff, 0xb04ac9, 0xf28c28], 0.8],
+    umbrella: [new THREE.ConeGeometry(0.5, 0.35, 8), [0xd23a3a, 0x2a2a35, 0x3a6fd6, 0xf5c84a, 0x6a2a8a], 0.5],
+    key: [new THREE.BoxGeometry(0.06, 0.02, 0.22), [0xe8c048, 0xc8ccd2], 0.2, true],
+    suitcase: [new THREE.BoxGeometry(0.7, 0.5, 0.25), [0x8a5a34, 0x2a3a6a, 0x6a1a2a, 0x3a5a3a], 0.5],
+    toy: [new THREE.BoxGeometry(0.3, 0.3, 0.3), [0xd23a3a, 0xf5c84a, 0x3a6fd6, 0x3aa655, 0xf28c28, 0xffb6c8], 0.6],
+    phone: [new THREE.BoxGeometry(0.16, 0.02, 0.3), [0x18181c, 0xe8e8ee, 0x3a3a45], 0.3, true],
+    book: [new THREE.BoxGeometry(0.3, 0.06, 0.4), [0x8a1a2a, 0x1a3a6a, 0x2a5a2a, 0x6a4a1a], 0.6],
+    ring: [new THREE.TorusGeometry(0.06, 0.015, 6, 16), [0xf2c84a, 0xe8e8f0], 0.2, true],
+    teddy: [new THREE.SphereGeometry(0.22, 10, 8), [0x9a6a3a, 0xc89a64, 0xe8dcc8], 0.8],
+    letter: [new THREE.BoxGeometry(0.34, 0.01, 0.22), [0xf6f0e0, 0xffe8e8, 0xe8f0ff], 0.8],
+  };
+  for (const k of kinds) {
+    const [geo, cols, rough, metal] = geos[k]; const mat = new THREE.MeshStandardMaterial({ roughness: metal ? 0.25 : rough, metalness: metal ? 0.9 : 0.0 });
+    const im = new THREE.InstancedMesh(geo, mat, n); im.castShadow = true; im.receiveShadow = true;
+    for (let i = 0; i < n; i++) { const a = r() * 6.283, d = Math.sqrt(r()) * R, h = H * Math.pow(1 - d / R, 1.6) * (0.75 + r() * 0.25);
+      p.set(cx + Math.cos(a) * d, Math.max(0.05, h * r() ** 0.35), cz + Math.sin(a) * d); e.set(r() * 6.28, r() * 6.28, r() * 6.28); q.setFromEuler(e); const s2 = 0.8 + r() * 0.6; sc.set(s2, s2, s2);
+      im.setMatrixAt(i, M4.compose(p, q, sc)); im.setColorAt(i, C.setHex(cols[Math.floor(r() * cols.length)])); }
+    im.instanceMatrix.needsUpdate = true; im.instanceColor.needsUpdate = true; add(im);
+  }
+}
+// balloons resting against the ceiling, strings hanging
+export function balloons(n, cx, y, cz, sx, sz, seed = 3) {
+  const r = rnd(seed), cols = [0xff4d6d, 0xffd23a, 0x4da8ff, 0x7ad35a, 0xff9a3c, 0xc77dff, 0xffffff];
+  const list = [];
+  for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(0.42, 18, 14), new THREE.MeshStandardMaterial({ color: cols[i % cols.length], roughness: 0.25, metalness: 0.05 })); m.scale.y = 1.15; const x = cx + (r() - 0.5) * sx, z = cz + (r() - 0.5) * sz, yy = y - r() * 0.8; m.position.set(x, yy, z); add(m);
+    const st = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 2.2, 4), M_(0xf0f0f0)); st.position.set(x, yy - 1.5, z); add(st); list.push([m, st, x, yy, z, r() * 6]); }
+  on((u) => list.forEach(([m, st, x, yy, z, ph]) => { const dx = Math.sin(u * 0.6 + ph) * 0.12, dy = Math.sin(u * 0.9 + ph) * 0.08; m.position.set(x + dx, yy + dy, z); st.position.set(x + dx * 0.6, yy + dy - 1.5, z); }));
+}
+// kites hanging in mid-air (tangled in "invisible trees"), with ribbon tails
+export function kites(n, cx, y, cz, sx, sz, seed = 5) {
+  const r = rnd(seed), cols = [0xff4d6d, 0xffd23a, 0x4da8ff, 0x7ad35a, 0xc77dff];
+  for (let i = 0; i < n; i++) { const g = new THREE.Group(); g.position.set(cx + (r() - 0.5) * sx, y + (r() - 0.5) * 3, cz + (r() - 0.5) * sz); add(g);
+    const sh = new THREE.Shape(); sh.moveTo(0, 0.7); sh.lineTo(0.45, 0); sh.lineTo(0, -0.9); sh.lineTo(-0.45, 0); sh.closePath();
+    const k = new THREE.Mesh(new THREE.ShapeGeometry(sh), new THREE.MeshStandardMaterial({ color: cols[i % cols.length], side: THREE.DoubleSide, roughness: 0.6 })); g.add(k);
+    const tail = []; for (let j = 0; j < 6; j++) { const b = new THREE.Mesh(new THREE.PlaneGeometry(0.12, 0.08), new THREE.MeshBasicMaterial({ color: cols[(i + j) % cols.length], side: THREE.DoubleSide })); g.add(b); tail.push(b); }
+    const ph = r() * 6; on((u) => { g.rotation.set(0.2 * Math.sin(u * 0.7 + ph), ph + Math.sin(u * 0.3) * 0.3, 0.15 * Math.sin(u + ph)); tail.forEach((b, j) => b.position.set(Math.sin(u * 2 + j * 0.8 + ph) * 0.12 * j, -0.95 - j * 0.22, 0)); }); }
+}
+// the Lost Room: a vast old hall with skylights, mountains of lost things, balloons, kites, letters, dust.
+// sunrise(u) in 0..1 turns the skylights orange.
+export function lostRoom(o = {}) {
+  const S = getScene(); S.background = new THREE.Color(0x1a120c); S.fog = new THREE.Fog(0x7a5a3a, 12, 80);
+  S.userData.hemi.color.set(0xffe6c8); S.userData.hemi.groundColor.set(0x4a2a14); S.userData.hemi.intensity = 0.5; S.userData.sun.intensity = 0.0;
+  const L = 80, Wd = 40;
+  glossyFloor(Wd, L, 0, -L / 2 + 10, { a: '#7a5a3a', b: '#5a3e26', tile: 2.5, opacity: 0.9, tint: 0x555555 });
+  const brick = tex(256, 256, (g) => { g.fillStyle = '#6a3a24'; g.fillRect(0, 0, 256, 256); for (let y = 0; y < 16; y++) for (let x = 0; x < 8; x++) { g.fillStyle = `rgb(${110 + ((x * 7 + y * 13) % 30)},${58 + ((x * 3 + y * 5) % 16)},${36})`; g.fillRect(x * 32 + (y % 2) * 16 + 1, y * 16 + 1, 30, 14); } });
+  brick.wrapS = brick.wrapT = THREE.RepeatWrapping; brick.repeat.set(10, 5);
+  const wallM = new THREE.MeshStandardMaterial({ map: brick, roughness: 0.9 });
+  for (const s of [-1, 1]) blk(1, 22, L, wallM, s * Wd / 2, 11, -L / 2 + 10, { k: 0.01 });
+  blk(Wd, 22, 1, wallM, 0, 11, -L + 9.5, { k: 0.01 });
+  blk(Wd, 22, 1, wallM, 0, 11, 10.6, { k: 0.01 });   // the front wall (the entrance side)
+  // the roof: dark beams, rows of skylights (emissive, colour animated for the sunrise)
+  const sky = new THREE.MeshBasicMaterial({ color: 0xcfe0ff });
+  blk(Wd + 2, 0.8, L, M_(0x2a1a10), 0, 22.4, -L / 2 + 10, { k: 0.01, cast: false });
+  const lights = [];
+  for (let zz = 2; zz > -L + 12; zz -= 10) for (const xx of [-9, 9]) { const pl = new THREE.Mesh(new THREE.PlaneGeometry(6, 4), sky); pl.rotation.x = Math.PI / 2; pl.position.set(xx, 21.95, zz); add(pl);
+    const sh = shaft(xx, 11, zz, 5, 22, 0.0, { opacity: 0.1, color: 0xdfe8ff }); sh.rotation.y = 0.6; lights.push(sh); }
+  for (let zz = 6; zz > -L + 10; zz -= 5) blk(Wd, 0.6, 0.6, M_(0x3a2414), 0, 21.6, zz, { cast: false });
+  const key = new THREE.DirectionalLight(0xdfe8ff, 1.2); key.position.set(-6, 30, -10); key.target.position.set(0, 0, -20); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); const sc = key.shadow.camera; sc.left = -25; sc.right = 25; sc.top = 25; sc.bottom = -25; sc.far = 80; add(key); add(key.target);
+  // the mountains of lost things
+  heap(-9, -14, 7, 6, 380, ['umbrella', 'toy', 'suitcase'], 1);
+  heap(9, -18, 8, 7, 420, ['sock', 'toy', 'book'], 2);
+  heap(-11, -32, 9, 8, 420, ['suitcase', 'umbrella', 'book', 'teddy'], 3);
+  heap(10, -36, 8, 7, 380, ['key', 'phone', 'ring', 'letter'], 4);
+  heap(0, -50, 12, 10, 520, ['toy', 'teddy', 'umbrella', 'sock', 'suitcase'], 5);
+  heap(-3, -7, 3, 1.4, 220, ['sock'], 6); heap(4, -9, 2.6, 1.2, 200, ['key', 'ring', 'phone'], 7);
+  if (o.balloons !== false) balloons(60, 0, 20.6, -25, 34, 60, 3);
+  if (o.kites !== false) kites(10, 0, 12, -24, 28, 40, 5);
+  if (o.pages !== false) pages(o.pagesN ?? 60, 0, 8, -20, 24, 10, 36, { seed: 12 });
+  dust(o.dustN ?? 700, 0, 7, -22, 30, 14, 50, { seed: 13 });
+  const c0 = new THREE.Color(0xcfe0ff), c1 = new THREE.Color(0xffa040), k0 = new THREE.Color(0xdfe8ff), k1 = new THREE.Color(0xff9a40);
+  if (o.sunrise) on((u, d) => { const k = o.sunrise(u, d); sky.color.copy(c0).lerp(c1, k); key.color.copy(k0).lerp(k1, k); key.intensity = 1.2 + 1.6 * k; lights.forEach(l => { l.material.color.copy(k0).lerp(k1, k); l.material.opacity = 0.1 + 0.18 * k; }); S.fog.color.set(0x7a5a3a).lerp(new THREE.Color(0xc8783a), k * 0.6); });
+  return { lights, key };
+}
+// the antique shop: warm amber bottles, clocks, old things behind a counter
+export function antiqueShop() {
+  const S = getScene(); S.background = new THREE.Color(0x1a120a); S.fog = new THREE.Fog(0x2a1a10, 10, 34); S.userData.hemi.intensity = 0.45; S.userData.hemi.color.set(0xffe0b0); S.userData.sun.intensity = 0.0;
+  const wood = M_(0x4a2a16, { r: 0.6 });
+  glossyFloor(16, 16, 0, -4, { a: '#4a3020', b: '#2e1c10', tile: 2, opacity: 0.88 });
+  blk(16, 9, 0.6, M_(0x3a2a20, { r: 0.85 }), 0, 4.5, -7.2, { k: 0.02 });
+  const amber = new THREE.MeshStandardMaterial({ color: 0xffc070, emissive: 0xc86a10, emissiveIntensity: 0.55, roughness: 0.15, transparent: true, opacity: 0.92 });
+  const r = rnd(8);
+  for (let row = 0; row < 4; row++) { blk(12, 0.2, 1.0, wood, 0, 1.2 + row * 1.7, -6.6); for (let i = 0; i < 11; i++) { const x = -5.2 + i * 1.04, y = 1.32 + row * 1.7; const t = r();
+    if (t < 0.45) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.26, 16, 12), amber); b.position.set(x, y + 0.28, -6.6); add(b); }
+    else if (t < 0.7) { const c = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.1, 24), M_(0xd8a83a, { m: 0.8, r: 0.3 })); c.rotation.x = Math.PI / 2; c.position.set(x, y + 0.35, -6.5); add(c); const f = new THREE.Mesh(new THREE.CircleGeometry(0.24, 24), M_(0xfaf0d8)); f.position.set(x, y + 0.35, -6.44); add(f); }
+    else blk(0.5, 0.6 + r() * 0.3, 0.4, M_([0x6a1a2a, 0x1a3a6a, 0x3a5a3a][i % 3]), x, y + 0.35, -6.6); } }
+  for (const x of [-3.5, 0, 3.5]) { const L = new THREE.PointLight(0xffb060, 9, 10, 1.6); L.position.set(x, 4.5, -5.4); add(L); }
+  blk(9, 1.3, 1.6, wood, 0, 0.65, -2.6); blk(9.4, 0.15, 1.9, M_(0x6a4228, { r: 0.35 }), 0, 1.35, -2.6);
+  const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 12), new THREE.MeshBasicMaterial({ color: 0xffd890 })); lamp.position.set(3.2, 2.0, -2.5); add(lamp); const ll = new THREE.PointLight(0xffc070, 6, 6, 1.8); ll.position.copy(lamp.position); add(ll);
+  dust(260, 0, 3, -3, 12, 6, 8, { color: 0xffd8a0, seed: 16, size: 0.05 });
+}
+// an old wooden door in a brick wall, light leaking through the cracks
+export function oldDoor(x, z, o = {}) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); add(g);
+  const brickM = M_(0x7a3a24, { r: 0.9 }); const wall = new THREE.Mesh(rbox(8, 6, 0.8, 0.02), brickM); wall.position.y = 3; wall.castShadow = true; wall.receiveShadow = true; g.add(wall);
+  const glowM = new THREE.MeshBasicMaterial({ color: 0xffe2a0 }); const gap = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 2.9), glowM); gap.position.set(0, 1.45, 0.41); g.add(gap);
+  const hinge = new THREE.Group(); hinge.position.set(-0.8, 0, 0.45); g.add(hinge);
+  const door = new THREE.Mesh(rbox(1.6, 2.8, 0.12, 0.05), M_(0x5a3418, { r: 0.75 })); door.position.set(0.8, 1.4, 0); door.castShadow = true; hinge.add(door);
+  for (const yy of [0.6, 2.2]) { const b = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.08, 0.04), M_(0x2a2a2a, { m: 0.8 })); b.position.set(0.8, yy, 0.08); hinge.add(b); }
+  const knob = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8), M_(0xd8a83a, { m: 0.9, r: 0.3 })); knob.position.set(1.4, 1.35, 0.1); hinge.add(knob);
+  const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex(), color: 0xffd890, transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false })); halo.position.set(0, 1.5, 0.7); halo.scale.set(3.5, 4, 1); g.add(halo);
+  const L = new THREE.PointLight(0xffd090, 6, 8, 1.5); L.position.set(0, 1.5, 1.0); g.add(L);
+  on((u, d) => { const a = o.open ? o.open(u, d) : 0; hinge.rotation.y = -a * 1.7; halo.material.opacity = 0.45 + 0.25 * a; L.intensity = 6 + 12 * a; halo.scale.set(3.5 + 3 * a, 4 + 3 * a, 1); });
+  return g;
+}

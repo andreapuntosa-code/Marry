@@ -26,8 +26,11 @@ def main(only=None):
     for s in S.SEGMENTS:
         if only and s["id"] not in only: continue
         v, tempo, pitch = (os.environ.get("RBX_VOICE", "am_fenrir"), float(os.environ.get("RBX_SPEED", "1.22")), float(os.environ.get("RBX_PITCH", "1.03")))
-        if s.get("voice") == "mia": v, tempo, pitch = ("af_bella", 1.08, 1.06)   # a girl's voice for Mia's line   # am_fenrir: closest to the reference narrator (pitch, expressiveness, timbre)
-        y, sr = k.create(s["tts"], voice=v, speed=tempo / pitch, lang="en-us")
+        if s.get("voice") == "mia": v, tempo, pitch = ("af_bella", 1.08, 1.06)   # a girl's voice for Mia's line
+        if s.get("voice") == "kid": v, tempo, pitch = ("af_sky", 0.95, 1.18)        # a small boy
+        if s.get("voice") == "dad": v, tempo, pitch = ("am_michael", 0.95, 0.94)   # a dad's voice (memory)
+        if s.get("voice") == "old": v, tempo, pitch = ("bf_isabella", 0.95, 0.93)   # an old lady   # am_fenrir: closest to the reference narrator (pitch, expressiveness, timbre)
+        y, sr = k.create(s["tts"], voice=v, speed=tempo / pitch, lang="en-gb" if v.startswith("b") else "en-us")
         y = np.asarray(y, np.float32)
         if pitch != 1.0: y = signal.resample_poly(y, 100, int(round(100 * pitch))).astype(np.float32)
         y = trim(y, sr); y = (y / (np.abs(y).max() + 1e-9) * 0.9).astype(np.float32)
