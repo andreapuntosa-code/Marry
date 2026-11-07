@@ -97,3 +97,15 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   **Titolo**: In this town, lost things end up in the same room… 🧸 #shorts
   **Descrizione**: I went looking for my old stuffed bunny. I found something I lost a long time ago 🥺 Comment FOUND for part 2
   #roblox #story #storytime #animation #emotional #intheTown
+- `in_this_town_paintings.mp4` (solo voce, ~1:26) — **"In this town, you can enter any painting in the museum."**
+  Basta toccare la cornice: i bambini nuotano in vecchie marine, le coppie cenano in un caffè chiuso da cent'anni, i
+  vecchi pescano su laghi prosciugati. Una regola: uscire prima delle sei, o si resta nel quadro per sempre. Il nonno,
+  guardiano notturno per quarant'anni, sorvegliava ogni notte il quadro coperto dalla tenda rossa nell'ultima sala…
+  sparisce, e il nipote lo rivede minuscolo, con una lanterna, nel quadro del faro in tempesta. Entra alle 17:45: il
+  nonno non è intrappolato, sta facendo la guardia. Da dentro si vede il museo: la tenda rossa si muove, esce una mano
+  lunga e sottile di vernice nera. Scoccano le sei e i bordi del quadro iniziano a seccarsi. Set in `web/museum.js`
+  (galleria con marmo a specchio, quadri dipinti a pennellate, orologio, tenda di velluto, mondi dentro i quadri);
+  effetti nel driver: look a olio, increspatura della tela, bordi che si seccano, lampi; suoni: pioggia, tuoni, rintocchi.
+  **Titolo**: In this town, you can enter any painting… 🖼️ #shorts
+  **Descrizione**: Grandpa wasn't trapped in the painting. He was guarding it 😨 Comment PAINT for part 2
+  #roblox #story #storytime #animation #horror #mystery #intheTown
