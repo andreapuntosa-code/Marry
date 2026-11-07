@@ -274,7 +274,7 @@ def badge_events(film, script):
     """pops for the badges: read once from the page at 10 fps (first appearance of each badge id)"""
     segs, total = timeline(script); pg = Page(film, segs, total); seen = set(); ev = []
     for f in range(0, int(total * 10)):
-        t = f / 10; bs = pg.pg.evaluate(f"renderAt({t:.3f})")
+        t = f / 10; bs = pg.pg.evaluate(f"renderAt({t:.3f}, false)")   # positions only, no drawing
         for b in bs:
             key = (b.get("id") or "", fmt(b["v"]) if not str(b["v"])[0].isdigit() else "n")
             if key not in seen: seen.add(key); ev.append((t, 'pop'))

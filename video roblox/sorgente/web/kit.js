@@ -311,7 +311,7 @@ function resolve(TL, total) {
 let LIST = null;
 window.setTimeline = (TL, total) => { LIST = resolve(TL, total); return LIST.map(s => [s.at, s.start, s.end]); };
 const v3 = new THREE.Vector3();
-window.renderAt = (t) => {
+window.renderAt = (t, draw = true) => {
   let i = 0; while (i + 1 < LIST.length && t >= LIST[i + 1].start) i++;
   const S = LIST[i];
   if (CUR !== S) { newScene(S.scene || {}); S.build(); CUR = S; }
@@ -321,7 +321,7 @@ window.renderAt = (t) => {
   const c = S.cam(u, S.dur); camera.position.set(...c.pos); camera.lookAt(...c.tgt); camera.fov = c.fov ?? 40; camera.updateProjectionMatrix();
   if (c.shake) camera.position.x += Math.sin(u * 50) * c.shake;
   if (bokehPass) { const f = (S.focus ? S.focus(u, S.dur) : null) ?? camera.position.distanceTo(new THREE.Vector3(...c.tgt)); bokehPass.uniforms.focus.value = f; }
-  composer.render();
+  if (draw) composer.render();
   // badges on screen: the point above each head
   const out = [];
   for (const A of scene.userData.avatars) {
