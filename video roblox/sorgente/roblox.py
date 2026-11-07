@@ -187,7 +187,10 @@ def serve():
     class Q(http.server.SimpleHTTPRequestHandler):
         def log_message(self, *a): pass
     socketserver.TCPServer.allow_reuse_address = True
-    _srv = socketserver.ThreadingTCPServer(("127.0.0.1", PORT), functools.partial(Q, directory=ROOT))
+    try:
+        _srv = socketserver.ThreadingTCPServer(("127.0.0.1", PORT), functools.partial(Q, directory=ROOT))
+    except OSError:          # another worker started it a moment ago: use that one
+        time.sleep(1.0); return
     threading.Thread(target=_srv.serve_forever, daemon=True).start()
 
 
