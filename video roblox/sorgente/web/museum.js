@@ -331,7 +331,7 @@ LAYOUT.cafeSky = (g, w, h) => { g.fillStyle = grad(g, 0, 0, 0, h, [[0, '#0a1440'
 LAYOUT.sunsetSky = (g, w, h) => { g.fillStyle = grad(g, 0, 0, 0, h, [[0, '#3a2a70'], [0.5, '#c8608a'], [0.8, '#f8a058'], [1, '#f8d898']]); g.fillRect(0, 0, w, h); const r = rnd(6); for (let i = 0; i < 26; i++) blob(g, r() * w, h * (0.3 + r() * 0.5), 80 + r() * 90, 10 + r() * 10, 'rgba(255,190,150,0.6)'); blob(g, w * 0.5, h * 0.9, 50, 50, '#fff0b0'); };
 LAYOUT.stormSky = (g, w, h) => { g.fillStyle = grad(g, 0, 0, 0, h, [[0, '#0e1418'], [0.7, '#3a4a4a'], [1, '#5a6a64']]); g.fillRect(0, 0, w, h); const r = rnd(8); for (let i = 0; i < 70; i++) blob(g, r() * w, h * r() * 0.9, 70 + r() * 110, 25 + r() * 30, `rgba(${14 + r() * 40 | 0},${18 + r() * 40 | 0},${22 + r() * 40 | 0},0.65)`, r() * 0.6); };
 
-function waterPlane(sz, n, mat, amp, o = {}) {
+export function waterPlane(sz, n, mat, amp, o = {}) {
   const geo = new THREE.PlaneGeometry(sz, sz, n, n); geo.rotateX(-Math.PI / 2); const base = geo.attributes.position.array.slice();
   const m = new THREE.Mesh(geo, mat); m.receiveShadow = true; m.position.set(o.x ?? 0, o.y ?? 0, o.z ?? 0); add(m);
   const hgt = (x, z, u) => amp * (Math.sin(x * 0.18 + u * 1.1) * 0.6 + Math.sin(z * 0.24 - u * 1.5 + x * 0.05) * 0.5 + Math.sin((x + z) * 0.55 + u * 2.6) * 0.18 + Math.sin(x * 1.3 - z * 0.9 + u * 3.4) * 0.06);
