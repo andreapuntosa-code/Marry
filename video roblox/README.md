@@ -109,3 +109,12 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   **Titolo**: In this town, you can enter any painting… 🖼️ #shorts
   **Descrizione**: Grandpa wasn't trapped in the painting. He was guarding it 😨 Comment PAINT for part 2
   #roblox #story #storytime #animation #horror #mystery #intheTown
+- `what_if_the_sun_was_1_percent_brighter.mp4` (solo voce, ~55 s) — **What if the Sun was 1% brighter?** Un po' di
+  scottatura in più, il gelato che si scioglie prima… ma l'1% del Sole vale quasi quanto raddoppiare tutta la CO₂
+  (~2,4 W/m² contro ~3,7): circa +2 °C in qualche decennio (l'ultima era glaciale era solo ~6 °C più fredda). Ondate
+  di calore ogni estate, rete elettrica in tilt, coralli bianchi, raccolti secchi, prezzi alle stelle, ghiacciai che
+  crollano, mari più alti di metri nei secoli, centinaia di milioni di persone in viaggio. "And all it took… was one
+  percent." (Conti nell'intestazione di `script_sun.py`; set in `web/film_sun.js`.)
+  **Titolo**: What if the Sun was just 1% brighter? ☀️ #shorts
+  **Descrizione**: 1% doesn't sound like much… 😳
+  #whatif #science #sun #climate #roblox #animation #shorts
