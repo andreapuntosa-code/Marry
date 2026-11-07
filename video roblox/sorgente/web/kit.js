@@ -72,6 +72,10 @@ function skyTex(cols) {
 }
 export const add = (o) => { scene.add(o); return o; };
 export const on = (fn) => scene.userData.updates.push(fn);
+// after the camera is placed (things that follow the camera)
+export const onPost = (fn) => (scene.userData.post ||= []).push(fn);
+const _sv = new THREE.Vector3();
+export const toScreen = (x, y, z) => { _sv.set(x, y, z).project(camera); return [(_sv.x * 0.5 + 0.5) * W, (-_sv.y * 0.5 + 0.5) * H, _sv.z]; };
 export const getScene = () => scene;
 export const getCamera = () => camera;
 export function shadowAt(x, z, r = 20) { const s = scene.userData.sun; s.position.set(x + 14, 30, z + 20); s.target.position.set(x, 0, z); const c = s.shadow.camera; c.left = -r; c.right = r; c.top = r; c.bottom = -r; c.updateProjectionMatrix(); }
@@ -319,7 +323,9 @@ window.renderAt = (t, draw = true) => {
   for (const f of scene.userData.updates) f(u, S.dur);
   for (const A of scene.userData.avatars) { if (A.anim) A.anim(A, u, S.dur); if (!A.isDog) posePerson(A, u); }
   const c = S.cam(u, S.dur); camera.position.set(...c.pos); camera.lookAt(...c.tgt); camera.fov = c.fov ?? 40; camera.updateProjectionMatrix();
-  if (c.shake) camera.position.x += Math.sin(u * 50) * c.shake;
+  if (c.shake) { camera.position.x += Math.sin(u * 50) * c.shake; camera.position.y += Math.sin(u * 37 + 1) * c.shake * 0.6; }
+  camera.updateMatrixWorld();
+  for (const f of scene.userData.post || []) f(u, S.dur, camera);
   if (bokehPass) { const f = (S.focus ? S.focus(u, S.dur) : null) ?? camera.position.distanceTo(new THREE.Vector3(...c.tgt)); bokehPass.uniforms.focus.value = f; }
   if (draw) composer.render();
   // badges on screen: the point above each head
@@ -332,5 +338,7 @@ window.renderAt = (t, draw = true) => {
     if (v3.z > 1 || v3.z < -1) continue;
     out.push({ x: (v3.x * 0.5 + 0.5) * W, y: (-v3.y * 0.5 + 0.5) * H, k: (1 / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))) / d, v: val, id: A.id || '' });
   }
+  // picture effects for the driver (painterly look, ripples, drying edges, flashes)
+  if (S.fx) { const f = S.fx(u, S.dur); if (f) out.push({ id: '__fx', x: 0, y: 0, k: 0, v: 0, fx: f }); }
   return out;
 };

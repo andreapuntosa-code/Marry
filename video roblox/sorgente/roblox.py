@@ -94,6 +94,78 @@ def cinematic(img, k):
     return np.clip(img.astype(np.float32) * VIGN + g, 0, 255).astype(np.uint8)
 
 
+# ------------------------------------------------------------------ picture effects asked by the film (id '__fx')
+_FXC = {}
+def _fx_fields():
+    if _FXC: return _FXC
+    rng = np.random.default_rng(7)
+    def streak(seed, ang, L=17):
+        n = np.random.default_rng(seed).standard_normal((H, W)).astype(np.float32)
+        k = np.zeros((L, L), np.float32); c = L // 2
+        cv2.line(k, (int(c - math.cos(ang) * c), int(c - math.sin(ang) * c)), (int(c + math.cos(ang) * c), int(c + math.sin(ang) * c)), 1.0, 1)
+        n = cv2.filter2D(n, -1, k / k.sum()); return n / (n.std() + 1e-6)
+    # brush smear: streaky displacement in two stroke directions, blended by a slow field
+    mix = cv2.resize(rng.random((12, 7)).astype(np.float32), (W, H), interpolation=cv2.INTER_CUBIC)
+    a1, a2 = streak(1, 0.6), streak(2, -0.9); b1, b2 = streak(3, 0.6), streak(4, -0.9)
+    gy, gx = np.mgrid[0:H, 0:W].astype(np.float32)
+    _FXC["mx"] = gx + 3.2 * (a1 * mix + a2 * (1 - mix)); _FXC["my"] = gy + 3.2 * (b1 * mix + b2 * (1 - mix))
+    _FXC["gx"], _FXC["gy"] = gx, gy
+    # canvas weave
+    wv = 1 + 0.035 * np.sin(gx * 1.9) * np.sin(gy * 1.9) + 0.02 * rng.standard_normal((H, W)).astype(np.float32)
+    _FXC["weave"] = cv2.GaussianBlur(wv.astype(np.float32), (3, 3), 0)[..., None]
+    # drying: distance from the frame edge (ragged), and cracks (ridges of a noise field)
+    d = np.minimum(np.minimum(gx, W - 1 - gx) / (W / 2), np.minimum(gy, H - 1 - gy) / (W / 2))
+    rag = sum(cv2.resize(rng.standard_normal((s_, int(s_ * W / H) + 1)).astype(np.float32), (W, H), interpolation=cv2.INTER_CUBIC) * a_ for s_, a_ in ((8, 0.10), (30, 0.04), (120, 0.015)))
+    _FXC["edge"] = (d + rag).astype(np.float32)
+    nz = sum(cv2.resize(rng.standard_normal((s_, int(s_ * W / H) + 1)).astype(np.float32), (W, H), interpolation=cv2.INTER_CUBIC) * a_ for s_, a_ in ((40, 1.0), (90, 0.5), (200, 0.25)))
+    cr = np.clip(1 - np.abs(nz) / 0.05, 0, 1); _FXC["crack"] = cr.astype(np.float32)[..., None]
+    return _FXC
+
+
+def fx_paint(img, a):
+    F = _fx_fields()
+    s = cv2.resize(img, (W // 2, H // 2), interpolation=cv2.INTER_AREA)
+    p = cv2.edgePreservingFilter(s, flags=1, sigma_s=28, sigma_r=0.42)
+    hsv = cv2.cvtColor(p, cv2.COLOR_RGB2HSV).astype(np.float32); hsv[..., 1] = np.clip(hsv[..., 1] * 1.18, 0, 255); p = cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2RGB)
+    p = cv2.resize(p, (W, H), interpolation=cv2.INTER_LINEAR)
+    p = cv2.remap(p, F["mx"], F["my"], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    ed = cv2.Canny(cv2.cvtColor(s, cv2.COLOR_RGB2GRAY), 60, 140); ed = cv2.GaussianBlur(cv2.resize(ed, (W, H)).astype(np.float32) / 255, (3, 3), 0)[..., None]
+    p = p.astype(np.float32) * F["weave"] * (1 - 0.35 * ed)
+    return np.clip(img.astype(np.float32) * (1 - a) + p * a, 0, 255).astype(np.uint8)
+
+
+def fx_ripple(img, x, y, a, t):
+    F = _fx_fields(); dx, dy = F["gx"] - x, F["gy"] - y; r = np.sqrt(dx * dx + dy * dy) + 1e-3
+    w = a * 14 * np.sin(r / 26 - t * 9) * np.exp(-r / 520)
+    return cv2.remap(img, F["gx"] + dx / r * w, F["gy"] + dy / r * w, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+
+
+def fx_wobble(img, a, t):
+    F = _fx_fields()
+    return cv2.remap(img, F["gx"] + a * 6 * np.sin(F["gy"] / 60 + t * 3), F["gy"] + a * 6 * np.sin(F["gx"] / 70 + t * 2.4), cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+
+
+def fx_dry(img, k):
+    F = _fx_fields(); m = np.clip((k * 0.62 - F["edge"]) / 0.03, 0, 1)[..., None]
+    f = img.astype(np.float32); g = f.mean(2, keepdims=True)
+    dried = (g * 0.55 + np.array([196, 184, 162], np.float32) * 0.45) * (1 - 0.55 * F["crack"])
+    rim = np.clip(1 - np.abs(k * 0.62 - F["edge"]) / 0.012, 0, 1)[..., None] * (k > 0.01)
+    out = f * (1 - m) + dried * m; out = out * (1 - 0.5 * rim) + np.array([60, 45, 30], np.float32) * 0.5 * rim
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+
+def apply_fx(img, fx, t):
+    if not fx: return img
+    if fx.get("wobble"): img = fx_wobble(img, fx["wobble"], t)
+    if fx.get("paint"): img = fx_paint(img, float(fx["paint"]))
+    rp = fx.get("ripple")
+    if rp and rp.get("a", 0) > 0.001: img = fx_ripple(img, rp["x"], rp["y"], rp["a"], t)
+    if fx.get("dry"): img = fx_dry(img, float(fx["dry"]))
+    if fx.get("flash"): a = clamp(float(fx["flash"])); img = np.clip(img.astype(np.float32) * (1 - a) + np.array([255, 248, 232], np.float32) * a, 0, 255).astype(np.uint8)
+    if fx.get("fade"): a = clamp(float(fx["fade"])); img = (img.astype(np.float32) * (1 - a)).astype(np.uint8)
+    return img
+
+
 class Overlay:
     def __init__(self, segs):
         self.segs = segs; self.seen = {}
@@ -167,7 +239,8 @@ class Overlay:
         c.restore()
 
     def draw(self, img, badges, t):
-        img = cinematic(img, int(t * FPS))
+        fx = next((b.get("fx") for b in badges if b.get("id") == "__fx"), None); badges = [b for b in badges if not str(b.get("id", "")).startswith("__")]
+        img = cinematic(apply_fx(img, fx, t), int(t * FPS))
         buf = np.ascontiguousarray(np.dstack([img, np.full(img.shape[:2], 255, np.uint8)]))
         surf = skia.Surface(buf); c = surf.getCanvas()
         for b in sorted(badges, key=lambda b: b["k"]): self.badge(c, b, t)
@@ -255,6 +328,7 @@ def build_audio(script, segs, total, events=(), music=True):
     for (te, kind) in events:
         if kind == 'pop': X.add(te, mono=pop(), gain=0.35)
         elif kind == 'ding': X.add(te, mono=M.bell(88, 1.2, 0.6), gain=0.25)
+        else: X.add(te, mono=sfx(kind), gain=SFX_GAIN.get(kind.split(':')[0], 0.3))
     voice = np.zeros(N, np.float32)
     for s in segs:
         y, sr = load_voice(script, s["id"]); g = np.gcd(SR, sr); y = signal.resample_poly(y, SR // g, sr // g).astype(np.float32); y = y / (np.abs(y).max() + 1e-9) * 0.85
@@ -270,12 +344,42 @@ def build_audio(script, segs, total, events=(), music=True):
     out = os.path.join(S_DIR, f"rbx_{script}_mix{'' if music else '_nomusic'}.wav"); sf.write(out, mix.astype(np.float32), SR, subtype="FLOAT"); return out
 
 
+SFX_GAIN = {'thunder': 0.55, 'chime': 0.5, 'whoosh': 0.3, 'rain': 0.12, 'creak': 0.25}
+def sfx(kind):
+    import music as M
+    name, _, arg = kind.partition(':'); rng = np.random.default_rng(abs(hash(kind)) % 1000)
+    q = lambda d: np.arange(int(d * SR)) / SR
+    if name == 'thunder':
+        d = 3.2; t = q(d); n = rng.standard_normal(len(t))
+        b, a = signal.butter(2, 180 / (SR / 2)); lo = signal.lfilter(b, a, n); b2, a2 = signal.butter(2, [400 / (SR / 2), 2500 / (SR / 2)], 'band'); cr = signal.lfilter(b2, a2, n)
+        env = np.minimum(1, t / 0.015) * np.exp(-t / 0.9) * (0.7 + 0.3 * np.sin(t * 9) ** 2); envc = np.exp(-t / 0.08)
+        y = lo * env * 3 + cr * envc * 0.8; return (y / (np.abs(y).max() + 1e-9)).astype(np.float32)
+    if name == 'rain':
+        d = float(arg or 4); t = q(d); n = rng.standard_normal(len(t)); b, a = signal.butter(2, [800 / (SR / 2), 7000 / (SR / 2)], 'band'); y = signal.lfilter(b, a, n)
+        y *= np.minimum(1, t / 0.3) * np.minimum(1, (d - t) / 0.4); return (y / (np.abs(y).max() + 1e-9)).astype(np.float32)
+    if name == 'chime':
+        y = np.zeros(int(5 * SR), np.float32)
+        for k, m in enumerate((50, 57, 62)):
+            b = M.bell(m, 4.5, 0.8, ratio=2.0, index=1.4); y[:len(b)] += b * (1.0 - k * 0.25)
+        return y / (np.abs(y).max() + 1e-9)
+    if name == 'whoosh':
+        d = 1.1; t = q(d); n = rng.standard_normal(len(t)); out = np.zeros_like(n)
+        for i in range(0, len(t), 2048):
+            f = 300 + 2500 * (i / len(t)); b, a = signal.butter(2, [f / (SR / 2), min(0.95, f * 1.8 / (SR / 2))], 'band'); out[i:i + 2048] = signal.lfilter(b, a, n[i:i + 2048])
+        out *= np.sin(np.pi * t / d) ** 2; return (out / (np.abs(out).max() + 1e-9)).astype(np.float32)
+    if name == 'creak':
+        d = 1.4; t = q(d); f = 90 + 40 * np.sin(t * 3); y = signal.sawtooth(2 * np.pi * np.cumsum(f) / SR) * (0.5 + 0.5 * np.sin(t * 31) ** 8) * np.sin(np.pi * t / d)
+        b, a = signal.butter(2, [300 / (SR / 2), 2000 / (SR / 2)], 'band'); y = signal.lfilter(b, a, y); return (y / (np.abs(y).max() + 1e-9)).astype(np.float32)
+    return np.zeros(10, np.float32)
+
+
 def badge_events(film, script):
     """pops for the badges: read once from the page at 10 fps (first appearance of each badge id)"""
     segs, total = timeline(script); pg = Page(film, segs, total); seen = set(); ev = []
     for f in range(0, int(total * 10)):
         t = f / 10; bs = pg.pg.evaluate(f"renderAt({t:.3f}, false)")   # positions only, no drawing
         for b in bs:
+            if str(b.get("id", "")).startswith("__"): continue
             key = (b.get("id") or "", fmt(b["v"]) if not str(b["v"])[0].isdigit() else "n")
             if key not in seen: seen.add(key); ev.append((t, 'pop'))
     pg.close(); return ev
@@ -307,7 +411,9 @@ def main():
         lst = os.path.join(cdir, "list.txt"); open(lst, "w").write("".join(f"file '{j[2]}'\n" for j in jobs))
         vid = os.path.join(S_DIR, f"rbx_{a.film}_video.mp4")
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', vid], check=True)
-        ev = badge_events(a.film, a.script); out = a.out or os.path.join(os.path.dirname(HERE), f"{a.film}.mp4")
+        ev = badge_events(a.film, a.script)
+        TLs = {s_["id"]: s_["start"] for s_ in segs}; ev += [(TLs[i] + off, kind) for i, off, kind in getattr(importlib.import_module(a.script), "SFX", [])]
+        out = a.out or os.path.join(os.path.dirname(HERE), f"{a.film}.mp4")
         # main file: voice + pops only (add the original song as a sound in TikTok/CapCut); second file: with our score
         for music, path in ((False, out),) + (() if a.nomusic else ((True, out[:-4] + "_with_music.mp4"),)):
             wav = build_audio(a.script, segs, total, ev, music=music)
