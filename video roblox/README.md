@@ -129,3 +129,12 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   **Titolo**: What if pi was exactly 3? 🥧 #shorts
   **Descrizione**: Engineers would love this… until 😳
   #whatif #math #pi #physics #engineering #roblox #shorts
+- `what_if_earth_was_a_perfect_sphere.mp4` (solo voce, ~43 s) — **What if Earth was a perfect sphere?** Cartello
+  "EARTH 6378 × 6357 km" → "6371 × 6371 km". Dettagli da discussione (veri): rimpicciolita come una palla da
+  biliardo la Terra sarebbe più liscia di una; il punto più lontano dal centro non è l'Everest ma il Chimborazo
+  (Ecuador). Sfera perfetta ma ancora in rotazione: gli oceani seguono il rigonfiamento e scivolano all'equatore
+  (7 km d'acqua su Brasile, India, Africa), sopra i ~35° due continenti; Londra a 6 km di quota, Polo Nord a 14 km.
+  "A perfect planet… where half the world drowns, and the other half suffocates." (Conti in `script_sphere.py`.)
+  **Titolo**: What if Earth was a perfect sphere? 🌍 #shorts
+  **Descrizione**: Earth is smoother than a pool ball… but not round 😳
+  #whatif #earth #science #geography #physics #roblox #shorts
