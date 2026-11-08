@@ -138,3 +138,13 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   **Titolo**: What if Earth was a perfect sphere? 🌍 #shorts
   **Descrizione**: Earth is smoother than a pool ball… but not round 😳
   #whatif #earth #science #geography #physics #roblox #shorts
+- `what_if_earth_spun_in_exactly_24_hours.mp4` (solo voce, ~44 s) — **What if Earth spun once in exactly 24 hours?**
+  Il numero più famoso di tutti e un fatto vero che sembra sbagliato: un giro della Terra dura 23 h 56 m 4 s (giorno
+  sidereo; i 4 minuti in più servono per tornare a guardare il Sole). Girando in 24 h esatte: il giorno solare diventa
+  ~24 h 4 m, l'alba ritarda di mezz'ora in una settimana e dopo sei mesi il Sole è alto a mezzanotte (senza correggere
+  gli orologi). E gli oceani: meno forza centrifuga → l'acqua scivola verso i poli: equatore −20 m (porti all'asciutto),
+  Londra e Amsterdam +17 m, San Pietroburgo +25, poli +40. "Four minutes. That's all it would take." (Conti in
+  `script_day.py`; aiuti comuni dei "what if" in `web/whatif.js`.)
+  **Titolo**: What if Earth spun in exactly 24 hours? 🌍⏰ #shorts
+  **Descrizione**: Wait… a day isn't 24 hours? 🤯
+  #whatif #earth #science #time #physics #roblox #shorts
