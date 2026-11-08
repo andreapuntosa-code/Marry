@@ -118,3 +118,14 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   **Titolo**: What if the Sun was just 1% brighter? ☀️ #shorts
   **Descrizione**: 1% doesn't sound like much… 😳
   #whatif #science #sun #climate #roblox #animation #shorts
+- `what_if_pi_was_3.mp4` (solo voce, ~36 s) — **What if pi was exactly 3?** Fatto apposta sulla formula del video
+  virale della gravità: cartello col numero nel primo fotogramma ("π = 3.14159…" → "π = 3"), numero da scuola,
+  "Engineers would finally be happy" (richiamo al commento "engineer's dream"), pizza da 30 cm: crosta 94 → 90 cm.
+  Il dettaglio da discussione (giusto ma controintuitivo): su un piano C/d è sempre 3,14…; π = 3 succede solo se lo
+  spazio è curvo, come un cerchio disegnato su una palla (il cerchio a 30° dal polo ha esattamente C/d = 3). Triangoli
+  da 270°, "parallele" che si scontrano al polo. Finale catastrofico: perché la pizza da 30 cm rispetti π = 3 l'universo
+  dovrebbe chiudersi in meno di 2 m (R = 6r/π ≈ 0,29 m): guardi avanti e vedi la tua nuca, fai un passo e sbatti contro
+  te stesso. "The entire universe… smaller than your bedroom." (Conti in `script_pi.py`.)
+  **Titolo**: What if pi was exactly 3? 🥧 #shorts
+  **Descrizione**: Engineers would love this… until 😳
+  #whatif #math #pi #physics #engineering #roblox #shorts
