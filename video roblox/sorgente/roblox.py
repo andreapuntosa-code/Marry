@@ -154,8 +154,15 @@ def fx_dry(img, k):
     return np.clip(out, 0, 255).astype(np.uint8)
 
 
+def fx_bulge(img, k):
+    F = _fx_fields(); cx, cy = W / 2, H * 0.45; dx, dy = F["gx"] - cx, F["gy"] - cy; rn2 = (dx * dx + dy * dy) / (cx * cx + cy * cy)
+    s_ = 1 - k * (1 - rn2)
+    return cv2.remap(img, cx + dx * s_, cy + dy * s_, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+
+
 def apply_fx(img, fx, t):
     if not fx: return img
+    if fx.get("bulge"): img = fx_bulge(img, float(fx["bulge"]))
     if fx.get("wobble"): img = fx_wobble(img, fx["wobble"], t)
     if fx.get("paint"): img = fx_paint(img, float(fx["paint"]))
     rp = fx.get("ripple")
