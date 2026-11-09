@@ -148,3 +148,15 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   **Titolo**: What if Earth spun in exactly 24 hours? 🌍⏰ #shorts
   **Descrizione**: Wait… a day isn't 24 hours? 🤯
   #whatif #earth #science #time #physics #roblox #shorts
+- `what_if_gravity_was_11.mp4` (solo voce, ~42 s) — **What if gravity was 11 m/s²?** Seguito del video virale (g = 10).
+  Bilancia 70 → 78,5 kg con la risposta al commento più discusso ("scales measure force, not mass"), salti −11%,
+  orologi a pendolo +85 min al giorno, ponti che reggono (coefficienti di sicurezza: richiamo agli ingegneri), poi la
+  ISS troppo lenta che in ~15 minuti rientra in atmosfera con i satelliti, la Luna più vicina del 20% ogni mese e maree
+  ×2: città costiere allagate "twice a day". (Conti in `script_g11.py`.)
+  **Titolo**: What if gravity was 11 m/s²? (Part 2) 🌍 #shorts  ·  #whatif #gravity #physics #engineering #roblox #shorts
+- `what_if_earth_wasnt_tilted.mp4` (solo voce, ~34 s) — **What if Earth wasn't tilted?** Cartello "EARTH'S TILT 23.5°
+  → 0°". Il fatto da discussione: a gennaio la Terra è più vicina al Sole (le stagioni dipendono dall'inclinazione).
+  Senza inclinazione: 12 ore di giorno e 12 di notte ovunque, niente estate né inverno, al polo il Sole rotola
+  sull'orizzonte per sempre, raccolti del nord senza estate, neve che non si scioglie, ghiaccio che avanza: "Less tilt
+  is exactly how ice ages begin." (Conti in `script_tilt.py`.)
+  **Titolo**: What if Earth wasn't tilted? 🌍 #shorts  ·  #whatif #earth #seasons #science #roblox #shorts
