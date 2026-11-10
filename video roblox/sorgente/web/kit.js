@@ -78,6 +78,7 @@ const _sv = new THREE.Vector3();
 export const toScreen = (x, y, z) => { _sv.set(x, y, z).project(camera); return [(_sv.x * 0.5 + 0.5) * W, (-_sv.y * 0.5 + 0.5) * H, _sv.z]; };
 export const getScene = () => scene;
 export const getCamera = () => camera;
+window.__scene = () => scene; window.__cam = () => camera;
 export function shadowAt(x, z, r = 20) { const s = scene.userData.sun; s.position.set(x + 14, 30, z + 20); s.target.position.set(x, 0, z); const c = s.shadow.camera; c.left = -r; c.right = r; c.top = r; c.bottom = -r; c.updateProjectionMatrix(); }
 
 // ------------------------------------------------------------------ faces
@@ -94,6 +95,10 @@ function faceTex(expr) {
     g.beginPath(); g.moveTo(cx - 88, 78); g.lineTo(cx - 36, 70); g.stroke(); g.beginPath(); g.moveTo(cx + 36, 70); g.lineTo(cx + 88, 78); g.stroke();
     g.beginPath(); g.arc(cx, 205, 40, 3.5, 5.9); g.stroke();
     if (expr === 'cry') { g.fillStyle = '#5ab8ff'; for (const sx of [-1, 1]) { g.beginPath(); g.moveTo(cx + sx * 64, 128); g.quadraticCurveTo(cx + sx * 80, 170, cx + sx * 66, 186); g.quadraticCurveTo(cx + sx * 52, 170, cx + sx * 64, 128); g.fill(); } g.fillStyle = '#1b1b1f'; } }
+  else if (expr === 'tongue' || expr === 'open') { eye(cx - 58, 98, 15, 22); eye(cx + 58, 98, 15, 22); g.fillStyle = '#3a0e14'; g.beginPath(); g.ellipse(cx, 178, 44, 34, 0, 0, 6.283); g.fill();
+    if (expr === 'tongue') { g.fillStyle = '#f0607a'; g.beginPath(); g.ellipse(cx, 212, 30, 32, 0, 0, 6.283); g.fill(); g.strokeStyle = '#c03a52'; g.lineWidth = 4; g.beginPath(); g.moveTo(cx, 190); g.lineTo(cx, 232); g.stroke(); } g.fillStyle = '#1b1b1f'; }
+  else if (expr === 'pain') { g.lineWidth = 10; for (const sx of [-1, 1]) { g.beginPath(); g.moveTo(cx + sx * 84, 82); g.lineTo(cx + sx * 40, 100); g.lineTo(cx + sx * 84, 118); g.stroke(); }
+    g.beginPath(); g.moveTo(cx - 50, 185); for (let i = 0; i <= 8; i++) g.lineTo(cx - 50 + i * 12.5, 185 + (i % 2 ? -12 : 12)); g.stroke(); }
   else if (expr === 'wink') { eye(cx - 58, 100, 15, 22); g.lineWidth = 10; g.beginPath(); g.moveTo(cx + 34, 102); g.lineTo(cx + 84, 102); g.stroke(); g.beginPath(); g.arc(cx, 150, 52, 0.25, 2.9); g.stroke(); }
   else { eye(cx - 58, 100, 15, 22); eye(cx + 58, 100, 15, 22); g.lineWidth = 10; g.beginPath(); g.arc(cx, 140, 56, 0.3, 2.85); g.stroke(); }
   const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;

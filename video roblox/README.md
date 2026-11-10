@@ -160,3 +160,16 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   sull'orizzonte per sempre, raccolti del nord senza estate, neve che non si scioglie, ghiaccio che avanza: "Less tilt
   is exactly how ice ages begin." (Conti in `script_tilt.py`.)
   **Titolo**: What if Earth wasn't tilted? 🌍 #shorts  ·  #whatif #earth #seasons #science #roblox #shorts
+
+## Serie "corpo umano" (What if…)
+- `what_if_humans_didnt_have_a_tongue.mp4` (solo voce, ~37 s) — **What if humans didn't have a tongue?** Cartello
+  "TONGUE: YES → NO". Due miti da far discutere: la mappa dei sapori della scuola è sbagliata (ogni zona sente tutti i
+  gusti) e la lingua non è il muscolo più forte. Senza lingua: si sente ancora un po' di gusto (papille sul palato e in
+  gola), niente T D N L K G R S ("hello" → "eh-oh"), deglutire difficile (un sorso d'acqua a ogni boccone), ma con mesi
+  di logopedia si torna a parlare e mangiare. "So next time you bite it… say thank you. If you can."
+  **Titolo**: What if humans didn't have a tongue? 👅 #shorts  ·  #whatif #humanbody #science #facts #roblox #shorts
+- `what_if_you_couldnt_feel_pain.mp4` (solo voce, ~37 s) — **What if you couldn't feel pain?** Cartello "PAIN: ON → OFF".
+  Fatto da discussione: il cervello non sente dolore (si opera da svegli). L'insensibilità congenita al dolore esiste:
+  neonati che si mordono senza piangere, fratture non notate per settimane, zuppa bollente, stare seduti storti per ore,
+  appendicite senza preavviso. "Pain hurts… but it's the reason you're still alive."
+  **Titolo**: What if you couldn't feel pain? 🧠 #shorts  ·  #whatif #humanbody #brain #science #roblox #shorts
