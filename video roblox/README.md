@@ -173,3 +173,13 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   neonati che si mordono senza piangere, fratture non notate per settimane, zuppa bollente, stare seduti storti per ore,
   appendicite senza preavviso. "Pain hurts… but it's the reason you're still alive."
   **Titolo**: What if you couldn't feel pain? 🧠 #shorts  ·  #whatif #humanbody #brain #science #roblox #shorts
+- `your_pinky_looks_useless.mp4` (solo voce, ~31 s) — **Your pinky finger looks useless, right?** Formato "sembra
+  inutile → senza è una catastrofe". Il mignolo dà fino a metà della forza della presa (secondo i chirurghi della mano):
+  senza, il pugno non si chiude, scivolano telefoni e tazze, i muratori perdono il martello, niente trazioni; e se
+  mancasse a tutti, gru, scale, scalatori… "The smallest finger… was holding everything together."
+  **Titolo**: Your pinky looks useless… until 😳 #shorts  ·  #humanbody #facts #science #whatif #roblox #shorts
+- `eyelashes_are_just_for_looks.mp4` (solo voce, ~32 s) — **Eyelashes are just for looks… right?** Lunghezza perfetta
+  (circa 1/3 della larghezza dell'occhio, Amador et al. 2015): dimezzano polvere e secchezza, e sono sensori che fanno
+  sbattere le palpebre. Senza: occhi secchi fino al doppio più in fretta, polvere/polline/sabbia sull'occhio, occhi
+  rossi e infetti, una tempesta di sabbia nel deserto. "Those tiny hairs are the only thing between your eyes and the world."
+  **Titolo**: Eyelashes are just for looks… right? 👁️ #shorts  ·  #humanbody #eyes #facts #science #roblox #shorts
