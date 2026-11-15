@@ -210,3 +210,10 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   senza il 29 febbraio il calendario slitta di ~6 ore l'anno: 24 giorni in un secolo, primavera a fine giugno in 400
   anni, Natale in piena estate in ~750 anni, e chi è nato il 29 febbraio non avrebbe mai più il compleanno.
   **Titolo**: What if we deleted leap years? 📅 #shorts  ·  #whatif #calendar #science #facts #roblox #shorts
+
+## 30_days_desert_island_ep1.mp4 — serie "30 Days on a Desert Island" (EP1)
+**Titolo:** I have 30 days to survive on a desert island 🏝️ (Day 1/30) #shorts
+**Descrizione:** Max had one rule: don't fall off the boat. Day one... he fell off the boat. Now he has a coconut, a rubber duck, a phone at 2% and a monkey who stole his sunglasses. 30 days to survive. YOU decide what he does next.
+Comment WATER or FIRE — the most liked comment decides Day 2 👇
+**Hashtag:** #30days #survival #desertisland #roblox #shorts #story #challenge #funny
+**Commento da fissare:** "WATER 💧 or FIRE 🔥? Most liked wins. Choose wisely… the monkey is watching 🐒🕶️"
