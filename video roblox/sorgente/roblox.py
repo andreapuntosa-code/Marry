@@ -245,12 +245,31 @@ class Overlay:
         c.drawString(wd, -tw / 2, size * 0.35, f, skia.Paint(Color=skia.Color(255, 255, 255), AntiAlias=True))
         c.restore()
 
+    def hud(self, c, h, t):
+        # a game-style HUD on top: DAY n/30 pill + bars (label, value 0..1, colour)
+        f = skia.Font(FONT, 58); txt = h.get("day", ""); tw = f.measureText(txt)
+        r = skia.Rect(40, 70, 40 + tw + 70, 170)
+        c.drawRoundRect(r.makeOffset(0, 6), 30, 30, skia.Paint(Color=skia.Color(0, 0, 0, 90), AntiAlias=True))
+        c.drawRoundRect(r, 30, 30, skia.Paint(Color=skia.Color(255, 196, 40), AntiAlias=True))
+        c.drawRoundRect(r, 30, 30, skia.Paint(Color=skia.Color(40, 20, 0), AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=6))
+        c.drawString(txt, r.left() + 35, r.centerY() + 21, f, skia.Paint(Color=skia.Color(40, 20, 0), AntiAlias=True))
+        fb = skia.Font(FONT, 30); y = 70
+        for lab, v, col in h.get("bars", []):
+            x0 = W - 420; c.drawString(lab, x0, y + 26, fb, skia.Paint(Color=skia.Color(255, 255, 255), AntiAlias=True))
+            c.drawString(lab, x0, y + 26, fb, skia.Paint(Color=skia.Color(30, 20, 10), AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2))
+            br = skia.Rect(x0 + 150, y + 2, W - 50, y + 32); c.drawRoundRect(br, 15, 15, skia.Paint(Color=skia.Color(30, 30, 40, 200), AntiAlias=True))
+            v = clamp(v); low = v < 0.25 and int(t * 4) % 2 == 0
+            if v > 0.01: c.drawRoundRect(skia.Rect(br.left() + 4, br.top() + 4, br.left() + 4 + (br.width() - 8) * v, br.bottom() - 4), 11, 11, skia.Paint(Color=skia.Color(255, 60, 60) if low else skia.Color(*col), AntiAlias=True))
+            c.drawRoundRect(br, 15, 15, skia.Paint(Color=skia.Color(255, 255, 255), AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3))
+            y += 46
+
     def draw(self, img, badges, t):
         fx = next((b.get("fx") for b in badges if b.get("id") == "__fx"), None); badges = [b for b in badges if not str(b.get("id", "")).startswith("__")]
         img = cinematic(apply_fx(img, fx, t), int(t * FPS))
         buf = np.ascontiguousarray(np.dstack([img, np.full(img.shape[:2], 255, np.uint8)]))
         surf = skia.Surface(buf); c = surf.getCanvas()
         for b in sorted(badges, key=lambda b: b["k"]): self.badge(c, b, t)
+        if fx and fx.get("hud"): self.hud(c, fx["hud"], t)
         self.caption(c, t)
         out = np.array(surf.toarray()[..., :3]); del surf; return out
 
