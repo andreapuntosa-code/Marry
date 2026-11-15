@@ -194,3 +194,19 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   **Titolo**: Learn Colors for Kids 🌈 Red, Blue, Yellow! #shorts
   **Descrizione**: Let's learn colors with fun toys! Red, blue, yellow, green, orange, purple, pink and a rainbow 🌈
   #learncolors #kidsvideo #colorsforkids #toddlers #preschool #shorts
+
+## What if: numeri famosi (2)
+- `what_if_you_could_divide_by_zero.mp4` (~41 s) — **What if you could divide by zero?** Cartello "1 ÷ 0 = ERROR → ALLOWED".
+  Fatto da discussione: 1/0 non è infinito (da destra +∞, da sinistra −∞, quindi nessuna risposta). Se fosse permesso:
+  1×0 = 2×0 → 1 = 2 → ogni numero uguale a ogni altro ($0 = $1.000.000). Storia vera: nel 1997 la USS Yorktown restò
+  ferma in mare per una divisione per zero. "That's why your calculator says error. It's protecting the universe."
+  **Titolo**: What if you could divide by zero? ➗ #shorts  ·  #math #whatif #maths #science #roblox #shorts
+- `what_if_water_froze_at_10_degrees.mp4` (~39 s) — **What if water froze at 10°C?** Fatto da discussione: l'acqua
+  pura può restare liquida fino a −40 °C. Frigo a 4 °C = bibite di ghiaccio, Londra (media 11 °C) col fiume gelato metà
+  anno, l'oceano profondo (< 4 °C) che diventa ghiaccio, solo una fascia calda all'equatore, il ghiaccio che riflette
+  il sole: "Earth becomes a snowball."
+  **Titolo**: What if water froze at 10°C? 🧊 #shorts  ·  #whatif #science #water #physics #roblox #shorts
+- `what_if_we_deleted_leap_years.mp4` (~34 s) — **What if we deleted leap years?** Un anno dura 365,2422 giorni:
+  senza il 29 febbraio il calendario slitta di ~6 ore l'anno: 24 giorni in un secolo, primavera a fine giugno in 400
+  anni, Natale in piena estate in ~750 anni, e chi è nato il 29 febbraio non avrebbe mai più il compleanno.
+  **Titolo**: What if we deleted leap years? 📅 #shorts  ·  #whatif #calendar #science #facts #roblox #shorts

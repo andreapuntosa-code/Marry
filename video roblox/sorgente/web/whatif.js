@@ -76,3 +76,12 @@ export const ll = (lat, lon, r) => { const a = lat * Math.PI / 180, b = lon * Ma
 export function palm(x, z, s = 1) { const g = new THREE.Group(); g.position.set(x, 0, z); g.scale.setScalar(s); add(g); const tr = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.25, 5, 8), M_(0x8a6a3a)); tr.position.y = 2.5; tr.rotation.z = 0.12; g.add(tr);
   for (let i = 0; i < 7; i++) { const l = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.08, 0.5), M_(0x3a9a3a)); l.position.set(Math.cos(i) * 1.0 + 0.3, 4.9, Math.sin(i) * 1.0); l.rotation.set(0, -i, -0.4); g.add(l); } }
 export function clouds(y, n, R0, R1, seed) { const r = rnd(seed), m = M_(0xffffff, { r: 0.95 }); for (let i = 0; i < n; i++) { const a = r() * 6.28, d = R0 + r() * (R1 - R0); const c = new THREE.Mesh(new THREE.SphereGeometry(3 + r() * 5, 14, 10), m); c.scale.y = 0.35; c.position.set(Math.cos(a) * d, y + r() * 2, Math.sin(a) * d); add(c); } }
+// a classroom blackboard (text in chalk); returns the label
+export function blackboard(textFn, x, y, z, o = {}) {
+  const w = o.w ?? 6, h = o.h ?? 3.4; blk(w + 0.4, h + 0.4, 0.2, M_(0x8a5a34, { r: 0.6 }), x, y, z - 0.08, { k: 0.05 }); blk(w, h, 0.1, M_(0x1e4a34, { r: 0.9 }), x, y, z, { k: 0.02 });
+  return dynLabel(textFn, x, y, z + 0.07, { w: w * 0.95, size: o.size ?? 150, color: o.color ?? '#f4f4ec', stroke: false });
+}
+// a classroom around a blackboard (room + board on the back wall)
+export function classroom(textFn, o = {}) { const S = getScene(); S.background = new THREE.Color(0xe8dcc4); S.fog = new THREE.Fog(0xe8dcc4, 14, 40); S.userData.hemi.intensity = 0.9; S.userData.sun.intensity = 1.2; S.userData.sun.position.set(4, 10, 10); S.userData.sun.target.position.set(0, 0, -4);
+  const fl = new THREE.Mesh(new THREE.PlaneGeometry(14, 12), M_(0xa87a50, { r: 0.7 })); fl.rotation.x = -Math.PI / 2; fl.position.z = -2; fl.receiveShadow = true; add(fl);
+  blk(14, 7, 0.3, M_(o.wall ?? 0xe8d8b8, { r: 0.9 }), 0, 3.5, -4.6, { k: 0.01 }); return blackboard(textFn, 0, 3.0, -4.4, o); }
