@@ -321,6 +321,19 @@ def build_audio(script, segs, total, events=(), music=True):
     prog = [[62, 66, 69, 74, 78, 81], [59, 62, 66, 71, 74, 78], [55, 59, 62, 67, 71, 74], [57, 61, 64, 69, 73, 76]]   # D  Bm  G  A
     pat = [5, 3, 4, 2, 5, 3, 1, 4]
     t, i = 0.0, 0
+    kids = getattr(importlib.import_module(script), "MUSIC", "") == "kids"
+    if kids:                                         # bright and bouncy, 128 bpm, C G Am F, marimba-ish plucks, bells, claps
+        beat = 60 / 128; prog = [[60, 64, 67, 72, 76, 79], [55, 59, 62, 67, 71, 74], [57, 60, 64, 69, 72, 76], [53, 57, 60, 65, 69, 72]]
+        mel = [3, 4, 5, 4, 3, 2, 3, 5, 4, 3, 2, 1, 2, 3, 4, 3]; rng = np.random.default_rng(4)
+        q = lambda d: np.arange(int(d * SR)) / SR
+        while t < total + 1:
+            ch = prog[(i // 8) % 4]
+            T.add(t, mono=M.pluck(ch[mel[i % 16]] + 12, 0.35, 0.8, 5000), gain=0.16, pan=0.3 * math.sin(i))
+            if i % 2 == 0: T.add(t, mono=M.pluck(ch[0] - 12, 0.4, 0.9, 900), gain=0.2)
+            if i % 4 == 2: n = rng.standard_normal(int(0.08 * SR)); b_, a_ = signal.butter(2, [1200 / (SR / 2), 6000 / (SR / 2)], 'band'); T.add(t, mono=signal.lfilter(b_, a_, n) * np.exp(-q(0.08) / 0.02), gain=0.08)
+            if i % 8 == 0: T.add(t, mono=M.bell(ch[5] + 12, 1.6, 0.35, ratio=3.5, index=1.0), gain=0.05, pan=-0.3)
+            t += beat / 2; i += 1
+        t = total + 2
     while t < total + 1:
         ch = prog[(i // 8) % 4]
         T.add(t, mono=M.bell(ch[pat[i % 8]], 2.6, 0.32, ratio=2.0, index=1.2), gain=0.11, pan=0.25 * math.sin(i * 1.3))
@@ -345,7 +358,7 @@ def build_audio(script, segs, total, events=(), music=True):
     fx = np.stack([X.L[:N], X.R[:N]], 1); fx /= np.abs(fx).max() + 1e-9
     act = (np.abs(voice) > 0.01).astype(np.float32); kk = int(0.3 * SR)
     env = signal.fftconvolve(act, np.ones(kk) / kk, "same"); env = signal.fftconvolve((env > 0.03).astype(np.float32), np.ones(int(0.2 * SR)) / int(0.2 * SR), "same")
-    mix = (mus * (0.4 * (1 - 0.3 * env))[:, None] if music else 0) + fx * 0.35 + voice[:, None]
+    mix = (mus * ((0.55 if kids else 0.4) * (1 - 0.3 * env))[:, None] if music else 0) + fx * 0.35 + voice[:, None]
     q = np.arange(N) / SR; mix *= (np.clip(q / 0.3, 0, 1) * np.clip((total - q) / 0.7, 0, 1))[:, None]
     mix = mix / (np.abs(mix).max() + 1e-9) * 0.9
     out = os.path.join(S_DIR, f"rbx_{script}_mix{'' if music else '_nomusic'}.wav"); sf.write(out, mix.astype(np.float32), SR, subtype="FLOAT"); return out

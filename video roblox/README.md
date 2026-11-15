@@ -183,3 +183,14 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
   sbattere le palpebre. Senza: occhi secchi fino al doppio più in fretta, polvere/polline/sabbia sull'occhio, occhi
   rossi e infetti, una tempesta di sabbia nel deserto. "Those tiny hairs are the only thing between your eyes and the world."
   **Titolo**: Eyelashes are just for looks… right? 👁️ #shorts  ·  #humanbody #eyes #facts #science #roblox #shorts
+
+## Video per bambini
+- `kids_lets_learn_colors_with_music.mp4` (~32 s, voce + musichetta) — **Let's learn colors!** Short per bambini 3–6
+  anni, in inglese: mondo giocattolo 3D coloratissimo (palco a scacchi arcobaleno, palline, blocchi, palloncini,
+  coriandoli del colore), una presentatrice che cambia colore insieme all'oggetto: mela rossa, mare blu con pesciolino,
+  sole giallo, rana verde, arancia, uva viola, maialino rosa, poi l'arcobaleno e "Which color is your favorite? Bye bye!".
+  Voce femminile allegra (af_bella, lenta), musica vivace in Do maggiore a 128 bpm (stile "kids" nel driver), pop a ogni
+  colore. La versione senza musica è `kids_lets_learn_colors.mp4`. Su YouTube va segnato **"Made for kids"**.
+  **Titolo**: Learn Colors for Kids 🌈 Red, Blue, Yellow! #shorts
+  **Descrizione**: Let's learn colors with fun toys! Red, blue, yellow, green, orange, purple, pink and a rainbow 🌈
+  #learncolors #kidsvideo #colorsforkids #toddlers #preschool #shorts
