@@ -217,3 +217,24 @@ magica, negozio di pozioni, bottega di antiquariato, Stanza delle cose perse, po
 Comment WATER or FIRE — the most liked comment decides Day 2 👇
 **Hashtag:** #30days #survival #desertisland #roblox #shorts #story #challenge #funny
 **Commento da fissare:** "WATER 💧 or FIRE 🔥? Most liked wins. Choose wisely… the monkey is watching 🐒🕶️"
+
+## Serie "In this world..." carine (16/11/2026) — solo voce, sorgenti `script_pets/clouds/shadow.py`, `web/film_*.js`, helper in `web/cute.js`
+- `in_this_world_pets_can_talk.mp4` (~47 s) — **"In this world, every pet can talk for one day a year."** Il Pet Day: il
+  gatto giudica la cucina ("Mid."), il pappagallo svela i segreti, il pesce rosso dimentica cosa voleva dire. Biscuit, cane
+  di 14 anni, alla mezzanotte dice la sua prima frase: "Thank you… for picking me." (flashback al canile).
+  **Titolo:** In this world, pets can talk for one day a year 🐶 #shorts
+  **Descrizione:** I was scared of what my old dog would say… 🥺 Comment your pet's name — Biscuit wants to say hi 👇
+  #roblox #story #pets #dog #cute #emotional #shorts
+- `in_this_world_mood_clouds.mp4` (~38 s) — **"In this world, everyone has a tiny cloud above their head."** Sole se
+  felice, tuoni se arrabbiato, pioggia di glitter se innamorato. La nuova compagna Rose ha sempre la pioggia; nessuno le
+  si siede vicino. Io porto un ombrello… al 40° giorno la sua nuvola fa un arcobaleno, e la mia piove glitter.
+  **Titolo:** In this world, your mood is a cloud above your head ☁️ #shorts
+  **Descrizione:** Nobody sat next to her because her cloud was always raining… so I brought an umbrella ☔ Comment 🌈 if you'd hold it
+  #roblox #story #cute #wholesome #love #shorts
+- `in_this_world_shadows.mp4` (~34 s) — **"In this world, your shadow does whatever it wants."** La mia balla quando sono
+  nervoso, quella della prof dorme a lezione, quella di papà è in ritardo di 5 secondi, quella della nonna ha ancora
+  vent'anni e fa la ruota. Alla fermata del bus io e Lily diciamo solo "ciao"… ma le nostre ombre si tengono per mano.
+  12 anni dopo, al matrimonio, le ombre ballano prima della musica.
+  **Titolo:** In this world, your shadow does whatever it wants 👤 #shorts
+  **Descrizione:** Our shadows knew before we did 🥹 Comment what YOUR shadow would do 👇
+  #roblox #story #cute #love #wholesome #shorts
