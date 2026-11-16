@@ -1236,7 +1236,7 @@ def main():
         make_audio(wav)
         silent = out.replace('.mp4', '_silent.mp4')
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', lst,
-                        '-c:v', 'libx264', '-preset', 'slow', '-crf', '21', '-tune', 'grain', '-pix_fmt', 'yuv420p',
+                        '-c:v', 'libx264', '-preset', 'slow', '-b:v', '6800k', '-maxrate', '9000k', '-bufsize', '14000k', '-pix_fmt', 'yuv420p',
                         '-movflags', '+faststart', silent], check=True)
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', silent, '-i', wav, '-map', '0:v', '-map', '1:a',
                         '-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-shortest', '-movflags', '+faststart', out], check=True)

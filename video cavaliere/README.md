@@ -29,7 +29,7 @@ Servono Python 3 con `numpy`, `opencv-python`, `scipy`, `skia-python` e `ffmpeg`
 ```bash
 cd "video cavaliere/sorgente"
 python3 knight_rain.py preview 60,250,630                        # fotogrammi PNG in ./preview
-python3 knight_rain.py render ../knight_in_the_rain.mp4 --jobs 4  # video completo (circa 5 minuti)
+python3 knight_rain.py render ../knight_in_the_rain.mp4 --jobs 4  # video completo (circa 8 minuti)
 ```
 
 Tutto è generato da codice, senza immagini esterne. Le cose che si cambiano più spesso sono
