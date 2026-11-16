@@ -5,7 +5,7 @@
   {
    "id": "hook",
    "narration": "Can a ball be in two places at the same time? In the tiny world... yes.",
-   "audio": "audio/hook.wav",
+   "audio": "audio/superposition/hook.wav",
    "duration": 6.355,
    "words": [
     {
@@ -93,7 +93,7 @@
   {
    "id": "top",
    "narration": "Imagine a spinning top, whirling super fast, in the dark. Is it spinning up, or down? You can't tell. As long as it's dark, it's a bit of both at the same time. But when you switch on the light and look at it... pop! It picks just one direction. Tiny things, like electrons, do exactly that.",
-   "audio": "audio/top.wav",
+   "audio": "audio/superposition/top.wav",
    "duration": 22.089,
    "words": [
     {
@@ -386,7 +386,7 @@
   {
    "id": "bridge",
    "narration": "Okay. Now let's see how physicists say it.",
-   "audio": "audio/bridge.wav",
+   "audio": "audio/superposition/bridge.wav",
    "duration": 3.7,
    "words": [
     {
@@ -434,7 +434,7 @@
   {
    "id": "physics",
    "narration": "Before it's measured, an electron is in a superposition of states: it's our top, spinning both ways at once. This situation is described by a wave function, which tells us the probability of finding it in each state. When we measure it, the wave function collapses, and the electron takes on a single state. That's the light switching on.",
-   "audio": "audio/physics.wav",
+   "audio": "audio/superposition/physics.wav",
    "duration": 23.016,
    "words": [
     {
@@ -737,7 +737,7 @@
   {
    "id": "outro",
    "narration": "This is how quantum computers work: their qubits are like spinning tops that are zero and one at the same time. In the next video: entanglement, or twin spinning tops.",
-   "audio": "audio/outro.wav",
+   "audio": "audio/superposition/outro.wav",
    "duration": 11.641,
    "words": [
     {

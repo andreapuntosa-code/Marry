@@ -14,7 +14,7 @@ scenes_path, out_dir, *only = sys.argv[1:]
 cfg = json.load(open(scenes_path, encoding="utf-8"))
 kc = cfg.get("voice", {}).get("kokoro", {})
 pause = cfg.get("timing", {}).get("sentencePause", 0.28)
-models = os.environ.get("KOKORO_MODELS", os.path.join(os.path.dirname(scenes_path), "models"))
+models = os.environ.get("KOKORO_MODELS", "models")
 k = Kokoro(os.path.join(models, "kokoro-v1.0.onnx"), os.path.join(models, "voices-v1.0.bin"))
 pron = {key.lower(): v for key, v in kc.get("pronunciations", {}).items()}
 SR = 24000

@@ -1,9 +1,10 @@
 import React from 'react';
 import {AbsoluteFill, random} from 'remotion';
-import {STYLE} from '../theme';
+import {useStyle} from '../theme';
 
 /** Sfondo: lavagna verde con texture, aloni di gesso e vignettatura. Statico (nessuno sfarfallio). */
 export const Chalkboard: React.FC = () => {
+  const STYLE = useStyle();
   const smudges = new Array(9).fill(0).map((_, i) => ({
     cx: random(`sx${i}`) * 1080,
     cy: random(`sy${i}`) * 1920,

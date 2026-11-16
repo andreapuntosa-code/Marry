@@ -1,4 +1,5 @@
-export type ChalkColor = 'white' | 'yellow';
+/** 'white', 'yellow' oppure un nome della palette (style.palette) o un colore CSS */
+export type ChalkColor = string;
 
 type BaseAction = {
   /** Parola della narrazione che fa partire l'azione. "parola#2" = seconda occorrenza; "start"/"end" = inizio/fine scena. */
@@ -34,10 +35,19 @@ export type DrawingAction = BaseAction & {
   /** Parola che avvia la seconda fase del disegno (es. lampadina che si accende, onda che collassa). */
   then?: string;
   thenDuration?: number;
+  /** Altre fasi, ognuna agganciata a una parola: il disegno riceve cues[i] da 0 a 1. */
+  cues?: string[];
+  cueDuration?: number;
   props?: Record<string, unknown>;
 };
 
-export type Action = TextAction | DrawingAction;
+/** Oggetto 3D (three.js) da src/models3d, con gli stessi campi di tempo dei disegni. */
+export type ModelAction = Omit<DrawingAction, 'type' | 'drawing'> & {
+  type: '3d';
+  model: string;
+};
+
+export type Action = TextAction | DrawingAction | ModelAction;
 
 export type Scene = {
   id: string;
@@ -48,7 +58,7 @@ export type Scene = {
 export type ScenesFile = {
   title: string;
   video: {width: number; height: number; fps: number};
-  style: {board: string; chalk: string; accent: string; font: 'Caveat' | 'Gochi Hand'};
+  style: {board: string; chalk: string; accent: string; font: 'Caveat' | 'Gochi Hand'; palette?: Record<string, string>};
   timing: {leadIn: number; hold: number; erase: number; tail: number; sentencePause?: number};
   voice: Record<string, unknown>;
   scenes: Scene[];

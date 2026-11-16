@@ -7,18 +7,22 @@
   "scripts": {
     "tts": "node scripts/tts.mjs",
     "studio": "remotion studio",
-    "render": "remotion render Lavagna out/video.mp4",
+    "render": "remotion render --gl=angle",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@react-three/fiber": "9.3.0",
     "@remotion/cli": "4.0.543",
     "@remotion/fonts": "4.0.543",
+    "@remotion/three": "4.0.543",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "remotion": "4.0.543"
+    "remotion": "4.0.543",
+    "three": "0.180.0"
   },
   "devDependencies": {
     "@types/react": "19.1.8",
+    "@types/three": "0.180.0",
     "typescript": "5.8.3"
   }
 }

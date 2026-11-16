@@ -2,14 +2,16 @@
 /**
  * Genera la voce narrante e i tempi di ogni parola per scenes.json.
  *
- *   npm run tts                         → ElevenLabs se c'è ELEVENLABS_API_KEY in .env, altrimenti audio segnaposto (silenzio)
- *   npm run tts -- --provider=elevenlabs
- *   npm run tts -- --provider=placeholder   → file WAV muti con durata stimata
- *   npm run tts -- --provider=kokoro        → voce locale gratuita (Python + kokoro-onnx, vedi README)
- *   npm run tts -- --provider=manual        → usa i TUOI file in public/audio/<id-scena>.mp3|wav|m4a
+ *   npm run tts -- <video>                        → ElevenLabs se c'è ELEVENLABS_API_KEY in .env, altrimenti audio segnaposto (silenzio)
+ *   npm run tts -- <video> --provider=elevenlabs
+ *   npm run tts -- <video> --provider=placeholder → file WAV muti con durata stimata
+ *   npm run tts -- <video> --provider=kokoro      → voce locale gratuita (Python + kokoro-onnx, vedi README)
+ *   npm run tts -- <video> --provider=manual      → usa i TUOI file in public/audio/<video>/<id-scena>.mp3|wav|m4a
  *   aggiungi --only=id1,id2 per rigenerare solo alcune scene
  *
- * Scrive i file audio in public/audio/ e i tempi in src/generated/timings.json.
+ * <video> = nome della cartella in videos/ (es. integrals).
+ * Scrive l'audio in public/audio/<video>/, i tempi in src/generated/<video>.timings.json
+ * e aggiorna src/generated/index.ts (l'elenco dei video che Remotion mostra).
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,8 +19,6 @@ import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const AUDIO_DIR = path.join(ROOT, 'public', 'audio');
-const TIMINGS = path.join(ROOT, 'src', 'generated', 'timings.json');
 
 // --- .env minimale -------------------------------------------------------
 const envFile = path.join(ROOT, '.env');
@@ -30,12 +30,21 @@ if (fs.existsSync(envFile)) {
 }
 
 const args = Object.fromEntries(
-  process.argv.slice(2).map((a) => {
+  process.argv.slice(2).filter((a) => a.startsWith('--')).map((a) => {
     const [k, v] = a.replace(/^--/, '').split('=');
     return [k, v ?? true];
   }),
 );
-const file = JSON.parse(fs.readFileSync(path.join(ROOT, 'scenes.json'), 'utf8'));
+const VIDEO = process.argv.slice(2).find((a) => !a.startsWith('--'));
+const videos = fs.readdirSync(path.join(ROOT, 'videos')).filter((d) => fs.existsSync(path.join(ROOT, 'videos', d, 'scenes.json')));
+if (!VIDEO || !videos.includes(VIDEO)) {
+  console.error(`Indica il video: npm run tts -- <video>   (disponibili: ${videos.join(', ')})`);
+  process.exit(1);
+}
+const SCENES_FILE = path.join(ROOT, 'videos', VIDEO, 'scenes.json');
+const AUDIO_DIR = path.join(ROOT, 'public', 'audio', VIDEO);
+const TIMINGS = path.join(ROOT, 'src', 'generated', `${VIDEO}.timings.json`);
+const file = JSON.parse(fs.readFileSync(SCENES_FILE, 'utf8'));
 const provider = args.provider ?? (process.env.ELEVENLABS_API_KEY ? 'elevenlabs' : 'placeholder');
 const only = args.only ? String(args.only).split(',') : null;
 fs.mkdirSync(AUDIO_DIR, {recursive: true});
@@ -138,14 +147,14 @@ const elevenlabs = async (scene, i, scenes) => {
   });
   if (cur) words.push(cur);
   const duration = (words.at(-1)?.end ?? 0) + 0.35;
-  return {audio: `audio/${scene.id}.mp3`, duration: +duration.toFixed(3), words};
+  return {audio: `audio/${VIDEO}/${scene.id}.mp3`, duration: +duration.toFixed(3), words};
 };
 
 const placeholder = async (scene) => {
   const duration = estimateDuration(scene.narration);
   clearOld(scene.id, 'wav');
   writeSilentWav(path.join(AUDIO_DIR, `${scene.id}.wav`), duration);
-  return {audio: `audio/${scene.id}.wav`, duration, words: estimateWords(scene.narration, 0.1, duration - 0.2)};
+  return {audio: `audio/${VIDEO}/${scene.id}.wav`, duration, words: estimateWords(scene.narration, 0.1, duration - 0.2)};
 };
 
 const probeDuration = (f) => {
@@ -160,17 +169,18 @@ const probeDuration = (f) => {
 
 const manual = async (scene) => {
   const ext = ['mp3', 'wav', 'm4a'].find((e) => fs.existsSync(path.join(AUDIO_DIR, `${scene.id}.${e}`)));
-  if (!ext) throw new Error(`Manca public/audio/${scene.id}.mp3 (o .wav/.m4a)`);
+  if (!ext) throw new Error(`Manca public/audio/${VIDEO}/${scene.id}.mp3 (o .wav/.m4a)`);
   const duration = probeDuration(path.join(AUDIO_DIR, `${scene.id}.${ext}`));
-  return {audio: `audio/${scene.id}.${ext}`, duration: +duration.toFixed(3), words: estimateWords(scene.narration, 0.15, duration - 0.25)};
+  return {audio: `audio/${VIDEO}/${scene.id}.${ext}`, duration: +duration.toFixed(3), words: estimateWords(scene.narration, 0.15, duration - 0.25)};
 };
 
 let kokoroCache = null;
 const kokoro = async (scene) => {
   if (!kokoroCache) {
     const py = process.env.PYTHON ?? 'python3';
-    const r = spawnSync(py, [path.join(ROOT, 'scripts', 'tts_kokoro.py'), path.join(ROOT, 'scenes.json'), AUDIO_DIR, ...(only ?? [])], {
+    const r = spawnSync(py, [path.join(ROOT, 'scripts', 'tts_kokoro.py'), SCENES_FILE, AUDIO_DIR, ...(only ?? [])], {
       encoding: 'utf8',
+      env: {...process.env, KOKORO_MODELS: process.env.KOKORO_MODELS ?? path.join(ROOT, 'models')},
       stdio: ['ignore', 'pipe', 'inherit'],
       maxBuffer: 1 << 26,
     });
@@ -182,7 +192,7 @@ const kokoro = async (scene) => {
   const sentences = splitSentences(scene.narration);
   if (sentences.length !== res.sentences.length) throw new Error(`Scena ${scene.id}: frasi non allineate`);
   const words = sentences.flatMap((s, k) => estimateWords(s, res.sentences[k][0], res.sentences[k][1]));
-  return {audio: `audio/${scene.id}.wav`, duration: res.duration, words};
+  return {audio: `audio/${VIDEO}/${scene.id}.wav`, duration: res.duration, words};
 };
 
 const PROVIDERS = {elevenlabs, placeholder, manual, kokoro};
@@ -206,3 +216,18 @@ const total = out.scenes.reduce((a, s) => a + s.duration, 0);
 const t = file.timing;
 const video = t.leadIn + total + (out.scenes.length - 1) * (t.hold + t.erase) + t.tail;
 console.log(`Narrazione ${total.toFixed(1)} s → video ≈ ${video.toFixed(1)} s. Scritto ${path.relative(ROOT, TIMINGS)}`);
+
+// --- elenco dei video per Remotion --------------------------------------------
+const ready = videos.filter((v) => fs.existsSync(path.join(ROOT, 'src', 'generated', `${v}.timings.json`)));
+const index = [
+  '// File generato da scripts/tts.mjs: non modificarlo a mano.',
+  "import type {ScenesFile, TimingsFile} from '../types';",
+  ...ready.map((v, i) => `import s${i} from '../../videos/${v}/scenes.json';\nimport t${i} from './${v}.timings.json';`),
+  '',
+  'export const VIDEOS: {id: string; scenes: ScenesFile; timings: TimingsFile}[] = [',
+  ...ready.map((v, i) => `  {id: '${v}', scenes: s${i} as ScenesFile, timings: t${i} as TimingsFile},`),
+  '];',
+  '',
+].join('\n');
+fs.writeFileSync(path.join(ROOT, 'src', 'generated', 'index.ts'), index);
+console.log(`Video disponibili in Remotion: ${ready.join(', ')}`);

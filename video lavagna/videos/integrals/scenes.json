@@ -1,0 +1,640 @@
+{
+  "title": "Integrals explained: bathtubs, lemons and race cars",
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "style": {
+    "board": "#1F3B2D",
+    "chalk": "#F2F2F2",
+    "accent": "#F5D76E",
+    "font": "Caveat",
+    "palette": {
+      "blue": "#8FC3E8",
+      "blueDark": "#5E9FD6",
+      "pink": "#F2A7B8",
+      "green": "#A8DDA0",
+      "lemonFlesh": "#FFF3B8"
+    }
+  },
+  "timing": {
+    "leadIn": 0.4,
+    "hold": 1.0,
+    "erase": 1.0,
+    "tail": 2.2,
+    "sentencePause": 0.5
+  },
+  "voice": {
+    "elevenlabs": {
+      "voiceId": "EXAVITQu4vr4xnSDxMaL",
+      "modelId": "eleven_multilingual_v2",
+      "stability": 0.55,
+      "similarityBoost": 0.75,
+      "style": 0.15,
+      "speed": 1.0
+    },
+    "kokoro": {
+      "voice": "af_heart",
+      "lang": "en-us",
+      "speed": 1.0,
+      "pronunciations": {}
+    }
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "narration": "What do a bathtub, a lemon, and a race car have in common? You can understand all three with one simple idea... the integral.",
+      "actions": [
+        {
+          "type": "drawing",
+          "drawing": "Bathtub",
+          "at": "bathtub",
+          "duration": 1.0,
+          "x": 210,
+          "y": 430,
+          "width": 290,
+          "height": 240
+        },
+        {
+          "type": "drawing",
+          "drawing": "Lemon",
+          "at": "lemon",
+          "duration": 0.9,
+          "x": 540,
+          "y": 430,
+          "width": 270,
+          "height": 200
+        },
+        {
+          "type": "drawing",
+          "drawing": "Car",
+          "at": "car",
+          "duration": 1.0,
+          "x": 870,
+          "y": 440,
+          "width": 300,
+          "height": 140
+        },
+        {
+          "type": "text",
+          "text": "all three = *one idea*",
+          "at": "understand",
+          "x": 540,
+          "y": 700,
+          "size": 96
+        },
+        {
+          "type": "drawing",
+          "drawing": "IntegralSign",
+          "at": "integral",
+          "duration": 1.0,
+          "x": 540,
+          "y": 1060,
+          "width": 200,
+          "height": 440
+        },
+        {
+          "type": "text",
+          "text": "*INTEGRALS*",
+          "at": "integral",
+          "delay": 0.6,
+          "x": 540,
+          "y": 1390,
+          "size": 150,
+          "cps": 16
+        }
+      ]
+    },
+    {
+      "id": "tub",
+      "narration": "Let's start with a bathtub. You open the tap. Sometimes the water flows fast... sometimes slowly. Every second, a thin layer of water is added to the tub. How much water is in there at the end? Just add up all the thin layers! That's what an integral does: it adds up lots of tiny pieces.",
+      "actions": [
+        {
+          "type": "3d",
+          "model": "Tank3D",
+          "at": "bathtub",
+          "duration": 1.6,
+          "then": "tap",
+          "thenDuration": 12.0,
+          "cues": [
+            "add"
+          ],
+          "cueDuration": 1.0,
+          "x": 540,
+          "y": 760,
+          "width": 1040,
+          "height": 960
+        },
+        {
+          "type": "text",
+          "text": "fast!",
+          "at": "fast",
+          "x": 880,
+          "y": 300,
+          "size": 90,
+          "color": "blue"
+        },
+        {
+          "type": "text",
+          "text": "slow...",
+          "at": "slowly",
+          "x": 880,
+          "y": 390,
+          "size": 80,
+          "color": "blue"
+        },
+        {
+          "type": "text",
+          "text": "1 second = *1 thin layer*",
+          "at": "every",
+          "x": 540,
+          "y": 1290,
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "total = *sum of all layers*",
+          "at": "add",
+          "x": 540,
+          "y": 1400,
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "integral = adding up *tiny pieces*",
+          "at": "integral",
+          "x": 540,
+          "y": 1510,
+          "size": 78
+        }
+      ]
+    },
+    {
+      "id": "lemon",
+      "narration": "Now, a lemon. How much lemon is in there? It's a curvy shape, so it's hard to measure. So let's slice it! Each slice is almost a flat coin, and coins are easy to measure. Add up all the coins, and you get the whole lemon. Thinner slices? An even more exact answer.",
+      "actions": [
+        {
+          "type": "3d",
+          "model": "Lemon3D",
+          "at": "lemon",
+          "duration": 1.4,
+          "cues": [
+            "slice",
+            "thinner"
+          ],
+          "cueDuration": 1.4,
+          "x": 540,
+          "y": 780,
+          "width": 1040,
+          "height": 820
+        },
+        {
+          "type": "text",
+          "text": "curvy → *hard to measure*",
+          "at": "curvy",
+          "x": 540,
+          "y": 300,
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "1 slice ≈ *1 coin*",
+          "at": "coin",
+          "x": 540,
+          "y": 1270,
+          "size": 90
+        },
+        {
+          "type": "text",
+          "text": "lemon = coin + coin + coin + …",
+          "at": "add",
+          "x": 540,
+          "y": 1380,
+          "size": 74
+        },
+        {
+          "type": "text",
+          "text": "thinner slices → *more exact*",
+          "at": "thinner",
+          "x": 540,
+          "y": 1490,
+          "size": 82
+        }
+      ]
+    },
+    {
+      "id": "bridge",
+      "narration": "Okay! Now let's draw it on a graph, like a real mathematician.",
+      "actions": [
+        {
+          "type": "text",
+          "text": "On a graph",
+          "at": "okay",
+          "x": 540,
+          "y": 760,
+          "size": 170,
+          "cps": 14
+        },
+        {
+          "type": "drawing",
+          "drawing": "Underline",
+          "props": {
+            "count": 2
+          },
+          "at": "graph",
+          "duration": 0.8,
+          "x": 540,
+          "y": 880,
+          "width": 640,
+          "height": 90,
+          "color": "yellow"
+        },
+        {
+          "type": "text",
+          "text": "like a real *mathematician*",
+          "at": "like",
+          "x": 540,
+          "y": 1060,
+          "size": 90
+        }
+      ]
+    },
+    {
+      "id": "graph",
+      "narration": "This is a race car's speed during a race. Here's the cool part: the distance it travels is the area under this curve. But the curve is wobbly... so we fill it with rectangles. A rectangle is easy: width times height. With four rectangles, it's a rough guess. With ten, much closer. With a hundred super thin ones... almost perfect. Make them infinitely thin, and the guess becomes exact. That's an integral!",
+      "actions": [
+        {
+          "type": "drawing",
+          "drawing": "Car",
+          "at": "car",
+          "duration": 0.9,
+          "x": 190,
+          "y": 280,
+          "width": 250,
+          "height": 120
+        },
+        {
+          "type": "drawing",
+          "drawing": "RiemannGraph",
+          "at": "speed",
+          "duration": 2.2,
+          "cues": [
+            "area",
+            "rectangles",
+            "ten",
+            "hundred",
+            "exact"
+          ],
+          "cueDuration": 1.2,
+          "x": 540,
+          "y": 800,
+          "width": 1000,
+          "height": 730
+        },
+        {
+          "type": "text",
+          "text": "area = *distance*",
+          "at": "distance",
+          "x": 690,
+          "y": 290,
+          "size": 96
+        },
+        {
+          "type": "text",
+          "text": "rectangle = width × height",
+          "at": "width",
+          "x": 540,
+          "y": 1270,
+          "size": 80
+        },
+        {
+          "type": "text",
+          "text": "infinitely thin → *EXACT*",
+          "at": "infinitely",
+          "x": 540,
+          "y": 1390,
+          "size": 94
+        },
+        {
+          "type": "text",
+          "text": "= *integral*",
+          "at": "that's",
+          "x": 540,
+          "y": 1510,
+          "size": 100
+        }
+      ]
+    },
+    {
+      "id": "notation",
+      "narration": "Mathematicians write it like this. This long S stands for sum. f of x is the height of each rectangle. d x is its tiny width. And a and b tell you where to start, and where to stop.",
+      "actions": [
+        {
+          "type": "drawing",
+          "drawing": "IntegralSign",
+          "at": "write",
+          "duration": 1.0,
+          "x": 250,
+          "y": 620,
+          "width": 200,
+          "height": 470
+        },
+        {
+          "type": "text",
+          "text": "f(x)",
+          "at": "f",
+          "x": 580,
+          "y": 630,
+          "size": 170,
+          "cps": 8
+        },
+        {
+          "type": "text",
+          "text": "dx",
+          "at": "d",
+          "x": 880,
+          "y": 630,
+          "size": 170,
+          "cps": 6
+        },
+        {
+          "type": "text",
+          "text": "b",
+          "at": "b",
+          "x": 345,
+          "y": 360,
+          "size": 100,
+          "color": "blue"
+        },
+        {
+          "type": "text",
+          "text": "a",
+          "at": "a",
+          "x": 245,
+          "y": 905,
+          "size": 100,
+          "color": "blue"
+        },
+        {
+          "type": "text",
+          "text": "← stop",
+          "at": "stop",
+          "x": 480,
+          "y": 362,
+          "size": 74,
+          "color": "blue"
+        },
+        {
+          "type": "text",
+          "text": "← start",
+          "at": "start",
+          "x": 390,
+          "y": 907,
+          "size": 74,
+          "color": "blue"
+        },
+        {
+          "type": "drawing",
+          "drawing": "Arrow",
+          "props": {
+            "direction": "up"
+          },
+          "at": "sum",
+          "duration": 0.4,
+          "x": 140,
+          "y": 990,
+          "width": 60,
+          "height": 200,
+          "color": "yellow"
+        },
+        {
+          "type": "text",
+          "text": "*sum*",
+          "at": "sum",
+          "x": 140,
+          "y": 1150,
+          "size": 90
+        },
+        {
+          "type": "drawing",
+          "drawing": "Arrow",
+          "props": {
+            "direction": "up"
+          },
+          "at": "height",
+          "duration": 0.5,
+          "x": 580,
+          "y": 930,
+          "width": 60,
+          "height": 320,
+          "color": "yellow"
+        },
+        {
+          "type": "text",
+          "text": "*height*",
+          "at": "height",
+          "x": 560,
+          "y": 1150,
+          "size": 90
+        },
+        {
+          "type": "drawing",
+          "drawing": "Arrow",
+          "props": {
+            "direction": "up"
+          },
+          "at": "tiny",
+          "duration": 0.5,
+          "x": 880,
+          "y": 930,
+          "width": 60,
+          "height": 320,
+          "color": "yellow"
+        },
+        {
+          "type": "text",
+          "text": "*tiny width*",
+          "at": "tiny",
+          "x": 880,
+          "y": 1150,
+          "size": 80
+        },
+        {
+          "type": "text",
+          "text": "= area under f(x)\nfrom *a* to *b*",
+          "at": "start",
+          "x": 540,
+          "y": 1400,
+          "size": 96,
+          "cps": 28
+        }
+      ]
+    },
+    {
+      "id": "example",
+      "narration": "Let's try a real one: the area under the line y equals x, from zero to two. The integral gives us... two. Can we check it? Sure! The shape is just a triangle. Half of base times height: one half, times two, times two... equals two. It works!",
+      "actions": [
+        {
+          "type": "drawing",
+          "drawing": "LineGraph",
+          "at": "line",
+          "duration": 1.6,
+          "cues": [
+            "zero",
+            "triangle"
+          ],
+          "cueDuration": 1.2,
+          "x": 540,
+          "y": 560,
+          "width": 720,
+          "height": 700
+        },
+        {
+          "type": "drawing",
+          "drawing": "IntegralSign",
+          "at": "area",
+          "duration": 0.7,
+          "x": 300,
+          "y": 1080,
+          "width": 90,
+          "height": 210
+        },
+        {
+          "type": "text",
+          "text": "2",
+          "at": "zero",
+          "delay": 0.5,
+          "x": 362,
+          "y": 985,
+          "size": 56
+        },
+        {
+          "type": "text",
+          "text": "0",
+          "at": "zero",
+          "x": 318,
+          "y": 1185,
+          "size": 56
+        },
+        {
+          "type": "text",
+          "text": "x dx",
+          "at": "x",
+          "x": 480,
+          "y": 1080,
+          "size": 120,
+          "cps": 8
+        },
+        {
+          "type": "text",
+          "text": "= *2*",
+          "at": "two#2",
+          "x": 680,
+          "y": 1080,
+          "size": 120,
+          "cps": 6
+        },
+        {
+          "type": "text",
+          "text": "½ · base · height",
+          "at": "half",
+          "x": 540,
+          "y": 1300,
+          "size": 90
+        },
+        {
+          "type": "text",
+          "text": "½ · 2 · 2 = *2*",
+          "at": "one#2",
+          "x": 500,
+          "y": 1420,
+          "size": 104,
+          "cps": 10
+        },
+        {
+          "type": "drawing",
+          "drawing": "Check",
+          "at": "works",
+          "duration": 0.6,
+          "x": 820,
+          "y": 1410,
+          "width": 140,
+          "height": 130,
+          "color": "green"
+        }
+      ]
+    },
+    {
+      "id": "outro",
+      "narration": "So, an integral is just a smart way of adding up tiny pieces. Bathtubs, lemons, race cars... it works for all of them. Next time: derivatives, the opposite of integrals!",
+      "actions": [
+        {
+          "type": "drawing",
+          "drawing": "IntegralSign",
+          "at": "integral",
+          "duration": 0.8,
+          "x": 190,
+          "y": 470,
+          "width": 150,
+          "height": 330
+        },
+        {
+          "type": "text",
+          "text": "= adding up\n*tiny pieces*",
+          "at": "adding",
+          "x": 610,
+          "y": 470,
+          "size": 110,
+          "cps": 16
+        },
+        {
+          "type": "drawing",
+          "drawing": "Bathtub",
+          "at": "bathtubs",
+          "duration": 0.7,
+          "x": 210,
+          "y": 850,
+          "width": 250,
+          "height": 200
+        },
+        {
+          "type": "drawing",
+          "drawing": "Lemon",
+          "at": "lemons",
+          "duration": 0.7,
+          "x": 540,
+          "y": 850,
+          "width": 230,
+          "height": 170
+        },
+        {
+          "type": "drawing",
+          "drawing": "Car",
+          "at": "cars",
+          "duration": 0.7,
+          "x": 870,
+          "y": 860,
+          "width": 260,
+          "height": 120
+        },
+        {
+          "type": "text",
+          "text": "Next: *derivatives*",
+          "at": "next",
+          "x": 540,
+          "y": 1230,
+          "size": 120
+        },
+        {
+          "type": "text",
+          "text": "(the opposite of integrals)",
+          "at": "opposite",
+          "x": 540,
+          "y": 1360,
+          "size": 72
+        }
+      ]
+    }
+  ]
+}

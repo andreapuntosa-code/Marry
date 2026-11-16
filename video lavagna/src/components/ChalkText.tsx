@@ -1,7 +1,7 @@
 import React from 'react';
 import {interpolate, random, useCurrentFrame, useVideoConfig} from 'remotion';
 import {FONTS} from '../fonts';
-import {STYLE, chalkColor} from '../theme';
+import {chalkColor, useStyle} from '../theme';
 import type {ChalkColor} from '../types';
 import {useOut} from './useOut';
 
@@ -73,6 +73,7 @@ export const ChalkText: React.FC<ChalkTextProps> = ({
   font,
 }) => {
   const frame = useCurrentFrame();
+  const STYLE = useStyle();
   const {fps} = useVideoConfig();
   const out = useOut(outFrame);
   if (frame < startFrame || out.hidden) return null;
@@ -110,7 +111,7 @@ export const ChalkText: React.FC<ChalkTextProps> = ({
           {line.map((g) => {
             const i = idx++;
             const p = interpolate(written - i, [0, 1], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-            const c = g.yellow ? STYLE.accent : chalkColor(color);
+            const c = g.yellow ? STYLE.accent : chalkColor(STYLE, color);
             const dy = (random(`${seed}-y-${i}`) - 0.5) * size * 0.05;
             const rot = (random(`${seed}-r-${i}`) - 0.5) * 4;
             if (g.ch in ARROWS) {

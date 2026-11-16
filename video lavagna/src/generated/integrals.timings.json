@@ -1,0 +1,1740 @@
+{
+ "provider": "kokoro",
+ "generatedAt": "2026-11-16T12:15:58.235Z",
+ "scenes": [
+  {
+   "id": "hook",
+   "narration": "What do a bathtub, a lemon, and a race car have in common? You can understand all three with one simple idea... the integral.",
+   "audio": "audio/integrals/hook.wav",
+   "duration": 8.524,
+   "words": [
+    {
+     "text": "What",
+     "start": 0.08,
+     "end": 0.351
+    },
+    {
+     "text": "do",
+     "start": 0.351,
+     "end": 0.524
+    },
+    {
+     "text": "a",
+     "start": 0.524,
+     "end": 0.648
+    },
+    {
+     "text": "bathtub,",
+     "start": 0.648,
+     "end": 1.067
+    },
+    {
+     "text": "a",
+     "start": 1.191,
+     "end": 1.314
+    },
+    {
+     "text": "lemon,",
+     "start": 1.314,
+     "end": 1.635
+    },
+    {
+     "text": "and",
+     "start": 1.758,
+     "end": 1.98
+    },
+    {
+     "text": "a",
+     "start": 1.98,
+     "end": 2.104
+    },
+    {
+     "text": "race",
+     "start": 2.104,
+     "end": 2.375
+    },
+    {
+     "text": "car",
+     "start": 2.375,
+     "end": 2.598
+    },
+    {
+     "text": "have",
+     "start": 2.598,
+     "end": 2.869
+    },
+    {
+     "text": "in",
+     "start": 2.869,
+     "end": 3.042
+    },
+    {
+     "text": "common?",
+     "start": 3.042,
+     "end": 3.412
+    },
+    {
+     "text": "You",
+     "start": 3.912,
+     "end": 4.142
+    },
+    {
+     "text": "can",
+     "start": 4.142,
+     "end": 4.372
+    },
+    {
+     "text": "understand",
+     "start": 4.372,
+     "end": 4.96
+    },
+    {
+     "text": "all",
+     "start": 4.96,
+     "end": 5.19
+    },
+    {
+     "text": "three",
+     "start": 5.19,
+     "end": 5.523
+    },
+    {
+     "text": "with",
+     "start": 5.523,
+     "end": 5.804
+    },
+    {
+     "text": "one",
+     "start": 5.804,
+     "end": 6.034
+    },
+    {
+     "text": "simple",
+     "start": 6.034,
+     "end": 6.418
+    },
+    {
+     "text": "idea...",
+     "start": 6.418,
+     "end": 6.699
+    },
+    {
+     "text": "the",
+     "start": 7.499,
+     "end": 7.732
+    },
+    {
+     "text": "integral.",
+     "start": 7.732,
+     "end": 8.224
+    }
+   ]
+  },
+  {
+   "id": "tub",
+   "narration": "Let's start with a bathtub. You open the tap. Sometimes the water flows fast... sometimes slowly. Every second, a thin layer of water is added to the tub. How much water is in there at the end? Just add up all the thin layers! That's what an integral does: it adds up lots of tiny pieces.",
+   "audio": "audio/integrals/tub.wav",
+   "duration": 19.467,
+   "words": [
+    {
+     "text": "Let's",
+     "start": 0.08,
+     "end": 0.337
+    },
+    {
+     "text": "start",
+     "start": 0.337,
+     "end": 0.64
+    },
+    {
+     "text": "with",
+     "start": 0.64,
+     "end": 0.897
+    },
+    {
+     "text": "a",
+     "start": 0.897,
+     "end": 1.014
+    },
+    {
+     "text": "bathtub.",
+     "start": 1.014,
+     "end": 1.411
+    },
+    {
+     "text": "You",
+     "start": 1.911,
+     "end": 2.142
+    },
+    {
+     "text": "open",
+     "start": 2.142,
+     "end": 2.424
+    },
+    {
+     "text": "the",
+     "start": 2.424,
+     "end": 2.654
+    },
+    {
+     "text": "tap.",
+     "start": 2.654,
+     "end": 2.885
+    },
+    {
+     "text": "Sometimes",
+     "start": 3.385,
+     "end": 3.945
+    },
+    {
+     "text": "the",
+     "start": 3.945,
+     "end": 4.185
+    },
+    {
+     "text": "water",
+     "start": 4.185,
+     "end": 4.532
+    },
+    {
+     "text": "flows",
+     "start": 4.532,
+     "end": 4.879
+    },
+    {
+     "text": "fast...",
+     "start": 4.879,
+     "end": 5.172
+    },
+    {
+     "text": "sometimes",
+     "start": 5.972,
+     "end": 6.596
+    },
+    {
+     "text": "slowly.",
+     "start": 6.596,
+     "end": 7.041
+    },
+    {
+     "text": "Every",
+     "start": 7.541,
+     "end": 7.869
+    },
+    {
+     "text": "second,",
+     "start": 7.869,
+     "end": 8.247
+    },
+    {
+     "text": "a",
+     "start": 8.373,
+     "end": 8.499
+    },
+    {
+     "text": "thin",
+     "start": 8.499,
+     "end": 8.777
+    },
+    {
+     "text": "layer",
+     "start": 8.777,
+     "end": 9.105
+    },
+    {
+     "text": "of",
+     "start": 9.105,
+     "end": 9.281
+    },
+    {
+     "text": "water",
+     "start": 9.281,
+     "end": 9.609
+    },
+    {
+     "text": "is",
+     "start": 9.609,
+     "end": 9.786
+    },
+    {
+     "text": "added",
+     "start": 9.786,
+     "end": 10.113
+    },
+    {
+     "text": "to",
+     "start": 10.113,
+     "end": 10.29
+    },
+    {
+     "text": "the",
+     "start": 10.29,
+     "end": 10.517
+    },
+    {
+     "text": "tub.",
+     "start": 10.517,
+     "end": 10.744
+    },
+    {
+     "text": "How",
+     "start": 11.244,
+     "end": 11.424
+    },
+    {
+     "text": "much",
+     "start": 11.424,
+     "end": 11.645
+    },
+    {
+     "text": "water",
+     "start": 11.645,
+     "end": 11.906
+    },
+    {
+     "text": "is",
+     "start": 11.906,
+     "end": 12.046
+    },
+    {
+     "text": "in",
+     "start": 12.046,
+     "end": 12.186
+    },
+    {
+     "text": "there",
+     "start": 12.186,
+     "end": 12.447
+    },
+    {
+     "text": "at",
+     "start": 12.447,
+     "end": 12.587
+    },
+    {
+     "text": "the",
+     "start": 12.587,
+     "end": 12.768
+    },
+    {
+     "text": "end?",
+     "start": 12.768,
+     "end": 12.948
+    },
+    {
+     "text": "Just",
+     "start": 13.448,
+     "end": 13.706
+    },
+    {
+     "text": "add",
+     "start": 13.706,
+     "end": 13.918
+    },
+    {
+     "text": "up",
+     "start": 13.918,
+     "end": 14.082
+    },
+    {
+     "text": "all",
+     "start": 14.082,
+     "end": 14.294
+    },
+    {
+     "text": "the",
+     "start": 14.294,
+     "end": 14.505
+    },
+    {
+     "text": "thin",
+     "start": 14.505,
+     "end": 14.764
+    },
+    {
+     "text": "layers!",
+     "start": 14.764,
+     "end": 15.116
+    },
+    {
+     "text": "That's",
+     "start": 15.616,
+     "end": 15.953
+    },
+    {
+     "text": "what",
+     "start": 15.953,
+     "end": 16.238
+    },
+    {
+     "text": "an",
+     "start": 16.238,
+     "end": 16.42
+    },
+    {
+     "text": "integral",
+     "start": 16.42,
+     "end": 16.912
+    },
+    {
+     "text": "does:",
+     "start": 16.912,
+     "end": 17.197
+    },
+    {
+     "text": "it",
+     "start": 17.379,
+     "end": 17.56
+    },
+    {
+     "text": "adds",
+     "start": 17.56,
+     "end": 17.845
+    },
+    {
+     "text": "up",
+     "start": 17.845,
+     "end": 18.027
+    },
+    {
+     "text": "lots",
+     "start": 18.027,
+     "end": 18.312
+    },
+    {
+     "text": "of",
+     "start": 18.312,
+     "end": 18.493
+    },
+    {
+     "text": "tiny",
+     "start": 18.493,
+     "end": 18.778
+    },
+    {
+     "text": "pieces.",
+     "start": 18.778,
+     "end": 19.167
+    }
+   ]
+  },
+  {
+   "id": "lemon",
+   "narration": "Now, a lemon. How much lemon is in there? It's a curvy shape, so it's hard to measure. So let's slice it! Each slice is almost a flat coin, and coins are easy to measure. Add up all the coins, and you get the whole lemon. Thinner slices? An even more exact answer.",
+   "audio": "audio/integrals/lemon.wav",
+   "duration": 17.763,
+   "words": [
+    {
+     "text": "Now,",
+     "start": 0.08,
+     "end": 0.321
+    },
+    {
+     "text": "a",
+     "start": 0.455,
+     "end": 0.589
+    },
+    {
+     "text": "lemon.",
+     "start": 0.589,
+     "end": 0.938
+    },
+    {
+     "text": "How",
+     "start": 1.438,
+     "end": 1.639
+    },
+    {
+     "text": "much",
+     "start": 1.639,
+     "end": 1.884
+    },
+    {
+     "text": "lemon",
+     "start": 1.884,
+     "end": 2.174
+    },
+    {
+     "text": "is",
+     "start": 2.174,
+     "end": 2.33
+    },
+    {
+     "text": "in",
+     "start": 2.33,
+     "end": 2.486
+    },
+    {
+     "text": "there?",
+     "start": 2.486,
+     "end": 2.776
+    },
+    {
+     "text": "It's",
+     "start": 3.276,
+     "end": 3.472
+    },
+    {
+     "text": "a",
+     "start": 3.472,
+     "end": 3.581
+    },
+    {
+     "text": "curvy",
+     "start": 3.581,
+     "end": 3.864
+    },
+    {
+     "text": "shape,",
+     "start": 3.864,
+     "end": 4.147
+    },
+    {
+     "text": "so",
+     "start": 4.256,
+     "end": 4.409
+    },
+    {
+     "text": "it's",
+     "start": 4.409,
+     "end": 4.605
+    },
+    {
+     "text": "hard",
+     "start": 4.605,
+     "end": 4.844
+    },
+    {
+     "text": "to",
+     "start": 4.844,
+     "end": 4.997
+    },
+    {
+     "text": "measure.",
+     "start": 4.997,
+     "end": 5.367
+    },
+    {
+     "text": "So",
+     "start": 5.867,
+     "end": 6.047
+    },
+    {
+     "text": "let's",
+     "start": 6.047,
+     "end": 6.33
+    },
+    {
+     "text": "slice",
+     "start": 6.33,
+     "end": 6.665
+    },
+    {
+     "text": "it!",
+     "start": 6.665,
+     "end": 6.845
+    },
+    {
+     "text": "Each",
+     "start": 7.345,
+     "end": 7.634
+    },
+    {
+     "text": "slice",
+     "start": 7.634,
+     "end": 7.975
+    },
+    {
+     "text": "is",
+     "start": 7.975,
+     "end": 8.158
+    },
+    {
+     "text": "almost",
+     "start": 8.158,
+     "end": 8.552
+    },
+    {
+     "text": "a",
+     "start": 8.552,
+     "end": 8.683
+    },
+    {
+     "text": "flat",
+     "start": 8.683,
+     "end": 8.972
+    },
+    {
+     "text": "coin,",
+     "start": 8.972,
+     "end": 9.26
+    },
+    {
+     "text": "and",
+     "start": 9.391,
+     "end": 9.628
+    },
+    {
+     "text": "coins",
+     "start": 9.628,
+     "end": 9.969
+    },
+    {
+     "text": "are",
+     "start": 9.969,
+     "end": 10.205
+    },
+    {
+     "text": "easy",
+     "start": 10.205,
+     "end": 10.493
+    },
+    {
+     "text": "to",
+     "start": 10.493,
+     "end": 10.677
+    },
+    {
+     "text": "measure.",
+     "start": 10.677,
+     "end": 11.123
+    },
+    {
+     "text": "Add",
+     "start": 11.623,
+     "end": 11.814
+    },
+    {
+     "text": "up",
+     "start": 11.814,
+     "end": 11.962
+    },
+    {
+     "text": "all",
+     "start": 11.962,
+     "end": 12.153
+    },
+    {
+     "text": "the",
+     "start": 12.153,
+     "end": 12.344
+    },
+    {
+     "text": "coins,",
+     "start": 12.344,
+     "end": 12.62
+    },
+    {
+     "text": "and",
+     "start": 12.726,
+     "end": 12.917
+    },
+    {
+     "text": "you",
+     "start": 12.917,
+     "end": 13.108
+    },
+    {
+     "text": "get",
+     "start": 13.108,
+     "end": 13.299
+    },
+    {
+     "text": "the",
+     "start": 13.299,
+     "end": 13.49
+    },
+    {
+     "text": "whole",
+     "start": 13.49,
+     "end": 13.765
+    },
+    {
+     "text": "lemon.",
+     "start": 13.765,
+     "end": 14.041
+    },
+    {
+     "text": "Thinner",
+     "start": 14.541,
+     "end": 15.028
+    },
+    {
+     "text": "slices?",
+     "start": 15.028,
+     "end": 15.457
+    },
+    {
+     "text": "An",
+     "start": 15.957,
+     "end": 16.142
+    },
+    {
+     "text": "even",
+     "start": 16.142,
+     "end": 16.433
+    },
+    {
+     "text": "more",
+     "start": 16.433,
+     "end": 16.723
+    },
+    {
+     "text": "exact",
+     "start": 16.723,
+     "end": 17.067
+    },
+    {
+     "text": "answer.",
+     "start": 17.067,
+     "end": 17.463
+    }
+   ]
+  },
+  {
+   "id": "bridge",
+   "narration": "Okay! Now let's draw it on a graph, like a real mathematician.",
+   "audio": "audio/integrals/bridge.wav",
+   "duration": 4.654,
+   "words": [
+    {
+     "text": "Okay!",
+     "start": 0.08,
+     "end": 0.641
+    },
+    {
+     "text": "Now",
+     "start": 1.141,
+     "end": 1.374
+    },
+    {
+     "text": "let's",
+     "start": 1.374,
+     "end": 1.659
+    },
+    {
+     "text": "draw",
+     "start": 1.659,
+     "end": 1.944
+    },
+    {
+     "text": "it",
+     "start": 1.944,
+     "end": 2.126
+    },
+    {
+     "text": "on",
+     "start": 2.126,
+     "end": 2.307
+    },
+    {
+     "text": "a",
+     "start": 2.307,
+     "end": 2.437
+    },
+    {
+     "text": "graph,",
+     "start": 2.437,
+     "end": 2.773
+    },
+    {
+     "text": "like",
+     "start": 2.903,
+     "end": 3.188
+    },
+    {
+     "text": "a",
+     "start": 3.188,
+     "end": 3.318
+    },
+    {
+     "text": "real",
+     "start": 3.318,
+     "end": 3.603
+    },
+    {
+     "text": "mathematician.",
+     "start": 3.603,
+     "end": 4.354
+    }
+   ]
+  },
+  {
+   "id": "graph",
+   "narration": "This is a race car's speed during a race. Here's the cool part: the distance it travels is the area under this curve. But the curve is wobbly... so we fill it with rectangles. A rectangle is easy: width times height. With four rectangles, it's a rough guess. With ten, much closer. With a hundred super thin ones... almost perfect. Make them infinitely thin, and the guess becomes exact. That's an integral!",
+   "audio": "audio/integrals/graph.wav",
+   "duration": 27.687,
+   "words": [
+    {
+     "text": "This",
+     "start": 0.08,
+     "end": 0.342
+    },
+    {
+     "text": "is",
+     "start": 0.342,
+     "end": 0.509
+    },
+    {
+     "text": "a",
+     "start": 0.509,
+     "end": 0.629
+    },
+    {
+     "text": "race",
+     "start": 0.629,
+     "end": 0.891
+    },
+    {
+     "text": "car's",
+     "start": 0.891,
+     "end": 1.153
+    },
+    {
+     "text": "speed",
+     "start": 1.153,
+     "end": 1.464
+    },
+    {
+     "text": "during",
+     "start": 1.464,
+     "end": 1.821
+    },
+    {
+     "text": "a",
+     "start": 1.821,
+     "end": 1.941
+    },
+    {
+     "text": "race.",
+     "start": 1.941,
+     "end": 2.203
+    },
+    {
+     "text": "Here's",
+     "start": 2.703,
+     "end": 3.023
+    },
+    {
+     "text": "the",
+     "start": 3.023,
+     "end": 3.245
+    },
+    {
+     "text": "cool",
+     "start": 3.245,
+     "end": 3.516
+    },
+    {
+     "text": "part:",
+     "start": 3.516,
+     "end": 3.787
+    },
+    {
+     "text": "the",
+     "start": 3.96,
+     "end": 4.182
+    },
+    {
+     "text": "distance",
+     "start": 4.182,
+     "end": 4.65
+    },
+    {
+     "text": "it",
+     "start": 4.65,
+     "end": 4.823
+    },
+    {
+     "text": "travels",
+     "start": 4.823,
+     "end": 5.242
+    },
+    {
+     "text": "is",
+     "start": 5.242,
+     "end": 5.414
+    },
+    {
+     "text": "the",
+     "start": 5.414,
+     "end": 5.636
+    },
+    {
+     "text": "area",
+     "start": 5.636,
+     "end": 5.907
+    },
+    {
+     "text": "under",
+     "start": 5.907,
+     "end": 6.227
+    },
+    {
+     "text": "this",
+     "start": 6.227,
+     "end": 6.499
+    },
+    {
+     "text": "curve.",
+     "start": 6.499,
+     "end": 6.819
+    },
+    {
+     "text": "But",
+     "start": 7.319,
+     "end": 7.548
+    },
+    {
+     "text": "the",
+     "start": 7.548,
+     "end": 7.777
+    },
+    {
+     "text": "curve",
+     "start": 7.777,
+     "end": 8.107
+    },
+    {
+     "text": "is",
+     "start": 8.107,
+     "end": 8.285
+    },
+    {
+     "text": "wobbly...",
+     "start": 8.285,
+     "end": 8.667
+    },
+    {
+     "text": "so",
+     "start": 9.467,
+     "end": 9.627
+    },
+    {
+     "text": "we",
+     "start": 9.627,
+     "end": 9.788
+    },
+    {
+     "text": "fill",
+     "start": 9.788,
+     "end": 10.039
+    },
+    {
+     "text": "it",
+     "start": 10.039,
+     "end": 10.2
+    },
+    {
+     "text": "with",
+     "start": 10.2,
+     "end": 10.451
+    },
+    {
+     "text": "rectangles.",
+     "start": 10.451,
+     "end": 10.978
+    },
+    {
+     "text": "A",
+     "start": 11.478,
+     "end": 11.617
+    },
+    {
+     "text": "rectangle",
+     "start": 11.617,
+     "end": 12.202
+    },
+    {
+     "text": "is",
+     "start": 12.202,
+     "end": 12.397
+    },
+    {
+     "text": "easy:",
+     "start": 12.397,
+     "end": 12.704
+    },
+    {
+     "text": "width",
+     "start": 12.899,
+     "end": 13.261
+    },
+    {
+     "text": "times",
+     "start": 13.261,
+     "end": 13.623
+    },
+    {
+     "text": "height.",
+     "start": 13.623,
+     "end": 14.041
+    },
+    {
+     "text": "With",
+     "start": 14.541,
+     "end": 14.797
+    },
+    {
+     "text": "four",
+     "start": 14.797,
+     "end": 15.053
+    },
+    {
+     "text": "rectangles,",
+     "start": 15.053,
+     "end": 15.588
+    },
+    {
+     "text": "it's",
+     "start": 15.704,
+     "end": 15.913
+    },
+    {
+     "text": "a",
+     "start": 15.913,
+     "end": 16.029
+    },
+    {
+     "text": "rough",
+     "start": 16.029,
+     "end": 16.332
+    },
+    {
+     "text": "guess.",
+     "start": 16.332,
+     "end": 16.634
+    },
+    {
+     "text": "With",
+     "start": 17.134,
+     "end": 17.416
+    },
+    {
+     "text": "ten,",
+     "start": 17.416,
+     "end": 17.647
+    },
+    {
+     "text": "much",
+     "start": 17.775,
+     "end": 18.057
+    },
+    {
+     "text": "closer.",
+     "start": 18.057,
+     "end": 18.441
+    },
+    {
+     "text": "With",
+     "start": 18.941,
+     "end": 19.204
+    },
+    {
+     "text": "a",
+     "start": 19.204,
+     "end": 19.324
+    },
+    {
+     "text": "hundred",
+     "start": 19.324,
+     "end": 19.731
+    },
+    {
+     "text": "super",
+     "start": 19.731,
+     "end": 20.042
+    },
+    {
+     "text": "thin",
+     "start": 20.042,
+     "end": 20.305
+    },
+    {
+     "text": "ones...",
+     "start": 20.305,
+     "end": 20.568
+    },
+    {
+     "text": "almost",
+     "start": 21.368,
+     "end": 21.848
+    },
+    {
+     "text": "perfect.",
+     "start": 21.848,
+     "end": 22.391
+    },
+    {
+     "text": "Make",
+     "start": 22.891,
+     "end": 23.166
+    },
+    {
+     "text": "them",
+     "start": 23.166,
+     "end": 23.442
+    },
+    {
+     "text": "infinitely",
+     "start": 23.442,
+     "end": 24.017
+    },
+    {
+     "text": "thin,",
+     "start": 24.017,
+     "end": 24.293
+    },
+    {
+     "text": "and",
+     "start": 24.418,
+     "end": 24.643
+    },
+    {
+     "text": "the",
+     "start": 24.643,
+     "end": 24.869
+    },
+    {
+     "text": "guess",
+     "start": 24.869,
+     "end": 25.194
+    },
+    {
+     "text": "becomes",
+     "start": 25.194,
+     "end": 25.62
+    },
+    {
+     "text": "exact.",
+     "start": 25.62,
+     "end": 25.945
+    },
+    {
+     "text": "That's",
+     "start": 26.445,
+     "end": 26.759
+    },
+    {
+     "text": "an",
+     "start": 26.759,
+     "end": 26.928
+    },
+    {
+     "text": "integral!",
+     "start": 26.928,
+     "end": 27.387
+    }
+   ]
+  },
+  {
+   "id": "notation",
+   "narration": "Mathematicians write it like this. This long S stands for sum. f of x is the height of each rectangle. d x is its tiny width. And a and b tell you where to start, and where to stop.",
+   "audio": "audio/integrals/notation.wav",
+   "duration": 11.999,
+   "words": [
+    {
+     "text": "Mathematicians",
+     "start": 0.08,
+     "end": 0.885
+    },
+    {
+     "text": "write",
+     "start": 0.885,
+     "end": 1.222
+    },
+    {
+     "text": "it",
+     "start": 1.222,
+     "end": 1.404
+    },
+    {
+     "text": "like",
+     "start": 1.404,
+     "end": 1.689
+    },
+    {
+     "text": "this.",
+     "start": 1.689,
+     "end": 1.975
+    },
+    {
+     "text": "This",
+     "start": 2.475,
+     "end": 2.738
+    },
+    {
+     "text": "long",
+     "start": 2.738,
+     "end": 3.002
+    },
+    {
+     "text": "S",
+     "start": 3.002,
+     "end": 3.121
+    },
+    {
+     "text": "stands",
+     "start": 3.121,
+     "end": 3.48
+    },
+    {
+     "text": "for",
+     "start": 3.48,
+     "end": 3.696
+    },
+    {
+     "text": "sum.",
+     "start": 3.696,
+     "end": 3.911
+    },
+    {
+     "text": "f",
+     "start": 4.411,
+     "end": 4.539
+    },
+    {
+     "text": "of",
+     "start": 4.539,
+     "end": 4.718
+    },
+    {
+     "text": "x",
+     "start": 4.718,
+     "end": 4.846
+    },
+    {
+     "text": "is",
+     "start": 4.846,
+     "end": 5.025
+    },
+    {
+     "text": "the",
+     "start": 5.025,
+     "end": 5.255
+    },
+    {
+     "text": "height",
+     "start": 5.255,
+     "end": 5.638
+    },
+    {
+     "text": "of",
+     "start": 5.638,
+     "end": 5.817
+    },
+    {
+     "text": "each",
+     "start": 5.817,
+     "end": 6.098
+    },
+    {
+     "text": "rectangle.",
+     "start": 6.098,
+     "end": 6.635
+    },
+    {
+     "text": "d",
+     "start": 7.135,
+     "end": 7.284
+    },
+    {
+     "text": "x",
+     "start": 7.284,
+     "end": 7.432
+    },
+    {
+     "text": "is",
+     "start": 7.432,
+     "end": 7.641
+    },
+    {
+     "text": "its",
+     "start": 7.641,
+     "end": 7.908
+    },
+    {
+     "text": "tiny",
+     "start": 7.908,
+     "end": 8.235
+    },
+    {
+     "text": "width.",
+     "start": 8.235,
+     "end": 8.622
+    },
+    {
+     "text": "And",
+     "start": 9.122,
+     "end": 9.306
+    },
+    {
+     "text": "a",
+     "start": 9.306,
+     "end": 9.408
+    },
+    {
+     "text": "and",
+     "start": 9.408,
+     "end": 9.592
+    },
+    {
+     "text": "b",
+     "start": 9.592,
+     "end": 9.695
+    },
+    {
+     "text": "tell",
+     "start": 9.695,
+     "end": 9.92
+    },
+    {
+     "text": "you",
+     "start": 9.92,
+     "end": 10.104
+    },
+    {
+     "text": "where",
+     "start": 10.104,
+     "end": 10.37
+    },
+    {
+     "text": "to",
+     "start": 10.37,
+     "end": 10.513
+    },
+    {
+     "text": "start,",
+     "start": 10.513,
+     "end": 10.779
+    },
+    {
+     "text": "and",
+     "start": 10.881,
+     "end": 11.065
+    },
+    {
+     "text": "where",
+     "start": 11.065,
+     "end": 11.331
+    },
+    {
+     "text": "to",
+     "start": 11.331,
+     "end": 11.474
+    },
+    {
+     "text": "stop.",
+     "start": 11.474,
+     "end": 11.699
+    }
+   ]
+  },
+  {
+   "id": "example",
+   "narration": "Let's try a real one: the area under the line y equals x, from zero to two. The integral gives us... two. Can we check it? Sure! The shape is just a triangle. Half of base times height: one half, times two, times two... equals two. It works!",
+   "audio": "audio/integrals/example.wav",
+   "duration": 19.286,
+   "words": [
+    {
+     "text": "Let's",
+     "start": 0.08,
+     "end": 0.386
+    },
+    {
+     "text": "try",
+     "start": 0.386,
+     "end": 0.636
+    },
+    {
+     "text": "a",
+     "start": 0.636,
+     "end": 0.775
+    },
+    {
+     "text": "real",
+     "start": 0.775,
+     "end": 1.081
+    },
+    {
+     "text": "one:",
+     "start": 1.081,
+     "end": 1.331
+    },
+    {
+     "text": "the",
+     "start": 1.526,
+     "end": 1.776
+    },
+    {
+     "text": "area",
+     "start": 1.776,
+     "end": 2.082
+    },
+    {
+     "text": "under",
+     "start": 2.082,
+     "end": 2.443
+    },
+    {
+     "text": "the",
+     "start": 2.443,
+     "end": 2.694
+    },
+    {
+     "text": "line",
+     "start": 2.694,
+     "end": 2.999
+    },
+    {
+     "text": "y",
+     "start": 2.999,
+     "end": 3.138
+    },
+    {
+     "text": "equals",
+     "start": 3.138,
+     "end": 3.555
+    },
+    {
+     "text": "x,",
+     "start": 3.555,
+     "end": 3.694
+    },
+    {
+     "text": "from",
+     "start": 3.833,
+     "end": 4.139
+    },
+    {
+     "text": "zero",
+     "start": 4.139,
+     "end": 4.445
+    },
+    {
+     "text": "to",
+     "start": 4.445,
+     "end": 4.64
+    },
+    {
+     "text": "two.",
+     "start": 4.64,
+     "end": 4.89
+    },
+    {
+     "text": "The",
+     "start": 5.39,
+     "end": 5.621
+    },
+    {
+     "text": "integral",
+     "start": 5.621,
+     "end": 6.109
+    },
+    {
+     "text": "gives",
+     "start": 6.109,
+     "end": 6.443
+    },
+    {
+     "text": "us...",
+     "start": 6.443,
+     "end": 6.623
+    },
+    {
+     "text": "two.",
+     "start": 7.423,
+     "end": 7.902
+    },
+    {
+     "text": "Can",
+     "start": 8.402,
+     "end": 8.612
+    },
+    {
+     "text": "we",
+     "start": 8.612,
+     "end": 8.775
+    },
+    {
+     "text": "check",
+     "start": 8.775,
+     "end": 9.078
+    },
+    {
+     "text": "it?",
+     "start": 9.078,
+     "end": 9.241
+    },
+    {
+     "text": "Sure!",
+     "start": 9.741,
+     "end": 10.204
+    },
+    {
+     "text": "The",
+     "start": 10.704,
+     "end": 10.927
+    },
+    {
+     "text": "shape",
+     "start": 10.927,
+     "end": 11.25
+    },
+    {
+     "text": "is",
+     "start": 11.25,
+     "end": 11.424
+    },
+    {
+     "text": "just",
+     "start": 11.424,
+     "end": 11.697
+    },
+    {
+     "text": "a",
+     "start": 11.697,
+     "end": 11.821
+    },
+    {
+     "text": "triangle.",
+     "start": 11.821,
+     "end": 12.293
+    },
+    {
+     "text": "Half",
+     "start": 12.793,
+     "end": 13.063
+    },
+    {
+     "text": "of",
+     "start": 13.063,
+     "end": 13.236
+    },
+    {
+     "text": "base",
+     "start": 13.236,
+     "end": 13.506
+    },
+    {
+     "text": "times",
+     "start": 13.506,
+     "end": 13.826
+    },
+    {
+     "text": "height:",
+     "start": 13.826,
+     "end": 14.194
+    },
+    {
+     "text": "one",
+     "start": 14.367,
+     "end": 14.588
+    },
+    {
+     "text": "half,",
+     "start": 14.588,
+     "end": 14.858
+    },
+    {
+     "text": "times",
+     "start": 14.981,
+     "end": 15.301
+    },
+    {
+     "text": "two,",
+     "start": 15.301,
+     "end": 15.522
+    },
+    {
+     "text": "times",
+     "start": 15.645,
+     "end": 15.965
+    },
+    {
+     "text": "two...",
+     "start": 15.965,
+     "end": 16.186
+    },
+    {
+     "text": "equals",
+     "start": 16.986,
+     "end": 17.499
+    },
+    {
+     "text": "two.",
+     "start": 17.499,
+     "end": 17.807
+    },
+    {
+     "text": "It",
+     "start": 18.307,
+     "end": 18.545
+    },
+    {
+     "text": "works!",
+     "start": 18.545,
+     "end": 18.986
+    }
+   ]
+  },
+  {
+   "id": "outro",
+   "narration": "So, an integral is just a smart way of adding up tiny pieces. Bathtubs, lemons, race cars... it works for all of them. Next time: derivatives, the opposite of integrals!",
+   "audio": "audio/integrals/outro.wav",
+   "duration": 11.915,
+   "words": [
+    {
+     "text": "So,",
+     "start": 0.08,
+     "end": 0.268
+    },
+    {
+     "text": "an",
+     "start": 0.402,
+     "end": 0.589
+    },
+    {
+     "text": "integral",
+     "start": 0.589,
+     "end": 1.099
+    },
+    {
+     "text": "is",
+     "start": 1.099,
+     "end": 1.287
+    },
+    {
+     "text": "just",
+     "start": 1.287,
+     "end": 1.581
+    },
+    {
+     "text": "a",
+     "start": 1.581,
+     "end": 1.716
+    },
+    {
+     "text": "smart",
+     "start": 1.716,
+     "end": 2.064
+    },
+    {
+     "text": "way",
+     "start": 2.064,
+     "end": 2.305
+    },
+    {
+     "text": "of",
+     "start": 2.305,
+     "end": 2.493
+    },
+    {
+     "text": "adding",
+     "start": 2.493,
+     "end": 2.895
+    },
+    {
+     "text": "up",
+     "start": 2.895,
+     "end": 3.083
+    },
+    {
+     "text": "tiny",
+     "start": 3.083,
+     "end": 3.378
+    },
+    {
+     "text": "pieces.",
+     "start": 3.378,
+     "end": 3.78
+    },
+    {
+     "text": "Bathtubs,",
+     "start": 4.28,
+     "end": 4.846
+    },
+    {
+     "text": "lemons,",
+     "start": 4.995,
+     "end": 5.442
+    },
+    {
+     "text": "race",
+     "start": 5.591,
+     "end": 5.919
+    },
+    {
+     "text": "cars...",
+     "start": 5.919,
+     "end": 6.247
+    },
+    {
+     "text": "it",
+     "start": 7.047,
+     "end": 7.191
+    },
+    {
+     "text": "works",
+     "start": 7.191,
+     "end": 7.458
+    },
+    {
+     "text": "for",
+     "start": 7.458,
+     "end": 7.643
+    },
+    {
+     "text": "all",
+     "start": 7.643,
+     "end": 7.828
+    },
+    {
+     "text": "of",
+     "start": 7.828,
+     "end": 7.972
+    },
+    {
+     "text": "them.",
+     "start": 7.972,
+     "end": 8.198
+    },
+    {
+     "text": "Next",
+     "start": 8.698,
+     "end": 8.977
+    },
+    {
+     "text": "time:",
+     "start": 8.977,
+     "end": 9.256
+    },
+    {
+     "text": "derivatives,",
+     "start": 9.434,
+     "end": 10.068
+    },
+    {
+     "text": "the",
+     "start": 10.195,
+     "end": 10.423
+    },
+    {
+     "text": "opposite",
+     "start": 10.423,
+     "end": 10.905
+    },
+    {
+     "text": "of",
+     "start": 10.905,
+     "end": 11.082
+    },
+    {
+     "text": "integrals!",
+     "start": 11.082,
+     "end": 11.615
+    }
+   ]
+  }
+ ]
+}

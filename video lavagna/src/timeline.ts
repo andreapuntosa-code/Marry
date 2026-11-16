@@ -12,6 +12,8 @@ export const normWord = (s: string): string =>
 const matches = (token: string, wanted: string) => {
   const t = normWord(token);
   if (t === wanted) return true;
+  // "car's" corrisponde anche a "car"
+  if (t.endsWith("'s") && t.slice(0, -2) === wanted) return true;
   // "l'elettrone" corrisponde anche a "elettrone"
   const i = t.lastIndexOf("'");
   return i >= 0 && t.slice(i + 1) === wanted;
@@ -41,6 +43,7 @@ export type ResolvedAction = Action & {
   startFrame: number;
   outFrame: number | null;
   thenFrame: number | null;
+  cueFrames: number[];
 };
 
 export type BuiltScene = {
@@ -94,7 +97,8 @@ export const buildTimeline = (file: ScenesFile, timings: TimingsFile): Timeline 
         ...a,
         startFrame: at(a.at, a.delay ?? 0),
         outFrame: a.out ? at(a.out) : null,
-        thenFrame: a.type === 'drawing' && a.then ? at(a.then) : null,
+        thenFrame: a.type !== 'text' && a.then ? at(a.then) : null,
+        cueFrames: a.type !== 'text' ? (a.cues ?? []).map((c) => at(c)) : [],
       })),
     });
     for (const w of timing.words) words.push({text: w.text, start: w.start + t, end: w.end + t});

@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {useCurrentFrame, useVideoConfig} from 'remotion';
 import {FONTS} from '../fonts';
-import {STYLE} from '../theme';
+import {useStyle} from '../theme';
 import type {Word} from '../types';
 
 type Chunk = {words: Word[]; start: number; end: number};
@@ -31,6 +31,7 @@ const toChunks = (words: Word[]): Chunk[] => {
 /** Sottolitoli piccoli, in basso, sempre visibili durante la narrazione. */
 export const Subtitles: React.FC<{words: Word[]; bottom?: number; size?: number}> = ({words, bottom = 110, size = 50}) => {
   const frame = useCurrentFrame();
+  const STYLE = useStyle();
   const {fps} = useVideoConfig();
   const t = frame / fps;
   const chunks = useMemo(() => toChunks(words), [words]);

@@ -5,6 +5,14 @@ export type DrawingProps = {
   p: number;
   /** seconda fase 0..1 (campo "then" in scenes.json), 0 se non usata */
   p2: number;
+  /** fasi extra 0..1, una per ogni parola di "cues" in scenes.json */
+  cues: number[];
+  /** secondi trascorsi da quando il disegno è comparso */
+  t: number;
+  /** tutti i colori del gesso: chalk, accent + palette (blue, pink, ...) */
+  colors: Record<string, string>;
+  /** font a mano del video */
+  font: string;
   /** colore principale (bianco gesso o giallo, da "color") */
   color: string;
   /** colore accento (giallo gesso) */

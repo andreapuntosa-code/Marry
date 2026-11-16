@@ -7,6 +7,13 @@ import Spiral from './Spiral';
 import TwoBalls from './TwoBalls';
 import Underline from './Underline';
 import Wave from './Wave';
+import Bathtub from './Bathtub';
+import Car from './Car';
+import Check from './Check';
+import IntegralSign from './IntegralSign';
+import Lemon from './Lemon';
+import LineGraph from './LineGraph';
+import RiemannGraph from './RiemannGraph';
 import type {DrawingDef} from './types';
 
 /**
@@ -16,6 +23,13 @@ import type {DrawingDef} from './types';
  */
 export const DRAWINGS: Record<string, DrawingDef> = {
   Arrow,
+  Bathtub,
+  Car,
+  Check,
+  IntegralSign,
+  Lemon,
+  LineGraph,
+  RiemannGraph,
   Chip,
   LightBulb,
   MotionLines,
