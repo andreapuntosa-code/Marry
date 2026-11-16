@@ -30,6 +30,8 @@ def main(only=None):
         if s.get("voice") == "kid": v, tempo, pitch = ("af_sky", 0.95, 1.18)        # a small boy
         if s.get("voice") == "grandpa": v, tempo, pitch = ("am_michael", 0.98, 0.86)   # an old man
         if s.get("voice") == "dad": v, tempo, pitch = ("am_michael", 0.95, 0.94)   # a dad's voice (memory)
+        if s.get("voice") == "cat": v, tempo, pitch = ("af_nicole", 1.0, 1.04)   # a bored, sassy cat
+        if s.get("voice") == "parrot": v, tempo, pitch = ("af_sky", 1.1, 1.32)   # a squeaky parrot
         if s.get("voice") == "old": v, tempo, pitch = ("bf_isabella", 0.95, 0.93)   # an old lady   # am_fenrir: closest to the reference narrator (pitch, expressiveness, timbre)
         y, sr = k.create(s["tts"], voice=v, speed=tempo / pitch, lang="en-gb" if v.startswith("b") else "en-us")
         y = np.asarray(y, np.float32)
