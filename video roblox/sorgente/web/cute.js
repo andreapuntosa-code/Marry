@@ -116,10 +116,10 @@ export function umbrella(A, o = {}) {   // held in the right hand, canopy above 
 // a black, flat copy of an avatar lying on the ground behind the person (head away from the camera unless o.dir)
 export function shadowOf(def, x, z, o = {}) {
   const A = person({ ...def, acc: [], logo: null }, x, z, 0, o.pose ?? 'idle', { y: 0.02, anim: o.anim });
-  const black = new THREE.MeshBasicMaterial({ color: 0x0c0c18, transparent: true, opacity: o.opacity ?? 0.62, depthWrite: false });
+  const black = new THREE.MeshBasicMaterial({ color: o.color ?? 0x262a34 });
   A.root.traverse((n) => { if (n.isMesh) { if (n.material === A.faceMat) n.visible = false; else { n.material = black; n.castShadow = false; n.receiveShadow = false; n.renderOrder = 1; } } });
   A.setFace = () => {};
-  const W = new THREE.Group(); W.position.set(x, 0.02, z); W.rotation.y = o.yaw ?? 0; getScene().remove(A.root); W.add(A.root); add(W); A.root.position.set(0, 0, 0); A.root.rotation.set(-Math.PI / 2, 0, 0); A.wrap = W;
+  const W = new THREE.Group(); W.position.set(x, o.y ?? 0.27, z); W.rotation.y = o.yaw ?? 0; getScene().remove(A.root); W.add(A.root); add(W); A.root.position.set(0, 0, 0); A.root.rotation.set(-Math.PI / 2, 0, 0); A.wrap = W;
   const s = 0.42 * (def.scale ?? 1); A.root.scale.set(s, s * (o.stretch ?? 1.15), 0.002); A.shadowFlat = true;
   return A;
 }
