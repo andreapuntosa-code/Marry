@@ -41,7 +41,7 @@ for scene in cfg["scenes"]:
     parts, spans, t = [], [], 0.08
     parts.append(np.zeros(int(0.08 * SR), np.float32))
     for i, s in enumerate(sentences):
-        y, sr = k.create(fix(s), voice=kc.get("voice", "if_sara"), speed=kc.get("speed", 1.0), lang="it")
+        y, sr = k.create(fix(s), voice=kc.get("voice", "if_sara"), speed=kc.get("speed", 1.0), lang=kc.get("lang", "it"))
         y = trim(np.asarray(y, np.float32))
         spans.append([round(t, 3), round(t + len(y) / SR, 3)])
         parts.append(y)

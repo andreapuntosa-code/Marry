@@ -1,10 +1,14 @@
 # Lavagna e gesso: video esplicativi verticali (Remotion)
 
 Video 1080×1920, 30 fps, in stile lavagna verde con scritte e disegni tracciati a mano,
-cancellino tra una sezione e l'altra, voce narrante italiana e sottotitoli sempre visibili.
+cancellino tra una sezione e l'altra, voce narrante e sottotitoli sempre visibili.
 
-Il primo video, *"Una pallina può stare in due posti nello stesso momento?"* (sovrapposizione
-quantistica, circa 77 s), è già pronto in `sovrapposizione_quantistica.mp4`.
+Il primo video, *"Can a ball be in two places at the same time?"* (sovrapposizione quantistica,
+in inglese, circa 77 s), è già pronto in `superposition_explained.mp4`.
+
+`scenes.json` contiene il copione inglese. La versione italiana dello stesso copione è in
+`examples/scenes.it.json`: per usarla, copiala al posto di `scenes.json` e lancia `npm run tts`.
+Per l'italiano con Kokoro usa la voce `if_sara` con `"lang": "it"`.
 
 ## Installazione
 
@@ -42,15 +46,16 @@ a quei tempi.
 - **Senza chiave**: `npm run tts` crea file WAV **muti** come segnaposto, con durata stimata, così
   il video si costruisce lo stesso.
 - **La tua voce registrata**: salva i file come `public/audio/<id-scena>.mp3` (oppure `.wav` o
-  `.m4a`), per esempio `public/audio/gancio.mp3`, e lancia `npm run tts -- --provider=manual`.
+  `.m4a`), per esempio `public/audio/hook.mp3`, e lancia `npm run tts -- --provider=manual`.
   Le durate vengono lette dai file. I tempi delle parole sono stimati in proporzione alla loro
   lunghezza.
-- **Voce locale gratuita (Kokoro)**: è quella usata nel video già pronto, voce `if_sara`. Richiede
+- **Voce locale gratuita (Kokoro)**: è quella usata nel video già pronto, voce `af_heart` (inglese). Richiede
   Python con `pip install kokoro-onnx soundfile numpy` e i file `kokoro-v1.0.onnx` e
   `voices-v1.0.bin` in `./models`, oppure in una cartella indicata da `KOKORO_MODELS`. Si lancia con
-  `npm run tts -- --provider=kokoro`. Qui i tempi sono esatti per frase e stimati per parola. Le
-  parole inglesi si correggono in `voice.kokoro.pronunciations`.
-- Per rigenerare solo alcune scene: `npm run tts -- --only=gancio,chiusura`.
+  `npm run tts -- --provider=kokoro`. Qui i tempi sono esatti per frase e stimati per parola. La lingua si imposta in
+  `voice.kokoro.lang` (`en-us`, `it`, ecc.). Le parole difficili si correggono in
+  `voice.kokoro.pronunciations`.
+- Per rigenerare solo alcune scene: `npm run tts -- --only=hook,outro`.
 
 Se cambi il testo di una scena senza rigenerare l'audio, nell'anteprima compare un avviso rosso.
 
@@ -61,11 +66,11 @@ Se cambi il testo di una scena senza rigenerare l'audio, nell'anteprima compare 
   "timing": { "leadIn": 0.4, "hold": 0.6, "erase": 1.0, "tail": 2.0, "sentencePause": 0.5 },
   "scenes": [
     {
-      "id": "gancio",                      // nome del file audio
-      "narration": "Una pallina può stare in due posti...",
+      "id": "hook",                        // nome del file audio
+      "narration": "Can a ball be in two places at the same time?...",
       "actions": [
-        { "type": "text", "text": "Due posti\n*insieme?*", "at": "una", "x": 540, "y": 600, "size": 190 },
-        { "type": "drawing", "drawing": "TwoBalls", "at": "stesso", "duration": 2.2,
+        { "type": "text", "text": "Two places\n*at once?*", "at": "can", "x": 540, "y": 600, "size": 190 },
+        { "type": "drawing", "drawing": "TwoBalls", "at": "same", "duration": 2.2,
           "x": 540, "y": 1120, "width": 860, "height": 470 }
       ]
     }
@@ -74,7 +79,7 @@ Se cambi il testo di una scena senza rigenerare l'audio, nell'anteprima compare 
 ```
 
 - `at`: la parola della narrazione in cui l'elemento inizia a comparire.
-  - `"gira#2"` indica la seconda volta che compare "gira".
+  - `"spinning#2"` indica la seconda volta che compare "spinning".
   - `"start"` e `"end"` indicano l'inizio e la fine della scena.
   - `delay` aggiunge secondi di ritardo.
 - `out`: la parola in cui l'elemento sparisce (dissolvenza).

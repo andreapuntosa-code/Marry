@@ -1,844 +1,894 @@
 {
  "provider": "kokoro",
- "generatedAt": "2026-11-16T06:42:08.659Z",
+ "generatedAt": "2026-11-16T06:49:54.448Z",
  "scenes": [
   {
-   "id": "gancio",
-   "narration": "Una pallina può stare in due posti nello stesso momento? Nel mondo piccolissimo... sì.",
-   "audio": "audio/gancio.wav",
-   "duration": 7.388,
+   "id": "hook",
+   "narration": "Can a ball be in two places at the same time? In the tiny world... yes.",
+   "audio": "audio/hook.wav",
+   "duration": 6.355,
    "words": [
     {
-     "text": "Una",
+     "text": "Can",
      "start": 0.08,
-     "end": 0.323
+     "end": 0.308
     },
     {
-     "text": "pallina",
-     "start": 0.323,
+     "text": "a",
+     "start": 0.308,
+     "end": 0.434
+    },
+    {
+     "text": "ball",
+     "start": 0.434,
+     "end": 0.713
+    },
+    {
+     "text": "be",
+     "start": 0.713,
+     "end": 0.89
+    },
+    {
+     "text": "in",
+     "start": 0.89,
+     "end": 1.067
+    },
+    {
+     "text": "two",
+     "start": 1.067,
+     "end": 1.295
+    },
+    {
+     "text": "places",
+     "start": 1.295,
+     "end": 1.675
+    },
+    {
+     "text": "at",
+     "start": 1.675,
+     "end": 1.852
+    },
+    {
+     "text": "the",
+     "start": 1.852,
+     "end": 2.08
+    },
+    {
+     "text": "same",
+     "start": 2.08,
+     "end": 2.359
+    },
+    {
+     "text": "time?",
+     "start": 2.359,
+     "end": 2.637
+    },
+    {
+     "text": "In",
+     "start": 3.237,
+     "end": 3.457
+    },
+    {
+     "text": "the",
+     "start": 3.457,
+     "end": 3.739
+    },
+    {
+     "text": "tiny",
+     "start": 3.739,
+     "end": 4.084
+    },
+    {
+     "text": "world...",
+     "start": 4.084,
+     "end": 4.492
+    },
+    {
+     "text": "yes.",
+     "start": 5.452,
+     "end": 6.055
+    }
+   ]
+  },
+  {
+   "id": "top",
+   "narration": "Imagine a spinning top, whirling super fast, in the dark. Is it spinning up, or down? You can't tell. As long as it's dark, it's a bit of both at the same time. But when you switch on the light and look at it... pop! It picks just one direction. Tiny things, like electrons, do exactly that.",
+   "audio": "audio/top.wav",
+   "duration": 22.089,
+   "words": [
+    {
+     "text": "Imagine",
+     "start": 0.08,
+     "end": 0.557
+    },
+    {
+     "text": "a",
+     "start": 0.557,
+     "end": 0.697
+    },
+    {
+     "text": "spinning",
+     "start": 0.697,
+     "end": 1.23
+    },
+    {
+     "text": "top,",
+     "start": 1.23,
+     "end": 1.482
+    },
+    {
+     "text": "whirling",
+     "start": 1.623,
+     "end": 2.155
+    },
+    {
+     "text": "super",
+     "start": 2.155,
+     "end": 2.52
+    },
+    {
+     "text": "fast,",
+     "start": 2.52,
+     "end": 2.829
+    },
+    {
+     "text": "in",
+     "start": 2.969,
+     "end": 3.165
+    },
+    {
+     "text": "the",
+     "start": 3.165,
+     "end": 3.417
+    },
+    {
+     "text": "dark.",
+     "start": 3.417,
+     "end": 3.726
+    },
+    {
+     "text": "Is",
+     "start": 4.325,
+     "end": 4.503
+    },
+    {
+     "text": "it",
+     "start": 4.503,
+     "end": 4.68
+    },
+    {
+     "text": "spinning",
+     "start": 4.68,
+     "end": 5.162
+    },
+    {
+     "text": "up,",
+     "start": 5.162,
+     "end": 5.34
+    },
+    {
+     "text": "or",
+     "start": 5.466,
+     "end": 5.644
+    },
+    {
+     "text": "down?",
+     "start": 5.644,
+     "end": 5.923
+    },
+    {
+     "text": "You",
+     "start": 6.523,
+     "end": 6.784
+    },
+    {
+     "text": "can't",
+     "start": 6.784,
+     "end": 7.104
+    },
+    {
+     "text": "tell.",
+     "start": 7.104,
+     "end": 7.423
+    },
+    {
+     "text": "As",
+     "start": 8.023,
+     "end": 8.206
+    },
+    {
+     "text": "long",
+     "start": 8.206,
+     "end": 8.494
+    },
+    {
+     "text": "as",
+     "start": 8.494,
+     "end": 8.677
+    },
+    {
+     "text": "it's",
+     "start": 8.677,
+     "end": 8.913
+    },
+    {
+     "text": "dark,",
+     "start": 8.913,
+     "end": 9.2
+    },
+    {
+     "text": "it's",
+     "start": 9.331,
+     "end": 9.567
+    },
+    {
+     "text": "a",
+     "start": 9.567,
+     "end": 9.697
+    },
+    {
+     "text": "bit",
+     "start": 9.697,
+     "end": 9.933
+    },
+    {
+     "text": "of",
+     "start": 9.933,
+     "end": 10.116
+    },
+    {
+     "text": "both",
+     "start": 10.116,
+     "end": 10.404
+    },
+    {
+     "text": "at",
+     "start": 10.404,
+     "end": 10.587
+    },
+    {
+     "text": "the",
+     "start": 10.587,
+     "end": 10.822
+    },
+    {
+     "text": "same",
+     "start": 10.822,
+     "end": 11.11
+    },
+    {
+     "text": "time.",
+     "start": 11.11,
+     "end": 11.398
+    },
+    {
+     "text": "But",
+     "start": 11.998,
+     "end": 12.185
+    },
+    {
+     "text": "when",
+     "start": 12.185,
+     "end": 12.413
+    },
+    {
+     "text": "you",
+     "start": 12.413,
+     "end": 12.6
+    },
+    {
+     "text": "switch",
+     "start": 12.6,
+     "end": 12.911
+    },
+    {
+     "text": "on",
+     "start": 12.911,
+     "end": 13.056
+    },
+    {
+     "text": "the",
+     "start": 13.056,
+     "end": 13.243
+    },
+    {
+     "text": "light",
+     "start": 13.243,
+     "end": 13.513
+    },
+    {
+     "text": "and",
+     "start": 13.513,
+     "end": 13.699
+    },
+    {
+     "text": "look",
+     "start": 13.699,
+     "end": 13.928
+    },
+    {
+     "text": "at",
+     "start": 13.928,
+     "end": 14.073
+    },
+    {
+     "text": "it...",
+     "start": 14.073,
+     "end": 14.218
+    },
+    {
+     "text": "pop!",
+     "start": 15.178,
+     "end": 15.775
+    },
+    {
+     "text": "It",
+     "start": 16.375,
+     "end": 16.56
+    },
+    {
+     "text": "picks",
+     "start": 16.56,
+     "end": 16.902
+    },
+    {
+     "text": "just",
+     "start": 16.902,
+     "end": 17.192
+    },
+    {
+     "text": "one",
+     "start": 17.192,
+     "end": 17.429
+    },
+    {
+     "text": "direction.",
+     "start": 17.429,
+     "end": 17.983
+    },
+    {
+     "text": "Tiny",
+     "start": 18.583,
+     "end": 18.925
+    },
+    {
+     "text": "things,",
+     "start": 18.925,
+     "end": 19.392
+    },
+    {
+     "text": "like",
+     "start": 19.548,
+     "end": 19.89
+    },
+    {
+     "text": "electrons,",
+     "start": 19.89,
+     "end": 20.544
+    },
+    {
+     "text": "do",
+     "start": 20.7,
+     "end": 20.917
+    },
+    {
+     "text": "exactly",
+     "start": 20.917,
+     "end": 21.447
+    },
+    {
+     "text": "that.",
+     "start": 21.447,
+     "end": 21.789
+    }
+   ]
+  },
+  {
+   "id": "bridge",
+   "narration": "Okay. Now let's see how physicists say it.",
+   "audio": "audio/bridge.wav",
+   "duration": 3.7,
+   "words": [
+    {
+     "text": "Okay.",
+     "start": 0.08,
+     "end": 0.804
+    },
+    {
+     "text": "Now",
+     "start": 1.404,
+     "end": 1.637
+    },
+    {
+     "text": "let's",
+     "start": 1.637,
+     "end": 1.922
+    },
+    {
+     "text": "see",
+     "start": 1.922,
+     "end": 2.155
+    },
+    {
+     "text": "how",
+     "start": 2.155,
+     "end": 2.389
+    },
+    {
+     "text": "physicists",
+     "start": 2.389,
+     "end": 2.984
+    },
+    {
+     "text": "say",
+     "start": 2.984,
+     "end": 3.218
+    },
+    {
+     "text": "it.",
+     "start": 3.218,
+     "end": 3.399
+    }
+   ]
+  },
+  {
+   "id": "physics",
+   "narration": "Before it's measured, an electron is in a superposition of states: it's our top, spinning both ways at once. This situation is described by a wave function, which tells us the probability of finding it in each state. When we measure it, the wave function collapses, and the electron takes on a single state. That's the light switching on.",
+   "audio": "audio/physics.wav",
+   "duration": 23.016,
+   "words": [
+    {
+     "text": "Before",
+     "start": 0.08,
+     "end": 0.518
+    },
+    {
+     "text": "it's",
+     "start": 0.518,
      "end": 0.781
     },
     {
-     "text": "può",
+     "text": "measured,",
      "start": 0.781,
-     "end": 1.024
+     "end": 1.337
     },
     {
-     "text": "stare",
-     "start": 1.024,
-     "end": 1.374
+     "text": "an",
+     "start": 1.483,
+     "end": 1.687
+    },
+    {
+     "text": "electron",
+     "start": 1.687,
+     "end": 2.243
+    },
+    {
+     "text": "is",
+     "start": 2.243,
+     "end": 2.447
     },
     {
      "text": "in",
-     "start": 1.374,
-     "end": 1.563
+     "start": 2.447,
+     "end": 2.652
     },
     {
-     "text": "due",
-     "start": 1.563,
-     "end": 1.806
+     "text": "a",
+     "start": 2.652,
+     "end": 2.798
     },
     {
-     "text": "posti",
-     "start": 1.806,
-     "end": 2.156
+     "text": "superposition",
+     "start": 2.798,
+     "end": 3.645
     },
     {
-     "text": "nello",
-     "start": 2.156,
-     "end": 2.507
+     "text": "of",
+     "start": 3.645,
+     "end": 3.85
     },
     {
-     "text": "stesso",
-     "start": 2.507,
-     "end": 2.912
+     "text": "states:",
+     "start": 3.85,
+     "end": 4.288
     },
     {
-     "text": "momento?",
-     "start": 2.912,
-     "end": 3.37
+     "text": "it's",
+     "start": 4.493,
+     "end": 4.756
     },
     {
-     "text": "Nel",
-     "start": 3.87,
-     "end": 4.193
+     "text": "our",
+     "start": 4.756,
+     "end": 5.019
     },
     {
-     "text": "mondo",
-     "start": 4.193,
-     "end": 4.659
+     "text": "top,",
+     "start": 5.019,
+     "end": 5.282
     },
     {
-     "text": "piccolissimo...",
-     "start": 4.659,
-     "end": 5.627
+     "text": "spinning",
+     "start": 5.428,
+     "end": 5.983
     },
     {
-     "text": "sì.",
-     "start": 6.427,
-     "end": 7.088
-    }
-   ]
-  },
-  {
-   "id": "trottola",
-   "narration": "Immagina una trottola che gira velocissima, al buio. Gira verso l'alto o verso il basso? Non lo sai. Finché è buio, è un po' tutte e due le cose insieme. Ma quando accendi la luce e la guardi... pof! Sceglie una sola direzione. Le cose piccolissime, come gli elettroni, fanno proprio così.",
-   "audio": "audio/trottola.wav",
-   "duration": 22.435,
-   "words": [
-    {
-     "text": "Immagina",
-     "start": 0.08,
-     "end": 0.637
-    },
-    {
-     "text": "una",
-     "start": 0.637,
-     "end": 0.901
-    },
-    {
-     "text": "trottola",
-     "start": 0.901,
-     "end": 1.459
-    },
-    {
-     "text": "che",
-     "start": 1.459,
-     "end": 1.723
-    },
-    {
-     "text": "gira",
-     "start": 1.723,
-     "end": 2.045
-    },
-    {
-     "text": "velocissima,",
-     "start": 2.045,
-     "end": 2.778
-    },
-    {
-     "text": "al",
-     "start": 2.925,
-     "end": 3.13
-    },
-    {
-     "text": "buio.",
-     "start": 3.13,
-     "end": 3.453
-    },
-    {
-     "text": "Gira",
-     "start": 3.953,
-     "end": 4.289
-    },
-    {
-     "text": "verso",
-     "start": 4.289,
-     "end": 4.685
-    },
-    {
-     "text": "l'alto",
-     "start": 4.685,
-     "end": 5.082
-    },
-    {
-     "text": "o",
-     "start": 5.082,
-     "end": 5.235
-    },
-    {
-     "text": "verso",
-     "start": 5.235,
-     "end": 5.632
-    },
-    {
-     "text": "il",
-     "start": 5.632,
-     "end": 5.845
-    },
-    {
-     "text": "basso?",
-     "start": 5.845,
-     "end": 6.242
-    },
-    {
-     "text": "Non",
-     "start": 6.742,
-     "end": 7.096
-    },
-    {
-     "text": "lo",
-     "start": 7.096,
-     "end": 7.372
-    },
-    {
-     "text": "sai.",
-     "start": 7.372,
-     "end": 7.726
-    },
-    {
-     "text": "Finché",
-     "start": 8.226,
-     "end": 8.62
-    },
-    {
-     "text": "è",
-     "start": 8.62,
-     "end": 8.751
-    },
-    {
-     "text": "buio,",
-     "start": 8.751,
-     "end": 9.039
-    },
-    {
-     "text": "è",
-     "start": 9.171,
-     "end": 9.302
-    },
-    {
-     "text": "un",
-     "start": 9.302,
-     "end": 9.485
-    },
-    {
-     "text": "po'",
-     "start": 9.485,
-     "end": 9.669
-    },
-    {
-     "text": "tutte",
-     "start": 9.669,
-     "end": 10.01
-    },
-    {
-     "text": "e",
-     "start": 10.01,
-     "end": 10.141
-    },
-    {
-     "text": "due",
-     "start": 10.141,
-     "end": 10.378
-    },
-    {
-     "text": "le",
-     "start": 10.378,
-     "end": 10.561
-    },
-    {
-     "text": "cose",
-     "start": 10.561,
-     "end": 10.85
-    },
-    {
-     "text": "insieme.",
-     "start": 10.85,
-     "end": 11.296
-    },
-    {
-     "text": "Ma",
-     "start": 11.796,
-     "end": 12.006
-    },
-    {
-     "text": "quando",
-     "start": 12.006,
-     "end": 12.456
-    },
-    {
-     "text": "accendi",
-     "start": 12.456,
-     "end": 12.966
-    },
-    {
-     "text": "la",
-     "start": 12.966,
-     "end": 13.175
-    },
-    {
-     "text": "luce",
-     "start": 13.175,
-     "end": 13.505
-    },
-    {
-     "text": "e",
-     "start": 13.505,
-     "end": 13.655
-    },
-    {
-     "text": "la",
-     "start": 13.655,
-     "end": 13.865
-    },
-    {
-     "text": "guardi...",
-     "start": 13.865,
-     "end": 14.315
-    },
-    {
-     "text": "pof!",
-     "start": 15.115,
-     "end": 15.756
-    },
-    {
-     "text": "Sceglie",
-     "start": 16.256,
-     "end": 16.798
-    },
-    {
-     "text": "una",
-     "start": 16.798,
-     "end": 17.085
-    },
-    {
-     "text": "sola",
-     "start": 17.085,
-     "end": 17.436
-    },
-    {
-     "text": "direzione.",
-     "start": 17.436,
-     "end": 18.105
-    },
-    {
-     "text": "Le",
-     "start": 18.605,
-     "end": 18.785
-    },
-    {
-     "text": "cose",
-     "start": 18.785,
-     "end": 19.069
-    },
-    {
-     "text": "piccolissime,",
-     "start": 19.069,
-     "end": 19.764
-    },
-    {
-     "text": "come",
-     "start": 19.893,
-     "end": 20.177
-    },
-    {
-     "text": "gli",
-     "start": 20.177,
-     "end": 20.409
-    },
-    {
-     "text": "elettroni,",
-     "start": 20.409,
-     "end": 20.95
-    },
-    {
-     "text": "fanno",
-     "start": 21.079,
-     "end": 21.414
-    },
-    {
-     "text": "proprio",
-     "start": 21.414,
-     "end": 21.852
-    },
-    {
-     "text": "così.",
-     "start": 21.852,
-     "end": 22.135
-    }
-   ]
-  },
-  {
-   "id": "ponte",
-   "narration": "Ok. Adesso vediamo come lo dicono i fisici.",
-   "audio": "audio/ponte.wav",
-   "duration": 4.269,
-   "words": [
-    {
-     "text": "Ok.",
-     "start": 0.08,
-     "end": 0.884
-    },
-    {
-     "text": "Adesso",
-     "start": 1.384,
-     "end": 1.84
-    },
-    {
-     "text": "vediamo",
-     "start": 1.84,
-     "end": 2.357
-    },
-    {
-     "text": "come",
-     "start": 2.357,
-     "end": 2.692
-    },
-    {
-     "text": "lo",
-     "start": 2.692,
-     "end": 2.905
-    },
-    {
-     "text": "dicono",
-     "start": 2.905,
-     "end": 3.361
-    },
-    {
-     "text": "i",
-     "start": 3.361,
-     "end": 3.513
-    },
-    {
-     "text": "fisici.",
-     "start": 3.513,
-     "end": 3.969
-    }
-   ]
-  },
-  {
-   "id": "fisica",
-   "narration": "Prima di essere misurato, un elettrone si trova in una sovrapposizione di stati: è la nostra trottola che gira in entrambe le direzioni. Questa situazione è descritta da una funzione d'onda, che ci dice la probabilità di trovarlo in ciascuno stato. Quando lo misuriamo, la funzione d'onda collassa e l'elettrone assume un solo stato. È la luce che si accende.",
-   "audio": "audio/fisica.wav",
-   "duration": 23.407,
-   "words": [
-    {
-     "text": "Prima",
-     "start": 0.08,
-     "end": 0.432
-    },
-    {
-     "text": "di",
-     "start": 0.432,
-     "end": 0.622
-    },
-    {
-     "text": "essere",
-     "start": 0.622,
-     "end": 1.029
-    },
-    {
-     "text": "misurato,",
-     "start": 1.029,
-     "end": 1.544
-    },
-    {
-     "text": "un",
-     "start": 1.68,
-     "end": 1.869
-    },
-    {
-     "text": "elettrone",
-     "start": 1.869,
-     "end": 2.439
-    },
-    {
-     "text": "si",
-     "start": 2.439,
-     "end": 2.629
-    },
-    {
-     "text": "trova",
-     "start": 2.629,
-     "end": 2.981
-    },
-    {
-     "text": "in",
-     "start": 2.981,
-     "end": 3.171
-    },
-    {
-     "text": "una",
-     "start": 3.171,
-     "end": 3.415
-    },
-    {
-     "text": "sovrapposizione",
-     "start": 3.415,
-     "end": 4.31
-    },
-    {
-     "text": "di",
-     "start": 4.31,
-     "end": 4.499
-    },
-    {
-     "text": "stati:",
-     "start": 4.499,
-     "end": 4.852
-    },
-    {
-     "text": "è",
-     "start": 5.042,
-     "end": 5.177
-    },
-    {
-     "text": "la",
-     "start": 5.177,
-     "end": 5.367
-    },
-    {
-     "text": "nostra",
-     "start": 5.367,
-     "end": 5.774
-    },
-    {
-     "text": "trottola",
-     "start": 5.774,
-     "end": 6.289
+     "text": "both",
+     "start": 5.983,
+     "end": 6.305
     },
     {
-     "text": "che",
-     "start": 6.289,
-     "end": 6.533
+     "text": "ways",
+     "start": 6.305,
+     "end": 6.626
     },
     {
-     "text": "gira",
-     "start": 6.533,
+     "text": "at",
+     "start": 6.626,
      "end": 6.831
     },
     {
-     "text": "in",
+     "text": "once.",
      "start": 6.831,
-     "end": 7.021
+     "end": 7.152
     },
     {
-     "text": "entrambe",
-     "start": 7.021,
-     "end": 7.536
+     "text": "This",
+     "start": 7.752,
+     "end": 8.072
     },
     {
-     "text": "le",
-     "start": 7.536,
-     "end": 7.726
+     "text": "situation",
+     "start": 8.072,
+     "end": 8.682
     },
     {
-     "text": "direzioni.",
-     "start": 7.726,
-     "end": 8.295
+     "text": "is",
+     "start": 8.682,
+     "end": 8.885
     },
     {
-     "text": "Questa",
-     "start": 8.795,
-     "end": 9.214
+     "text": "described",
+     "start": 8.885,
+     "end": 9.496
     },
     {
-     "text": "situazione",
-     "start": 9.214,
-     "end": 9.855
+     "text": "by",
+     "start": 9.496,
+     "end": 9.699
     },
     {
-     "text": "è",
-     "start": 9.855,
-     "end": 9.995
+     "text": "a",
+     "start": 9.699,
+     "end": 9.845
     },
     {
-     "text": "descritta",
-     "start": 9.995,
-     "end": 10.581
+     "text": "wave",
+     "start": 9.845,
+     "end": 10.164
     },
     {
-     "text": "da",
-     "start": 10.581,
-     "end": 10.776
+     "text": "function,",
+     "start": 10.164,
+     "end": 10.716
     },
     {
-     "text": "una",
-     "start": 10.776,
-     "end": 11.027
+     "text": "which",
+     "start": 10.862,
+     "end": 11.24
     },
     {
-     "text": "funzione",
-     "start": 11.027,
-     "end": 11.557
+     "text": "tells",
+     "start": 11.24,
+     "end": 11.617
     },
     {
-     "text": "d'onda,",
-     "start": 11.557,
-     "end": 11.92
+     "text": "us",
+     "start": 11.617,
+     "end": 11.821
     },
     {
-     "text": "che",
-     "start": 12.059,
-     "end": 12.31
+     "text": "the",
+     "start": 11.821,
+     "end": 12.082
     },
     {
-     "text": "ci",
-     "start": 12.31,
-     "end": 12.506
+     "text": "probability",
+     "start": 12.082,
+     "end": 12.809
     },
     {
-     "text": "dice",
-     "start": 12.506,
-     "end": 12.813
+     "text": "of",
+     "start": 12.809,
+     "end": 13.013
     },
     {
-     "text": "la",
-     "start": 12.813,
-     "end": 13.008
+     "text": "finding",
+     "start": 13.013,
+     "end": 13.507
     },
     {
-     "text": "probabilità",
-     "start": 13.008,
-     "end": 13.705
-    },
-    {
-     "text": "di",
-     "start": 13.705,
-     "end": 13.901
-    },
-    {
-     "text": "trovarlo",
-     "start": 13.901,
-     "end": 14.431
+     "text": "it",
+     "start": 13.507,
+     "end": 13.71
     },
     {
      "text": "in",
-     "start": 14.431,
-     "end": 14.626
+     "start": 13.71,
+     "end": 13.913
     },
     {
-     "text": "ciascuno",
-     "start": 14.626,
-     "end": 15.156
+     "text": "each",
+     "start": 13.913,
+     "end": 14.233
     },
     {
-     "text": "stato.",
-     "start": 15.156,
-     "end": 15.519
+     "text": "state.",
+     "start": 14.233,
+     "end": 14.611
     },
     {
-     "text": "Quando",
-     "start": 16.019,
-     "end": 16.413
+     "text": "When",
+     "start": 15.211,
+     "end": 15.506
     },
     {
-     "text": "lo",
-     "start": 16.413,
-     "end": 16.597
+     "text": "we",
+     "start": 15.506,
+     "end": 15.693
     },
     {
-     "text": "misuriamo,",
-     "start": 16.597,
-     "end": 17.149
+     "text": "measure",
+     "start": 15.693,
+     "end": 16.149
     },
     {
-     "text": "la",
-     "start": 17.28,
-     "end": 17.464
+     "text": "it,",
+     "start": 16.149,
+     "end": 16.336
     },
     {
-     "text": "funzione",
-     "start": 17.464,
-     "end": 17.964
+     "text": "the",
+     "start": 16.47,
+     "end": 16.712
     },
     {
-     "text": "d'onda",
-     "start": 17.964,
-     "end": 18.305
+     "text": "wave",
+     "start": 16.712,
+     "end": 17.006
     },
     {
-     "text": "collassa",
-     "start": 18.305,
-     "end": 18.804
+     "text": "function",
+     "start": 17.006,
+     "end": 17.516
     },
     {
-     "text": "e",
-     "start": 18.804,
-     "end": 18.936
+     "text": "collapses,",
+     "start": 17.516,
+     "end": 18.078
     },
     {
-     "text": "l'elettrone",
-     "start": 18.936,
-     "end": 19.54
+     "text": "and",
+     "start": 18.212,
+     "end": 18.453
     },
     {
-     "text": "assume",
-     "start": 19.54,
-     "end": 19.934
+     "text": "the",
+     "start": 18.453,
+     "end": 18.695
     },
     {
-     "text": "un",
-     "start": 19.934,
-     "end": 20.118
+     "text": "electron",
+     "start": 18.695,
+     "end": 19.204
     },
     {
-     "text": "solo",
-     "start": 20.118,
-     "end": 20.407
+     "text": "takes",
+     "start": 19.204,
+     "end": 19.552
     },
     {
-     "text": "stato.",
-     "start": 20.407,
-     "end": 20.749
+     "text": "on",
+     "start": 19.552,
+     "end": 19.74
     },
     {
-     "text": "È",
-     "start": 21.249,
-     "end": 21.415
+     "text": "a",
+     "start": 19.74,
+     "end": 19.874
     },
     {
-     "text": "la",
-     "start": 21.415,
-     "end": 21.647
+     "text": "single",
+     "start": 19.874,
+     "end": 20.276
     },
     {
-     "text": "luce",
-     "start": 21.647,
-     "end": 22.013
+     "text": "state.",
+     "start": 20.276,
+     "end": 20.624
     },
     {
-     "text": "che",
-     "start": 22.013,
-     "end": 22.311
+     "text": "That's",
+     "start": 21.224,
+     "end": 21.532
     },
     {
-     "text": "si",
-     "start": 22.311,
-     "end": 22.544
+     "text": "the",
+     "start": 21.532,
+     "end": 21.745
     },
     {
-     "text": "accende.",
-     "start": 22.544,
-     "end": 23.108
+     "text": "light",
+     "start": 21.745,
+     "end": 22.053
+    },
+    {
+     "text": "switching",
+     "start": 22.053,
+     "end": 22.55
+    },
+    {
+     "text": "on.",
+     "start": 22.55,
+     "end": 22.716
     }
    ]
   },
   {
-   "id": "chiusura",
-   "narration": "Su questo funzionano i computer quantistici: i loro qubit sono come trottole che sono zero e uno insieme. Nel prossimo video: l'entanglement, cioè le trottole gemelle.",
-   "audio": "audio/chiusura.wav",
-   "duration": 11.137,
+   "id": "outro",
+   "narration": "This is how quantum computers work: their qubits are like spinning tops that are zero and one at the same time. In the next video: entanglement, or twin spinning tops.",
+   "audio": "audio/outro.wav",
+   "duration": 11.641,
    "words": [
     {
-     "text": "Su",
+     "text": "This",
      "start": 0.08,
-     "end": 0.28
+     "end": 0.391
     },
     {
-     "text": "questo",
-     "start": 0.28,
-     "end": 0.71
+     "text": "is",
+     "start": 0.391,
+     "end": 0.589
     },
     {
-     "text": "funzionano",
-     "start": 0.71,
-     "end": 1.368
+     "text": "how",
+     "start": 0.589,
+     "end": 0.844
     },
     {
-     "text": "i",
-     "start": 1.368,
-     "end": 1.511
+     "text": "quantum",
+     "start": 0.844,
+     "end": 1.325
     },
     {
-     "text": "computer",
-     "start": 1.511,
-     "end": 2.054
+     "text": "computers",
+     "start": 1.325,
+     "end": 1.919
     },
     {
-     "text": "quantistici:",
-     "start": 2.054,
-     "end": 2.77
+     "text": "work:",
+     "start": 1.919,
+     "end": 2.23
     },
     {
-     "text": "i",
-     "start": 2.97,
-     "end": 3.113
+     "text": "their",
+     "start": 2.428,
+     "end": 2.796
     },
     {
-     "text": "loro",
-     "start": 3.113,
-     "end": 3.428
+     "text": "qubits",
+     "start": 2.796,
+     "end": 3.22
     },
     {
-     "text": "qubit",
-     "start": 3.428,
-     "end": 3.8
+     "text": "are",
+     "start": 3.22,
+     "end": 3.475
     },
     {
-     "text": "sono",
-     "start": 3.8,
-     "end": 4.115
+     "text": "like",
+     "start": 3.475,
+     "end": 3.786
     },
     {
-     "text": "come",
-     "start": 4.115,
-     "end": 4.429
+     "text": "spinning",
+     "start": 3.786,
+     "end": 4.324
     },
     {
-     "text": "trottole",
-     "start": 4.429,
-     "end": 4.973
+     "text": "tops",
+     "start": 4.324,
+     "end": 4.635
     },
     {
-     "text": "che",
-     "start": 4.973,
-     "end": 5.23
+     "text": "that",
+     "start": 4.635,
+     "end": 4.946
     },
     {
-     "text": "sono",
-     "start": 5.23,
-     "end": 5.545
+     "text": "are",
+     "start": 4.946,
+     "end": 5.201
     },
     {
      "text": "zero",
-     "start": 5.545,
-     "end": 5.86
+     "start": 5.201,
+     "end": 5.512
     },
     {
-     "text": "e",
-     "start": 5.86,
-     "end": 6.003
+     "text": "and",
+     "start": 5.512,
+     "end": 5.766
     },
     {
-     "text": "uno",
-     "start": 6.003,
-     "end": 6.261
+     "text": "one",
+     "start": 5.766,
+     "end": 6.021
     },
     {
-     "text": "insieme.",
-     "start": 6.261,
-     "end": 6.747
+     "text": "at",
+     "start": 6.021,
+     "end": 6.219
     },
     {
-     "text": "Nel",
-     "start": 7.247,
-     "end": 7.485
+     "text": "the",
+     "start": 6.219,
+     "end": 6.474
     },
     {
-     "text": "prossimo",
-     "start": 7.485,
-     "end": 7.986
+     "text": "same",
+     "start": 6.474,
+     "end": 6.785
+    },
+    {
+     "text": "time.",
+     "start": 6.785,
+     "end": 7.096
+    },
+    {
+     "text": "In",
+     "start": 7.696,
+     "end": 7.897
+    },
+    {
+     "text": "the",
+     "start": 7.897,
+     "end": 8.155
+    },
+    {
+     "text": "next",
+     "start": 8.155,
+     "end": 8.471
     },
     {
      "text": "video:",
-     "start": 7.986,
-     "end": 8.33
+     "start": 8.471,
+     "end": 8.844
     },
     {
-     "text": "l'entanglement,",
-     "start": 8.514,
-     "end": 9.28
+     "text": "entanglement,",
+     "start": 9.045,
+     "end": 9.82
     },
     {
-     "text": "cioè",
-     "start": 9.412,
-     "end": 9.703
+     "text": "or",
+     "start": 9.963,
+     "end": 10.164
     },
     {
-     "text": "le",
-     "start": 9.703,
-     "end": 9.887
+     "text": "twin",
+     "start": 10.164,
+     "end": 10.48
     },
     {
-     "text": "trottole",
-     "start": 9.887,
-     "end": 10.389
+     "text": "spinning",
+     "start": 10.48,
+     "end": 11.025
     },
     {
-     "text": "gemelle.",
-     "start": 10.389,
-     "end": 10.838
+     "text": "tops.",
+     "start": 11.025,
+     "end": 11.341
     }
    ]
   }
