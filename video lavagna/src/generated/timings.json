@@ -1,0 +1,846 @@
+{
+ "provider": "kokoro",
+ "generatedAt": "2026-11-16T06:42:08.659Z",
+ "scenes": [
+  {
+   "id": "gancio",
+   "narration": "Una pallina può stare in due posti nello stesso momento? Nel mondo piccolissimo... sì.",
+   "audio": "audio/gancio.wav",
+   "duration": 7.388,
+   "words": [
+    {
+     "text": "Una",
+     "start": 0.08,
+     "end": 0.323
+    },
+    {
+     "text": "pallina",
+     "start": 0.323,
+     "end": 0.781
+    },
+    {
+     "text": "può",
+     "start": 0.781,
+     "end": 1.024
+    },
+    {
+     "text": "stare",
+     "start": 1.024,
+     "end": 1.374
+    },
+    {
+     "text": "in",
+     "start": 1.374,
+     "end": 1.563
+    },
+    {
+     "text": "due",
+     "start": 1.563,
+     "end": 1.806
+    },
+    {
+     "text": "posti",
+     "start": 1.806,
+     "end": 2.156
+    },
+    {
+     "text": "nello",
+     "start": 2.156,
+     "end": 2.507
+    },
+    {
+     "text": "stesso",
+     "start": 2.507,
+     "end": 2.912
+    },
+    {
+     "text": "momento?",
+     "start": 2.912,
+     "end": 3.37
+    },
+    {
+     "text": "Nel",
+     "start": 3.87,
+     "end": 4.193
+    },
+    {
+     "text": "mondo",
+     "start": 4.193,
+     "end": 4.659
+    },
+    {
+     "text": "piccolissimo...",
+     "start": 4.659,
+     "end": 5.627
+    },
+    {
+     "text": "sì.",
+     "start": 6.427,
+     "end": 7.088
+    }
+   ]
+  },
+  {
+   "id": "trottola",
+   "narration": "Immagina una trottola che gira velocissima, al buio. Gira verso l'alto o verso il basso? Non lo sai. Finché è buio, è un po' tutte e due le cose insieme. Ma quando accendi la luce e la guardi... pof! Sceglie una sola direzione. Le cose piccolissime, come gli elettroni, fanno proprio così.",
+   "audio": "audio/trottola.wav",
+   "duration": 22.435,
+   "words": [
+    {
+     "text": "Immagina",
+     "start": 0.08,
+     "end": 0.637
+    },
+    {
+     "text": "una",
+     "start": 0.637,
+     "end": 0.901
+    },
+    {
+     "text": "trottola",
+     "start": 0.901,
+     "end": 1.459
+    },
+    {
+     "text": "che",
+     "start": 1.459,
+     "end": 1.723
+    },
+    {
+     "text": "gira",
+     "start": 1.723,
+     "end": 2.045
+    },
+    {
+     "text": "velocissima,",
+     "start": 2.045,
+     "end": 2.778
+    },
+    {
+     "text": "al",
+     "start": 2.925,
+     "end": 3.13
+    },
+    {
+     "text": "buio.",
+     "start": 3.13,
+     "end": 3.453
+    },
+    {
+     "text": "Gira",
+     "start": 3.953,
+     "end": 4.289
+    },
+    {
+     "text": "verso",
+     "start": 4.289,
+     "end": 4.685
+    },
+    {
+     "text": "l'alto",
+     "start": 4.685,
+     "end": 5.082
+    },
+    {
+     "text": "o",
+     "start": 5.082,
+     "end": 5.235
+    },
+    {
+     "text": "verso",
+     "start": 5.235,
+     "end": 5.632
+    },
+    {
+     "text": "il",
+     "start": 5.632,
+     "end": 5.845
+    },
+    {
+     "text": "basso?",
+     "start": 5.845,
+     "end": 6.242
+    },
+    {
+     "text": "Non",
+     "start": 6.742,
+     "end": 7.096
+    },
+    {
+     "text": "lo",
+     "start": 7.096,
+     "end": 7.372
+    },
+    {
+     "text": "sai.",
+     "start": 7.372,
+     "end": 7.726
+    },
+    {
+     "text": "Finché",
+     "start": 8.226,
+     "end": 8.62
+    },
+    {
+     "text": "è",
+     "start": 8.62,
+     "end": 8.751
+    },
+    {
+     "text": "buio,",
+     "start": 8.751,
+     "end": 9.039
+    },
+    {
+     "text": "è",
+     "start": 9.171,
+     "end": 9.302
+    },
+    {
+     "text": "un",
+     "start": 9.302,
+     "end": 9.485
+    },
+    {
+     "text": "po'",
+     "start": 9.485,
+     "end": 9.669
+    },
+    {
+     "text": "tutte",
+     "start": 9.669,
+     "end": 10.01
+    },
+    {
+     "text": "e",
+     "start": 10.01,
+     "end": 10.141
+    },
+    {
+     "text": "due",
+     "start": 10.141,
+     "end": 10.378
+    },
+    {
+     "text": "le",
+     "start": 10.378,
+     "end": 10.561
+    },
+    {
+     "text": "cose",
+     "start": 10.561,
+     "end": 10.85
+    },
+    {
+     "text": "insieme.",
+     "start": 10.85,
+     "end": 11.296
+    },
+    {
+     "text": "Ma",
+     "start": 11.796,
+     "end": 12.006
+    },
+    {
+     "text": "quando",
+     "start": 12.006,
+     "end": 12.456
+    },
+    {
+     "text": "accendi",
+     "start": 12.456,
+     "end": 12.966
+    },
+    {
+     "text": "la",
+     "start": 12.966,
+     "end": 13.175
+    },
+    {
+     "text": "luce",
+     "start": 13.175,
+     "end": 13.505
+    },
+    {
+     "text": "e",
+     "start": 13.505,
+     "end": 13.655
+    },
+    {
+     "text": "la",
+     "start": 13.655,
+     "end": 13.865
+    },
+    {
+     "text": "guardi...",
+     "start": 13.865,
+     "end": 14.315
+    },
+    {
+     "text": "pof!",
+     "start": 15.115,
+     "end": 15.756
+    },
+    {
+     "text": "Sceglie",
+     "start": 16.256,
+     "end": 16.798
+    },
+    {
+     "text": "una",
+     "start": 16.798,
+     "end": 17.085
+    },
+    {
+     "text": "sola",
+     "start": 17.085,
+     "end": 17.436
+    },
+    {
+     "text": "direzione.",
+     "start": 17.436,
+     "end": 18.105
+    },
+    {
+     "text": "Le",
+     "start": 18.605,
+     "end": 18.785
+    },
+    {
+     "text": "cose",
+     "start": 18.785,
+     "end": 19.069
+    },
+    {
+     "text": "piccolissime,",
+     "start": 19.069,
+     "end": 19.764
+    },
+    {
+     "text": "come",
+     "start": 19.893,
+     "end": 20.177
+    },
+    {
+     "text": "gli",
+     "start": 20.177,
+     "end": 20.409
+    },
+    {
+     "text": "elettroni,",
+     "start": 20.409,
+     "end": 20.95
+    },
+    {
+     "text": "fanno",
+     "start": 21.079,
+     "end": 21.414
+    },
+    {
+     "text": "proprio",
+     "start": 21.414,
+     "end": 21.852
+    },
+    {
+     "text": "così.",
+     "start": 21.852,
+     "end": 22.135
+    }
+   ]
+  },
+  {
+   "id": "ponte",
+   "narration": "Ok. Adesso vediamo come lo dicono i fisici.",
+   "audio": "audio/ponte.wav",
+   "duration": 4.269,
+   "words": [
+    {
+     "text": "Ok.",
+     "start": 0.08,
+     "end": 0.884
+    },
+    {
+     "text": "Adesso",
+     "start": 1.384,
+     "end": 1.84
+    },
+    {
+     "text": "vediamo",
+     "start": 1.84,
+     "end": 2.357
+    },
+    {
+     "text": "come",
+     "start": 2.357,
+     "end": 2.692
+    },
+    {
+     "text": "lo",
+     "start": 2.692,
+     "end": 2.905
+    },
+    {
+     "text": "dicono",
+     "start": 2.905,
+     "end": 3.361
+    },
+    {
+     "text": "i",
+     "start": 3.361,
+     "end": 3.513
+    },
+    {
+     "text": "fisici.",
+     "start": 3.513,
+     "end": 3.969
+    }
+   ]
+  },
+  {
+   "id": "fisica",
+   "narration": "Prima di essere misurato, un elettrone si trova in una sovrapposizione di stati: è la nostra trottola che gira in entrambe le direzioni. Questa situazione è descritta da una funzione d'onda, che ci dice la probabilità di trovarlo in ciascuno stato. Quando lo misuriamo, la funzione d'onda collassa e l'elettrone assume un solo stato. È la luce che si accende.",
+   "audio": "audio/fisica.wav",
+   "duration": 23.407,
+   "words": [
+    {
+     "text": "Prima",
+     "start": 0.08,
+     "end": 0.432
+    },
+    {
+     "text": "di",
+     "start": 0.432,
+     "end": 0.622
+    },
+    {
+     "text": "essere",
+     "start": 0.622,
+     "end": 1.029
+    },
+    {
+     "text": "misurato,",
+     "start": 1.029,
+     "end": 1.544
+    },
+    {
+     "text": "un",
+     "start": 1.68,
+     "end": 1.869
+    },
+    {
+     "text": "elettrone",
+     "start": 1.869,
+     "end": 2.439
+    },
+    {
+     "text": "si",
+     "start": 2.439,
+     "end": 2.629
+    },
+    {
+     "text": "trova",
+     "start": 2.629,
+     "end": 2.981
+    },
+    {
+     "text": "in",
+     "start": 2.981,
+     "end": 3.171
+    },
+    {
+     "text": "una",
+     "start": 3.171,
+     "end": 3.415
+    },
+    {
+     "text": "sovrapposizione",
+     "start": 3.415,
+     "end": 4.31
+    },
+    {
+     "text": "di",
+     "start": 4.31,
+     "end": 4.499
+    },
+    {
+     "text": "stati:",
+     "start": 4.499,
+     "end": 4.852
+    },
+    {
+     "text": "è",
+     "start": 5.042,
+     "end": 5.177
+    },
+    {
+     "text": "la",
+     "start": 5.177,
+     "end": 5.367
+    },
+    {
+     "text": "nostra",
+     "start": 5.367,
+     "end": 5.774
+    },
+    {
+     "text": "trottola",
+     "start": 5.774,
+     "end": 6.289
+    },
+    {
+     "text": "che",
+     "start": 6.289,
+     "end": 6.533
+    },
+    {
+     "text": "gira",
+     "start": 6.533,
+     "end": 6.831
+    },
+    {
+     "text": "in",
+     "start": 6.831,
+     "end": 7.021
+    },
+    {
+     "text": "entrambe",
+     "start": 7.021,
+     "end": 7.536
+    },
+    {
+     "text": "le",
+     "start": 7.536,
+     "end": 7.726
+    },
+    {
+     "text": "direzioni.",
+     "start": 7.726,
+     "end": 8.295
+    },
+    {
+     "text": "Questa",
+     "start": 8.795,
+     "end": 9.214
+    },
+    {
+     "text": "situazione",
+     "start": 9.214,
+     "end": 9.855
+    },
+    {
+     "text": "è",
+     "start": 9.855,
+     "end": 9.995
+    },
+    {
+     "text": "descritta",
+     "start": 9.995,
+     "end": 10.581
+    },
+    {
+     "text": "da",
+     "start": 10.581,
+     "end": 10.776
+    },
+    {
+     "text": "una",
+     "start": 10.776,
+     "end": 11.027
+    },
+    {
+     "text": "funzione",
+     "start": 11.027,
+     "end": 11.557
+    },
+    {
+     "text": "d'onda,",
+     "start": 11.557,
+     "end": 11.92
+    },
+    {
+     "text": "che",
+     "start": 12.059,
+     "end": 12.31
+    },
+    {
+     "text": "ci",
+     "start": 12.31,
+     "end": 12.506
+    },
+    {
+     "text": "dice",
+     "start": 12.506,
+     "end": 12.813
+    },
+    {
+     "text": "la",
+     "start": 12.813,
+     "end": 13.008
+    },
+    {
+     "text": "probabilità",
+     "start": 13.008,
+     "end": 13.705
+    },
+    {
+     "text": "di",
+     "start": 13.705,
+     "end": 13.901
+    },
+    {
+     "text": "trovarlo",
+     "start": 13.901,
+     "end": 14.431
+    },
+    {
+     "text": "in",
+     "start": 14.431,
+     "end": 14.626
+    },
+    {
+     "text": "ciascuno",
+     "start": 14.626,
+     "end": 15.156
+    },
+    {
+     "text": "stato.",
+     "start": 15.156,
+     "end": 15.519
+    },
+    {
+     "text": "Quando",
+     "start": 16.019,
+     "end": 16.413
+    },
+    {
+     "text": "lo",
+     "start": 16.413,
+     "end": 16.597
+    },
+    {
+     "text": "misuriamo,",
+     "start": 16.597,
+     "end": 17.149
+    },
+    {
+     "text": "la",
+     "start": 17.28,
+     "end": 17.464
+    },
+    {
+     "text": "funzione",
+     "start": 17.464,
+     "end": 17.964
+    },
+    {
+     "text": "d'onda",
+     "start": 17.964,
+     "end": 18.305
+    },
+    {
+     "text": "collassa",
+     "start": 18.305,
+     "end": 18.804
+    },
+    {
+     "text": "e",
+     "start": 18.804,
+     "end": 18.936
+    },
+    {
+     "text": "l'elettrone",
+     "start": 18.936,
+     "end": 19.54
+    },
+    {
+     "text": "assume",
+     "start": 19.54,
+     "end": 19.934
+    },
+    {
+     "text": "un",
+     "start": 19.934,
+     "end": 20.118
+    },
+    {
+     "text": "solo",
+     "start": 20.118,
+     "end": 20.407
+    },
+    {
+     "text": "stato.",
+     "start": 20.407,
+     "end": 20.749
+    },
+    {
+     "text": "È",
+     "start": 21.249,
+     "end": 21.415
+    },
+    {
+     "text": "la",
+     "start": 21.415,
+     "end": 21.647
+    },
+    {
+     "text": "luce",
+     "start": 21.647,
+     "end": 22.013
+    },
+    {
+     "text": "che",
+     "start": 22.013,
+     "end": 22.311
+    },
+    {
+     "text": "si",
+     "start": 22.311,
+     "end": 22.544
+    },
+    {
+     "text": "accende.",
+     "start": 22.544,
+     "end": 23.108
+    }
+   ]
+  },
+  {
+   "id": "chiusura",
+   "narration": "Su questo funzionano i computer quantistici: i loro qubit sono come trottole che sono zero e uno insieme. Nel prossimo video: l'entanglement, cioè le trottole gemelle.",
+   "audio": "audio/chiusura.wav",
+   "duration": 11.137,
+   "words": [
+    {
+     "text": "Su",
+     "start": 0.08,
+     "end": 0.28
+    },
+    {
+     "text": "questo",
+     "start": 0.28,
+     "end": 0.71
+    },
+    {
+     "text": "funzionano",
+     "start": 0.71,
+     "end": 1.368
+    },
+    {
+     "text": "i",
+     "start": 1.368,
+     "end": 1.511
+    },
+    {
+     "text": "computer",
+     "start": 1.511,
+     "end": 2.054
+    },
+    {
+     "text": "quantistici:",
+     "start": 2.054,
+     "end": 2.77
+    },
+    {
+     "text": "i",
+     "start": 2.97,
+     "end": 3.113
+    },
+    {
+     "text": "loro",
+     "start": 3.113,
+     "end": 3.428
+    },
+    {
+     "text": "qubit",
+     "start": 3.428,
+     "end": 3.8
+    },
+    {
+     "text": "sono",
+     "start": 3.8,
+     "end": 4.115
+    },
+    {
+     "text": "come",
+     "start": 4.115,
+     "end": 4.429
+    },
+    {
+     "text": "trottole",
+     "start": 4.429,
+     "end": 4.973
+    },
+    {
+     "text": "che",
+     "start": 4.973,
+     "end": 5.23
+    },
+    {
+     "text": "sono",
+     "start": 5.23,
+     "end": 5.545
+    },
+    {
+     "text": "zero",
+     "start": 5.545,
+     "end": 5.86
+    },
+    {
+     "text": "e",
+     "start": 5.86,
+     "end": 6.003
+    },
+    {
+     "text": "uno",
+     "start": 6.003,
+     "end": 6.261
+    },
+    {
+     "text": "insieme.",
+     "start": 6.261,
+     "end": 6.747
+    },
+    {
+     "text": "Nel",
+     "start": 7.247,
+     "end": 7.485
+    },
+    {
+     "text": "prossimo",
+     "start": 7.485,
+     "end": 7.986
+    },
+    {
+     "text": "video:",
+     "start": 7.986,
+     "end": 8.33
+    },
+    {
+     "text": "l'entanglement,",
+     "start": 8.514,
+     "end": 9.28
+    },
+    {
+     "text": "cioè",
+     "start": 9.412,
+     "end": 9.703
+    },
+    {
+     "text": "le",
+     "start": 9.703,
+     "end": 9.887
+    },
+    {
+     "text": "trottole",
+     "start": 9.887,
+     "end": 10.389
+    },
+    {
+     "text": "gemelle.",
+     "start": 10.389,
+     "end": 10.838
+    }
+   ]
+  }
+ ]
+}
