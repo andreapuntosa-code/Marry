@@ -14,7 +14,7 @@ violence: the film only suggests.
 cd "video via poma"
 npm install
 npm run studio        # live preview in the browser
-npm run render        # renders out/via_poma.mp4
+npm run render        # renders out/via_poma.mp4 (raw CRF 18, ~260 MB because of the grain)
 npx remotion still ViaPoma out/stills/frame.png --frame=540   # a single frame
 ```
 
@@ -100,3 +100,15 @@ renders silent.
 
 The storyboard text was supplied by the producer. Verify the 2026 DNA line against current
 reporting before publishing.
+
+## Output size
+
+Film grain is very hard to compress. The raw Remotion render at CRF 18 is about 260 MB. The
+committed `out/via_poma.mp4` was re-encoded with a two-pass encode at 7 Mbit/s (about 80 MB), so
+it stays under GitHub's 100 MB file limit:
+
+```bash
+ffmpeg -i raw.mp4 -c:v libx264 -preset slow -b:v 7000k -pass 1 -an -f null /dev/null
+ffmpeg -i raw.mp4 -c:v libx264 -preset slow -b:v 7000k -maxrate 10000k -bufsize 16000k -pass 2 \
+  -pix_fmt yuv420p -c:a aac -b:a 160k -movflags +faststart out/via_poma.mp4
+```
