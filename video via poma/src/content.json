@@ -1,0 +1,218 @@
+{
+  "fps": 30,
+  "fadeSeconds": 0.6,
+  "scenes": [
+    {
+      "id": "coldOpen",
+      "duration": 8,
+      "texts": [
+        {
+          "text": "Rome. August 7, 1990.",
+          "at": 1.8,
+          "cps": 13
+        }
+      ]
+    },
+    {
+      "id": "building",
+      "duration": 12,
+      "plaque": "VIA CARLO POMA",
+      "texts": [
+        {
+          "text": "Via Carlo Poma, 2.",
+          "at": 2.2,
+          "cps": 15
+        },
+        {
+          "text": "An office emptied by the summer.",
+          "at": 4.4,
+          "cps": 19
+        }
+      ]
+    },
+    {
+      "id": "office",
+      "duration": 12,
+      "texts": [
+        {
+          "text": "Simonetta Cesaroni, 20,\nwas working alone.",
+          "at": 3.4,
+          "cps": 17
+        }
+      ]
+    },
+    {
+      "id": "lightsOut",
+      "duration": 13,
+      "flickerOff": [
+        [
+          0.8,
+          0.95
+        ],
+        [
+          1.3,
+          1.38
+        ],
+        [
+          1.9,
+          2.25
+        ],
+        [
+          2.6,
+          2.66
+        ],
+        [
+          3.0,
+          3.2
+        ]
+      ],
+      "lampOutAt": 3.6,
+      "texts": [
+        {
+          "text": "That night, her sister found her.\nShe had been killed.",
+          "at": 5.2,
+          "cps": 20
+        },
+        {
+          "text": "The killer cleaned the room.\nHer clothes and the office keys\nwere never found.",
+          "at": 8.6,
+          "cps": 24
+        }
+      ]
+    },
+    {
+      "id": "caseFile",
+      "duration": 20,
+      "openAt": 1.4,
+      "sheet": [
+        [
+          "CASE FILE",
+          ""
+        ],
+        [
+          "Location:",
+          "Via Carlo Poma, 2 — Rome"
+        ],
+        [
+          "Date:",
+          "August 7, 1990"
+        ],
+        [
+          "Victim:",
+          "Simonetta Cesaroni, 20"
+        ],
+        [
+          "Ref.:",
+          "█████████"
+        ],
+        [
+          "Office keys:",
+          "not recovered"
+        ],
+        [
+          "Notes:",
+          "█████████████"
+        ],
+        [
+          "Status:",
+          "OPEN"
+        ]
+      ],
+      "redact": [
+        {
+          "line": 4,
+          "at": 3.4
+        },
+        {
+          "line": 6,
+          "at": 3.9
+        }
+      ],
+      "suspects": [
+        {
+          "label": "The doorman",
+          "stamp": "CLEARED",
+          "at": 5.4,
+          "stampAt": 6.9
+        },
+        {
+          "label": "The architect's grandson",
+          "stamp": "CLEARED",
+          "at": 8.9,
+          "stampAt": 10.4
+        },
+        {
+          "label": "The boyfriend",
+          "stamp": "ACQUITTED",
+          "at": 12.4,
+          "stampAt": 13.9
+        }
+      ]
+    },
+    {
+      "id": "threads",
+      "duration": 13,
+      "hub": {
+        "text": "VIA POMA, 2",
+        "at": 0.5
+      },
+      "words": [
+        {
+          "text": "DNA",
+          "at": 1.0
+        },
+        {
+          "text": "Bite mark",
+          "at": 1.6
+        },
+        {
+          "text": "Videotel",
+          "at": 2.2
+        },
+        {
+          "text": "Secret services?",
+          "at": 2.8
+        },
+        {
+          "text": "Missing keys",
+          "at": 3.4
+        }
+      ],
+      "threadsAt": 4.0,
+      "tightenAt": 6.2,
+      "slackAt": 9.6
+    },
+    {
+      "id": "dna",
+      "duration": 7,
+      "markersAt": 2.2,
+      "markerStep": 0.22,
+      "texts": [
+        {
+          "text": "2026: seven new DNA profiles tested.",
+          "at": 1.0,
+          "cps": 26
+        },
+        {
+          "text": "No match.",
+          "at": 4.4,
+          "cps": 9
+        }
+      ]
+    },
+    {
+      "id": "finale",
+      "duration": 7,
+      "title": "Who killed Simonetta?",
+      "titleAt": 1.0,
+      "texts": [
+        {
+          "text": "The case is still open.",
+          "at": 3.4,
+          "cps": 16
+        }
+      ],
+      "fadeOutAt": 5.4
+    }
+  ]
+}
